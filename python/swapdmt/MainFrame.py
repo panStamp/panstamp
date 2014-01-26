@@ -58,6 +58,9 @@ if wxversion.checkInstalled("2.8"):
 elif wxversion.checkInstalled("2.9"):
     wx_version = "2.9"
     from wx.lib.pubsub import pub
+elif wxversion.checkInstalled("3.0"):
+    wx_version = "3.0"
+    from wx.lib.pubsub import pub
 else:
     print "version of wxpython not supported"
 
@@ -211,7 +214,7 @@ class MainFrame(wx.Frame):
         @param msg: not used
         """ 
         if self._waitfor_startdialog is not None:
-            wx.CallAfter(pub.sendMessage, "close_wait", None)
+            wx.CallAfter(pub.sendMessage, "close_wait", msg=None)
         
            
     def cb_changed_addr(self, msg):
@@ -664,16 +667,16 @@ class BrowserPanel(wx.Panel):
         menu = None
         if obj.__class__.__name__ == "SwapMote":
             menu = wx.Menu()                
-            menu.Append(0, "Network settings")
-            wx.EVT_MENU(menu, 0, self.parent.onMoteNetworkConfig)
+            menu.Append(1, "Network settings")
+            wx.EVT_MENU(menu, 1, self.parent.onMoteNetworkConfig)
             if obj.config_registers is not None:
-                menu.Append(1, "Custom settings")
-                wx.EVT_MENU(menu, 1, self.parent.onConfigDevice)
+                menu.Append(2, "Custom settings")
+                wx.EVT_MENU(menu, 2, self.parent.onConfigDevice)
         elif obj.__class__.__name__ == "SwapRegister":
             if obj.isConfig():
                 menu = wx.Menu()
-                menu.Append(0, "Configure")
-                wx.EVT_MENU(menu, 0, self.parent.onConfigDevice)
+                menu.Append(1, "Configure")
+                wx.EVT_MENU(menu, 1, self.parent.onConfigDevice)
         
         if menu is not None:
             self.PopupMenu(menu, evn.GetPoint())
@@ -1041,8 +1044,8 @@ class SnifferPanel(wx.Panel):
             msgtype = self.log_list.GetItem(index, 1).GetText()
             if msgtype != "ERROR":        
                 menu = wx.Menu()
-                menu.Append(0, "Show details")
-                wx.EVT_MENU(menu, 0, self._cb_on_details)
+                menu.Append(1, "Show details")
+                wx.EVT_MENU(menu, 1, self._cb_on_details)
                 self.PopupMenu(menu, evn.GetPoint())
                 menu.Destroy()
 

@@ -38,6 +38,9 @@ if wxversion.checkInstalled("2.8"):
 elif wxversion.checkInstalled("2.9"):
     wx_version = "2.9"
     from wx.lib.pubsub import pub
+elif wxversion.checkInstalled("3.0"):
+    wx_version = "3.0"
+    from wx.lib.pubsub import pub
 else:
     print "version of wxpython not supported"
 
