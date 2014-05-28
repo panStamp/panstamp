@@ -1,0 +1,33 @@
+-- VERSION_3
+-- START DISKCACHE
+/home/daniel/development/Aptana/lagarto/.metadata/.plugins/org.eclipse.core.resources/.projects/lagarto-swap/com.python.pydev.analysis/v1_indexcache
+.v1_indexcache
+swapmanager|0|/home/daniel/development/Aptana/lagarto/lagarto-swap/swapmanager.py
+-- END DISKCACHE
+-- START DICTIONARY
+3
+3=SwapManager.__init__
+1=swapmanager
+2=SwapManager
+-- END DICTIONARY
+-- START TREE 1
+5
+__a|1|__author__!11@
+__d|1|__date__!11@
+lag|1|lagarto_dir!11@
+swa|1|SwapManager!9@
+wor|1|working_dir!11@
+-- END TREE
+-- START TREE 2
+10
+__i|1|__init__!2&10@
+_pr|1|_print_swap!3&11@
+get|1|get_status!2&10@
+htt|1|http_command_received!2&10@
+mot|2|moteStateChanged!2&10@moteAddressChanged!2&10@
+new|2|newEndpointDetected!2&10@newMoteDetected!2&10@
+reg|1|registerValueChanged!2&10@
+set|1|set_status!2&10@
+sto|1|stop!2&10@
+swa|1|swap_settings!3&11@
+-- END TREE

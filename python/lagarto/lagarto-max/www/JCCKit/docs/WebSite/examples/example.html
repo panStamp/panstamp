@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit Examples: Example</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<applet code="jcckit.PlotApplet" archive="jcckit.jar" width=800 height=500>
+<param name="data/curves" value="curve1 curve2 curve3">
+<param name="data/curve1/title" value="curve 1">
+<param name="data/curve1/x" value="0.2 0.3 0.4 0.5">
+<param name="data/curve1/y" value="0.3 0.1  0.2 0.35">
+<param name="data/curve2/title" value="curve 2">
+<param name="data/curve2/x" value="0.2  0.3 0.4 0.5 0.6 0.7 0.8">
+<param name="data/curve2/y" value="0.25 0.6 0.4 0.6 0.5 0.3 0">
+<param name="data/curve3/title" value="curve 3">
+<param name="data/curve3/x" value="0.5  0.6  0.7  0.8  0.9">
+<param name="data/curve3/y" value="0.55 0.54 1.65 0.35 0.73">
+<param name="paper" value="0 0 1 0.6">
+<param name="background" value="0xffffff">
+<param name="plot/initialHintForNextCurve/className" value="jcckit.plot.PositionHint">
+<param name="plot/initialHintForNextCurve/position" value="0 0.1">
+<param name="plot/coordinateSystem/origin" value="0.05 0.1">
+<param name="plot/coordinateSystem/xAxis/axisLabel" value="<x>">
+<param name="plot/coordinateSystem/xAxis/grid" value="true">
+<param name="plot/coordinateSystem/xAxis/gridAttributes/lineColor" value="0x808080">
+<param name="plot/coordinateSystem/xAxis/automaticTicCalculation" value="false">
+<param name="plot/coordinateSystem/xAxis/numberOfTics" value="6">
+<param name="plot/coordinateSystem/xAxis/ticLabelAttributes/fontSize" value="0.03">
+<param name="plot/coordinateSystem/xAxis/axisLabelAttributes/fontSize" value="0.05">
+<param name="plot/coordinateSystem/xAxis/axisLabelAttributes/textColor" value="0xaa">
+<param name="plot/coordinateSystem/yAxis/axisLabel" value="factor">
+<param name="plot/coordinateSystem/yAxis/axisLabelPosition" value="0.85 0.1">
+<param name="plot/coordinateSystem/yAxis/axisLabelAttributes/fontSize" value="0.05">
+<param name="plot/coordinateSystem/yAxis/axisLabelAttributes/textColor" value="0xee">
+<param name="plot/coordinateSystem/yAxis/axisLabelAttributes/verticalAnchor" value="top">
+<param name="plot/coordinateSystem/yAxis/ticLength" value="-0.006">
+<param name="plot/coordinateSystem/yAxis/ticLabelPosition" value="0.81 0">
+<param name="plot/coordinateSystem/yAxis/ticLabelAttributes/fontSize" value="0.03">
+<param name="plot/coordinateSystem/yAxis/ticLabelAttributes/fontStyle" value="bold">
+<param name="plot/coordinateSystem/yAxis/ticLabelAttributes/horizontalAnchor" value="left">
+<param name="defaultDefinition/symbolFactory/className" value="jcckit.plot.SquareSymbolFactory">
+<param name="defaultDefinition/symbolFactory/size" value="0.015">
+<param name="defaultDefinition/symbolFactory/attributes/className" value="jcckit.graphic.BasicGraphicAttributes">
+<param name="defaultDefinition/symbolFactory/attributes/lineColor" value="0">
+<param name="defaultDefinition/symbolFactory/attributes/lineThickness" value="0.002">
+<param name="defaultDefinition/lineAttributes/className" value="jcckit.graphic.ShapeAttributes">
+<param name="defaultDefinition/lineAttributes/linePattern" value="0.01 0.005">
+<param name="defaultDefinition/lineAttributes/lineThickness" value="0.005">
+<param name="defaultDefinition/lineAttributes/lineColor" value="0xca">
+<param name="plot/curveFactory/definitions" value="def1 def2 def3">
+<param name="plot/curveFactory/def1/" value="defaultDefinition/">
+<param name="plot/curveFactory/def1/symbolFactory/className" value="jcckit.plot.BarFactory">
+<param name="plot/curveFactory/def1/symbolFactory/size" value="0.03">
+<param name="plot/curveFactory/def1/symbolFactory/attributes/fillColor" value="0xffca00">
+<param name="plot/curveFactory/def1/withLine" value="false">
+<param name="plot/curveFactory/def2/" value="defaultDefinition/">
+<param name="plot/curveFactory/def2/symbolFactory/className" value="jcckit.plot.CircleSymbolFactory">
+<param name="plot/curveFactory/def2/symbolFactory/attributes/fillColor" value="0x8000">
+<param name="plot/curveFactory/def2/symbolFactory/attributes/lineColor" value="">
+<param name="plot/curveFactory/def3/" value="defaultDefinition/">
+<param name="plot/legend/upperRightCorner" value="0.84 0.54">
+<param name="plot/legend/boxAttributes/fillColor" value="0xeeeeee">
+<param name="plot/legend/lineLength" value="0.035">
+</applet>
+<br>
+Try <a href="example2D.html">Graphics2DRenderer</a> if your Web Browser runs Java Plugin 1.2 or higher.
+</body>
+</html>

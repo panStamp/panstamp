@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 2.2 Example: Lorenz Attractor</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a>
+            <li><a href="usage.html">Usage as a Library</a><br>
+                2.1 <a href="animatedChart.html">Example: Animated Chart</a><br>
+                2.2 <b>Example: Lorenz Attractor</b><br>
+                2.3 <a href="brusselator.html">Example: Brusselator</a><br>
+                2.4 <a href="zoom.html">Example: Zooming</a><br>
+                2.5 <a href="offscreen.html">Example: Off-Screen Image Creation</a><br>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKit's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>2.2 Example: Lorenz Attractor</h1>
+
+The applet <tt>Lorenz</tt> 
+(see the <a href="../examples.html">Examples</a> page) shows trajectories
+of the famous Lorenz equations in an animated way. It is an example of
+the usage of point-to-point hints (see Chapter&nbsp;<a href="curves.html">1.3 
+Curves, Points, and Hints</a>).
+<p>
+<center><img src="lorenz.png"></center>
+<p>
+The overridden applet method <tt>init()</tt> is similar as in the
+example <a href="animatedChart.html"><tt>AnimatedChart</tt></a>
+(click <a href="lorenz/Lorenz.java">here</a> to see the complete code):
+<tt>
+<pre class="code">
+public class Lorenz extends Applet {
+  private double[] _x = new double[3];
+  private double[][] _walk = new double[50][2];
+  private int _walkIndex;
+  <b>private DataPlot _dataPlot;</b>
+  private Thread _animationThread;
+  
+  public void init() { 
+    <b>GraphicsPlotCanvas plotCanvas 
+        = createPlotCanvas("true".equals(getParameter("graphics2D")));
+    
+    _dataPlot = new DataPlot();
+    _dataPlot.addElement(new DataCurve(""));</b>
+    reset();
+    <b>plotCanvas.connect(_dataPlot);</b>
+    
+    setLayout(new BorderLayout());
+    add(<b>plotCanvas.getGraphicsCanvas()</b>, BorderLayout.CENTER);
+    add(createControlPanel(), BorderLayout.SOUTH);
+  }
+
+  <b>private GraphicsPlotCanvas createPlotCanvas(boolean graphics2D)</b> { ... }
+
+  private Panel createControlPanel() { ... }
+
+  private void reset() { ... }
+}
+</pre>
+</tt>
+Highlighted code uses JCCKit.
+<p>
+First, <tt>createPlotCanvas()</tt> creates a 
+<a href="../apidoc/jcckit/GraphicsPlotCanvas.html">
+<tt>GraphicsPlotCanvas</tt></a> (or a 
+<a href="../apidoc/jcckit/Graphics2DPlotCanvas.html">
+<tt>Graphics2DPlotCanvas</tt></a> depending on the applet parameter named
+<tt>graphics2D</tt>).
+Next, a <a href="../apidoc/jcckit/data/DataPlot.html"><tt>DataPlot</tt></a>
+object with an empty <a href="../apidoc/jcckit/data/DataCurve.html">
+<tt>DataCurve</tt></a> is created. The method <tt>reset()</tt>
+replaces the empty curve by an initial curve with 50 identical points.
+After the <tt>DataPlot</tt> has been connected to the <tt>PlotCanvas</tt>
+the applet panel will be filled with the view of the <tt>PlotCanvas</tt> and
+the control panel with the buttons.
+<p>
+The state of the Lorenz equation is stored in the array <tt>_x</tt>. The
+array <tt>_walk</tt> holds two variables from the current state 
+as well as from the 49 previous states. 
+The <tt>_walkIndex</tt> points onto the current state inside <tt>_walk</tt>.
+<p>
+Here is the code for configuration and creation of the 
+<a href="../apidoc/jcckit/plot/PlotCanvas.html"><tt>PlotCanvas</tt></a>:
+<tt>
+<pre class="code">
+private GraphicsPlotCanvas createPlotCanvas(boolean graphics2D) {
+  Properties props = new Properties();
+  <b>ConfigParameters config = new ConfigParameters(new PropertiesBasedConfigData(props));</b>
+  props.put("foreground", "0xffffff");
+  props.put("background", "0");
+  props.put("plot/legendVisible", "false");
+  props.put("plot/coordinateSystem/xAxis/minimum", "-20");
+  props.put("plot/coordinateSystem/xAxis/maximum", "20");
+  props.put("plot/coordinateSystem/xAxis/ticLabelFormat", "%d");
+  props.put("plot/coordinateSystem/yAxis/axisLabel", "z");
+  props.put("plot/coordinateSystem/yAxis/minimum", "0");
+  props.put("plot/coordinateSystem/yAxis/maximum", "50");
+  props.put("plot/coordinateSystem/yAxis/ticLabelFormat", "%d");
+  props.put("plot/curveFactory/definitions", "curve");
+  props.put("plot/curveFactory/curve/initialHintForNextPoint/className",
+            "jcckit.plot.ShapeAttributesHint");
+  props.put("plot/curveFactory/curve/initialHintForNextPoint/initialAttributes/fillColor", 
+            "0x50a");
+  props.put("plot/curveFactory/curve/initialHintForNextPoint/fillColorHSBIncrement", 
+            "0.0 0.0 0.018");
+  props.put("plot/curveFactory/curve/withLine", "false");
+  props.put("plot/curveFactory/curve/symbolFactory/className", 
+            "jcckit.plot.CircleSymbolFactory");
+  props.put("plot/curveFactory/curve/symbolFactory/size", "0.015");
+    
+  <b>return graphics2D ? new Graphics2DPlotCanvas(config) : new GraphicsPlotCanvas(config);</b>
+}
+</pre>
+</tt>
+The animation is started after the start button has been hit. It runs inside
+the <tt>_animationThread</tt> which calls <tt>next()</tt>:
+<tt>
+<pre class="code">
+private void next() {
+  integrate();
+  _walk[_walkIndex][0] = _x[0];
+  _walk[_walkIndex][1] = _x[2];
+  _walkIndex = (_walkIndex + 1) % _walk.length;
+  updateCurve();
+}
+
+private void integrate() { ... }
+  
+private void updateCurve() {
+  <b>DataCurve curve = new DataCurve("trajectory");</b>
+  for (int i = 0; i < _walk.length; i++) {
+    int index = (_walkIndex + i) % _walk.length;
+    <b>curve.addElement(new DataPoint(_walk[index][0], _walk[index][1]));</b>
+  }
+  <b>_dataPlot.replaceElementAt(0, curve);</b>
+}
+</pre>
+</tt>
+The method <tt>integrate()</tt> calculates the state for the next time step.
+We are not going into the details of the numerical integration of the
+differential equations. <i>x</i> and <i>z</i> of the state will be stored
+in <tt>_walk</tt> at the <tt>_walkIndex</tt>. After a cyclical increment of
+<tt>_walkIndex</tt> the curve will be updated.
+First, a new <tt>DataCurve</tt> instance is created which will be filled with
+all points from <tt>_walk</tt>. Then, the old curve will be replaced by the
+new one. Behind the scene, the view will be automatically updated.
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 5/2/2003
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

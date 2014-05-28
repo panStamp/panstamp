@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<devices>
+	<developer id="1" name="panStamp">
+		<dev id="9" name="pwrmeter" label="Energy monitor"/>
+	</developer>
+</devices>

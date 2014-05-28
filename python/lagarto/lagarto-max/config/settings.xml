@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<settings>
+  <debug>1</debug>
+  <database>0</database>
+  <location>
+    <latitude>38.39</latitude>
+    <longitude>-6.36</longitude>
+  </location>  
+</settings>

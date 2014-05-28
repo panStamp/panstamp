@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit Examples: Word Statistics</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<applet code="jcckit.PlotApplet" archive="jcckit.jar" width=800 height=500>
+<param name="data/common/x" value="1995 1996 1997 1998 1999 2000 2001 2002">
+<param name="data/curves" value="kosovo putin">
+<param name="data/kosovo/" value="data/common/">
+<param name="data/kosovo/title" value="Kosovo">
+<param name="data/kosovo/y" value="15 15 17 89 479 167 156 105">
+<param name="data/putin/title" value="Putin">
+<param name="data/putin/" value="data/common/">
+<param name="data/putin/y" value="0 0 0 0 21 91 77 65">
+<param name="background" value="0xffffff">
+<param name="plot/initialHintForNextCurve/className" value="jcckit.plot.PositionHint">
+<param name="plot/initialHintForNextCurve/position" value="-0.01 0.1">
+<param name="defaultAxisParameters/ticLabelFormat" value="%d">
+<param name="defaultAxisParameters/ticLabelAttributes/fontSize" value="0.03">
+<param name="defaultAxisParameters/axisLabelAttributes/fontSize" value="0.04">
+<param name="defaultAxisParameters/axisLabelAttributes/fontStyle" value="bold">
+<param name="plot/coordinateSystem/xAxis/" value="defaultAxisParameters/">
+<param name="plot/coordinateSystem/xAxis/axisLabel" value="year">
+<param name="plot/coordinateSystem/xAxis/minimum" value="1994.5">
+<param name="plot/coordinateSystem/xAxis/maximum" value="2002.5">
+<param name="plot/coordinateSystem/xAxis/minimumTic" value="1995">
+<param name="plot/coordinateSystem/xAxis/maximumTic" value="2002">
+<param name="plot/coordinateSystem/yAxis/" value="defaultAxisParameters/">
+<param name="plot/coordinateSystem/yAxis/axisLabel" value="number of articles">
+<param name="plot/coordinateSystem/yAxis/maximum" value="500">
+<param name="plot/coordinateSystem/yAxis/grid" value="true">
+<param name="defaultCurveDefinition/symbolFactory/className" value="jcckit.plot.BarFactory">
+<param name="defaultCurveDefinition/symbolFactory/size" value="0.02">
+<param name="defaultCurveDefinition/symbolFactory/attributes/className" value="jcckit.graphic.BasicGraphicAttributes">
+<param name="defaultCurveDefinition/symbolFactory/attributes/lineColor" value="0">
+<param name="defaultCurveDefinition/withLine" value="false">
+<param name="plot/curveFactory/definitions" value="1 2">
+<param name="plot/curveFactory/1/" value="defaultCurveDefinition/">
+<param name="plot/curveFactory/1/symbolFactory/attributes/fillColor" value="0xcaff">
+<param name="plot/curveFactory/2/" value="defaultCurveDefinition/">
+<param name="plot/curveFactory/2/symbolFactory/attributes/fillColor" value="0xffca00">
+</applet>
+<br>
+Try <a href="wordStatistics12D.html">Graphics2DRenderer</a> if your Web Browser runs Java Plugin 1.2 or higher.
+</body>
+</html>
+

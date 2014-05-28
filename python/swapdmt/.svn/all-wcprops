@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/822/trunk/python/pyswapdmtgui/src
+END
+NetworkDialog.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/883/trunk/python/pyswapdmtgui/src/NetworkDialog.py
+END
+pyswapdmtgui.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/496/trunk/python/pyswapdmtgui/src/pyswapdmtgui.py
+END
+readme.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/215/trunk/python/pyswapdmtgui/src/readme.py
+END
+MainFrame.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/822/trunk/python/pyswapdmtgui/src/MainFrame.py
+END
+SerialDialog.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/489/trunk/python/pyswapdmtgui/src/SerialDialog.py
+END
+DeviceSelector.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/489/trunk/python/pyswapdmtgui/src/DeviceSelector.py
+END
+ParamDialog.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/714/trunk/python/pyswapdmtgui/src/ParamDialog.py
+END
+WaitDialog.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/708/trunk/python/pyswapdmtgui/src/WaitDialog.py
+END
+SwapManager.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/721/trunk/python/pyswapdmtgui/src/SwapManager.py
+END
+ConfigDialog.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/674/trunk/python/pyswapdmtgui/src/ConfigDialog.py
+END
+SecurityDialog.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/610/trunk/python/pyswapdmtgui/src/SecurityDialog.py
+END
+validators.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/703/trunk/python/pyswapdmtgui/src/validators.py
+END

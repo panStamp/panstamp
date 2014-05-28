@@ -1,0 +1,69 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-MAX</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/js/events.js"></script>
+    <script src="/js/edit_event.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Event editor</h1>
+      <form action="/command/config_event_name" method="post">
+        <table align="center" width="550px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="celltitle">Event name:</td>
+            <td align="left">
+              <input type="hidden" id="evnid" name="id"/>
+              <input type="text" id="evnname" name="name" class="inputdatalong" style="width:300px"/>
+              <input type='submit' class='button_a' value='SAVE'/>
+            </td>
+          </tr>
+        </table>
+      </form>
+      <br></br>
+      <table align="center" id="trigtable" width="550px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th class="cellhead" width="90%">Triggers</th>
+          <th class="cellhead" width="5%"></th>
+          <th class="cellhead" width="5%"></th>
+        </tr>
+      </table>
+      <p>
+        <input type='button' class='button_c' onClick="newTrigger();" value="Add trigger"/>
+      </p>
+      <table align="center" id="condtable" width="550px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th class="cellhead" width="90%">Additional conditions</th>
+          <th class="cellhead" width="5%"></th>
+          <th class="cellhead" width="5%"></th>
+        </tr>
+      </table>
+      <p>
+        <input type='button' class='button_c' onClick='newCondition();' value="Add condition"/>
+      </p>
+      <table align="center" id="acttable" width="550px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <th class="cellhead" width="90%">Actions</th>
+          <th class="cellhead" width="5%"></th>
+          <th class="cellhead" width="5%"></th>
+        </tr>
+      </table>
+      <p>
+        <input type='button' class='button_c' onClick='newAction();' value="Add action"/>
+      </p>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      createValues();
+    </script>
+  </body>
+</html>
+

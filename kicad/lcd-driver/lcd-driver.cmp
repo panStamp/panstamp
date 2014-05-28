@@ -1,0 +1,185 @@
+Cmp-Mod V01 Genere par PcbNew le Wed 23 May 2012 11:09:10 AM CEST
+
+BeginCmp
+TimeStamp = /4FA26347;
+Reference = C1;
+ValeurCmp = 47u;
+IdModule  = SMDCPOL_6.3;
+EndCmp
+
+BeginCmp
+TimeStamp = /48B2D4E6;
+Reference = C2;
+ValeurCmp = 22u;
+IdModule  = SMDCPOL_5;
+EndCmp
+
+BeginCmp
+TimeStamp = /48B2D401;
+Reference = C3;
+ValeurCmp = 1u;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /48B3CBEC;
+Reference = C4;
+ValeurCmp = 100n;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F9E9A21;
+Reference = C5;
+ValeurCmp = 100n;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2EDD72;
+Reference = D1;
+ValeurCmp = DIODESCH;
+IdModule  = SMA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2D1265;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = SM0603_POL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB117A4;
+Reference = LCD1;
+ValeurCmp = LCD_2X16_SIL;
+IdModule  = lcd_2x16_led_backlight-HY-1602F;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2D91DA;
+Reference = P1;
+ValeurCmp = CONN_2;
+IdModule  = terminal_block_5mm_2P;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2D137B;
+Reference = P2;
+ValeurCmp = CONN_5;
+IdModule  = PIN_ARRAY_5X1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB12081;
+Reference = P3;
+ValeurCmp = CONN_2;
+IdModule  = terminal_block_5mm_2P;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB1214F;
+Reference = P4;
+ValeurCmp = CONN_3;
+IdModule  = terminal_block_5mm_3P;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB121B1;
+Reference = P5;
+ValeurCmp = CONN_3;
+IdModule  = terminal_block_5mm_3P;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB3F109;
+Reference = P6;
+ValeurCmp = CONN_2;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB11975;
+Reference = Q1;
+ValeurCmp = NPN;
+IdModule  = SOT23EBC;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2D1255;
+Reference = R1;
+ValeurCmp = 470;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB12165;
+Reference = R2;
+ValeurCmp = 10K;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB120AD;
+Reference = R3;
+ValeurCmp = 10K;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB1214E;
+Reference = R4;
+ValeurCmp = 10K;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB119A6;
+Reference = R5;
+ValeurCmp = 1k;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB121B0;
+Reference = R6;
+ValeurCmp = 10K;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB121B2;
+Reference = R7;
+ValeurCmp = 10K;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB11869;
+Reference = RV1;
+ValeurCmp = 10k;
+IdModule  = POT_MURATA;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FB0CF16;
+Reference = SW1;
+ValeurCmp = SW_PUSH_SMALL;
+IdModule  = switch-tact-noah;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2D1188;
+Reference = U1;
+ValeurCmp = PANSTAMP_02;
+IdModule  = PANSTAMP_02;
+EndCmp
+
+BeginCmp
+TimeStamp = /4BFFD798;
+Reference = U2;
+ValeurCmp = UA78M33;
+IdModule  = SOT223;
+EndCmp
+
+EndListe

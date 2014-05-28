@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit Examples: BarExHS (Graphics2D)</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<applet code="jcckit.PlotApplet" archive="jcckit.jar" width=800 height=500>
+<param name="data/curves" value="c1 c2 c3">
+<param name="data/c1/y" value="1998 1999 2000 2001 2002">
+<param name="data/c1/x" value="31 32 44 61 55">
+<param name="data/c2/y" value="1998 1999 2000 2001 2002">
+<param name="data/c2/x" value="54 59 50 31 38">
+<param name="data/c3/y" value="1998 1999 2000 2001 2002">
+<param name="data/c3/x" value="15  9  6  8  7">
+<param name="className" value="jcckit.Graphics2DPlotCanvas">
+<param name="background" value="0xffffff">
+<param name="defaultCoordinateSystem/ticLabelFormat" value="%d">
+<param name="defaultCoordinateSystem/ticLabelAttributes/fontSize" value="0.03">
+<param name="defaultCoordinateSystem/axisLabelAttributes/fontSize" value="0.04">
+<param name="defaultCoordinateSystem/axisLabelAttributes/fontStyle" value="bold">
+<param name="plot/coordinateSystem/xAxis/" value="defaultCoordinateSystem/">
+<param name="plot/coordinateSystem/xAxis/axisLabel" value=" ">
+<param name="plot/coordinateSystem/xAxis/ticLabelFormat" value="%d%% ">
+<param name="plot/coordinateSystem/xAxis/grid" value="true">
+<param name="plot/coordinateSystem/xAxis/minimum" value="0">
+<param name="plot/coordinateSystem/xAxis/maximum" value="100">
+<param name="plot/coordinateSystem/yAxis/" value="defaultCoordinateSystem/">
+<param name="plot/coordinateSystem/yAxis/axisLabel" value="year">
+<param name="plot/coordinateSystem/yAxis/minimum" value="2002.5">
+<param name="plot/coordinateSystem/yAxis/maximum" value="1997.5">
+<param name="plot/initialHintForNextCurve/className" value="jcckit.plot.PositionHint">
+<param name="plot/initialHintForNextCurve/position" value="0.15 0">
+<param name="defaultDefinition/symbolFactory/className" value="jcckit.plot.BarFactory">
+<param name="defaultDefinition/symbolFactory/stacked" value="true">
+<param name="defaultDefinition/symbolFactory/size" value="0.07">
+<param name="defaultDefinition/symbolFactory/horizontalBars" value="true">
+<param name="defaultDefinition/symbolFactory/attributes/className" value="jcckit.graphic.BasicGraphicAttributes">
+<param name="defaultDefinition/symbolFactory/attributes/lineColor" value="0">
+<param name="defaultDefinition/withLine" value="false">
+<param name="plot/curveFactory/definitions" value="def1 def2 def3">
+<param name="plot/curveFactory/def1/" value="defaultDefinition/">
+<param name="plot/curveFactory/def1/symbolFactory/attributes/fillColor" value="0xcaff">
+<param name="plot/curveFactory/def2/" value="defaultDefinition/">
+<param name="plot/curveFactory/def2/symbolFactory/attributes/fillColor" value="0xffca00">
+<param name="plot/curveFactory/def3/" value="defaultDefinition/">
+<param name="plot/curveFactory/def3/symbolFactory/attributes/fillColor" value="0xa0ff80">
+<param name="plot/legendVisible" value="false">
+</applet>
+</body>
+</html>

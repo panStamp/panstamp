@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;lagarto-speech/SwapNetwork.py&apos; to &apos;speechnetwork.py&apos;" description="Rename resource &apos;SwapNetwork.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="SwapNetwork.py" name="speechnetwork.py" stamp="1350485736043" updateReferences="true"/>
+</session>

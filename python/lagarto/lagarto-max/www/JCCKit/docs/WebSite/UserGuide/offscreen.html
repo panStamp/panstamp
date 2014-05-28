@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 2.5 Example: Off-Screen Image Creation</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a>
+            <li><a href="usage.html">Usage as a Library</a><br>
+                2.1 <a href="animatedChart.html">Example: Animated Chart</a><br>
+                2.2 <a href="lorenz.html">Example: Lorenz Attractor</a><br>
+                2.3 <a href="brusselator.html">Example: Brusselator</a><br>
+                2.4 <a href="zoom.html">Example: Zooming</a><br>
+                2.5 <b>Example: Off-Screen Image Creation</b><br>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKit's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>2.5 Example: Off-Screen Image Creation</h1>
+
+Since JCCKit 1.1 convenient methods allow easy off-screen image creation.
+This is especially useful if you have to create images 
+on the server of a Web application. 
+Note, that off-screen image creation needs J2SE 1.4 or higher. 
+<p>
+The code below is a small example which takes a properties file (like
+<a href="../examples/errorBarExample.properties">this one</a>) and creates
+a PNG image of specified size. The important lines of code are 
+highlighted:
+<pre class="code">
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import jcckit.Graphics2DPlotCanvas;
+import jcckit.data.DataPlot;
+import jcckit.util.ConfigParameters;
+import jcckit.util.PropertiesBasedConfigData;
+
+public class ImagePlotter
+{
+  public static void main(String[] args) throws IOException
+  {
+    <b>System.getProperties().setProperty("java.awt.headless", "true");</b>
+
+    // Handles the commandline argument
+    if (args.length < 3)
+    {
+      System.out.println("Usage: java -cp classycle.jar ImagePlotter " 
+                         + "<properties file> <width> <height>");
+      System.exit(0);
+    }
+    String propertiesFile = args[0];
+    int width = Integer.parseInt(args[1]);
+    int height = Integer.parseInt(args[2]);
+
+    // Sets up a Graphics2DPlotCanvas
+    ConfigParameters config
+        = new ConfigParameters(new PropertiesBasedConfigData(propertiesFile));
+    Graphics2DPlotCanvas plotCanvas = new Graphics2DPlotCanvas(config);
+    plotCanvas.connect(DataPlot.create(config));
+    <b>plotCanvas.setDoubleBuffering(false);</b>
+
+    // Draws the chart into a off-screen image
+<b>    BufferedImage image 
+        = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    plotCanvas.draw2DInto(image);</b>
+
+    // Writes the off-screen image into a PNG file
+<b>    ImageIO.write(image, "png", new File(propertiesFile + ".png"));</b>
+  }
+}
+</pre>
+Explanations of the highlighted statements:
+<ol><li>Setting <tt>java.awt.headless = true</tt> allows to draw 
+        off-screen images on a server without any graphical 
+        window system running. For example, in a Unix environment no X-Server is
+        needed (but some X libraries might be still necessary).
+    <li>Double-buffering has to be switched off. This is possible since
+        JCCKit 1.1.
+    <li>A <tt>BufferedImage</tt> is an off-screen image.
+    <li>The method <tt>draw2DInto()</tt> of 
+        <a href="../apidoc/jcckit/Graphics2DPlotCanvas.html">
+        <tt>Graphics2DPlotCanvas</tt></a> draws the chart into the
+        buffered image as it would be drawn onto the real screen if one runs
+        <tt>Graphics2DPlotCanvas</tt> as a Java application 
+        with the specified properties file.
+        <p>
+        Instead of drawing into a <tt>Graphics2D</tt> context one can also
+        draw into a <tt>Graphics</tt> context by using <tt>drawInto()</tt>
+        of <a href="../apidoc/jcckit/GraphicsPlotCanvas.html">
+        <tt>GraphicsPlotCanvas</tt></a>. Note: This only works if
+        <b>there is no rotated text</b> because rotated texts are
+        created by double-buffering. In a chart with a 
+        <a href="../apidoc/jcckit/plot/CartesianCoordinateSystem.html">
+        <tt>CartesianCoordinateSystem</tt></a> this implies that
+        the default label of the y-axis has to be removed because it is
+        a rotated piece of text.
+    <li>Since J2SE 1.4 the method <tt>ImageIO.write()</tt> is a convenient 
+        way to encode images and write them into files.
+</ol>
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 12/18/2004
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

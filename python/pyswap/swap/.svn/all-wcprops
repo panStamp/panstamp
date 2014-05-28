@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/821/trunk/python/pyswap/src/swap
+END
+SwapInterface.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/SwapInterface.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/487/trunk/python/pyswap/src/swap/__init__.py
+END
+SwapServer.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/SwapServer.py
+END
+SwapException.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/SwapException.py
+END

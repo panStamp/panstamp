@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg viewBox='0.0 -0.6 1.0 0.6' preserveAspectRatio='xMidYMid'>
+  <g>
+    <g>
+      <polyline points='0.0500000,-0.5500000 0.0500000,-0.5600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.5500000 0.0500000,-0.1000000' fill='none' stroke='#808080' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.1000000 0.0500000,-0.0900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.0500000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.0</text>
+      <polyline points='0.2100000,-0.5500000 0.2100000,-0.5600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.2100000,-0.5500000 0.2100000,-0.1000000' fill='none' stroke='#808080' stroke-width='1.0E-6'/>
+      <polyline points='0.2100000,-0.1000000 0.2100000,-0.0900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.2100000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.2</text>
+      <polyline points='0.3700000,-0.5500000 0.3700000,-0.5600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.3700000,-0.5500000 0.3700000,-0.1000000' fill='none' stroke='#808080' stroke-width='1.0E-6'/>
+      <polyline points='0.3700000,-0.1000000 0.3700000,-0.0900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.3700000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.4</text>
+      <polyline points='0.5300000,-0.5500000 0.5300000,-0.5600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.5300000,-0.5500000 0.5300000,-0.1000000' fill='none' stroke='#808080' stroke-width='1.0E-6'/>
+      <polyline points='0.5300000,-0.1000000 0.5300000,-0.0900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.5300000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.6</text>
+      <polyline points='0.6900000,-0.5500000 0.6900000,-0.5600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.6900000,-0.5500000 0.6900000,-0.1000000' fill='none' stroke='#808080' stroke-width='1.0E-6'/>
+      <polyline points='0.6900000,-0.1000000 0.6900000,-0.0900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.6900000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.8</text>
+      <polyline points='0.8500000,-0.5500000 0.8500000,-0.5600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.8500000,-0.5500000 0.8500000,-0.1000000' fill='none' stroke='#808080' stroke-width='1.0E-6'/>
+      <polyline points='0.8500000,-0.1000000 0.8500000,-0.0900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8500000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>1.0</text>
+      <polyline points='0.8500000,-0.1000000 0.8440000,-0.1000000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.1000000 0.0560000,-0.1000000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.1000000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.0</text>
+      <polyline points='0.8500000,-0.1450000 0.8440000,-0.1450000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.1450000 0.0560000,-0.1450000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.1450000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.1</text>
+      <polyline points='0.8500000,-0.1900000 0.8440000,-0.1900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.1900000 0.0560000,-0.1900000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.1900000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.2</text>
+      <polyline points='0.8500000,-0.2350000 0.8440000,-0.2350000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.2350000 0.0560000,-0.2350000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.2350000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.3</text>
+      <polyline points='0.8500000,-0.2800000 0.8440000,-0.2800000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.2800000 0.0560000,-0.2800000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.2800000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.4</text>
+      <polyline points='0.8500000,-0.3250000 0.8440000,-0.3250000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.3250000 0.0560000,-0.3250000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.3250000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.5</text>
+      <polyline points='0.8500000,-0.3700000 0.8440000,-0.3700000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.3700000 0.0560000,-0.3700000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.3700000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.6</text>
+      <polyline points='0.8500000,-0.4150000 0.8440000,-0.4150000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.4150000 0.0560000,-0.4150000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.4150000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.7</text>
+      <polyline points='0.8500000,-0.4600000 0.8440000,-0.4600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.4600000 0.0560000,-0.4600000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.4600000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.8</text>
+      <polyline points='0.8500000,-0.5050000 0.8440000,-0.5050000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.5050000 0.0560000,-0.5050000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.5050000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>0.9</text>
+      <polyline points='0.8500000,-0.5500000 0.8440000,-0.5500000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.5500000 0.0560000,-0.5500000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.8600000' y='-0.5500000' fill='#000000' font-weight='bold' font-size='0.0300000' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>1.0</text>
+      <polyline points='0.0500000,-0.1000000 0.8500000,-0.1000000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.1000000 0.0500000,-0.5500000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.0500000,-0.5500000 0.8500000,-0.5500000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <polyline points='0.8500000,-0.1000000 0.8500000,-0.5500000' fill='none' stroke='#000000' stroke-width='1.0E-6'/>
+      <text x='0.4500000' y='-0.0500000' fill='#0000aa' font-size='0.0500000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>&lt;x&gt;</text>
+      <text x='0.9000000' y='-0.4250000' fill='#0000ee' font-size='0.0500000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%' transform='rotate(-90.0000000,0.9000000,-0.4250000)'>factor</text>
+    </g>
+    <g>
+      <g>
+        <rect x='0.1950000' y='-0.2350000' width='0.0300000' height='0.1350000' fill='#ffca00' stroke='#000000' stroke-width='0.0020'/>
+        <rect x='0.2750000' y='-0.1450000' width='0.0300000' height='0.0450000' fill='#ffca00' stroke='#000000' stroke-width='0.0020'/>
+        <rect x='0.3550000' y='-0.1900000' width='0.0300000' height='0.0900000' fill='#ffca00' stroke='#000000' stroke-width='0.0020'/>
+        <rect x='0.4350000' y='-0.2575000' width='0.0300000' height='0.1575000' fill='#ffca00' stroke='#000000' stroke-width='0.0020'/>
+      </g>
+    </g>
+    <g>
+      <g clip-path='url(#path0)'>
+        <clipPath id='path0'>
+          <rect x='0.0500000' y='-0.5500000' width='0.8000000' height='0.4500000'/>
+        </clipPath>
+        <polyline points='0.2100000,-0.2125000 0.2900000,-0.3700000 0.3700000,-0.2800000 0.4500000,-0.3700000 0.5300000,-0.3250000 0.6100000,-0.2350000 0.6900000,-0.1000000' fill='none' stroke='#0000ca' stroke-width='0.0050' stroke-dasharray='0.01,0.0050'/>
+      </g>
+      <g>
+        <ellipse cx='0.2100000' cy='-0.2125000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+        <ellipse cx='0.2900000' cy='-0.3700000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+        <ellipse cx='0.3700000' cy='-0.2800000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+        <ellipse cx='0.4500000' cy='-0.3700000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+        <ellipse cx='0.5300000' cy='-0.3250000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+        <ellipse cx='0.6100000' cy='-0.2350000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+        <ellipse cx='0.6900000' cy='-0.1000000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+      </g>
+    </g>
+    <g>
+      <g clip-path='url(#path1)'>
+        <clipPath id='path1'>
+          <rect x='0.0500000' y='-0.5500000' width='0.8000000' height='0.4500000'/>
+        </clipPath>
+        <polyline points='0.4500000,-0.3475000 0.5300000,-0.3430000 0.6100000,-0.8425000 0.6900000,-0.2575000 0.7700000,-0.4285000' fill='none' stroke='#0000ca' stroke-width='0.0050' stroke-dasharray='0.01,0.0050'/>
+      </g>
+      <g>
+        <rect x='0.4425000' y='-0.3550000' width='0.0150000' height='0.0150000' fill='none' stroke='#000000' stroke-width='0.0020'/>
+        <rect x='0.5225000' y='-0.3505000' width='0.0150000' height='0.0150000' fill='none' stroke='#000000' stroke-width='0.0020'/>
+        <rect x='0.6825000' y='-0.2650000' width='0.0150000' height='0.0150000' fill='none' stroke='#000000' stroke-width='0.0020'/>
+        <rect x='0.7625000' y='-0.4360000' width='0.0150000' height='0.0150000' fill='none' stroke='#000000' stroke-width='0.0020'/>
+      </g>
+    </g>
+    <g>
+      <g>
+        <rect x='0.6400000' y='-0.5400000' width='0.2000000' height='0.1000000' fill='#eeeeee' stroke='#000000' stroke-width='1.0E-6'/>
+        <text x='0.7400000' y='-0.5350000' fill='#000000' font-size='0.0116619' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>Legend</text>
+      </g>
+      <g>
+        <rect x='0.6625000' y='-0.5050000' width='0.0100000' height='0.0100000' fill='#ffca00' stroke='#000000' stroke-width='0.0020'/>
+      </g>
+      <text x='0.6900000' y='-0.5000000' fill='#000000' font-size='0.0116619' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>curve 1</text>
+      <g>
+        <polyline points='0.6500000,-0.4800000 0.6850000,-0.4800000' fill='none' stroke='#0000ca' stroke-width='0.0050' stroke-dasharray='0.01,0.0050'/>
+        <ellipse cx='0.6675000' cy='-0.4800000' rx='0.0075000' ry='0.0075000' fill='#008000'/>
+      </g>
+      <text x='0.6900000' y='-0.4800000' fill='#000000' font-size='0.0116619' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>curve 2</text>
+      <g>
+        <polyline points='0.6500000,-0.4600000 0.6850000,-0.4600000' fill='none' stroke='#0000ca' stroke-width='0.0050' stroke-dasharray='0.01,0.0050'/>
+        <rect x='0.6600000' y='-0.4675000' width='0.0150000' height='0.0150000' fill='none' stroke='#000000' stroke-width='0.0020'/>
+      </g>
+      <text x='0.6900000' y='-0.4600000' fill='#000000' font-size='0.0116619' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>curve 3</text>
+    </g>
+  </g>
+</svg>

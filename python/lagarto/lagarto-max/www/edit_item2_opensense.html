@@ -1,0 +1,45 @@
+<!-- HTML template for editevent.cgi -->
+
+<html>
+	<head>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <link rel="stylesheet" type="text/css" href="/max.css">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/js/edit_item2_thingspeak.js"></script>
+	</head>
+  <body bgcolor="#FFFFFF">
+		<table align="center">
+      <tr>
+        <td class="celltitle">Sense key</td>
+        <td>
+          <input type="text" id="apikey" class="inputdatalong"/>
+				</td>
+			</tr>
+      <tr>
+        <td class="celltitle">Feed ID</td>
+        <td>
+					<input type="text" id="fieldid" class="inputdatashort"/>
+        </td>
+      </tr>
+			<tr>
+        <td class="celltitle" width="50%">Lagarto server</td>
+				<td>
+					<select id="server" class="inputdatalong" onchange="onchangeServer()">
+            <option value="">Choose Lagarto server</option>
+					</select>
+				</td>
+      </tr>
+			<tr>
+        <td class="celltitle">Network endpoint</td>
+				<td>
+					<select id="endp" class="inputdatalong">
+            <option value="">Choose network value</option>
+					</select>
+        </td>
+      </tr>
+		</table>
+    <script language="JavaScript" type="text/javascript">
+      loadJSONdata("/command/get_server_list", updateValues);
+    </script>
+	</body>
+</html>

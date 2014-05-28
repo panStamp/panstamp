@@ -1,0 +1,157 @@
+Cmp-Mod V01 Created by CvPcb (2013-mar-13)-testing date = Sun 29 Sep 2013 05:19:14 PM CEST
+
+BeginCmp
+TimeStamp = /52484BDE;
+Reference = ANT1;
+ValeurCmp = CONN_1;
+IdModule  = 1PIN_SMD;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E292A6A;
+Reference = BAT1;
+ValeurCmp = CONN_2;
+IdModule  = BAT_AA_HOLDER_02;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E25E3CF;
+Reference = C1;
+ValeurCmp = 10u;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E25EB2E;
+Reference = C2;
+ValeurCmp = 10u;
+IdModule  = SM1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FA10C95;
+Reference = C3;
+ValeurCmp = 1u;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FA10CA8;
+Reference = C4;
+ValeurCmp = 100n;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4F97D53A;
+Reference = C5;
+ValeurCmp = 100n;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /52460DBA;
+Reference = C6;
+ValeurCmp = 100n;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /524610F4;
+Reference = C7;
+ValeurCmp = 100n;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /52461463;
+Reference = C8;
+ValeurCmp = 100n;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2541F3;
+Reference = L1;
+ValeurCmp = 4.7u;
+IdModule  = SM1210L;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2041F0;
+Reference = P1;
+ValeurCmp = CONN_5;
+IdModule  = PIN_ARRAY_5x1;
+EndCmp
+
+BeginCmp
+TimeStamp = /4D108882;
+Reference = R1;
+ValeurCmp = 976k;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /52454C20;
+Reference = R2;
+ValeurCmp = 562k;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /524556DC;
+Reference = R3;
+ValeurCmp = 10k;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /5248496A;
+Reference = R4;
+ValeurCmp = 0;
+IdModule  = SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E2A75FE;
+Reference = SW1;
+ValeurCmp = SW_PUSH_SMALL;
+IdModule  = switch-tact-noah;
+EndCmp
+
+BeginCmp
+TimeStamp = /523E2475;
+Reference = U1;
+ValeurCmp = PANSTAMP_NRG;
+IdModule  = PANSTAMP_NRG;
+EndCmp
+
+BeginCmp
+TimeStamp = /524548C6;
+Reference = U2;
+ValeurCmp = MCP1640B;
+IdModule  = SOT23_6;
+EndCmp
+
+BeginCmp
+TimeStamp = /52456465;
+Reference = U3;
+ValeurCmp = M74VHC1GT08;
+IdModule  = SOT23-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /4D10882B;
+Reference = U4;
+ValeurCmp = DHT22;
+IdModule  = DHT22;
+EndCmp
+
+BeginCmp
+TimeStamp = /523E33D2;
+Reference = U5;
+ValeurCmp = COZIR_CO2;
+IdModule  = COZIR_AS;
+EndCmp
+
+EndListe

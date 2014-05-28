@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 1.3 Curves, Points, and Hints</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a><br>
+                1.1 <a href="packages.html">Package Overview</a><br>
+                1.2 <a href="coordinateSystems.html">Coordinate Systems</a><br>
+                1.3 <b>Curves, Points, and Hints</b>
+            <li><a href="usage.html">Usage as a library</a>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKIT's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>1.3 Curves, Points, and Hints</h1>
+
+In JCCKit the data to be visualized are organized in a collection of curves 
+(represented by an instance of <a href="../apidoc/jcckit/data/DataPlot.html">
+<tt>DataPlot</tt></a>). Curves (instances of 
+<a href="../apidoc/jcckit/data/DataCurve.html"><tt>DataCurve</tt></a>)
+are collections of 2-dimensional data points.
+<p>
+To generate a visual representation of a curve a concrete implementation of
+a <a href="../apidoc/jcckit/plot/CurveFactory.html"><tt>CurveFactory</tt></a>
+is needed. <a href="../apidoc/jcckit/plot/SimpleCurveFactory.html">
+<tt>SimpleCurveFactory</tt></a> is currently the only implemention.
+<p>
+With the help of <tt>CurveFactory</tt> an initially empty
+<a href="../apidoc/jcckit/plot/Curve.html"><tt>Curve</tt></a>
+will be generated. This is done inside 
+<a href="../apidoc/jcckit/plot/Plot.html"><tt>Plot</tt></a> when either
+<tt>Plot</tt> is connected with a <tt>DataPlot</tt> or some data of the
+connected <tt>DataPlot</tt> has been changed. 
+Currently <a href="../apidoc/jcckit/plot/SimpleCurve.html">
+<tt>SimpleCurve</tt></a> is the only implementation of the <tt>Curve</tt>
+interface. 
+<p>
+Inside <tt>Plot</tt>, a curve is always (re)created from scratch 
+even if only a single point in the curve has been changed. 
+This is done by first removing all points in the <tt>Curve</tt>. 
+Then, the points are added in the same sequence as they are
+stored in <tt>DataCurve</tt>. The concrete implementation of 
+<tt>Curve</tt> creates a graphical representation which will be obtained with
+the method <tt>getView()</tt>.
+<p>
+Generating a visual representations of <tt>DataCurve</tt> needs as input
+<ul><li>the two-dimensional point (in device-independent coordinates),
+    <li>information common for all curve points (like line color), and
+    <li>optionally individual information for each point.
+</ul>
+This individual information is needed, for example, in a bar chart.
+This is especially obvious in the case of stacked bars: Here the individual
+bar position depends on the size of the bar below.
+<p>
+Such individual informations are stored in a 
+<a href="../apidoc/jcckit/plot/Hint.html"><tt>Hint</tt></a> object.
+For example, <a href="../apidoc/jcckit/plot/PositionHint.html">
+<tt>PositionHints</tt></a> are used to create bars at the correct positions.
+The <tt>Curve</tt> method 
+<a href="../apidoc/jcckit/plot/Curve.html#addPoint(jcckit.graphic.GraphPoint, jcckit.plot.Hint)">
+<tt>addPoint()</tt></a> takes such a <tt>Hint</tt> for the calculation of
+the graphical representation of the added point. In addition it returns a
+<tt>Hint</tt> object for the point of the next curve with the same point index.
+This is illustrated by the upward arrows in the following diagram: 
+<p>
+<center><img src="hintPropagation.png" width="400" height="271"></center>
+<p>
+The initial <tt>Hint</tt> is the same for each point index. Its default value
+is <tt>null</tt>. In the case of bar charts it has to be specified in the
+<tt>Plot</tt> 
+<a href="../apidoc/jcckit/plot/Plot.html#Plot(jcckit.util.ConfigParameters)">
+<tt>constructor</tt></a>.
+<p>
+How <tt>Hints</tt> are used depend on the actual implementation of 
+<tt>Curve</tt>. Here we will discuss briefly <tt>SimpleCurve</tt>.
+In a <tt>SimpleCurve</tt> the curve points may connected by a
+<a href="../apidoc/jcckit/graphic/Polygon.html"><tt>Polygon</tt></a>.
+In addition each point may be decorated by a symbol. <tt>Hints</tt> are only
+needed for calculation of these symbols. In addition to curve-to-curve
+<tt>Hints</tt> they may be point-to-point <tt>Hints</tt> represented
+by horizontal arrows in the diagram above. 
+<p>
+Symbols are generated by a 
+<a href="../apidoc/jcckit/plot/SymbolFactory.html"><tt>SymbolFactory</tt></a>.
+It takes the point and the <tt>Hints</tt> from the previous point and curve
+to generate a symbol and <tt>Hints</tt> for the next point and curve. The
+result is wrapped in the returned 
+<a href="../apidoc/jcckit/plot/Symbol.html"><tt>Symbol</tt></a> object.
+<p>
+<center><img src="symbol.png" width="400" height="157"></center>
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 5/2/2003
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

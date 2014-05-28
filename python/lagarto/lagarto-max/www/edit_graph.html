@@ -1,0 +1,162 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-MAX</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/js/edit_graph.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Graph editor</h1>
+      <form id="table_data_form" action="/command/edit_graph" method="post">
+        <table align="center" width="550px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="celltitle">Graph name:</td>
+            <td align="left">
+              <input type="text" id="graphname" name="name" class="inputdatalong" style="width:200px"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Title:</td>
+            <td align="left">
+              <input type="text" id="title" name="title" class="inputdatalong" style="width:200px"/>
+            </td>
+          </tr>
+			    <tr>
+            <td class="celltitle">Type of graph</td>
+				    <td align="left">
+					    <select id="type" name="type" class="inputdatashort">
+                <option value="line">Lines</option>
+                <option value="bars">Bars</option>
+					    </select>
+				    </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Latest samples to plot:</td>
+            <td align="left">
+              <input type="text" id="samples" name="samples" class="inputdatamini"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Enable starting date/time</td>
+            <td align="left">
+    					<input type="checkbox" id="ena_start" onclick="enableStartDate()">
+            </td>
+          </tr>
+			    <tr>
+            <td class="celltitle">Starting date:</td>
+				    <td align="left">
+					    <select id="start_year" class="inputdatashort" disabled>
+					    </select>
+					    <select id="start_month" class="inputdatashort" disabled>
+					    </select>
+					    <select id="start_day" class="inputdatamini" disabled>
+					    </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Starting time:</td>
+            <td align="left">
+					    <select id="start_hour" class="inputdatamini" disabled>
+					    </select> :
+					    <select id="start_minute" class="inputdatamini" disabled>
+					    </select> :
+					    <select id="start_second" class="inputdatamini" disabled>
+					    </select>
+              <input type="hidden" id="starttime" name="starttime"/>
+				    </td>
+			    </tr>
+          <tr>
+            <td class="celltitle">Enable end date/time</td>
+            <td align="left">
+    					<input type="checkbox" id="ena_end" onclick="enableEndDate()">
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">End date:</td>
+				    <td align="left">
+					    <select id="end_year" class="inputdatashort" disabled>
+					    </select>
+					    <select id="end_month" class="inputdatashort" disabled>
+					    </select>
+					    <select id="end_day" class="inputdatamini" disabled>
+					    </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">End time:</td>
+            <td align="left">
+					    <select id="end_hour" class="inputdatamini" disabled>
+					    </select> :
+					    <select id="end_minute" class="inputdatamini" disabled>
+					    </select> :
+					    <select id="end_second" class="inputdatamini" disabled>
+					    </select>
+              <input type="hidden" id="endtime" name="endtime"/>
+				    </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Minimum Y value:</td>
+            <td align="left">
+              <input type="text" id="miny" name="miny" class="inputdatamini"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Maximum Y value:</td>
+            <td align="left">
+              <input type="text" id="maxy" name="maxy" class="inputdatamini"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Display grid</td>
+            <td align="left">
+    					<input type="checkbox" id="show_grid" name="show_grid">
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Table from database:</td>
+            <td align="left">
+              <select id="table" name="table" class="inputdatashort" onchange="onchangeTable()">
+              </select>
+            </td>
+          </tr>
+			    <tr>
+            <td class="celltitle">Endpoint from table</td>
+				    <td align="left">
+					    <select id="endp" class="inputdatalong">
+					    </select>
+				    </td>
+          </tr>
+        </table>
+        <p>
+          <input type='button' class='button_a' onClick='addColumnFromMenu()' value='ADD'>
+          <input type='button' class='button_a' onClick='clearTable()' value='CLEAR'>
+        </p>
+        <table id="coltable" align="center" width="500px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th class="cellhead" width="70%">Endpoint</th>
+            <th class="cellhead" width="30%">Column name</th>
+          </tr>
+        </table>
+        <input type="hidden" id="columns" name="columns"/>
+        <p>
+          <input type='button' class='button_a' onClick='history.back()' value='CANCEL'>
+          <input type='button' class='button_a' onClick='save()' value='SAVE'>
+        </p>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      loadJSONdata("/config/database.json", updateTables);
+      loadJSONdata("/config/graphs.json", updateValues);
+    </script>
+  </body>
+</html>
+

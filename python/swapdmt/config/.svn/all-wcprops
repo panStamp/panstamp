@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/740/trunk/python/pyswapdmtgui/src/config
+END
+settings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/740/trunk/python/pyswapdmtgui/src/config/settings.xml
+END
+network.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/460/trunk/python/pyswapdmtgui/src/config/network.xml
+END
+serial.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/460/trunk/python/pyswapdmtgui/src/config/serial.xml
+END

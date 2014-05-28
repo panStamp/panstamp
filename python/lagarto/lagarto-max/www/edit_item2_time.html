@@ -1,0 +1,41 @@
+<html>
+	<head>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <link rel="stylesheet" type="text/css" href="/max.css">
+    <script src="/js/edit_item2_time.js"></script>
+	</head>
+  <body bgcolor="#FFFFFF" align="center">
+	  <table align="center">
+      <tr>
+        <td class="celltitle" width="50%">Daylight time</td>
+        <td>
+				  <input type="checkbox" id="suntimeopt" onclick="switchItem2()">
+        </td>
+      </tr>
+		  <tr>
+        <td class="celltitle">Time</td>
+			  <td>
+				  <select id="hours" class="inputdatamini">
+				  </select>
+				  :
+				  <select id="minutes" class="inputdatamini">
+				  </select>
+			  </td>
+      </tr>
+      <tr id="item2option" style="visibility:hidden">
+			  <td class="celltitle">Repeat every</td>
+        <td>
+				  <select id="freqhour" class="inputdatamini">
+				  </select>
+				  h
+				  <select id="freqmin" class="inputdatamini">
+				  </select>
+				  m
+			  </td>
+		  </tr>
+	  </table>
+    <script language="JavaScript" type="text/javascript">
+      updateValues();
+    </script>
+	</body>
+</html>

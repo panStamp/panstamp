@@ -1,0 +1,34 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<html>
+	<head>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <link rel="stylesheet" type="text/css" href="/max.css">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/js/edit_act_network.js"></script>
+	</head>
+  <body bgcolor="#FFFFFF">
+    <h2>Network action</h2>
+    <table align="center" width="450px">
+			<tr>
+        <td class="celltitle" width="50%">Lagarto server</td>
+				<td>
+					<select id="server" class="inputdatalong" onchange="onchangeServer()">
+            <option value="">No server found</option>
+					</select>
+				</td>
+      </tr>
+			<tr>
+        <td class="celltitle">Network endpoint</td>
+				<td>
+					<select id="endp" class="inputdatalong" onchange="onchangeEndp()">
+            <option value="">No endpoint found</option>
+					</select>
+				</td>
+      </tr>
+    </table>
+    <iframe src="" width="450px" height="200px" id="item2box" class="item2box"></iframe>
+    <script language="JavaScript" type="text/javascript">
+      loadJSONdata("/command/get_server_list", updateValues);
+    </script>
+	</body>
+</html>

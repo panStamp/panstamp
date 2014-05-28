@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/1022/trunk/python/lagarto/lagarto-swap/config
+END
+serial.xml
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/446/trunk/python/lagarto/lagarto-swap/config/serial.xml
+END
+settings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/513/trunk/python/lagarto/lagarto-swap/config/settings.xml
+END
+network.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/446/trunk/python/lagarto/lagarto-swap/config/network.xml
+END
+lagarto.xml
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1022/trunk/python/lagarto/lagarto-swap/config/lagarto.xml
+END

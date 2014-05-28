@@ -1,0 +1,40 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<html>
+	<head>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <link rel="stylesheet" type="text/css" href="/max.css">
+    <script src="/js/edit_cond_clock.js"></script>
+	</head>
+  <body bgcolor="#FFFFFF">
+    <h2>Time condition</h2>
+    <table align="center" width="450px" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+        <td class="celltitle" width="50%">Time source</td>
+				<td>
+					<select id="item1" class="inputdatashort" onchange="onchangeItem1()">
+						<option value="time">Time</option>
+						<option value="date">Date</option>
+						<option value="weekday">Week day</option>
+            <option value="monthday">Month day</option>
+						<option value="month">Month</option>
+					</select>
+				</td>
+      </tr>
+      <tr>
+        <td class="celltitle">Operator</td>
+				<td>
+					<select id="operator" class="inputdatashort" onchange="onchangeOperator()">
+						<option value="==">Equal to</option>
+						<option value="!=">Different than</option>
+						<option value="<">Less than</option>
+						<option value=">">Greather than</option>
+					</select>
+				</td>
+      </tr>
+    </table>
+		<iframe src="" width="450px" height="200px" id="item2box" class="item2box"></iframe>
+    <script language="JavaScript" type="text/javascript">
+      updateValues();
+    </script>
+	</body>
+</html>

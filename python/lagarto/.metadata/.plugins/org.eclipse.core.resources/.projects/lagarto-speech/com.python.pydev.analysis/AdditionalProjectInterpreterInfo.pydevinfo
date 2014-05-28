@@ -1,0 +1,69 @@
+-- VERSION_3
+-- START DISKCACHE
+/home/daniel/development/Aptana/lagarto/.metadata/.plugins/org.eclipse.core.resources/.projects/lagarto-speech/com.python.pydev.analysis/v1_indexcache
+.v1_indexcache
+xmltools|0|/home/daniel/development/Aptana/lagarto/lagarto-speech/xmltools.py
+speechnetwork|0|/home/daniel/development/Aptana/lagarto/lagarto-speech/speechnetwork.py
+speechmanager|0|/home/daniel/development/Aptana/lagarto/lagarto-speech/speechmanager.py
+-- END DISKCACHE
+-- START DICTIONARY
+18
+10=XmlSettings.__init__
+4=XmlSettings
+11=SpeechManager.__init__
+18=SpeechListener.stop
+5=SpeechManager
+13=SpeechListener.__init__
+6=SpeechListener
+7=SpeachProducer
+12=XmlSettings.read
+17=SpeechListener.start_command_timer
+8=SpeechNetwork
+2=xmltools
+3=speechnetwork
+15=SpeechListener.run
+16=SpeechListener._terminate_command_window
+1=speechmanager
+14=SpeachProducer.__init__
+9=SpeechNetwork.__init__
+-- END DICTIONARY
+-- START TREE 1
+6
+__a|3|__author__!11@__author__!19@__author__!27@
+__d|3|__date__!27@__date__!11@__date__!19@
+lag|2|lagarto_dir!11@lagarto_dir!27@
+spe|4|SpeechNetwork!25@SpeechManager!9@SpeechListener!9@SpeachProducer!9@
+wor|2|working_dir!27@working_dir!11@
+xml|1|XmlSettings!17@
+-- END TREE
+-- START TREE 2
+28
+__i|5|__init__!4&18@__init__!5&10@__init__!6&10@__init__!7&10@__init__!8&26@
+_te|1|_terminate_command_window!6&10@
+con|1|confirm_attention!5&10@
+dum|1|dumps!8&26@
+end|1|endpoints!9&27@
+fil|2|file_name!10&19@filepath!9&27@
+gen|1|general_settings!11&11@
+get|4|get_tts_mp3!7&10@get_endpoint!5&10@get_endpoint!8&26@get_status!5&10@
+htt|1|http_command_received!5&10@
+inp|1|input!9&27@
+key|3|keyword!10&19@keyword!12&19@keyword!13&11@
+lan|4|language!13&11@language!14&11@language!10&19@language!12&19@
+net|1|network!11&11@
+not|2|notify_speech!5&10@notify_speech!6&10@
+out|1|output!9&27@
+par|1|parent!13&11@
+pla|5|play_file!10&19@play_command!10&19@play_command!12&19@play_file!14&11@play_command!14&11@
+rea|5|read!8&26@ready_for_command!15&11@ready_for_command!16&11@ready_for_command!17&11@read!4&18@
+rec|5|record_command!10&19@record_command!12&19@record_command!13&11@record_file!10&19@record_file!13&11@
+rep|2|reply!10&19@reply!12&19@
+run|3|run!6&10@running!13&11@running!18&11@
+sav|2|save!4&18@save!8&26@
+ser|1|server!9&27@
+set|1|set_status!5&10@
+spe|2|speak!7&10@speech_producer!11&11@
+sta|1|start_command_timer!6&10@
+sto|1|stop!6&10@
+wel|2|welcomemsg!10&19@welcomemsg!12&19@
+-- END TREE

@@ -1,0 +1,379 @@
+# EESchema Netlist Version 1.1 created  Fri 22 Jun 2012 04:46:36 PM CEST
+(
+ ( /4FE4835E TO-92  A6 CONN_3 {Lib=CONN_3}
+  (    1 +3.3V )
+  (    2 /A6 )
+  (    3 GND )
+ )
+ ( /4FB3F109 SIL-2  P6 CONN_2 {Lib=CONN_2}
+  (    1 N-000036 )
+  (    2 GND )
+ )
+ ( /4FB121B2 SM0603S  R7 10K {Lib=R}
+  (    1 /BININP4 )
+  (    2 +3.3V )
+ )
+ ( /4FB121B1 BORNIER3  P5 CONN_3 {Lib=CONN_3}
+  (    1 /BININP4 )
+  (    2 /BININP3 )
+  (    3 GND )
+ )
+ ( /4FB121B0 SM0603S  R6 10K {Lib=R}
+  (    1 /BININP3 )
+  (    2 +3.3V )
+ )
+ ( /4FB12165 SM0603S  R2 10K {Lib=R}
+  (    1 /BININP1 )
+  (    2 +3.3V )
+ )
+ ( /4FB1214F BORNIER3  P4 CONN_3 {Lib=CONN_3}
+  (    1 /BININP2 )
+  (    2 /BININP1 )
+  (    3 GND )
+ )
+ ( /4FB1214E SM0603S  R4 10K {Lib=R}
+  (    1 /BININP2 )
+  (    2 +3.3V )
+ )
+ ( /4FB120AD SM0603S  R3 10K {Lib=R}
+  (    1 /BININP0 )
+  (    2 +3.3V )
+ )
+ ( /4FB12081 BORNIER2  P3 CONN_2 {Lib=CONN_2}
+  (    1 /BININP0 )
+  (    2 GND )
+ )
+ ( /4FB119A6 SM0603S  R5 1k {Lib=R}
+  (    1 N-000009 )
+  (    2 /LCD_BL )
+ )
+ ( /4FB11975 SOT23EBC  Q1 NPN {Lib=NPN}
+  (    1 GND )
+  (    2 N-000009 )
+  (    3 N-000003 )
+ )
+ ( /4FB11869 POT_MURATA  RV1 10k {Lib=POT}
+  (    1 +3.3V )
+  (    2 N-000013 )
+  (    3 GND )
+ )
+ ( /4FB117A4 lcd_2x16_led_backlight-HY-1602F  LCD1 LCD_2X16_SIL {Lib=LCD_2X16_SIL}
+  (    1 GND )
+  (    2 +3.3V )
+  (    3 N-000013 )
+  (    4 /LCD_RS )
+  (    5 GND )
+  (    6 /LCD_E )
+  (    7 ? )
+  (    8 ? )
+  (    9 ? )
+  (   10 ? )
+  (   11 /LCD_D4 )
+  (   12 /LCD_D5 )
+  (   13 /LCD_D6 )
+  (   14 /LCD_D7 )
+  (   15 +3.3V )
+  (   16 N-000003 )
+ )
+ ( /4FB0CF16 switch-tact-noah  SW1 SW_PUSH_SMALL {Lib=SW_PUSH_SMALL}
+  (    1 /RESET )
+  (    2 GND )
+ )
+ ( /4FA26347 SMDCPOL_6.3  C1 47u {Lib=CP1}
+  (    1 N-000008 )
+  (    2 GND )
+ )
+ ( /4F9E9A21 SM0603S  C5 100n {Lib=C}
+  (    1 N-000024 )
+  (    2 /RESET )
+ )
+ ( /4E2EDD72 SMA  D1 DIODESCH {Lib=DIODESCH}
+  (    1 N-000036 )
+  (    2 N-000008 )
+ )
+ ( /4E2D91DA BORNIER2  P1 CONN_2 {Lib=CONN_2}
+  (    1 N-000036 )
+  (    2 GND )
+ )
+ ( /4E2D137B PIN_ARRAY_5X1  P2 CONN_5 {Lib=CONN_5}
+  (    1 /TXD )
+  (    2 /RXD )
+  (    3 GND )
+  (    4 +3.3V )
+  (    5 N-000024 )
+ )
+ ( /4E2D1265 SM0603S  D2 LED {Lib=LED}
+  (    1 N-000034 )
+  (    2 GND )
+ )
+ ( /4E2D1255 SM0603S  R1 470 {Lib=R}
+  (    1 N-000034 )
+  (    2 N-000033 )
+ )
+ ( /4E2D1188 PANSTAMP_02  U1 PANSTAMP_02 {Lib=PANSTAMP_02}
+  (    1 GND )
+  (    2 /BININP4 )
+  (    3 /LCD_BL )
+  (    4 /LCD_RS )
+  (    5 /LCD_E )
+  (    6 /LCD_D4 )
+  (    7 GND )
+  (    8 /LCD_D5 )
+  (    9 /LCD_D6 )
+  (   10 /LCD_D7 )
+  (   11 /A6 )
+  (   12 ? )
+  (   13 /RESET )
+  (   14 +3.3V )
+  (   15 GND )
+  (   16 /RXD )
+  (   17 /TXD )
+  (   18 /BININP0 )
+  (   19 N-000033 )
+  (   20 /BININP1 )
+  (   21 /BININP2 )
+  (   22 /BININP3 )
+  (   23 GND )
+  (   24 GND )
+  (   25 ? )
+  (   26 ? )
+  (   27 ? )
+  (   28 ? )
+  (   29 ? )
+ )
+ ( /4BFFD798 SOT223  U2 UA78M33 {Lib=LF33}
+  (    1 N-000008 )
+  (    2 GND )
+  (    3 +3.3V )
+ )
+ ( /48B3CBEC SM0603S  C4 100n {Lib=C}
+  (    1 +3.3V )
+  (    2 GND )
+ )
+ ( /48B2D4E6 SMDCPOL_5  C2 22u {Lib=CP1}
+  (    1 +3.3V )
+  (    2 GND )
+ )
+ ( /48B2D401 SM0603S  C3 1u {Lib=C}
+  (    1 +3.3V )
+  (    2 GND )
+ )
+)
+*
+{ Allowed footprints by component:
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C1
+ CP*
+ SM*
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ D?
+ S*
+$endlist
+$component D2
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component U1
+ PANSTAMP_02
+$endlist
+$component U2
+ DPACK2
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ CP*
+ SM*
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 2 "GND" "GND"
+ U1 7
+ U1 1
+ D2 2
+ U1 15
+ U1 24
+ U1 23
+ C3 2
+ C2 2
+ C4 2
+ U2 2
+ P2 3
+ P6 2
+ P4 3
+ A6 3
+ P5 3
+ LCD1 1
+ RV1 3
+ SW1 2
+ P3 2
+ C1 2
+ P1 2
+ LCD1 5
+ Q1 1
+Net 3 "" ""
+ Q1 3
+ LCD1 16
+Net 8 "" ""
+ C1 1
+ D1 2
+ U2 1
+Net 9 "" ""
+ R5 1
+ Q1 2
+Net 10 "+3.3V" "+3.3V"
+ R4 2
+ U1 14
+ R2 2
+ C3 1
+ RV1 1
+ A6 1
+ R3 2
+ P2 4
+ U2 3
+ LCD1 2
+ C4 1
+ C2 1
+ R6 2
+ LCD1 15
+ R7 2
+Net 11 "/LCD_D6" "LCD_D6"
+ U1 9
+ LCD1 13
+Net 12 "/LCD_D7" "LCD_D7"
+ U1 10
+ LCD1 14
+Net 13 "" ""
+ RV1 2
+ LCD1 3
+Net 15 "/BININP0" "BININP0"
+ U1 18
+ R3 1
+ P3 1
+Net 19 "/BININP3" "BININP3"
+ R6 1
+ P5 2
+ U1 22
+Net 20 "/BININP2" "BININP2"
+ U1 21
+ P4 1
+ R4 1
+Net 21 "/BININP1" "BININP1"
+ R2 1
+ P4 2
+ U1 20
+Net 23 "/RESET" "RESET"
+ SW1 1
+ C5 2
+ U1 13
+Net 24 "" ""
+ P2 5
+ C5 1
+Net 25 "/TXD" "TXD"
+ P2 1
+ U1 17
+Net 26 "/RXD" "RXD"
+ U1 16
+ P2 2
+Net 27 "/LCD_D5" "LCD_D5"
+ U1 8
+ LCD1 12
+Net 28 "/LCD_D4" "LCD_D4"
+ U1 6
+ LCD1 11
+Net 29 "/LCD_E" "LCD_E"
+ U1 5
+ LCD1 6
+Net 30 "/LCD_RS" "LCD_RS"
+ LCD1 4
+ U1 4
+Net 31 "/LCD_BL" "LCD_BL"
+ U1 3
+ R5 2
+Net 32 "/BININP4" "BININP4"
+ U1 2
+ P5 1
+ R7 1
+Net 33 "" ""
+ U1 19
+ R1 2
+Net 34 "" ""
+ R1 1
+ D2 1
+Net 35 "/A6" "A6"
+ U1 11
+ A6 2
+Net 36 "" ""
+ P6 1
+ P1 1
+ D1 1
+}
+#End

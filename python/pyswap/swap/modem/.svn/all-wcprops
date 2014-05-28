@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/780/trunk/python/pyswap/src/swap/modem
+END
+CcPacket.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/modem/CcPacket.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/modem/__init__.py
+END
+SerialModem.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/modem/SerialModem.py
+END
+SerialPort.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/modem/SerialPort.py
+END

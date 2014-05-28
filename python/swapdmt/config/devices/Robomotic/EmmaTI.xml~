@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<device>
+  <developer>Robomotic</developer>
+  <product>Emma Chronos</product>
+  <pwrdownmode>true</pwrdownmode>
+  <config>
+    <reg name="Calibration" id="11">
+      <param name="Use metrics (1=Yes 0=No)" type="bin">
+        <position>0</position>
+        <size>1</size>
+        <default>1</default>
+      </param>
+      <param name="Current temperature in Celsious (NN.D format)" type="num">
+        <position>1</position>
+        <size>2</size>
+        <default>0</default>
+        <verif>[-+]?[0-9]*\.[0-9]{1}</verif>
+      </param>
+      <param name="Current altitude in mts" type="num">
+        <position>3</position>
+        <size>2</size>
+      <verif>^(\d*)$</verif>
+      </param>
+    </reg>
+    <reg name="Date/Time" id="12">
+      <param name="Hour (24h format)" type="num">
+        <position>0</position>
+        <size>1</size>
+        <verif>HOUR</verif>
+      </param>
+      <param name="Minutes" type="num">
+        <position>1</position>
+        <size>1</size>
+        <verif>MINUTE</verif>
+      </param>
+      <param name="Seconds" type="num">
+        <position>2</position>
+        <size>1</size>
+        <verif>SECOND</verif>
+      </param>
+      <param name="Year (YYYY format)" type="num">
+        <position>3</position>
+        <size>2</size>
+        <default>2012</default>
+        <verif>YEAR</verif>
+      </param>
+      <param name="Month" type="num">
+        <position>5</position>
+        <size>1</size>
+        <default>1</default>
+        <verif>MONTH</verif>
+      </param>
+      <param name="Day" type="num">
+        <position>6</position>
+        <size>1</size>
+        <default>1</default>               
+        <verif>MDAY</verif>
+      </param>
+    </reg>
+    <reg name="Time alarm" id="13">
+      <param name="Hour" type="num">
+        <position>0</position>
+        <size>1</size>
+        <verif>HOUR</verif>
+      </param>
+      <param name="Minutes" type="num">
+        <position>1</position>
+        <size>1</size>
+        <verif>MINUTE</verif>
+      </param>
+    </reg>
+  </config>
+  <regular>
+    <reg name="Environmental sensors" id="14">
+      <endpoint name="Temperature" type="num" dir="inp">
+        <position>0</position>
+        <size>2</size>
+        <units>
+          <unit name="C" factor="0.1" offset="0"/>
+          <unit name="F" factor="0.18" offset="32"/>
+          <unit name="K" factor="0.1" offset="273.15"/>
+        </units>
+      </endpoint>
+      <endpoint name="Pressure" type="num" dir="inp">
+        <position>2</position>
+        <size>4</size>
+        <units>
+          <unit name="mbar" factor="0.01" offset="0"/>
+          <unit name="Pa" factor="1" offset="0"/>
+          <unit name="kPa" factor="0.001" offset="0"/>
+        </units>
+      </endpoint>
+      <endpoint name="Altitude" type="num" dir="inp">
+        <position>6</position>
+        <size>2</size>
+        <units>
+          <unit name="m" factor="1" offset="0"/>
+        </units>
+      </endpoint>
+    </reg>
+    <reg name="Status sensors" id="15">
+      <endpoint name="Battery" type="num" dir="inp">
+        <position>0</position>
+        <size>2</size>
+        <units>
+          <unit name="V" factor="0.01" offset="0"/>
+        </units>
+      </endpoint>
+      <endpoint name="Offset" type="num" dir="inp">
+        <position>2</position>
+        <size>2</size>
+        <units>
+          <unit name="V" factor="0.01" offset="0"/>
+        </units>
+      </endpoint>
+    </reg>
+    <reg name="Emma events" id="16">
+      <endpoint name="Alarm" type="num" dir="inp">
+        <position>0</position>
+        <size>1</size>
+      </endpoint>
+    </reg>
+    <reg name="Wrist motion" id="17">
+      <endpoint name="Feature" type="num" dir="inp">
+        <position>0</position>
+        <size>3</size>
+      </endpoint>
+    </reg>
+  </regular>
+</device>

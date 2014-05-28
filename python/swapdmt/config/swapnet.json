@@ -1,0 +1,251 @@
+{
+  "network": {
+    "name": "SWAP", 
+    "motes": [
+      {
+        "registers": [
+          {
+            "endpoints": [
+              {
+                "direction": "out", 
+                "name": "Binary_0", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.0"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_1", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.1"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_2", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.2"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_3", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.3"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_4", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.4"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_5", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.5"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_6", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.6"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_7", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "255.11.7"
+              }
+            ], 
+            "id": 11, 
+            "name": "Binary outputs"
+          }, 
+          {
+            "endpoints": [
+              {
+                "direction": "out", 
+                "name": "PWM_output_0", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "255.12.0"
+              }, 
+              {
+                "direction": "out", 
+                "name": "PWM_output_1", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "255.12.1"
+              }, 
+              {
+                "direction": "out", 
+                "name": "PWM_output_2", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "255.12.2"
+              }, 
+              {
+                "direction": "out", 
+                "name": "PWM_output_3", 
+                "timestamp": "05 May 2014 11:45:21", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "255.12.3"
+              }
+            ], 
+            "id": 12, 
+            "name": "PWM outputs"
+          }
+        ], 
+        "pcode": "0000000100000007", 
+        "address": 24, 
+        "name": "Binary/PWM output module", 
+        "manufacturer": "panStamp"
+      }, 
+      {
+        "registers": [
+          {
+            "endpoints": [
+              {
+                "direction": "out", 
+                "name": "Binary_0", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.0"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_1", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.1"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_2", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.2"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_3", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.3"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_4", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.4"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_5", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.5"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_6", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.6"
+              }, 
+              {
+                "direction": "out", 
+                "name": "Binary_7", 
+                "value": "off", 
+                "location": "SWAP", 
+                "type": "bin", 
+                "id": "11.11.7"
+              }
+            ], 
+            "id": 11, 
+            "name": "Binary outputs"
+          }, 
+          {
+            "endpoints": [
+              {
+                "direction": "out", 
+                "name": "PWM_output_0", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "11.12.0"
+              }, 
+              {
+                "direction": "out", 
+                "name": "PWM_output_1", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "11.12.1"
+              }, 
+              {
+                "direction": "out", 
+                "name": "PWM_output_2", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "11.12.2"
+              }, 
+              {
+                "direction": "out", 
+                "name": "PWM_output_3", 
+                "value": "0", 
+                "location": "SWAP", 
+                "type": "num", 
+                "id": "11.12.3"
+              }
+            ], 
+            "id": 12, 
+            "name": "PWM outputs"
+          }
+        ], 
+        "pcode": "0000000100000007", 
+        "address": 11, 
+        "name": "Binary/PWM output module", 
+        "manufacturer": "panStamp"
+      }
+    ]
+  }
+}

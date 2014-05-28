@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg viewBox='0.0000000 -0.6000000 1.0000000 0.6000000' preserveAspectRatio='xMidYMid'>
+  <g>
+    <g>
+      <polyline points='0.1500000,-0.5500000 0.1500000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.1000000 0.1500000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1500000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.0</text>
+      <polyline points='0.2300000,-0.5500000 0.2300000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.2300000,-0.1000000 0.2300000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.2300000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.1</text>
+      <polyline points='0.3100000,-0.5500000 0.3100000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.3100000,-0.1000000 0.3100000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.3100000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.2</text>
+      <polyline points='0.3900000,-0.5500000 0.3900000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.3900000,-0.1000000 0.3900000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.3900000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.3</text>
+      <polyline points='0.4700000,-0.5500000 0.4700000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.4700000,-0.1000000 0.4700000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.4700000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.4</text>
+      <polyline points='0.5500000,-0.5500000 0.5500000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.5500000,-0.1000000 0.5500000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.5500000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.5</text>
+      <polyline points='0.6300000,-0.5500000 0.6300000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.6300000,-0.1000000 0.6300000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.6300000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.6</text>
+      <polyline points='0.7100000,-0.5500000 0.7100000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.7100000,-0.1000000 0.7100000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.7100000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.7</text>
+      <polyline points='0.7900000,-0.5500000 0.7900000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.7900000,-0.1000000 0.7900000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.7900000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.8</text>
+      <polyline points='0.8700000,-0.5500000 0.8700000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.8700000,-0.1000000 0.8700000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.8700000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>0.9</text>
+      <polyline points='0.9500000,-0.5500000 0.9500000,-0.5600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.9500000,-0.1000000 0.9500000,-0.0900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.9500000' y='-0.0900000' fill='#000000' font-size='0.0300000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>1.0</text>
+      <polyline points='0.9500000,-0.1000000 0.9600000,-0.1000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.1000000 0.1400000,-0.1000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.1000000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.0</text>
+      <polyline points='0.9500000,-0.1450000 0.9600000,-0.1450000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.1450000 0.1400000,-0.1450000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.1450000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.1</text>
+      <polyline points='0.9500000,-0.1900000 0.9600000,-0.1900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.1900000 0.1400000,-0.1900000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.1900000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.2</text>
+      <polyline points='0.9500000,-0.2350000 0.9600000,-0.2350000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.2350000 0.1400000,-0.2350000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.2350000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.3</text>
+      <polyline points='0.9500000,-0.2800000 0.9600000,-0.2800000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.2800000 0.1400000,-0.2800000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.2800000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.4</text>
+      <polyline points='0.9500000,-0.3250000 0.9600000,-0.3250000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.3250000 0.1400000,-0.3250000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.3250000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.5</text>
+      <polyline points='0.9500000,-0.3700000 0.9600000,-0.3700000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.3700000 0.1400000,-0.3700000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.3700000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.6</text>
+      <polyline points='0.9500000,-0.4150000 0.9600000,-0.4150000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.4150000 0.1400000,-0.4150000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.4150000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.7</text>
+      <polyline points='0.9500000,-0.4600000 0.9600000,-0.4600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.4600000 0.1400000,-0.4600000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.4600000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.8</text>
+      <polyline points='0.9500000,-0.5050000 0.9600000,-0.5050000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.5050000 0.1400000,-0.5050000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.5050000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>0.9</text>
+      <polyline points='0.9500000,-0.5500000 0.9600000,-0.5500000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.5500000 0.1400000,-0.5500000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.1400000' y='-0.5500000' fill='#000000' font-size='0.0300000' text-anchor='end' font-family='sans-serif' baseline-shift='-23%'>1.0</text>
+      <polyline points='0.1500000,-0.1000000 0.9500000,-0.1000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.1000000 0.1500000,-0.5500000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.1500000,-0.5500000 0.9500000,-0.5500000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <polyline points='0.9500000,-0.1000000 0.9500000,-0.5500000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+      <text x='0.5500000' y='-0.0500000' fill='#000000' font-weight='bold' font-size='0.0400000' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>x</text>
+      <text x='0.0500000' y='-0.3250000' fill='#000000' font-weight='bold' font-size='0.0400000' text-anchor='middle' font-family='sans-serif' baseline-shift='41%' transform='rotate(-90.0000000,0.0500000,-0.3250000)'>y</text>
+    </g>
+    <g>
+      <g clip-path='url(#path0)'>
+        <clipPath id='path0'>
+          <rect x='0.1500000' y='-0.5500000' width='0.8000000' height='0.4500000'/>
+        </clipPath>
+        <polyline points='0.4700000,-0.1765000 0.5500000,-0.2305000 0.6300000,-0.3025000 0.7100000,-0.3745000 0.7900000,-0.3880000 0.8700000,-0.3970000' fill='none' stroke='#cc0000' stroke-width='0.0000010'/>
+      </g>
+      <g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+        <g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <g>
+        <g>
+          <rect x='0.4650000' y='-0.1990000' width='0.0100000' height='0.0450000' fill='#00cafe' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.5450000' y='-0.2467000' width='0.0100000' height='0.0324000' fill='#00cafe' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.6250000' y='-0.3290500' width='0.0100000' height='0.0531000' fill='#00cafe' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.7050000' y='-0.4060000' width='0.0100000' height='0.0630000' fill='#00cafe' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.7850000' y='-0.4154500' width='0.0100000' height='0.0549000' fill='#00cafe' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.8650000' y='-0.4208500' width='0.0100000' height='0.0477000' fill='#00cafe' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+      </g>
+    </g>
+    <g>
+      <g clip-path='url(#path1)'>
+        <clipPath id='path1'>
+          <rect x='0.1500000' y='-0.5500000' width='0.8000000' height='0.4500000'/>
+        </clipPath>
+        <polyline points='0.1660000,-0.4060000 0.2380000,-0.3745000 0.2940000,-0.3340000 0.3900000,-0.2845000 0.4860000,-0.2215000 0.5420000,-0.1945000 0.6380000,-0.1495000' fill='none' stroke='#00cc00' stroke-width='0.0000010'/>
+      </g>
+      <g>
+        <rect x='0.1610000' y='-0.4110000' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+        <rect x='0.2330000' y='-0.3795000' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+        <rect x='0.2890000' y='-0.3390000' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+        <rect x='0.3850000' y='-0.2895000' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+        <rect x='0.4810000' y='-0.2265000' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+        <rect x='0.5370000' y='-0.1995000' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+        <rect x='0.6330000' y='-0.1545000' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+      </g>
+    </g>
+    <g>
+      <g>
+        <g>
+          <rect x='0.1492000' y='-0.4060000' width='0.0336000' height='0.0000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+          <rect x='0.1660000' y='-0.4213000' width='0.0000000' height='0.0306000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.2300000' y='-0.3745000' width='0.0160000' height='0.0000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+          <rect x='0.2380000' y='-0.3871000' width='0.0000000' height='0.0252000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.2804000' y='-0.3340000' width='0.0272000' height='0.0000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+          <rect x='0.2940000' y='-0.3479500' width='0.0000000' height='0.0279000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.3708000' y='-0.2845000' width='0.0384000' height='0.0000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+          <rect x='0.3900000' y='-0.3020500' width='0.0000000' height='0.0351000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.4676000' y='-0.2215000' width='0.0368000' height='0.0000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+          <rect x='0.4860000' y='-0.2350000' width='0.0000000' height='0.0270000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.5220000' y='-0.1945000' width='0.0400000' height='0.0000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+          <rect x='0.5420000' y='-0.2089000' width='0.0000000' height='0.0288000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+        <g>
+          <rect x='0.6164000' y='-0.1495000' width='0.0432000' height='0.0000000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+          <rect x='0.6380000' y='-0.1679500' width='0.0000000' height='0.0369000' fill='none' stroke='#000000' stroke-width='0.0000010'/>
+        </g>
+      </g>
+    </g>
+    <g>
+      <g>
+        <rect x='0.7400000' y='-0.5400000' width='0.2000000' height='0.1000000' fill='#ffffff' stroke='#000000' stroke-width='0.0000010'/>
+        <text x='0.8400000' y='-0.5350000' fill='#000000' font-size='0.0116619' text-anchor='middle' font-family='sans-serif' baseline-shift='-87%'>Legend</text>
+      </g>
+      <g>
+        <polyline points='0.7500000,-0.5000000 0.7850000,-0.5000000' fill='none' stroke='#cc0000' stroke-width='0.0000010'/>
+        <g>
+        </g>
+      </g>
+      <text x='0.7900000' y='-0.5000000' fill='#000000' font-size='0.0116619' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>curve 2</text>
+      <g>
+        <g>
+        </g>
+      </g>
+      <text x='0.7900000' y='-0.4866667' fill='#000000' font-size='0.0116619' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'></text>
+      <g>
+        <polyline points='0.7500000,-0.4733333 0.7850000,-0.4733333' fill='none' stroke='#00cc00' stroke-width='0.0000010'/>
+        <rect x='0.7625000' y='-0.4783333' width='0.0100000' height='0.0100000' fill='#0040c0'/>
+      </g>
+      <text x='0.7900000' y='-0.4733333' fill='#000000' font-size='0.0116619' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'>curve 1</text>
+      <g>
+        <g>
+        </g>
+      </g>
+      <text x='0.7900000' y='-0.4600000' fill='#000000' font-size='0.0116619' text-anchor='start' font-family='sans-serif' baseline-shift='-23%'></text>
+    </g>
+  </g>
+</svg>
+

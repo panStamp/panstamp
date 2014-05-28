@@ -1,0 +1,468 @@
+# EESchema Netlist Version 1.1 created  Thu 20 Sep 2012 11:26:54 AM CEST
+(
+ ( /505AE13B SM0603S  R5 4k7 {Lib=R}
+  (    1 /A4_SDA )
+  (    2 +3.3V )
+ )
+ ( /505AE112 SM0603S  R4 4k7 {Lib=R}
+  (    1 /A5_SCL )
+  (    2 +3.3V )
+ )
+ ( /505A4562 SM0805  F1 PTC_500mA {Lib=FUSE}
+  (    1 /Vbus )
+  (    2 N-000044 )
+ )
+ ( /505A38C9 GROVE_MALE  P4 CONN_4 {Lib=CONN_4}
+  (    1 /A2 )
+  (    2 /A3 )
+  (    3 +3.3V )
+  (    4 GND )
+ )
+ ( /505A363A GROVE_MALE  P3 CONN_4 {Lib=CONN_4}
+  (    1 /A5_SCL )
+  (    2 /A4_SDA )
+  (    3 +3.3V )
+  (    4 GND )
+ )
+ ( /4FF1F180 SIL-12  P2 CONN_12 {Lib=CONN_12}
+  (    1 GND )
+  (    2 GND )
+  (    3 /D7 )
+  (    4 /D6 )
+  (    5 /D5 )
+  (    6 /D4 )
+  (    7 /D3 )
+  (    8 /TXD )
+  (    9 /RXD )
+  (   10 GND )
+  (   11 +3.3V )
+  (   12 /RESET )
+ )
+ ( /4FF1F168 SIL-12  P1 CONN_12 {Lib=CONN_12}
+  (    1 GND )
+  (    2 /D8 )
+  (    3 /D9 )
+  (    4 /A0 )
+  (    5 /A1 )
+  (    6 /A2 )
+  (    7 GND )
+  (    8 /A3 )
+  (    9 /A4_SDA )
+  (   10 /A5_SCL )
+  (   11 /A6 )
+  (   12 /A7 )
+ )
+ ( /4FB4B2E5 switch-tact-noah  SW1 SW_PUSH_SMALL {Lib=SW_PUSH_SMALL}
+  (    1 GND )
+  (    2 /RESET )
+ )
+ ( /4F75891A PANSTAMP_02  U1 PANSTAMP_02 {Lib=PANSTAMP_02}
+  (    1 GND )
+  (    2 /D8 )
+  (    3 /D9 )
+  (    4 /A0 )
+  (    5 /A1 )
+  (    6 /A2 )
+  (    7 GND )
+  (    8 /A3 )
+  (    9 /A4_SDA )
+  (   10 /A5_SCL )
+  (   11 /A6 )
+  (   12 /A7 )
+  (   13 /RESET )
+  (   14 +3.3V )
+  (   15 GND )
+  (   16 /RXD )
+  (   17 /TXD )
+  (   18 /D3 )
+  (   19 /D4 )
+  (   20 /D5 )
+  (   21 /D6 )
+  (   22 /D7 )
+  (   23 GND )
+  (   24 GND )
+  (   25 +3.3V )
+  (   26 GND )
+  (   27 ? )
+  (   28 ? )
+  (   29 ? )
+ )
+ ( /4CCA9E22 SM0603S  C8 1u {Lib=C}
+  (    1 N-000044 )
+  (    2 GND )
+ )
+ ( /4CCA9E1F SM0603S  C7 4.7u {Lib=C}
+  (    1 N-000044 )
+  (    2 GND )
+ )
+ ( /4CCA9DDF SM0603S  C10 100n {Lib=C}
+  (    1 +3.3V )
+  (    2 GND )
+ )
+ ( /4CCA954A SM0603S  C9 1u {Lib=C}
+  (    1 +3.3V )
+  (    2 GND )
+ )
+ ( /4CCA925B SOT23  U3 MCP1702 {Lib=MCP1702}
+  (    1 GND )
+  (    2 +3.3V )
+  (    3 N-000044 )
+ )
+ ( /4CCA7974 SM0603S  C1 15p {Lib=C}
+  (    1 N-000041 )
+  (    2 GND )
+ )
+ ( /4CCA7963 SM0603S  C2 15p {Lib=C}
+  (    1 N-000043 )
+  (    2 GND )
+ )
+ ( /4CC93692 SM0603S  D1 LED {Lib=LED}
+  (    1 N-000042 )
+  (    2 GND )
+ )
+ ( /4CC9365B SM0603S  R1 470 {Lib=R}
+  (    1 /D4 )
+  (    2 N-000042 )
+ )
+ ( /4CC05BEC SM0603S  C5 100n {Lib=C}
+  (    1 /Vbus )
+  (    2 GND )
+ )
+ ( /4CC05BEB SM0603S  C4 1u {Lib=C}
+  (    1 /Vbus )
+  (    2 GND )
+ )
+ ( /4CC05BEA SM0603S  C3 4.7u {Lib=C}
+  (    1 /Vbus )
+  (    2 GND )
+ )
+ ( /4CC05947 CONN_USB_A_MALE  J1 USB_2 {Lib=USB_2}
+  (    1 /Vbus )
+  (    2 N-000041 )
+  (    3 N-000043 )
+  (    4 GND )
+ )
+ ( /4CC05810 SM0603S  D3 LED {Lib=LED}
+  (    1 /Vbus )
+  (    2 N-000031 )
+ )
+ ( /4CC0580F SM0603S  R3 1k {Lib=R}
+  (    1 N-000038 )
+  (    2 N-000031 )
+ )
+ ( /4CC057A4 SM0603S  R2 1k {Lib=R}
+  (    1 N-000039 )
+  (    2 N-000030 )
+ )
+ ( /4CC057A3 SM0603S  D2 LED {Lib=LED}
+  (    1 /Vbus )
+  (    2 N-000030 )
+ )
+ ( /4CC05698 SM0603S  C6 100n {Lib=C}
+  (    1 /RESET )
+  (    2 N-000040 )
+ )
+ ( /4CC05399 ftdichip-3-SSOP28DB  U2 FT232RL {Lib=FT232RL}
+  (    1 /RXD )
+  (    2 N-000040 )
+  (    3 ? )
+  (    4 +3.3V )
+  (    5 /TXD )
+  (    6 ? )
+  (    7 GND )
+  (    9 ? )
+  (   10 ? )
+  (   11 ? )
+  (   12 ? )
+  (   13 ? )
+  (   14 ? )
+  (   15 N-000043 )
+  (   16 N-000041 )
+  (   17 ? )
+  (   18 GND )
+  (   19 /Vbus )
+  (   20 /Vbus )
+  (   21 GND )
+  (   22 N-000039 )
+  (   23 N-000038 )
+  (   25 GND )
+  (   26 GND )
+  (   27 ? )
+  (   28 ? )
+ )
+)
+*
+{ Allowed footprints by component:
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component U1
+ PANSTAMP_02
+$endlist
+$component C8
+ SM*
+ C?
+ C1-1
+$endlist
+$component C7
+ SM*
+ C?
+ C1-1
+$endlist
+$component C10
+ SM*
+ C?
+ C1-1
+$endlist
+$component C9
+ SM*
+ C?
+ C1-1
+$endlist
+$component U3
+ SOT23
+$endlist
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component D3
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component D2
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 1 "+3.3V" "+3.3V"
+ U2 4
+ R5 2
+ P3 3
+ P4 3
+ P2 11
+ C9 1
+ U3 2
+ R4 2
+ U1 25
+ U1 14
+ C10 1
+Net 2 "/D9" "D9"
+ U1 3
+ P1 3
+Net 3 "/D8" "D8"
+ U1 2
+ P1 2
+Net 4 "/D7" "D7"
+ P2 3
+ U1 22
+Net 5 "/D6" "D6"
+ P2 4
+ U1 21
+Net 6 "GND" "GND"
+ C9 2
+ U1 7
+ C3 2
+ C4 2
+ U1 15
+ U1 1
+ U3 1
+ U1 24
+ C5 2
+ U1 23
+ D1 2
+ C2 2
+ C1 2
+ C8 2
+ P2 10
+ P1 1
+ P1 7
+ SW1 1
+ U1 26
+ C7 2
+ P2 2
+ U2 18
+ U2 26
+ P4 4
+ U2 25
+ C10 2
+ U2 21
+ P2 1
+ J1 4
+ P3 4
+ U2 7
+Net 7 "/Vbus" "Vbus"
+ U2 19
+ C4 1
+ C5 1
+ D3 1
+ C3 1
+ D2 1
+ J1 1
+ U2 20
+ F1 1
+Net 11 "/RESET" "RESET"
+ P2 12
+ U1 13
+ C6 1
+ SW1 2
+Net 12 "/D5" "D5"
+ U1 20
+ P2 5
+Net 13 "/D4" "D4"
+ R1 1
+ P2 6
+ U1 19
+Net 14 "/D3" "D3"
+ U1 18
+ P2 7
+Net 15 "/A0" "A0"
+ U1 4
+ P1 4
+Net 16 "/A1" "A1"
+ U1 5
+ P1 5
+Net 17 "/A2" "A2"
+ P4 1
+ P1 6
+ U1 6
+Net 18 "/A3" "A3"
+ P1 8
+ U1 8
+ P4 2
+Net 19 "/A4_SDA" "A4_SDA"
+ P3 2
+ R5 1
+ P1 9
+ U1 9
+Net 20 "/A5_SCL" "A5_SCL"
+ R4 1
+ P3 1
+ U1 10
+ P1 10
+Net 21 "/A6" "A6"
+ U1 11
+ P1 11
+Net 22 "/A7" "A7"
+ U1 12
+ P1 12
+Net 23 "/TXD" "TXD"
+ U2 5
+ U1 17
+ P2 8
+Net 24 "/RXD" "RXD"
+ U2 1
+ P2 9
+ U1 16
+Net 30 "" ""
+ R2 2
+ D2 2
+Net 31 "" ""
+ R3 2
+ D3 2
+Net 38 "" ""
+ U2 23
+ R3 1
+Net 39 "" ""
+ R2 1
+ U2 22
+Net 40 "" ""
+ C6 2
+ U2 2
+Net 41 "" ""
+ C1 1
+ J1 2
+ U2 16
+Net 42 "" ""
+ R1 2
+ D1 1
+Net 43 "" ""
+ U2 15
+ C2 1
+ J1 3
+Net 44 "" ""
+ C8 1
+ C7 1
+ U3 3
+ F1 2
+}
+#End

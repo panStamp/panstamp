@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 2.3 Example: Brusselator</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a>
+            <li><a href="usage.html">Usage as a Library</a><br>
+                2.1 <a href="animatedChart.html">Example: Animated Chart</a><br>
+                2.2 <a href="lorenz.html">Example: Lorenz Attractor</a><br>
+                2.3 <b>Example: Brusselator</b><br>
+                2.4 <a href="zoom.html">Example: Zooming</a><br>
+                2.5 <a href="offscreen.html">Example: Off-Screen Image Creation</a><br>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKit's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>2.3 Example: Brusselator</h1>
+
+The Brusselator applet (see the <a href="../examples.html">Examples</a> page)
+shows the time evolution of a simulated dynamical system 
+(a so-called reaction-diffusion system) in an animated way. 
+At equidistant time steps (defining the frame rate of the animation) 
+two curves are plotted. There is a start
+button as well as a stop button for starting/stopping the animation.
+With the buttons labeled "reset" and "add noise" the user can change
+the initial state of the system.
+<p>
+<center><img src="brusselator.png"></center>
+<p>
+The design of this applet is based on the Model View Controller (MVC)
+architectual pattern:
+<dl><dt><em>Model</em>:</dt>
+    <dd>The class <a href="brusselator/Brusselator.java"><tt>Brusselator</tt>
+        </a> holds the state of the system. It has getters and setters for 
+        manipulating the system state and the model parameters. 
+        The method <tt>next()</tt> calculates the state
+        for the next time step. Registrated <tt>ActionListeners</tt> will
+        be notified if the state has been changed.</dd>
+    <dt><em>View</em>:</dt>
+    <dd>Actual there are two views: <a href="brusselator/TimeView.java">
+        <tt>TimeView</tt></a> showing the current simulation time in the
+        upper-left corner and <a href="brusselator/BrusselatorPlot.java">
+        <tt>BrusselatorPlot</tt></a> showing the current state of the
+        Brusselator using JCCKit.</dd>
+    <dt><em>Controller</em>:</dt>
+    <dd>The controller class is 
+        <a href="brusselator/BrusselatorController.java">
+        <tt>BrusselatorController</tt></a>. It is responsible for the
+        actions caused by button events.
+</dl>
+The <a href="brusselator/BrusselatorApplet.java"><tt>BrusselatorApplet</tt></a>
+puts everything together.
+<p>
+First, we take a closer look at the code of
+<tt>BrusselatorPlot</tt> (usage of JCCKit is highlighted):
+<tt>
+<pre class="code">
+<b>public class BrusselatorPlot extends GraphicsPlotCanvas </b>{
+  private Brusselator _brusselator;
+
+  public BrusselatorPlot(<b>ConfigParameters config</b>, Brusselator brusselator) {
+    <b>super(config);</b>
+    _brusselator = brusselator;
+    brusselator.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent event) {
+            replot();
+          }
+        });
+    replot();
+  }
+
+  private void replot() { ... }
+}
+</pre>
+</tt>
+
+We see that <tt>BrusselatorPlot</tt> is a subclass of 
+<a href="../apidoc/jcckit/GraphicsPlotCanvas.html">
+<tt>GraphicsPlotCanvas</tt></a>.
+<tt>GraphicsPlotCanvas</tt> is a convenient class for presenting a plot in a
+Java AWT <tt>Canvas</tt>. But it should be configured by an instance of
+<a href="../apidoc/jcckit/util/ConfigParameters.html">
+<tt>ConfigParameters</tt></a>.
+Below we will see that the configuration parameters are provided by the
+applet parameters. Thus all the details of the coordinate system, fonts, colors
+etc. can be specified by applet parameters during developing the HTML page
+where the applet is embedded.
+<p>
+The model (i.e. <tt>Brusselator</tt>) is stored in the field 
+<tt>_brusselator</tt>. It will be needed
+in the method <tt>replot()</tt> to obtain the data to be plotted.
+Also an anonymous <tt>ActionListener</tt> is added to the model: When the
+model state changes <tt>replot()</tt> will be invoked.
+<p>
+Here is the code of <tt>replot()</tt>:
+<tt>
+<pre class="code">
+private void replot() {<b>
+  DataPlot plot = new DataPlot();
+  DataCurve uCurve = new DataCurve("u");
+  DataCurve vCurve = new DataCurve("v");</b>
+  double dx = _brusselator.getDx();
+  for (int i = 0, n = _brusselator.getNumberOfPoints(); i < n; i++) {<b>
+    uCurve.addElement(new DataPoint(dx * i, _brusselator.getU(i)));
+    vCurve.addElement(new DataPoint(dx * i, _brusselator.getV(i)));</b>
+  }<b>
+  plot.addElement(uCurve);
+  plot.addElement(vCurve);
+  connect(plot);</b>
+}
+</pre>
+</tt>
+A <a href="../apidoc/jcckit/data/DataPlot.html"><tt>DataPlot</tt></a> with two 
+<a href="../apidoc/jcckit/data/DataCurve.html"><tt>DataCurves</tt></a> is 
+created. In the <tt>for</tt> loop the <tt>DataCurves</tt> are filled with
+the data from the model. Finally the <tt>DataPlot</tt> instance is connected 
+with this <tt>GraphicsPlotCanvas</tt> instance.
+<p>
+By the way, it is not a good idea to use the method <tt>replaceElementAt()</tt>
+for the curves or even the data points. 
+This is suitable in the <a href="animatedChart.html">first example</a> where
+only <em>one</em> curve or data point changes at a time. But here
+a large number of data points will be changed in each time step of the
+animation. Each invocation of
+<tt>replaceElementAt</tt> leads to an automatic update of the view which 
+includes a new calculation of the abstract graphical reperesentation of a 
+curve. This sums up to a very time-consuming task which drastically slows
+done animation.
+<p>
+What the <tt>replot()</tt> actually does is a mapping from the
+original data model <tt>Brusselator</tt> (which is and should be independent
+from JCCKit) to the data model of JCCKit.
+<p>
+To see how the configuration parameters are obtained and how the plot is 
+embedded into the applet we take a look at the code of 
+<tt>BrusselatorApplet</tt>:
+<tt>
+<pre class="code">
+public class BrusselatorApplet extends Applet {
+  <b>private ConfigParameters _config = new ConfigParameters(new AppletBasedConfigData(this));</b>
+
+  public void init() {
+    setBackground(_config.getColor("background", getBackground()));
+    Brusselator brusselator = createBrusselator();
+    <b>BrusselatorPlot plot = new BrusselatorPlot(_config, brusselator);</b>
+
+    setLayout(new BorderLayout());
+    Panel p = new Panel();
+    p.setLayout(new FlowLayout(FlowLayout.LEFT));
+    p.add(new TimeView(brusselator));
+    add(p, BorderLayout.NORTH);
+    add(<b>plot.getGraphicsCanvas()</b>, BorderLayout.CENTER);
+    add(new BrusselatorController(brusselator).getControlPanel(), 
+        BorderLayout.SOUTH);
+  }
+
+  private Brusselator createBrusselator() { ... }
+}
+</pre>
+</tt>
+The first line of code after the class declaration shows how to create an
+instance of <tt>ConfigParameters</tt> based on applet parameters. Another
+way is explained in the <a href="animatedChart.html">first example</a>.
+The configuration parameters are used in the line where the instance of
+<tt>BrusselatorPlot</tt> is created. Note, that <tt>BrusselatorPlot</tt>
+as a subclass of <tt>GraphicsPlotCanvas</tt> is <em>not</em> a subclass of
+Java AWT Component. The corresponding AWT component has be obtained by 
+the method <tt>getGraphicsCanvas</tt>.
+<p>
+Here is the <tt>applet</tt> element with the configuration parameters
+(more about their meaning can be found in the 
+chapters&nbsp;<a href="config.html">3</a> and <a href="applet.html">4</a>):
+<tt>
+<pre class="code">
+&lt;applet code="BrusselatorApplet" archive="brusselator.jar, jcckit.jar" width=700 height=400&gt;
+&lt;param name="background" value="0xffffff"&gt;
+&lt;param name="paper" value="0 0 1 0.35"&gt;
+
+&lt;param name="dt" value="0.1"&gt;
+&lt;param name="dx" value="1"&gt;
+&lt;param name="noiseFactor" value="0.1"&gt;
+&lt;param name="L" value="200"&gt;
+&lt;param name="d" value="16"&gt;
+&lt;param name="alpha" value="1.8"&gt;
+&lt;param name="beta" value="1"&gt;
+
+&lt;param name="defaultAxisLabelAttributes/className" value="jcckit.graphic.BasicGraphicAttributes"&gt;
+&lt;param name="defaultAxisLabelAttributes/fontType" value="bold"&gt;
+&lt;param name="defaultAxisLabelAttributes/fontSize" value="0.035"&gt;
+&lt;param name="defaultTicLabelAttributes/className" value="jcckit.graphic.BasicGraphicAttributes"&gt;
+&lt;param name="defaultTicLabelAttributes/fontType" value="bold"&gt;
+&lt;param name="defaultTicLabelAttributes/fontSize" value="0.015"&gt;
+
+&lt;param name="plot/coordinateSystem/origin" value="0.075 0.02"&gt;
+&lt;param name="plot/coordinateSystem/xAxis/axisLength" value="0.9"&gt;
+&lt;param name="plot/coordinateSystem/xAxis/maximum" value="200"&gt;
+&lt;param name="plot/coordinateSystem/xAxis/axisLabelAttributes/" value="defaultAxisLabelAttributes/"&gt;
+&lt;param name="plot/coordinateSystem/xAxis/ticLabelFormat" value="%0f"&gt;
+&lt;param name="plot/coordinateSystem/xAxis/ticLabelAttributes/" value="defaultTicLabelAttributes/"&gt;
+&lt;param name="plot/coordinateSystem/xAxis/axisLabelPosition" value="0 -0.02"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/axisLength" value="0.37"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/axisLabel" value="u, v"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/axisLabelAttributes/" value="defaultAxisLabelAttributes/"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/automaticTicCalculation" value="false"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/numberOfTics" value="7"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/ticLabelAttributes/" value="defaultTicLabelAttributes/"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/maximum" value="3"&gt;
+&lt;param name="plot/coordinateSystem/yAxis/axisLabelPosition" value="-0.035 0"&gt;
+&lt;param name="plot/curveFactory/definitions" value="def null">
+&lt;param name="plot/curveFactory/def/symbolFactory/className" value="jcckit.plot.SquareSymbolFactory">
+&lt;param name="plot/curveFactory/def/symbolFactory/size" value="0.004">
+&lt;param name="plot/curveFactory/def/symbolFactory/attributes/className" 
+       value="jcckit.graphic.ShapeAttributes">
+&lt;param name="plot/legend/boxHeight" value="0.08"&gt;
+&lt;param name="plot/legend/boxWidth" value="0.09"&gt;
+&lt;param name="plot/legend/upperRightCorner" value="0.97 0.385"&gt;
+&lt;param name="plot/legend/" value=""&gt;
+&lt;param name="plot/legend/" value=""&gt;
+&lt;/applet&gt;
+</pre>
+</tt>
+
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 5/1/2003
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

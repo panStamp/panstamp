@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/679/trunk/python/swapmaker
+END
+validators.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/575/trunk/python/swapmaker/validators.py
+END
+swapmaker.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/575/trunk/python/swapmaker/swapmaker.py
+END
+errors.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/575/trunk/python/swapmaker/errors.py
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/575/trunk/python/swapmaker/.project
+END
+wizard.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/809/trunk/python/swapmaker/wizard.py
+END
+dialogs.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/816/trunk/python/swapmaker/dialogs.py
+END
+xmlfiles.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/815/trunk/python/swapmaker/xmlfiles.py
+END
+sources.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/575/trunk/python/swapmaker/sources.py
+END
+.pydevproject
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/575/trunk/python/swapmaker/.pydevproject
+END

@@ -1,0 +1,51 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 */ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/lagarto_settings.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Lagarto settings</h1>
+      <form action="/core/server_config" method="post">
+        <table align="center" width="350px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+	          <td class="celltitle">Process name</td>
+            <td>
+              <input type="text" id="procname" name="procname" class="inputdatalong">
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Broadcast channel</td>
+            <td>
+              <input type="text" id="broadcast" name="broadcast" class="inputdatalong">
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">HTTP server port</td>
+            <td align="left">
+              <input type="text" id="httpport" name="httpport" class="inputdatashort">
+            </td>
+          </tr>
+        </table>
+        <p>
+          <!--<input type='button' class='button_a' onClick='window.location.href="/core/restart_process"' value='RESTART'/>-->
+          <input type='button' class='button_a' onClick='history.back()' value='CANCEL'>
+          <input type='submit' class='button_a' value='SAVE'>
+        </p>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      loadXMLdata("/config/lagarto.xml", updateValues);
+    </script>
+  </body>
+</html>
+

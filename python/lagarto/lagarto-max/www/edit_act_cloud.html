@@ -1,0 +1,31 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<html>
+	<head>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <link rel="stylesheet" type="text/css" href="/max.css">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/js/edit_act_cloud.js"></script>
+	</head>
+  <body bgcolor="#FFFFFF">
+    <h2>Send data to the cloud</h2>
+    <table align="center" width="450px">
+			<tr>
+        <td class="celltitle" width="50%">Cloud data service</td>
+				<td>
+					<select id="service" class="inputdatalong" onchange="onchangeService()">
+            <option value="twitter">Twitter</option>
+            <option value="pachube">Xively</option>
+            <option value="thingspeak">ThingSpeak</option>
+            <option value="opensense">open.sen.se</option>
+            <option value="grovestreams">GroveStreams</option>
+            <option value="autoremote">AutoRemote</option>
+					</select>
+				</td>
+      </tr>
+    </table>
+    <iframe src="" width="450px" height="300px" id="item2box" class="item2box"></iframe>
+    <script language="JavaScript" type="text/javascript">
+      updateValues();
+    </script>
+	</body>
+</html>

@@ -1,0 +1,3 @@
+FIND_BAR_DECORATOR_FIND_ENTRIES=\#\n\#Wed Dec 19 23\:27\:18 CET 2012\n8\=push_socket\n7\=push\n6\=PUSH\n5\=pull\n4\=PULL\n3\=smq.pub\n2\=zmq.pub\n1\=zmq.sub\n0\=play_command\n
+FIND_BAR_DECORATOR_REPLACE_ENTRIES=\#\n\#Thu Nov 29 23\:30\:54 CET 2012\n6\=lagarto\n5\=zmq.ZMQError\n4\=pub_socket\n3\=pub\n2\=PUB\n1\=sub\n0\=SUB\n
+eclipse.preferences.version=1

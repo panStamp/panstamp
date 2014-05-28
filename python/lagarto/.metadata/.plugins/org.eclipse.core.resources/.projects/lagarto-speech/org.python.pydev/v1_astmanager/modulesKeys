@@ -1,0 +1,4 @@
+MODULES_MANAGER_V2
+speechmanager|/home/daniel/development/Aptana/lagarto/lagarto-speech/speechmanager.py
+speechnetwork|/home/daniel/development/Aptana/lagarto/lagarto-speech/speechnetwork.py
+xmltools|/home/daniel/development/Aptana/lagarto/lagarto-speech/xmltools.py

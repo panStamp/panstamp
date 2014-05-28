@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/880/trunk/devices/Robomotic
+END
+EmmaTI.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/891/trunk/devices/Robomotic/EmmaTI.xml
+END
+temphum.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/879/trunk/devices/Robomotic/temphum.xml
+END
+SeismoFloor.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/879/trunk/devices/Robomotic/SeismoFloor.xml
+END
+temppress.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/879/trunk/devices/Robomotic/temppress.xml
+END
+EnvPIR.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/879/trunk/devices/Robomotic/EnvPIR.xml
+END
+LuminoPod.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/879/trunk/devices/Robomotic/LuminoPod.xml
+END
+Repeater.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/879/trunk/devices/Robomotic/Repeater.xml
+END

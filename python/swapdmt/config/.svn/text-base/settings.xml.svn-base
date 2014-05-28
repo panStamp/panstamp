@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<settings>
+  <debug>2</debug>
+  <devices>
+    <local>devices</local>
+    <remote>http://www.panstamp.com/downloads/devices.tar</remote>
+    <update>true</update>
+  </devices>
+  <serial>serial.xml</serial>
+  <network>network.xml</network>
+  <swapnet>swapnet.json</swapnet>
+</settings>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 1.2 Coordinate Systems</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a><br>
+                1.1 <a href="packages.html">Package Overview</a><br>
+                1.2 <b>Coordinate Systems</b><br>
+                1.3 <a href="curves.html">Curves, Points, and Hints</a>
+            <li><a href="usage.html">Usage as a library</a>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKIT's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>1.2 Coordinate Systems</h1>
+
+JCCKit handles three different coordinate systems:
+<dl><dt><b>Data Coordinate System (DCS)</b>:</dt>
+    <dd>This is the coordinate system of the data to be plotted.</dd>
+    <dt><b>Device-Independent Coordinate System (DICS)</b>:</dt>
+    <dd>A Cartesian coordinate system independent from the device.</dd>
+    <dt><b>Device-Dependent Coordinate System (DDCS)</b>:</dt>
+    <dd>The coordinate system of the device which presents the rendered chart 
+        or plot.</dd>
+</dl>
+
+Data points in DCS (represented by instances of 
+<a href="../apidoc/jcckit/data/DataPoint.html"><tt>DataPoint</tt></a>)
+will be mapped as follows:
+<p>
+<center>DCS&nbsp;&nbsp;&nbsp;-->&nbsp;&nbsp;&nbsp;DICS&nbsp;&nbsp;&nbsp;-->&nbsp;&nbsp;&nbsp;DDCS</center>
+
+<h2>1.2.1 DCS --> DICS</h2>
+
+The first mapping is performed by an implementation of 
+<a href="../apidoc/jcckit/transformation/Transformation.html">
+<tt>Transformation</tt></a>. The result is a two-dimensional
+point in DICS (represented by an instance of 
+<a href="../apidoc/jcckit/graphic/GraphPoint.html"><tt>GraphPoint</tt></a>).
+<p>
+Currently 
+<a href="../apidoc/jcckit/transformation/CartesianTransformation.html">
+<tt>CartesianTransformation</tt></a> is the only implementation: It
+transforms from a Cartesian DCS into DICS with optional logarithmic
+transformation of <i>x</i> and <i>y</i> coordinates.
+
+<h2>1.2.2 DICS --> DDCS</h2>
+
+Mapping <tt>GraphPoints</tt> into device-dependent coordinates is done
+by a concrete  
+<a href="../apidoc/jcckit/graphic/Renderer.html"><tt>Renderer</tt></a>.
+<p>
+In DICS the <i>x</i> axis goes from left to right and the <i>y</i> axis from
+bottom to top. In all currently implemented <tt>Renderers</tt> (i.e.
+<a href="../apidoc/jcckit/renderer/GraphicsRenderer.html">
+<tt>GraphicsRenderer</tt></a>, 
+<a href="../apidoc/jcckit/renderer/Graphics2DRenderer.html">
+<tt>Graphics2DRenderer</tt></a>, and
+<a href="../apidoc/jcckit/renderer/SVGRenderer.html">
+<tt>SVGRenderer</tt></a>) the transformation keeps the aspect ratio and
+the <i>y</i> axis of DDCS goes from top to bottom.
+<p>
+<center><img src="dics.png" width="400" height="198"></center>
+<p>
+For example, in the <tt>SVGRenderer</tt> the mapping is just:
+(x,y)&nbsp;-->&nbsp;(x,-y)
+<p>
+The device-independent Cartesian coordinate 
+system is infinitely extended. But the device is always bounded by
+a (rectangular) border. Therefore, one has to specify which
+rectangle in DICS must be mapped inside the device border.
+This is done by specifing the lower-left and upper-right corner of 
+a virtual paper in DICS. This rectangle is mapped to DDCS in such a way
+that it just fits into the device border. Because the aspect ratio of
+the device border is in general different from the aspect ratio of
+the virtual paper some positional information has to be specified.
+This is done by defining vertical and horizontal anchors.
+For more details see the 
+<a href=
+"../apidoc/jcckit/plot/PlotCanvas.html#PlotCanvas(jcckit.util.ConfigParameters)">
+constructor</a> of <a href="../apidoc/jcckit/plot/PlotCanvas.html">
+<tt>PlotCanvas</tt></a>.
+<p>
+<center><img src="verticalAnchor.png" width="450" height="176"></center>
+
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 4/25/2003
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

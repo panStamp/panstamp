@@ -1,0 +1,22 @@
+/* 
+ * Style sheet for the JCCKit Web site.
+ *
+ * author: Franz-Josef Elmer
+ */
+body { background-color:white; 
+       font-family:Helvetica,Arial,sans-serif; 
+       margin-left:0px; 
+       margin-top:0px; }
+.left-column { background-color:#f0f0f0; 
+               padding-bottom:5px;
+               padding-left:5px;
+               padding-right:5px; }
+.right-column { background-color:white; 
+                padding-bottom:5px;
+                padding-left:5px; }
+.note { font-size: 80%; } 
+.footer { background-color:#c0c0c0;
+          padding-top:5px;
+          padding-bottom:5px;
+          font-size:8pt; }
+.code { background-color:#b0ffb0; }

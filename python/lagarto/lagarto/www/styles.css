@@ -1,0 +1,197 @@
+/* Copyright (c) Daniel Berenguer (panStamp) 2012 */
+
+body{
+font-family:sans-serif;
+text-align:center;
+}
+
+h1{
+font-family:sans-serif;
+font-weight:bold;
+font-size:18px;
+border-bottom: 3px solid #41416b;
+color:#41416b;
+}
+
+h2{
+font-family:sans-serif;
+font-weight:bold;
+font-size:14px;
+border-bottom: 2px solid #223d22;
+color:#223d22;
+}
+
+h3{
+font-family:sans-serif;
+font-weight:bold;
+font-size:14px;
+color:#000000;
+}
+
+#divcontainer {
+	width: 600px;
+	margin: 0 auto;
+	display: table;
+	font-size:14px;
+}
+
+#main {
+	width: 500px;
+}
+#header a:link {
+color:#001a88;
+text-decoration: none;
+}     
+#header a:visited {
+color:#001a88;
+text-decoration: none;
+}  
+#header a:hover {
+color:#001a88;
+}   
+#header a:active {
+color:#001a88;
+}
+
+.purplebar{
+background-color:#41416b;
+}
+
+.cellmenu{
+border-bottom: 3px solid #41416b;
+}
+
+.menu{
+text-decoration:none;
+text-align:left;
+font-family: sans-serif;
+font-size:14px;
+font-weight:bold;
+color:#223d22;
+}
+
+.cellaction{
+height:25px;
+text-align:center;
+}
+
+.cellhead,
+.cellitem{
+height:25px;
+text-align:left;
+padding-left:10px;
+padding-right:10px;
+font-family: sans-serif;
+font-size:14px;
+cursor: default;
+}
+
+.cellhead{
+color:#FFFFFF;
+background-color:#223d22;
+border-bottom-style:solid;
+border-bottom-width:0px;
+border-left-style:solid;
+border-left-color:#223d22;
+border-left-width:1px;
+border-right-style:solid;
+border-right-color:#223d22;
+border-right-width:1px;
+}
+
+.button_a,
+.button_b,
+.button_c{
+font-family: sans-serif;
+font-size:14px;
+color:#FFFFFF;
+height:23px;
+margin:0px;
+border-style:solid;
+border-width:1px;
+cursor:pointer;
+text-align:center;
+}
+
+.button_a{
+width:70px;
+background-image: url(images/purple.gif);
+}
+
+.button_b{
+width:40px;
+background-image: url(images/green.gif);
+}
+
+.button_c{
+width:120px;
+background-image: url(images/green.gif);
+}
+
+.cellitem,
+.cellaction{
+border-bottom-style:solid;
+border-bottom-color:#223d22;
+border-bottom-width:1px;
+color:#000000;
+}
+
+.celltitle{
+height:25px;
+text-align:right;
+padding-right:10px;
+font-family: sans-serif;
+font-size:14px;
+}
+
+.inputnoedit1,
+.inputnoedit2{
+font-family: sans-serif;
+text-align:left;
+border: 0px;
+background-color:#FFFFFF;
+}
+
+.inputnoedit1{
+font-size:14px;
+width:60px;
+height:18px;
+}
+
+.inputnoedit2{
+font-size:14px;
+width:250px;
+height:18px;
+}
+
+.inputdatalong,
+.inputdatashort,
+.inputdatamini{
+font-family: sans-serif;
+font-size:14px;
+text-align:left;
+border: 1px solid #000000;
+background-color:#FFFFFF;
+}
+
+.inputdatalong{
+width:200px;
+height:18px;
+}
+
+.inputdatashort{
+width:100px;
+height:18px;
+}
+
+.inputdatamini{
+
+width:50px;
+height:18px;
+}
+
+.checkdata{
+text-align:left;
+border: 1px solid #000000;
+}
+

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/821/trunk/python/pyswap/src/swap/protocol
+END
+SwapParam.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SwapParam.py
+END
+SmartEncrypt.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SmartEncrypt.py
+END
+SwapDefs.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SwapDefs.py
+END
+SwapRegister.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SwapRegister.py
+END
+SwapMote.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SwapMote.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/__init__.py
+END
+SwapPacket.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SwapPacket.py
+END
+SwapNetwork.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SwapNetwork.py
+END
+SwapValue.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/888/trunk/python/pyswap/src/swap/protocol/SwapValue.py
+END

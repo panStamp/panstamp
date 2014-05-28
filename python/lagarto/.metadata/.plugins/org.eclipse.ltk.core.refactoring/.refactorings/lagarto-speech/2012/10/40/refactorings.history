@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;lagarto-speech/evnmanager.py&apos; to &apos;speechmanager.py&apos;" description="Rename resource &apos;evnmanager.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="evnmanager.py" name="speechmanager.py" stamp="1349388574045" updateReferences="true"/>
+</session>

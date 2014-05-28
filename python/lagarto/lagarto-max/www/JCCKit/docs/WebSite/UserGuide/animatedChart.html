@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 2.1 Example: Animated Chart</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a>
+            <li><a href="usage.html">Usage as a Library</a><br>
+                2.1 <b>Example: Animated Chart</b><br>
+                2.2 <a href="lorenz.html">Example: Lorenz Attractor</a><br>
+                2.3 <a href="brusselator.html">Example: Brusselator</a><br>
+                2.4 <a href="zoom.html">Example: Zooming</a><br>
+                2.5 <a href="offscreen.html">Example: Off-Screen Image Creation</a><br>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKit's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>2.1 Example: Animated Chart</h1>
+
+The applet <tt>AnimatedChart</tt>
+(see the <a href="../examples.html">Examples</a> page) 
+presents a chart in an animated way. 
+By clicking the button "animate" all bars are deleted first 
+(more precisely their height is set to zero). Now each bar grows
+with a constant speed up to its value.
+<p>
+<center><img src="animatedChart.png"></center>
+<p>
+The basic structure of the applet reads (click
+<a href="animatedChart/AnimatedChart.java">here</a> to see the complete code):
+<tt>
+<pre class="code">
+public class AnimatedChart extends Applet {
+  private double[] _data = new double[] {55.5, 34.2, 47.4, 53.1, 69.9, 68.7, 81.1};
+  <b>private DataPlot _dataPlot;</b>
+
+  public void init() {
+    <b>GraphicsPlotCanvas plotCanvas = createPlotCanvas();
+
+    _dataPlot = new DataPlot();
+    _dataPlot.addElement(new DataCurve(""));
+    plotCanvas.connect(_dataPlot);</b>
+
+    setLayout(new BorderLayout());
+    add(<b>plotCanvas.getGraphicsCanvas()</b>, BorderLayout.CENTER);
+    add(createControlPanel(), BorderLayout.SOUTH);
+  }
+
+  <b>private GraphicsPlotCanvas createPlotCanvas() { ... }</b>
+
+  private Panel createControlPanel() { ... }
+}
+</pre>
+</tt>
+Highlighted code uses JCCKit.
+<p>
+The <tt>init()</tt> method (which is always invoked when the applet is started)
+does the following:
+<ol><li>First, a <a href="../apidoc/jcckit/GraphicsPlotCanvas.html">
+        <tt>GraphicsPlotCanvas</tt></a> is created. The actual creation is
+        delegated to a private method. Below we will see how it is created.
+    <li>Next, a <a href="../apidoc/jcckit/data/DataPlot.html">
+        <tt>DataPlot</tt></a> with an empty
+        <a href="../apidoc/jcckit/data/DataCurve.html"><tt>DataCurve</tt></a>
+        is created. Hence, an empty plot with no bars will be seen after the
+        applet has been started. The actual chart data are stored in
+        <tt>_data</tt>. They will be shown after the animate button has been
+        hit.
+    <li>The <tt>DataPlot</tt> instance is connected with the
+        <tt>GraphicsPlotCanvas</tt>. This establishes a connection between the
+        <tt>DataPlot</tt> instance and the wrapped
+        <a href="../apidoc/jcckit/plot/Plot.html"><tt>Plot</tt></a> object.
+        Due to this connection
+        any change in the data of <tt>_dataPlot</tt> will automatically
+        updated in the view of the <tt>GraphicsPlotCanvas</tt>.
+    <li>The view of the <tt>GraphicsPlotCanvas</tt> will be added to the
+        applet panel. Note, that <tt>getGraphicsCanvas()</tt> returns an instance of
+        <tt>java.awt.Canvas</tt>. In the case of Swing it is better to use
+        <a href="../apidoc/jcckit/GraphicsPlotCanvas.html#getGraphicsJPanel()">
+        <tt>getGraphicsJPanel()</tt></a> which returns a <tt>JPanel</tt> wrapper.
+    <li>Finally, a control panel with the <tt>Button</tt> labeled
+        <em>animate</em> will be added. Again the creation is delegated to a
+        private method.
+</ol>
+<p>
+Creating a <tt>GraphicsPlotCanvas</tt> is mainly a configuration task
+concerning
+<ul><li>coordinate system,
+    <li>curve appearance, and
+    <li>legend.
+</ul>
+A <a href="../apidoc/jcckit/util/ConfigParameters.html">
+<tt>ConfigParameters</tt></a> object is needed to create a new instance of
+<tt>GraphicsPlotCanvas</tt>.
+This is easily done with the help of a <tt>java.util.Properties</tt>
+object which is either loaded from a file or programmatically filled as in our
+case (another way is shown in the <a href="brusselator.html">
+second example</a>):
+<tt><pre class="code">
+private GraphicsPlotCanvas createPlotCanvas() {
+  Properties props = new Properties();
+  <b>ConfigParameters config = new ConfigParameters(new PropertiesBasedConfigData(props));</b>
+  props.put("plot/legendVisible", "false");
+  props.put("plot/coordinateSystem/xAxis/minimum", "-0.5");
+  props.put("plot/coordinateSystem/xAxis/maximum", "6.5");
+  props.put("plot/coordinateSystem/xAxis/axisLabel", "");
+  props.put("plot/coordinateSystem/xAxis/ticLabelFormat/className",
+            "jcckit.plot.TicLabelMap");
+  props.put("plot/coordinateSystem/xAxis/ticLabelFormat/map",
+            "0=Mo;1=Tu;2=We;3=Th;4=Fr;5=Sa;6=Su");
+  props.put("plot/coordinateSystem/yAxis/axisLabel", "growth rate");
+  props.put("plot/coordinateSystem/yAxis/maximum", "100");
+  props.put("plot/coordinateSystem/yAxis/ticLabelFormat", "%d%%");
+  props.put("plot/curveFactory/definitions", "curve");
+  props.put("plot/curveFactory/curve/withLine", "false");
+  props.put("plot/curveFactory/curve/symbolFactory/className", "jcckit.plot.BarFactory");
+  props.put("plot/curveFactory/curve/symbolFactory/attributes/className",
+            "jcckit.graphic.ShapeAttributes");
+  props.put("plot/curveFactory/curve/symbolFactory/attributes/fillColor", "0xfe8000");
+  props.put("plot/curveFactory/curve/symbolFactory/attributes/lineColor", "0");
+  props.put("plot/curveFactory/curve/symbolFactory/size", "0.08");
+  props.put("plot/initialHintForNextCurve/className", "jcckit.plot.PositionHint");
+  props.put("plot/initialHintForNextCurve/position", "0 0.1");
+
+  return <b>new GraphicsPlotCanvas(config)</b>;
+}
+</pre></tt>
+Here is not the place to explain all parameters. Please, consult the 
+<a href="../apidoc/index.html">API documentation</a> especially the 
+constructors of 
+<a href="../apidoc/jcckit/plot/PlotCanvas.html#PlotCanvas(jcckit.util.ConfigParameters)">
+<tt>PlotCanvas</tt></a>,
+<a href="../apidoc/jcckit/plot/Plot.html#Plot(jcckit.util.ConfigParameters)">
+<tt>Plot</tt></a>,
+<a href="../apidoc/jcckit/plot/CartesianCoordinateSystem.html#CartesianCoordinateSystem(jcckit.util.ConfigParameters)">
+<tt>CartesianCoordinateSystem</tt></a>, and
+<a href="../apidoc/jcckit/plot/SimpleCurveFactory.html#SimpleCurveFactory(jcckit.util.ConfigParameters)">
+<tt>SimpleCurveFactory</tt></a>.
+See also <a href="applet.html">Chapter&nbsp;4</a>.
+<p>
+The animation is started after the animate button has been hit. This is done
+in an extra <tt>Thread</tt> which is created inside the <tt>ActionListener</tt>
+registrated at the button:
+<tt><pre class="code">
+private Panel createControlPanel() {
+  Panel controlPanel = new Panel();
+  Button startButton = new Button("animate");
+  startButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                  new Thread() {
+                          public void run() {
+                            <b>animate();</b>
+                          }
+                        }.start();
+                }
+              });
+  controlPanel.add(startButton);
+
+  return controlPanel;
+}
+</pre></tt>
+The actual animation is delegated to the private method <tt>animate()</tt> of
+the applet:
+<tt><pre class="code">
+private void animate() {
+  <b>DataCurve curve = new DataCurve("");</b>
+  for (int i = 0; i < _data.length; i++) {
+    <b>curve.addElement(new DataPoint(FIRST_YEAR + i, 0));</b>
+  }
+  <b>_dataPlot.replaceElementAt(0, curve);</b>
+
+  for (int i = 0; i < _data.length; i++) {
+    double x = i;
+    double y = 0;
+    while (y < _data[i]) {
+      try {
+        Thread.sleep(50);
+      } catch (InterruptedException e) {}
+      y = Math.min(_data[i], y + 5);
+      <b>curve.replaceElementAt(i, new DataPoint(x, y));</b>
+    }
+  }
+}
+</pre></tt>
+<p>
+In a first step the heights of all bars are set to zero. This is done
+by creating a new <tt>DataCurve</tt> with 
+<a href="../apidoc/jcckit/data/DataPoint.html"><tt>DataPoints</tt></a> where 
+the y-coordinate is zero. The new curve replaces the current one.
+Note, that no explicit update of the view is necessary. 
+This is done automatically for all <tt>Plot</tt> instances connected with
+the <tt>DataPlot</tt> instance where such data operations like curve 
+replacements take place.
+<p>
+Now the animation starts: For each bar the y-value is increased by 5 until
+its final value is reached. Between each increase the animation is paused by
+50&nbsp;milliseconds. After an increase the corresponding curve point is
+replaced by a new instance. Note, that <tt>DataPoint</tt> is an immutable
+class. Thus, we can not change coordinates of a data point directly.
+Again, the view will be updated automatically.
+
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 1/18/2004
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

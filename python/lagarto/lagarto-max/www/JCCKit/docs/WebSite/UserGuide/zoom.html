@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 2.4 Example: Zooming</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a>
+            <li><a href="usage.html">Usage as a Library</a><br>
+                2.1 <a href="animatedChart.html">Example: Animated Chart</a><br>
+                2.2 <a href="lorenz.html">Example: Lorenz Attractor</a><br>
+                2.3 <a href="brusselator.html">Example: Brusselator</a><br>
+                2.4 <b>Example: Zooming</b><br>
+                2.5 <a href="offscreen.html">Example: Off-Screen Image Creation</a><br>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKit's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>2.4 Example: Zooming</h1>
+
+The applet <tt>ZoomExample</tt>
+(see the <a href="../examples.html#interactive">Examples</a> page) 
+shows the snowflake curve which is built by three Koch curves. The Koch curve
+is a well-known fractal curve. The user can click-and-drag the mouse pointer
+to zoom into the curve. By double clicking the original size is restored.
+<p>
+<center><img src="zoomExample.png"></center>
+<p>
+For this example three different problems have to be solved:
+<ol>
+  <li>Translating device-dependent coordinates (cursor positions)
+      into device-independent coordinates and data coordinates.
+  <li>Drawing an intermediate rectangle during dragging in order to show
+      the window to zoom into.
+  <li>Changing the axis box.
+</ol>
+
+In the following subsections the basic solution of each problem is described 
+and shown by code snippets (click 
+<a href="zoomExample/ZoomExample.java">here</a> to see the complete code).
+
+<h2>2.4.1 Translating cursor coordinates</h2>
+
+With the method 
+<a href="../apidoc/jcckit/GraphicsPlotCanvas.html#mapCursorPosition(int, int)">
+<tt>mapCursorPosition()</tt></a> 
+of the class <a href="../apidoc/jcckit/GraphicsPlotCanvas.html">
+<tt>GraphicsPlotCanvas</tt></a> cursor coordinates are translated into
+device-independent coordinates represent by an instance of
+<a href="../apidoc/jcckit/graphic/GraphPoint.html"><tt>GraphPoint</tt></a>:
+<pre class="code">
+private GraphPoint getPosition(MouseEvent event)
+{
+  return _plotCanvas.mapCursorPosition(event.getX(), event.getY());
+}</pre>
+
+Translating to data coordinates is done by the method
+<a href="../apidoc/jcckit/plot/Plot.html#transform(jcckit.graphic.GraphPoint)">
+<tt>tranform()</tt></a> of the
+<a href="../apidoc/jcckit/plot/Plot.html"><tt>Plot</tt></a> class. This
+method is used in the following code snippet of the example where the
+new axis box is calculated:
+<pre class="code">
+private void changeViewingWindow(GraphPoint point)
+{
+  DataPoint p0 = _plotCanvas.getPlot().transform(_anchor);
+  DataPoint p1 = _plotCanvas.getPlot().transform(point);
+  ...
+}</pre>      
+
+<h2>2.4.2 Drawing an intermediate rectangle</h2>
+
+When the user click-and-drag the mouse a gray rectangle is drawn into the plot.
+It is defined by the click-position (called anchor) and the current cursor 
+position. In JCCKit one can add an additional <tt>GraphicalElement</tt> to a 
+plot in two ways, as an annotation or a marker:
+<p>
+An <b>annotation</b> is added by calling the method
+<a href="../apidoc/jcckit/plot/Plot.html#setAnnotation(jcckit.graphic.GraphicalElement)">
+<tt>setAnnotation()</tt></a> of a <tt>Plot</tt> instance. Annotations are drawn
+before the legend is drawn. That is, they may be covered by the legend box.
+<p>
+A <b>marker</b> is added to a <tt>GraphicsPlotCanvas</tt> object by calling the
+method <a href="../apidoc/jcckit/GraphicsPlotCanvas.html#setMarker(jcckit.graphic.GraphicalElement)">
+<tt>setMarker()</tt></a>. Markers are drawn after the legend is drawn. 
+Thus, they are on the top of all other graphical elements of a plot.
+<p>
+An intermediate rectangle reflecting user interaction is a marker and not
+an annotation. In the example the method <tt>drawMarker</tt> does the job:
+<pre class="code">
+private void drawMarker(GraphPoint point)
+{
+  double x0 = _anchor.getX();
+  double y0 = _anchor.getY();
+  double x1 = point.getX();
+  double y1 = point.getY();
+  GraphPoint center = new GraphPoint(0.5 * (x0 + x1), 0.5 * (y0 + y1));
+  setMarker(new Rectangle(center, Math.abs(x1 - x0), Math.abs(y1 - y0), 
+                          MARKER_ATTRIBUTES));
+}
+
+private void setMarker(GraphicalElement marker)
+{
+  _plotCanvas.setMarker(marker);
+  _plotCanvas.getGraphicsCanvas().repaint();
+}
+</pre>
+Note, that setting an annotation or a marker does not lead to an automatic
+redrawing of the plot. Thus, an invocation of the <tt>repaint()</tt> method
+is necessary.
+
+<h2>2.4.3 Changing the axis box</h2>
+
+In order to change the axis box one has to change the coordinate system of the
+<tt>Plot</tt> instance with the method
+<a href="../apidoc/jcckit/plot/Plot.html#setCoordinateSystem(jcckit.plot.CoordinateSystem)">
+<tt>setCoordinateSystem()</tt></a>. In the example the new coordinate system 
+for changed axis box is created by the following method:
+<pre class="code">
+private void setCoordinateSystem(double xMin, double yMin, 
+                                 double xMax, double yMax)
+{
+  Properties props = new Properties();
+  props.put("xAxis/minimum", Double.toString(xMin));
+  props.put("xAxis/maximum", Double.toString(xMax));
+  props.put("xAxis/ticLabelFormat", "%1.3f");
+  props.put("xAxis/axisLabel", "");
+  props.put("yAxis/minimum", Double.toString(yMin));
+  props.put("yAxis/maximum", Double.toString(yMax));
+  props.put("yAxis/ticLabelFormat", "%1.3f");
+  props.put("yAxis/axisLabel", "");
+  props.put("yAxis/axisLength", "0.8");
+  CartesianCoordinateSystem cs = new CartesianCoordinateSystem(
+                new ConfigParameters(new PropertiesBasedConfigData(props)));
+  _plotCanvas.getPlot().setCoordinateSystem(cs);
+}
+</pre>
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 7/3/2004
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

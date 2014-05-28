@@ -1,0 +1,88 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-MAX</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/js/endpoints.js"></script>
+    <script src="/js/edit_db_table.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Table editor</h1>
+      <form id="table_data_form" action="/command/edit_db_table" method="post">
+        <table align="center" width="550px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="celltitle">Table name:</td>
+            <td align="left">
+              <input type="text" id="tablename" name="name" class="inputdatalong" style="width:200px"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Update interval:</td>
+            <td align="left">
+              <select id="interval" name="interval" class="inputdatashort">
+                <option value="1m">1 minute</option>
+                <option value="5m">5 minutes</option>
+                <option value="15m">15 minutes</option>
+                <option value="30m">30 minutes</option>
+                <option value="1h">1 hour</option>
+                <option value="12h">12 hours</option>
+                <option value="1d">1 day</option>
+                <option value="1w">1 week</option>
+                <option value="2w">2 weeks</option>
+                <option value="1M">1 month</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <h2>Endpoints to be logged</h2>
+        <table align="center" width="550px" border="0" cellspacing="0" cellpadding="0">
+			    <tr>
+            <td class="celltitle">Lagarto server</td>
+				    <td align="left">
+					    <select id="server" class="inputdatalong" onchange="onchangeServer()">
+                <option value="">No server found</option>
+					    </select>
+				    </td>
+          </tr>
+			    <tr>
+            <td class="celltitle">Network endpoint</td>
+				    <td align="left">
+					    <select id="endp" class="inputdatalong">
+                <option value="">No endpoint found</option>
+					    </select>
+				    </td>
+          </tr>
+        </table>
+        <p>
+          <input type='button' class='button_a' onClick='addEndpointFromMenu()' value='ADD'>
+          <input type='button' class='button_a' onClick='clearTable()' value='CLEAR'>
+        </p>
+        <table id="endptable" align="center" width="550px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th class="cellhead" width="70%">Endpoint</th>
+            <th class="cellhead" width="30%">Column name</th>
+          </tr>
+        </table>
+        <input type="hidden" id="endpoints" name="endpoints"/>
+        <p>
+          <input type='button' class='button_a' onClick='history.back()' value='CANCEL'>
+          <input type='button' class='button_a' onClick='save()' value='SAVE'>
+        </p>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      loadJSONdata("/command/get_server_list", updateServers);
+      loadJSONdata("/config/database.json", updateValues);
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>Brusselator</title>
+<meta name="author" content="Franz-Josef Elmer">
+</head>
+<body bgcolor=#caffee>
+<h2>Brusselator</h2> Parameters: alpha=1.8, beta=1, D=16
+<p>
+<applet code="BrusselatorApplet" archive="brusselator.jar, jcckit.jar" width=700 height=400>
+<param name="background" value="0xffffff">
+<param name="paper" value="0 0 1 0.35">
+
+<param name="dt" value="0.1">
+<param name="dx" value="1">
+<param name="noiseFactor" value="0.1">
+<param name="L" value="200">
+<param name="d" value="16">
+<param name="alpha" value="1.8">
+<param name="beta" value="1">
+
+<param name="defaultAxisLabelAttributes/className" value="jcckit.graphic.BasicGraphicAttributes">
+<param name="defaultAxisLabelAttributes/fontType" value="bold">
+<param name="defaultAxisLabelAttributes/fontSize" value="0.035">
+<param name="defaultTicLabelAttributes/className" value="jcckit.graphic.BasicGraphicAttributes">
+<param name="defaultTicLabelAttributes/fontType" value="bold">
+<param name="defaultTicLabelAttributes/fontSize" value="0.015">
+
+<param name="plot/coordinateSystem/origin" value="0.075 0.02">
+<param name="plot/coordinateSystem/xAxis/axisLength" value="0.9">
+<param name="plot/coordinateSystem/xAxis/maximum" value="200">
+<param name="plot/coordinateSystem/xAxis/axisLabelAttributes/" value="defaultAxisLabelAttributes/">
+<param name="plot/coordinateSystem/xAxis/ticLabelFormat" value="%0f">
+<param name="plot/coordinateSystem/xAxis/ticLabelAttributes/" value="defaultTicLabelAttributes/">
+<param name="plot/coordinateSystem/xAxis/axisLabelPosition" value="0 -0.02">
+<param name="plot/coordinateSystem/yAxis/axisLength" value="0.37">
+<param name="plot/coordinateSystem/yAxis/axisLabel" value="u, v">
+<param name="plot/coordinateSystem/yAxis/axisLabelAttributes/" value="defaultAxisLabelAttributes/">
+<param name="plot/coordinateSystem/yAxis/automaticTicCalculation" value="false">
+<param name="plot/coordinateSystem/yAxis/numberOfTics" value="7">
+<param name="plot/coordinateSystem/yAxis/ticLabelAttributes/" value="defaultTicLabelAttributes/">
+<param name="plot/coordinateSystem/yAxis/maximum" value="3">
+<param name="plot/coordinateSystem/yAxis/axisLabelPosition" value="-0.035 0">
+<param name="plot/curveFactory/definitions" value="def null">
+<param name="plot/curveFactory/def/symbolFactory/className" value="jcckit.plot.SquareSymbolFactory">
+<param name="plot/curveFactory/def/symbolFactory/size" value="0.004">
+<param name="plot/curveFactory/def/symbolFactory/attributes/className" value="jcckit.graphic.ShapeAttributes">
+<param name="plot/legend/boxHeight" value="0.08">
+<param name="plot/legend/boxWidth" value="0.09">
+<param name="plot/legend/upperRightCorner" value="0.97 0.385">
+<param name="plot/legend/" value="">
+<param name="plot/legend/" value="">
+</applet>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 1.1 Package Overview</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a><br>
+                1.1 <b>Package Overview</b><br>
+                1.2 <a href="coordinateSystems.html">Coordinate Systems</a><br>
+                1.3 <a href="curves.html">Curves, Points, and Hints</a>
+            <li><a href="usage.html">Usage as a library</a>
+            <li><a href="config.html">Configuration Concept</a>
+            <li><a href="applet.html">JCCKIT's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>1.1 Package Overview</h1>
+
+JCCKit's classes are grouped into seven packages building four layers:
+<p>
+<dl><dt><tt><b>jcckit</b></tt>:</dt>
+    <dd>Convenient classes for immediate use.</dd>
+    <dt><tt><b>jcckit.plot</b></tt>:</dt>
+    <dd>Classes for generating plots and charts based on data modelled
+        by classes of the package <tt>jcckit.data</tt>.</dd>  
+    <dt><tt><b>jcckit.renderer</b></tt>:</dt>
+    <dd>Classes which render a plot (composed by elementary graphic objects of 
+        <tt>jcckit.graphic</tt>) for a certain output device.</dd>  
+    <dt><tt><b>jcckit.data</b></tt>:</dt>
+    <dd>Data classes for data in data coordinates.</dd>
+    <dt><tt><b>jcckit.transformation</b></tt>:</dt>
+    <dd>Classes which transforms from data coordinates into
+        device-independent coordinates.</dd>
+    <dt><tt><b>jcckit.graphic</b></tt>:</dt>
+    <dd>Classes representing a plot or a chart in device-independent
+        graphic objects.</dd>
+    <dt><tt><b>jcckit.util</b></tt>:</dt>
+    <dd>Utility classes. Most of them are for realizing the
+        <a href="config.html">configuration concept</a>.</dd>
+</dl>
+
+The package diagram shows their depedencies
+<center><img src="packages.png" width="543" height="370"></center>
+The five central packages can be grouped into a package for the model
+of a plot or a chart and four packages responsible for the view of a plot
+or a chart. Inside this view group there is another model-view pair related
+to an abstract and device-dependent representation of vector graphics
+(model) and its device-dependent rendering (view). 
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 4/25/2003
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

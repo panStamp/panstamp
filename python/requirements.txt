@@ -1,0 +1,5 @@
+pyserial>=2.6
+pyzmq
+pyephem
+twitter
+barrel>=0.1.3

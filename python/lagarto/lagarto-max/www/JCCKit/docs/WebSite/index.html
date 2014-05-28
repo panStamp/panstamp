@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="index.html"><img src="images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><b>Home</b>
+    <li><a href="examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="UserGuide/index.html">User Guide</a>
+    <li><a href="apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<p>
+powered by <A href="http://sourceforge.net"> 
+<IMG src="??http://sourceforge.net/sflogo.php?group_id=78114&amp;type=5" 
+     width="210" height="62" border="0" alt="SourceForge.net Logo"></A>
+<!-- ================================================ -->
+
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>Chart Construction Kit <font size="-0.5"><i>for the Java&trade; platform</i></font></h1>
+
+The JCCKit is a small (&lt; 100Kb) 
+library and a very flexible framework for creating scientific charts and plots.
+<p>
+JCCKit is written for the JDK&trade; 1.1.8 platform (except of a Graphics2D renderer).
+Thus, it is suitable for scientific Applets and for PDA's running a PersonalJava&trade;
+implementation.
+
+<p class="note">
+JCCKit is an offspring of my lecture
+<a href="http://www.ifi.unibas.ch/ifi/studies/archive/ws2002_2003/applets">
+The Art of Developing Scientific Java Applets</a> held at the
+<a href="http://www.unibas.ch">University of Basel</a>, Switzerland,
+in the winter semester 2002/03. See lecture 12 and 13 which
+explains the basic architecture of JCCKit.
+</p>
+
+<h2>Purpose and Features</h2>
+
+The main purpose is to provide a flexible kit for writing applets
+and application with the need for visualizing scientific data.
+If you are looking for a lean scientific chart and plot library without all
+the unwanted bells and whistles of the heavy competitors try JCCKit.
+<p>
+The key features of JCCKit are:
+<ul><li>small (&lt; 100Kb jar file)
+    <li>highly configurable due to a sophisticated configuration concept
+    <li>extensible (1/3 of all classes are interfaces or abstract classes.)
+    <li>automatic updating if data changes
+    <li>easy programming of dynamic charts and plots
+    <li>automatic rescaling if canvas size changes
+    <li>out-of-the-box applet for presenting static data on a web page without
+        needing knowledge of the Java&trade; programming language.
+    <li>automatically generates a legend
+    <li>supports
+        <ul><li>logarithmic axes
+            <li>non-numerical tic labels
+            <li>different line styles, colors, and thicknesses
+            <li>different symbols
+            <li>different fonts, font styles, colors, and text orientations
+            <li>vertical and horizontal error bars
+            <li>vertical, horizontal, and stacked bar charts
+        </ul>
+    <li>supported devices
+        <ul><li>AWT Graphics context
+            <li>AWT Graphics2D context (needs Java&trade; 2 platform)
+            <li>Off-Screen image creation (need J2SE 1.4 or higher)
+                (see section&nbsp;<a href="UserGuide/offscreen.html">2.5</a> of
+                the <a href="UserGuide/index.html">User Guide</a>)
+            <li>SVG (<a href="http://www.w3.org/Graphics/SVG/Overview.htm8">Scalable
+                Vector Graphics</a>)
+        </ul>
+</ul>
+See the <a href="examples.html">Examples</a> page to get an impression of what
+is possible.
+To learn more about JCCKit have a look into the <a href="UserGuide/index.html">User
+Guide</a>.
+<p>
+All releases on the
+<a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+page include:
+<ul><li>Compiled classes for immediate use.
+    <li>Source code.
+    <li>Complete content of the JCCKit Home Page including
+        <ul><li>Examples
+            <li>User Guide
+            <li>API documentation
+        </ul>
+</ul>
+
+
+<h2>Release History </h2>
+
+<h3>JCCKit V1.1</h3>
+
+This is a major release from 12/18/2004.
+<p>
+<dl><dt>Features:</dt>
+    <dd><ul><li><a href="apidoc/jcckit/GraphicsPlotCanvas.html"><tt>GraphicsPlotCanvas</tt></a>: 
+                Double-buffering can be switched off to allow off-screen
+                image creation.
+        </ul><br>
+    </dd>
+    <dt>Documentation:</dt>
+    <dd><ul><li>New example: Off-screen image creation
+            <li>Configuration Manual
+        </ul><br>
+    </dd>
+</dl>
+          
+
+<h3>JCCKit V1.0.1</h3>
+
+This is a minor release from 9/11/2004.
+<p>
+<dl><dt>Features:</dt>
+    <dd><ul><li><a href="apidoc/jcckit/plot/BarFactory.html"><tt>BarFactory</tt></a>: 
+                Allow bars going into negative direction. 
+        </ul><br>
+    </dd>
+</dl>
+          
+<h3>JCCKit V1.0</h3>
+
+This is a final release from 3/21/2004.
+<p>
+<dl><dt>Features:</dt>
+    <dd><ul><li>An annotation layer (with any kind of graphics or text) can
+                be added to a 
+                <a href="apidoc/jcckit/plot/Plot.html"><tt>Plot</tt></a>
+                with the method
+                <a href="apidoc/jcckit/plot/Plot.html#setAnnotation(jcckit.graphic.GraphicalElement)"><tt>setAnnotation()</tt></a>
+            <li>The coordinate system of a <tt>Plot</tt> instance can be
+                changed with the method 
+                <a href="apidoc/jcckit/plot/Plot.html#setCoordinateSystem(jcckit.plot.CoordinateSystem)">
+                <tt>setCoordinateSystem()</tt></a>.
+            <li>A graphical marker object can be add to 
+                <tt>GraphicsPlotCanvas</tt> with 
+                <a href="apidoc/jcckit/GraphicsPlotCanvas.html#setMarker(jcckit.graphic.GraphicalElement)">
+                <tt>setMarker()</tt></a>. It will be drawn on top of
+                the plot. Useful in the case of mouse interactions.
+            <li>Automatic tic calculation of linear <tt>AxisParameter</tt>
+                improved.
+        </ul><br>
+    </dd>
+    <dt>Bugfixes:</dt>
+    <dd><ul><li>The method <tt>connect()</tt> of <tt>PlotCanvas</tt>
+                and <tt>Plot</tt> no longer throws a <tt>NullPointerException</tt>
+                if fed with <tt>null</tt>. Thus a <tt>Plot</tt> instance
+                can be diconnected from a <tt>DataPlot</tt> just by connecting
+                it with <tt>null</tt>.
+            <li>Class <tt>jcckit.renderer.Transformation</tt> transformed
+                device independent coordinates incorrectly into
+                Java coordinates as observed in Microsofts Java VM.
+            <li>Creating double buffers in <tt>GraphicsPlotCanvas</tt> caused
+                exceptions if resized below zero.
+        </ul><br>
+    </dd>
+</dl>
+          
+
+<h3>JCCKit V0.999</h3>
+
+This is a major release from 1/18/2004.
+<p>
+<dl><dt>Features:</dt>
+    <dd><ul><li>The <tt>Renderer</tt> for <tt>SVGPlotter</tt>, 
+                <tt>GraphicsPlotCanvas</tt>, and <tt>Graphics2DPlotCanvas</tt> 
+                are generated by a Factory Method (see method
+                <a href="apidoc/jcckit/GraphicsPlotCanvas.html#setRenderer(java.lang.String)">
+                <tt>setRenderer()</tt></a>).
+            <li>Swing wrapper components for <tt>GraphicsPlotCanvas</tt> and   
+                <tt>Graphics2DPlotCanvas</tt> (see method
+                <a href="apidoc/jcckit/GraphicsPlotCanvas.html#getGraphicsJPanel()">
+                <tt>getGraphicsJPanel()</tt></a>)
+            <li>Non-numerical tic labels due to interface
+                <a href="apidoc/jcckit/util/TicLabelFormat.html">
+                <tt>TicLabelFormat</tt></a> and class
+                <a href="apidoc/jcckit/plot/TicLabelMap.html">
+                <tt>TicLabelMap</tt></a>. 
+        </ul><br>
+    </dd>
+</dl>
+          
+
+<h3>JCCKit V0.99</h3>
+
+This is a major release from 5/3/2003.
+<p>
+<dl><dt>Features:</dt>
+    <dd><ul><li>Graphics2DRenderer
+            <li>Removing methods insertAt and removeAt in Polygon, GraphicalComposite, 
+                and Curve
+            <li>AttributesHint and ShapeAttributesHint
+            <li>ConfigParameters with boolean type
+            <li>Changes in SimpleCurveFactory and SimpleCurve lead to different 
+                configuration parameters
+            <li>Plot.transform(): Backward transformation from DICS to DCS
+            <li>GraphicsPlotCanvas.mapCursorPosition(): Maps cursor position onto DICS
+            <li>ErrorBarFactory
+         </ul><br>
+    </dd>
+    <dt>Bugfixes:</dt>
+    <dd><ul><li>GraphicsRenderer: Rotated text does not appear on black background
+            <li>Plot: curve generation: Now correct hint propagation is implemented
+         </ul><br>
+    </dd>
+    <dt>Documentation:</dt>
+    <dd><ul><li>more examples
+            <li>User Guide continued
+        </ul><br>
+    </dd>
+</dl>
+
+<h3>JCCKit V0.91</h3>
+
+This is a minor release from 4/23/2003.
+<p>
+<dl><dt>Features:</dt>
+    <dd><ul><li>More powerful Format class: Now allows plain text before and 
+                after format statement.
+         </ul><br>
+    </dd>
+    <dt>Bugfixes:</dt>
+    <dd><ul><li>Bug #726146: Legend
+            <li>Throw NullPointerException if a null is added to GraphicalComposite
+        </ul><br>
+    </dd>
+    <dt>Documentation:</dt>
+    <dd><ul><li>User Guide started
+        </ul><br>
+    </dd>
+</dl>
+
+
+<h3>JCCKit V0.9</h3>
+
+This is the initial release from 4/12/2003.
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 12/18/2004
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>

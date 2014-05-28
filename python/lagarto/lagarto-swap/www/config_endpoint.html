@@ -1,0 +1,121 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 */ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-SWAP</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/js/config_endpoint.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Endpoint editor</h1>
+      <form action="/command/config_endpoint" method="post">
+      <table align="center" width="450px" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td colspan="2"><h2>Register</h2></td>
+        </tr>
+        <tr>
+          <td class="celltitle">Name:</td>
+          <td align="left">
+            <input type="text" id="motename" class="inputnoedit2" readOnly="readOnly"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="celltitle">Developer:</td>
+          <td align="left">
+            <input type="text" id="developer" class="inputnoedit2" readOnly="readOnly"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="celltitle">Address:</td>
+          <td align="left">
+            <input type="text" id="moteaddr" class="inputnoedit2" readOnly="readOnly"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><h2>Register</h2></td>
+        </tr>
+        <tr>
+          <td class="celltitle">Name:</td>
+          <td align="left">
+            <input type="text" id="regname" class="inputnoedit2" readOnly="readOnly"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="celltitle">ID:</td>
+          <td align="left">
+            <input type="text" id="regid" class="inputnoedit2" readOnly="readOnly"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><h2>Endpoint</h2></td>
+        </tr>
+          <tr>
+            <td class="celltitle">Location:</td>
+            <td align="left">
+              <input type="text" id="location" name="location" class="inputdatalong"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Name:</td>
+            <td align="left">
+              <input type="text" id="name" name="name" class="inputdatalong"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">ID:</td>
+            <td align="left">
+              <input type="text" id="id" name="id" class="inputnoedit2" readOnly="readOnly"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Type:</td>
+            <td align="left">
+              <input type="text" id="type" class="inputnoedit2" readOnly="readOnly"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Direction:</td>
+            <td align="left">
+              <input type="text" id="direction" class="inputnoedit2" readOnly="readOnly"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Value:</td>
+            <td align="left">
+              <input type="text" id="value" class="inputnoedit2" readOnly="readOnly"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Unit:</td>
+            <td align="left">
+              <select id="unit" name="unit" class="inputdatashort">
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Last update:</td>
+            <td align="left">
+              <input type="text" id="timestamp" class="inputnoedit2" readOnly="readOnly"/>
+            </td>
+          </tr>
+        </table>
+        <p>
+          <input type='button' class='button_a' onClick='history.back()' value='CANCEL'/>
+          <input type='submit' class='button_a' value='SAVE'/>
+        </p>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      loadJSONdata("../config/swapnet.json", updateValues);
+    </script>
+  </body>
+</html>
+

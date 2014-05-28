@@ -1,0 +1,607 @@
+# EESchema Netlist Version 1.1 created  Tue 12 Jul 2011 05:40:06 PM CEST
+(
+ ( /4E1B3B58 pin_array_5x1  P3 CONN_5 {Lib=CONN_5}
+  (    1 VCC )
+  (    2 GND )
+  (    3 /RF_Circuit/SPI_SCK )
+  (    4 /SPI_MISO )
+  (    5 /RF_Circuit/SPI_MOSI )
+ )
+ ( /4E1B3888 SM0402  C22 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4E16D911 MURATA_3PIN_RESONATOR  RS1 RESONATOR_3P {Lib=RESONATOR_3P}
+  (    1 N-000030 )
+  (    2 GND )
+  (    3 N-000029 )
+ )
+ ( /4D0B29B1 pin_array_12x1  P2 CONN_12 {Lib=CONN_12}
+  (    1 GND )
+  (    2 GND )
+  (    3 /GPIO_D7 )
+  (    4 /GPIO_D6 )
+  (    5 /GPIO_D5 )
+  (    6 /GPIO_D4 )
+  (    7 /GPIO_D3 )
+  (    8 /GPIO_D1 )
+  (    9 /GPIO_D0 )
+  (   10 GND )
+  (   11 VCC )
+  (   12 /RESET )
+ )
+ ( /4D0B29AC pin_array_12x1  P1 CONN_12 {Lib=CONN_12}
+  (    1 GND )
+  (    2 /GPIO_B0 )
+  (    3 /GPIO_B1 )
+  (    4 /GPIO_C0 )
+  (    5 /GPIO_C1 )
+  (    6 /GPIO_C2 )
+  (    7 GND )
+  (    8 /GPIO_C3 )
+  (    9 /GPIO_C4 )
+  (   10 /GPIO_C5 )
+  (   11 /ADC6 )
+  (   12 /ADC7 )
+ )
+ ( /4CBC337F SM0402  C5 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4CBC2B56 SM0402  C4 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4CBC2B54 SM0603S  C3 1u {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4CBC2B40 SM0603S  C2 4.7u {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4CBC1B39 SM0402  R1 10k {Lib=R}
+  (    1 VCC )
+  (    2 /RESET )
+ )
+ ( /4CBC1411 SM0402  C1 100n {Lib=C}
+  (    1 N-000027 )
+  (    2 GND )
+ )
+ ( /4CB87B5C AVR-MLF32  U1 ATMEGA328P {Lib=ATMEGA48/88/168-MU}
+  (    1 /GPIO_D3 )
+  (    2 /GPIO_D4 )
+  (    3 GND )
+  (    4 VCC )
+  (    5 GND )
+  (    6 VCC )
+  (    7 N-000029 )
+  (    8 N-000030 )
+  (    9 /GPIO_D5 )
+  (   10 /GPIO_D6 )
+  (   11 /GPIO_D7 )
+  (   12 /GPIO_B0 )
+  (   13 /GPIO_B1 )
+  (   14 /SPI_CSn )
+  (   15 /RF_Circuit/SPI_MOSI )
+  (   16 /SPI_MISO )
+  (   17 /RF_Circuit/SPI_SCK )
+  (   18 VCC )
+  (   19 /ADC6 )
+  (   20 N-000027 )
+  (   21 GND )
+  (   22 /ADC7 )
+  (   23 /GPIO_C0 )
+  (   24 /GPIO_C1 )
+  (   25 /GPIO_C2 )
+  (   26 /GPIO_C3 )
+  (   27 /GPIO_C4 )
+  (   28 /GPIO_C5 )
+  (   29 /RESET )
+  (   30 /GPIO_D0 )
+  (   31 /GPIO_D1 )
+  (   32 /CC_GDO0 )
+ )
+ ( /4D078F4E/4E16A628 SM0402  R5 1k {Lib=R}
+  (    1 N-000040 )
+  (    2 /SPI_CSn )
+ )
+ ( /4D078F4E/4E16A5F0 SM0402  R4 1k {Lib=R}
+  (    1 N-000037 )
+  (    2 /SPI_MISO )
+ )
+ ( /4D078F4E/4E16A5C0 SM0402  R3 1k {Lib=R}
+  (    1 N-000034 )
+  (    2 /RF_Circuit/SPI_MOSI )
+ )
+ ( /4D078F4E/4E16A48A SM0402  R2 1k {Lib=R}
+  (    1 N-000036 )
+  (    2 /RF_Circuit/SPI_SCK )
+ )
+ ( /4D078F4E/4D07AD29 SM0402  C21 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07AD25 SM0402  C18 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07AD20 SM0402  C17 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07AD1C SM0402  C16 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07ACE1 SM0402  C14 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07ABE6 SM0402  C13 100n {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07AA28 SM0402  C6 100n {Lib=C}
+  (    1 N-000039 )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07A98D SM0402  C8 11p {Lib=C}
+  (    1 GND )
+  (    2 N-000032 )
+ )
+ ( /4D078F4E/4D07A97E SM0402  C7 11p {Lib=C}
+  (    1 GND )
+  (    2 N-000031 )
+ )
+ ( /4D078F4E/4D07A8D2 ABM8  X1 26MHz {Lib=XTAL_4}
+  (    1 N-000032 )
+  (    2 GND )
+  (    3 N-000031 )
+  (    4 GND )
+ )
+ ( /4D078F4E/4D07A7B4 SM0402  L7 3.3n {Lib=INDUCTOR}
+  (    1 N-000033 )
+  (    2 /RF_Circuit/ANTENNA )
+ )
+ ( /4D078F4E/4D07A709 SM0402  C20 47p {Lib=C}
+  (    1 N-000048 )
+  (    2 N-000033 )
+ )
+ ( /4D078F4E/4D07A6FA SM0402  C19 12p {Lib=C}
+  (    1 N-000048 )
+  (    2 /RF_Circuit/ANTENNA )
+ )
+ ( /4D078F4E/4D07A66A SM0402  C15 3.3p {Lib=C}
+  (    1 N-000044 )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07A647 SM0402  L6 12n {Lib=INDUCTOR}
+  (    1 N-000044 )
+  (    2 N-000048 )
+ )
+ ( /4D078F4E/4D07A5F6 SM0402  C9 1.5p {Lib=C}
+  (    1 N-000047 )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07A588 SM0402  L5 12n {Lib=INDUCTOR}
+  (    1 N-000045 )
+  (    2 N-000044 )
+ )
+ ( /4D078F4E/4D07A4E2 SM0402  C11 100p {Lib=C}
+  (    1 N-000043 )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07A36A SM0402  L3 18n {Lib=INDUCTOR}
+  (    1 N-000046 )
+  (    2 N-000043 )
+ )
+ ( /4D078F4E/4D07A240 SM0402  L4 18n {Lib=INDUCTOR}
+  (    1 N-000047 )
+  (    2 N-000045 )
+ )
+ ( /4D078F4E/4D07A1D7 SM0402  C12 1.5p {Lib=C}
+  (    1 N-000045 )
+  (    2 N-000046 )
+ )
+ ( /4D078F4E/4D079FE8 SM0402  C10 1p {Lib=C}
+  (    1 N-000047 )
+  (    2 N-000046 )
+ )
+ ( /4D078F4E/4D079FB7 SM0402  L2 12n {Lib=INDUCTOR}
+  (    1 N-000041 )
+  (    2 N-000046 )
+ )
+ ( /4D078F4E/4D079F69 SM0402  L1 12n {Lib=INDUCTOR}
+  (    1 N-000035 )
+  (    2 N-000047 )
+ )
+ ( /4D078F4E/4D079DCB SM0402  R6 56k {Lib=R}
+  (    1 N-000042 )
+  (    2 GND )
+ )
+ ( /4D078F4E/4D07984A QLP20  U2 CC1101 {Lib=CC1101}
+  (    1 N-000036 )
+  (    2 N-000037 )
+  (    3 ? )
+  (    4 VCC )
+  (    5 N-000039 )
+  (    6 /CC_GDO0 )
+  (    7 N-000040 )
+  (    8 N-000032 )
+  (    9 VCC )
+  (   10 N-000031 )
+  (   11 VCC )
+  (   12 N-000041 )
+  (   13 N-000035 )
+  (   14 VCC )
+  (   15 VCC )
+  (   16 GND )
+  (   17 N-000042 )
+  (   18 VCC )
+  (   19 GND )
+  (   20 N-000034 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C22
+ SM*
+ C?
+ C1-1
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C21
+ SM*
+ C?
+ C1-1
+$endlist
+$component C18
+ SM*
+ C?
+ C1-1
+$endlist
+$component C17
+ SM*
+ C?
+ C1-1
+$endlist
+$component C16
+ SM*
+ C?
+ C1-1
+$endlist
+$component C14
+ SM*
+ C?
+ C1-1
+$endlist
+$component C13
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component C8
+ SM*
+ C?
+ C1-1
+$endlist
+$component C7
+ SM*
+ C?
+ C1-1
+$endlist
+$component C20
+ SM*
+ C?
+ C1-1
+$endlist
+$component C19
+ SM*
+ C?
+ C1-1
+$endlist
+$component C15
+ SM*
+ C?
+ C1-1
+$endlist
+$component C9
+ SM*
+ C?
+ C1-1
+$endlist
+$component C11
+ SM*
+ C?
+ C1-1
+$endlist
+$component C12
+ SM*
+ C?
+ C1-1
+$endlist
+$component C10
+ SM*
+ C?
+ C1-1
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 2 "/CC_GDO0" "CC_GDO0"
+ U1 32
+ U2 6
+Net 3 "/SPI_CSn" "SPI_CSn"
+ R5 2
+ U1 14
+Net 4 "/SPI_MISO" "SPI_MISO"
+ P3 4
+ U1 16
+ R4 2
+Net 5 "/RF Circuit/SPI_MOSI" "SPI_MOSI"
+ R3 2
+ U1 15
+ P3 5
+Net 6 "/RF Circuit/SPI_SCK" "SPI_SCK"
+ R2 2
+ U1 17
+ P3 3
+Net 7 "/RF Circuit/ANTENNA" "ANTENNA"
+ L7 2
+ C19 2
+Net 8 "VCC" "VCC"
+ P3 1
+ C21 1
+ C18 1
+ C17 1
+ C16 1
+ C14 1
+ C13 1
+ U2 4
+ U2 9
+ U2 11
+ U2 14
+ U2 15
+ C22 1
+ U2 18
+ C2 1
+ C3 1
+ C4 1
+ P2 11
+ C5 1
+ R1 1
+ U1 4
+ U1 6
+ U1 18
+Net 9 "/GPIO_D7" "GPIO_D7"
+ P2 3
+ U1 11
+Net 10 "/GPIO_D6" "GPIO_D6"
+ P2 4
+ U1 10
+Net 11 "/GPIO_D5" "GPIO_D5"
+ P2 5
+ U1 9
+Net 12 "/GPIO_D3" "GPIO_D3"
+ P2 7
+ U1 1
+Net 13 "/GPIO_C3" "GPIO_C3"
+ U1 26
+ P1 8
+Net 14 "/GPIO_C1" "GPIO_C1"
+ U1 24
+ P1 5
+Net 15 "/GPIO_B1" "GPIO_B1"
+ P1 3
+ U1 13
+Net 16 "/RESET" "RESET"
+ P2 12
+ R1 2
+ U1 29
+Net 17 "/GPIO_D0" "GPIO_D0"
+ U1 30
+ P2 9
+Net 18 "/GPIO_D1" "GPIO_D1"
+ U1 31
+ P2 8
+Net 19 "/GPIO_D4" "GPIO_D4"
+ P2 6
+ U1 2
+Net 20 "/ADC6" "ADC6"
+ P1 11
+ U1 19
+Net 21 "/GPIO_C0" "GPIO_C0"
+ P1 4
+ U1 23
+Net 22 "/ADC7" "ADC7"
+ P1 12
+ U1 22
+Net 23 "/GPIO_B0" "GPIO_B0"
+ U1 12
+ P1 2
+Net 24 "/GPIO_C2" "GPIO_C2"
+ P1 6
+ U1 25
+Net 25 "/GPIO_C4" "GPIO_C4"
+ U1 27
+ P1 9
+Net 26 "/GPIO_C5" "GPIO_C5"
+ U1 28
+ P1 10
+Net 27 "" ""
+ C1 1
+ U1 20
+Net 28 "GND" "GND"
+ P2 1
+ C3 2
+ P2 2
+ C15 2
+ C9 2
+ U2 19
+ U2 16
+ C11 2
+ C2 2
+ C1 2
+ C5 2
+ C4 2
+ C8 1
+ C6 2
+ C18 2
+ C21 2
+ P1 1
+ C13 2
+ C7 1
+ X1 2
+ P2 10
+ X1 4
+ U1 5
+ U1 3
+ C22 2
+ RS1 2
+ R6 2
+ P3 2
+ C17 2
+ C16 2
+ U1 21
+ P1 7
+ C14 2
+Net 29 "" ""
+ RS1 3
+ U1 7
+Net 30 "" ""
+ U1 8
+ RS1 1
+Net 31 "" ""
+ C7 2
+ X1 3
+ U2 10
+Net 32 "" ""
+ X1 1
+ C8 2
+ U2 8
+Net 33 "" ""
+ L7 1
+ C20 2
+Net 34 "" ""
+ R3 1
+ U2 20
+Net 35 "" ""
+ U2 13
+ L1 1
+Net 36 "" ""
+ U2 1
+ R2 1
+Net 37 "" ""
+ U2 2
+ R4 1
+Net 39 "" ""
+ C6 1
+ U2 5
+Net 40 "" ""
+ U2 7
+ R5 1
+Net 41 "" ""
+ L2 1
+ U2 12
+Net 42 "" ""
+ U2 17
+ R6 1
+Net 43 "" ""
+ L3 2
+ C11 1
+Net 44 "" ""
+ L5 2
+ C15 1
+ L6 1
+Net 45 "" ""
+ L5 1
+ L4 2
+ C12 1
+Net 46 "" ""
+ L3 1
+ C12 2
+ C10 2
+ L2 2
+Net 47 "" ""
+ C10 1
+ L1 2
+ C9 1
+ L4 1
+Net 48 "" ""
+ L6 2
+ C19 1
+ C20 1
+}
+#End

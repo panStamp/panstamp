@@ -1,0 +1,80 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 */ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-SWAP</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/js/general_settings.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>General settings</h1>
+      <a href="/lagarto/lagarto_settings.html">Lagarto server settings</a>
+      <br></br>
+      <form action="/command/general_settings" method="post">
+        <table align="center" width="550px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="celltitle">Debug level</td>
+            <td align="left">
+              <select id="debug" name="debug" class="inputdatalong">
+                <option value="0">No debug</option>
+                <option value="1">Print SWAP traffic</option>
+                <option value="2">Print traffic and events</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Local Device Definition folder</td>
+            <td align="left">
+              <input type="text" id="local" name="local" class="inputdatalong"/>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Remote Device Definition folder</td>
+            <td align="left">
+              <input type="text" id="remote" name="remote" class="inputdatalong"/>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Update Device Definition folder on start-up</td>
+            <td align="left">
+              <input type="checkbox" id="update" name="update" value="true"/>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Serial gateway config file</td>
+            <td align="left">
+              <input type="text" id="serial" name="serial" class="inputdatalong"/>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Wireless config file</td>
+            <td align="left">
+              <input type="text" id="network" name="network" class="inputdatalong"/>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">SWAP network file</td>
+            <td align="left">
+              <input type="text" id="swapnet" name="swapnet" class="inputdatalong"/>
+            </td>
+          </tr>
+        </table>
+        <p>
+          <input type='button' class='button_a' onClick='history.back()' value='CANCEL'/>
+          <input type='submit' class='button_a' value='SAVE'/>
+        </p>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      loadXMLdata("config/settings.xml", updateValues);
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,30 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<html>
+	<head>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <link rel="stylesheet" type="text/css" href="/max.css">
+    <script src="/js/edit_item2_sunl.js"></script>
+	</head>
+  <body bgcolor="#FFFFFF">
+	  <table align="center">
+      <tr>
+        <td class="celltitle">Daylight time</td>
+        <td>
+				  <input type="checkbox" id="suntimeopt" onclick="switchItem2()" checked>
+        </td>
+      </tr>
+		  <tr>
+        <td class="celltitle" width="50%">Time</td>
+			  <td>
+				  <select id="suntime" class="inputdatashort">
+					  <option value="sunrise">sunrise</option>
+					  <option value="sunset">sunset</option>
+				  </select>
+			  </td>
+		  </tr>
+	  </table>
+    <script language="JavaScript" type="text/javascript">
+      updateValues();
+    </script>
+	</body>
+</html>

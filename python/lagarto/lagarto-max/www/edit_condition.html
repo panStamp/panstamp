@@ -1,0 +1,53 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<html>
+	<head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-MAX</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <link rel="stylesheet" type="text/css" href="/max.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/js/events.js"></script>
+    <script src="/js/edit_condition.js"></script>
+	</head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Event editor - Additional condition</h1>
+      <form id="python_statement" action="/command/set_event_line" method="get">
+        <table align="center" width="450px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="celltitle">Event name:</td>
+            <td align="left">
+              <input type="hidden" id="evnid" name="id"/>
+              <input type="text" id="evnname" class="inputnoedit2" style="width:300px" readOnly="readOnly"/>
+            </td>
+          </tr>
+					<tr>
+						<td class="celltitle">Type of condition:</td>
+            <td>
+							<select id="source" class="inputdatalong" onchange="onchangeOption()">
+								<option value="clock">Time</option>
+								<option value="network">Lagarto network</option>
+							</select>
+						</td>
+					</tr>
+        </table>
+			  <br></br>
+			  <iframe src="" width="500" height="250" id="itemeditor" class="evnbox" scrolling="no" frameborder="0"></iframe>
+        <br></br>
+        <input type="hidden" id="type" name="type" value="condition"/>
+        <input type="hidden" id="line" name="line"/>
+        <input type="hidden" id="linenb" name="linenb"/>
+        <input type='button' class='button_a' onClick="window.location.replace(document.referrer);" value='CANCEL'>
+        <input type="button" class="button_a" onclick="submitForm()" value="SAVE"/>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      createValues();
+    </script>
+	</body>
+</html>

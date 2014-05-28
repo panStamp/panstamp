@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<lagarto>
+	<procname>Lagarto-SWAP</procname>
+	<comms>
+<<<<<<< .mine
+		<address>192.168.1.33</address>
+=======
+		<address>192.168.1.34</address>
+>>>>>>> .r817
+		<broadcast>tcp://127.0.0.1:5001</broadcast>
+		<httpport>8001</httpport>
+	</comms>
+</lagarto>

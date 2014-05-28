@@ -1,0 +1,52 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 */ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/webtoolkit.md5.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/lagarto/js/edit_account.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Edit user account</h1>
+      <form id="dataform" action="/core/edit_account" method="post">
+        <table align="center" width="350px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+	          <td class="celltitle">User name</td>
+            <td>
+              <input type="text" id="user" name="user" class="inputdatashort"/>
+              <input type="hidden" id="olduser" name="olduser"/>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Password</td>
+            <td>
+              <input type="password" id="password" name="password" class="inputdatashort"/>
+            </td>
+          </tr>
+          <tr>
+	          <td class="celltitle">Confirm password</td>
+            <td>
+              <input type="password" id="confirm" class="inputdatashort"/>
+            </td>
+          </tr>
+        </table>
+        <p>
+          <input type='button' class='button_a' onClick='history.back()' value='CANCEL'/>
+          <input type='button' class='button_a' onClick='processValues()' value='SAVE'/>
+        </p>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      updateValues();
+    </script>
+  </body>
+</html>
+

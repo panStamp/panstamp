@@ -1,0 +1,27 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-MAX</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/js/plot.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <iframe src="" width="500" height="500" id="graphbox" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      if (!("name" in getUrlVars()))
+        alert("No graph selected");
+      document.getElementById("graphbox").src = "/plot.html?name=" + getUrlVars()["name"];
+    </script>
+  </body>
+</html>
+

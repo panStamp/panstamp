@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                      "http://www.w3.org/TR/html4/transitional.dtd">
+<html>
+<head>
+  <title>JCCKit User Guide: 3. Configuration Concept</title>
+  <meta name="author" content="Franz-Josef Elmer">
+  <meta name="keywords" 
+        content="Java, scientific plot software, open-source, SVG">
+  <link rel="stylesheet" type="text/css" href="../styleSheet.css">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td class="left-column" valign="top">
+<!-- ======== Left column =========================== -->
+<a href="../index.html"><img src="../images/logoSmall.png" border="0" 
+alt="JCCKit logo" width="259" height="110"></a>
+<p>
+<ul><li><a href="../index.html">Home</a>
+    <li><a href="../examples.html">Examples</a>
+    <li><a href="http://sourceforge.net/project/showfiles.php?group_id=78114">Download</a>
+    <li><a href="index.html">User Guide</a>
+        <ol><li><a href="introduction.html">Introduction</a>
+            <li><a href="usage.html">Usage as a library</a>
+            <li><b>Configuration Concept</b>
+            <li><a href="applet.html">JCCKit's PlotApplet</a>
+            <li><a href="extending.html">Extending JCCKit</a>
+        </ol>
+    <li><a href="../apidoc/index.html">API documentation</a>
+    <li><a href="http://sourceforge.net/projects/jcckit">SourceForge 
+        project page</a>
+</ul>
+<!-- ================================================ -->
+</td>
+<td class="right-column" valign="top">
+<!-- ======== Right column =========================== -->
+<h1>3. Configuration Concept</h1>
+
+JCCKit is highly configurable. For example, one can  
+<ul><li>choose color of curves, symbols, and texts
+    <li>choose text fonts and size
+    <li>configure coordinate systems
+    <li>etc.
+</ul>
+<p>
+
+This chapter explains in its sections
+<ol><li><a href="#1">how configuration parameters are accessed</a>,
+    <li><a href="#2">how they are used</a>, 
+    <li><a href="#3">how they are stored</a>, and
+    <li><a href="#4">the concept of inheritance of 
+        configuration parameters</a>.
+</ol>
+
+There is also a <a href="ConfigurationManual.pdf">Configuration Manual (PDF 180kb)</a> 
+explaining all parameters.
+
+
+<h2><a name="1">3.1 Accessing Configuration Parameters</h2>
+
+Configuration parameters can be accessed from an instance of
+<a href="../apidoc/jcckit/util/ConfigParameters.html">
+<tt>ConfigParameters</tt></a>. It is a read-only set of key-value 
+pairs where the keys are strings (like in a <tt>Properties</tt> instance). 
+The type of the value can be one of the following
+<ul><li><tt>String</tt>
+    <li><tt>int</tt>
+    <li><tt>double</tt>
+    <li><tt>double[]</tt>
+    <li><tt>Color</tt>
+    <li><tt>ConfigParameters</tt>
+</ul>
+Because a <tt>ConfigParameters</tt> object itself can be a value
+configuration parameters are organized hierarchically.
+<p>
+For each value type two types of getter methods exist: One with only a key 
+argument and one with a key argument and a default argument.
+If no key-value pair exists for the specified key 
+the first method throws an <tt>IllegalArgumentException</tt> whereas the
+second method returns the default value. An exception from this rules are
+key-value pairs where the value is a <tt>ConfigParameters</tt> object. In this
+case only one get method exists which returns in any case a value even it is
+an empty set. 
+
+<h2><a name="2">3.2 A General Purpose Factory Method</h2>
+
+An important key-value pair of a <tt>ConfigParameters</tt> object is the
+<tt>className</tt>. It denotes a fully-qualified Java class name. It is used
+by the factory method <a href=
+"../apidoc/jcckit/util/Factory.html#create(jcckit.util.ConfigParameters)">
+<tt>Factory.create(ConfigParameters)</tt></a> to create a new instance of
+that class. This factory method assumes that there is either 
+<ul><li>a constructor with a signature like
+        <tt>MayClass(ConfigParameters config)</tt> 
+        where <tt>config</tt> is the <tt>ConfigParameters</tt> object from
+        the argument of the <tt>create()</tt> method 
+    <li>or the default constructor with no arguments.
+</ul>
+<p>
+This general-purpose factory method together with the hierachically organized
+configuration parameters allows to create complex objects by just one
+line of code. For example, inside the constructor of the class
+<a href="../apidoc/jcckit/plot/Plot.html"><tt>Plot</tt></a> the
+factory method is invoked three times in order to create a
+<a href="../apidoc/jcckit/plot/CoordinateSystem.html"><tt>CoordinateSystem</tt>
+</a>, 
+a <a href="../apidoc/jcckit/plot/CurveFactory.html"><tt>CurveFactory</tt></a>, 
+and an initial <a href="../apidoc/jcckit/plot/Hint.html"><tt>Hint</tt></a>. 
+The constructors of all these objects may also call the factory method.
+<p>
+
+<h2><a name="3">3.3 Sources of Configuration Parameters</h2>
+
+In general configuration parameters are 
+read from a persistent source. Currently Java <tt>.properties</tt> files 
+(or more precicely <tt>Properties</tt> objects) and applet parameters 
+are supported. But other mechanisms (e.g., XML files, data bases) can be 
+easily incorporated because persistency of configuration data is
+separated from <tt>ConfigParameters</tt>. 
+<p>
+Actually <tt>ConfigParameters</tt> delegates (in accordance with the
+Strategy Design Pattern) the primary data access to an object which implements 
+the interface
+<a href="../apidoc/jcckit/util/ConfigData.html"><tt>ConfigData</tt></a>.
+<tt>ConfigParameters</tt> is responsible only for parsing the plain string
+value delivered by <tt>ConfigData</tt> to the requested data type 
+(<tt>int</tt>, <tt>Color</tt>, etc.) and error handling.
+<p>
+<a href="../apidoc/jcckit/util/PropertiesBasedConfigData.html">
+<tt>PropertiesBasedConfigData</tt></a> is an implementation 
+of <tt>ConfigData</tt> based on a single <tt>Properties</tt> instance.
+A similar implementation for applets is
+<a href="../apidoc/jcckit/util/AppletBasedConfigData.html">
+<tt>AppletBasedConfigData</tt></a>. Here the <tt>Properties</tt> object
+is replaced by an <tt>Applet</tt> instance which has also "properties"
+called <em>parameters</em>. 
+<p>
+<tt>PropertiesBasedConfigData</tt> and <tt>AppletBasedConfigData</tt>
+have internally only one set of key-value pairs where both keys and values are
+strings. In order to simulate hierarchically organized key-value pairs
+a key is stored together with the keys of all its ancestors. The keys
+of the ancestors are separated by '/'. They form a <em>path</em> in the
+tree of configuration data.
+<p>
+For example, the length of the x-axis of a plot is written in a 
+<tt>.properties</tt> file like
+<tt><pre>plot/coordinateSystem/xAxis/axisLength = 0.9</pre></tt>
+In an applet element of an HTML page one would write
+<tt><pre>
+&lt;param name="plot/coordinateSystem/xAxis/axisLength" value="0.9"&gt;
+</pre></tt>
+In this example it is assumed that an instance of
+<a href="../apidoc/jcckit/plot/PlotCanvas.html"><tt>PlotCanvas</tt></a>
+should be created from <tt>ConfigParameters</tt> based on such a
+<tt>.properties</tt> file or applet parameters.
+<p>
+How to find out which parameters are needed? Look into the
+<a href="ConfigurationManual.pdf">Configuration Manual (PDF 180kb)</a>,
+Fortunately, for many parameters default values are defined. Thus only
+a few parameters are needed to be set. Most notable are the minimum/maximum 
+values for both axes, i.e.,
+<tt>plot/coordinateSystem/xAxis/minimum</tt>,
+<tt>plot/coordinateSystem/xAxis/maximum</tt>,
+<tt>plot/coordinateSystem/yAxis/minimum</tt>, and
+<tt>plot/coordinateSystem/yAxis/maximum</tt> (see <a href=
+"../apidoc/jcckit/plot/AxisParameters.html#createXAxis(jcckit.util.ConfigParameters)">
+<tt>AxisParameters.createXAxis()</tt></a>).
+
+<h2><a name="4">3.4 Inheritance of Configuration Parameters</h2>
+
+<tt>PropertiesBasedConfigData</tt> and <tt>AppletBasedConfigData</tt>
+(in general any subclass of 
+<a href="../apidoc/jcckit/util/FlatConfigData.html">
+<tt>FlatConfigData</tt></a>)
+have the nice feature of <em>inheritance</em> of sets of configuration
+parameters. This allows to define common parameters (e.g., label font for
+both axes) in a single place.
+<p>
+Inheritance means that a <tt>ConfigParameters</tt> object can inherit all
+key-value pairs (including child <tt>ConfigParameters</tt> objects) 
+from another <tt>ConfigParameters</tt> object in the tree
+of configuration parameters. Inherited parameters can be override.
+A <tt>ConfigParameters</tt> object can inherit from a <tt>ConfigParameters</tt>
+object which itself inherits from another one. The maximum level of
+inheritance is 20. 
+<p>
+In <tt>.properties</tt> files and applet parameters such an inheritance is
+stored in special key-value pairs: The key is the full path of a
+<tt>ConfigParameters</tt> object how wants to extends another
+<tt>ConfigParameters</tt> object. The value is the full path of the
+extended <tt>ConfigParameters</tt> object. Note, <em>key and path have to
+end with '/'</em>.
+<p>
+Here is an example: 
+<tt>
+<pre>
+defaultAxisParameters/ticLabelFormat = %d
+defaultAxisParameters/ticLabelAttributes/fontSize = 0.03
+defaultAxisParameters/axisLabelAttributes/textColor = 0xa0
+defaultAxisParameters/axisLabelAttributes/fontSize = 0.04
+defaultAxisParameters/axisLabelAttributes/fontStyle = bold
+<b>plot/coordinateSystem/xAxis/ = defaultAxisParameters/</b>
+plot/coordinateSystem/xAxis/axisLabel = year
+plot/coordinateSystem/xAxis/minimum = 1994.5
+plot/coordinateSystem/xAxis/maximum = 2002.5
+plot/coordinateSystem/xAxis/minimumTic = 1995
+plot/coordinateSystem/xAxis/maximumTic = 2002
+<b>plot/coordinateSystem/yAxis/ = defaultAxisParameters/</b>
+plot/coordinateSystem/yAxis/axisLabel = number of articles
+plot/coordinateSystem/yAxis/axisLabelAttributes/textColor = 0xa000
+plot/coordinateSystem/yAxis/maximum = 500
+plot/coordinateSystem/yAxis/grid = true
+</pre>
+</tt>
+The special key-value pairs defining inheritance are high-lighted.
+Both axes inherit from <tt>defaultAxisParameters</tt>. For the y-axis
+the text color of the axis label is overriden (green instead of blue).
+For each axis additional parameters are definied separately. 
+
+
+<!-- ================================================ -->
+
+</td>
+</tr>
+<tr class="footer">
+<td colspan="2">
+<center>
+Java and all Java-based trademarks and logos are trademarks or registered 
+trademarks of Sun Microsystems, Inc. in the U.S. and other countries.
+<br>
+(C) 2003-2004 <a href="mailto:fjelmer@users.sourceforge.net?subject=JCCKit">
+Franz-Josef Elmer</a>. All rights reserved. Last modified: 12/14/2004
+</center>
+</td>
+</tr>
+</table>
+</body>
+</html>
