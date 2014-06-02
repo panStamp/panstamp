@@ -1,3 +1,7 @@
+Jun 2 2014 - Version 2.2
+---------------------------
+- Bug fixed in how radio registers were initialised
+
 May 12 2014 - Version 2.1
 ---------------------------
 - Bug fixed in repeater functionality. Only one hope was allowed.
