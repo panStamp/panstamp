@@ -347,7 +347,7 @@ class CC1101
      * 
      * Set registers from EEPROM
      */
-    void setRegsFromEeprom(void);
+    //void setRegsFromEeprom(void);
 
   public:
     /*
@@ -449,7 +449,7 @@ class CC1101
      * 'syncL'	Synchronization word - Low byte
      * 'save' If TRUE, save parameter in EEPROM
      */
-    void setSyncWord(uint8_t syncH, uint8_t syncL, bool save=true);
+    void setSyncWord(uint8_t syncH, uint8_t syncL, bool save=false);
 
     /**
      * setSyncWord (overriding method)
@@ -459,7 +459,7 @@ class CC1101
      * 'syncH'	Synchronization word - pointer to 2-byte array
      * 'save' If TRUE, save parameter in EEPROM
      */
-    void setSyncWord(byte *sync, bool save=true);
+    void setSyncWord(byte *sync, bool save=false);
 
     /**
      * setDevAddress
@@ -469,7 +469,7 @@ class CC1101
      * 'addr'	Device address
      * 'save' If TRUE, save parameter in EEPROM
      */
-    void setDevAddress(byte addr, bool save=true);
+    void setDevAddress(byte addr, bool save=false);
 
     /**
      * setCarrierFreq
@@ -488,7 +488,7 @@ class CC1101
      * 'chnl'	Frequency channel
      * 'save' If TRUE, save parameter in EEPROM
      */
-    void setChannel(byte chnl, bool save=true);
+    void setChannel(byte chnl, bool save=false);
 
     /**
      * setPowerDownState

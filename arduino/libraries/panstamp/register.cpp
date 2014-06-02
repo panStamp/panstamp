@@ -39,7 +39,7 @@ void REGISTER::init(void)
   if (eepromAddress >= 0)
   {
     unsigned char i;
-    
+
     // Read from EEPROM
     for(i=0 ; i<length ; i++)
       value[i] = EEPROM.read(eepromAddress+i);

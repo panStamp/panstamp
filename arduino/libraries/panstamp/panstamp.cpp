@@ -221,7 +221,7 @@ void PANSTAMP::init()
   // Security disabled by default
   security = 0;
 
-  delayMicroseconds(50);  
+  delayMicroseconds(50);
 
   // Enter RX state
   cc1101.setRxState();
