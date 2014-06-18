@@ -229,7 +229,6 @@ enum RFSTATE
 #define CC1101_DEFVAL_FREQ2_918  0x23        // Frequency Control Word, High Byte
 #define CC1101_DEFVAL_FREQ1_918  0x4E        // Frequency Control Word, Middle Byte
 #define CC1101_DEFVAL_FREQ0_918  0xC4        // Frequency Control Word, Low Byte
-
 // Carrier frequency = 433 MHz
 #define CC1101_DEFVAL_FREQ2_433  0x10        // Frequency Control Word, High Byte
 #define CC1101_DEFVAL_FREQ1_433  0xA7        // Frequency Control Word, Middle Byte
@@ -437,8 +436,10 @@ class CC1101
      * init
      * 
      * Initializa CC1101
+     * 
+     * 'freq'	New carrier frequency
      */
-    void init(void);
+    void init(byte freq=CFREQ_868);
 
     /**
      * setSyncWord
