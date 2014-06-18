@@ -1,3 +1,7 @@
+Jun 18 2014 - Version 2.3
+---------------------------
+- CC1101::init now takes carrier frequency as an argument
+
 Jun 2 2014 - Version 2.2
 ---------------------------
 - Bug fixed in how radio registers were initialised

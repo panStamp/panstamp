@@ -203,8 +203,10 @@ void isrGDO0event(void)
  * init
  * 
  * Initialize panStamp board
+ * 
+ * 'freq'	New carrier frequency
  */
-void PANSTAMP::init() 
+void PANSTAMP::init(byte freq) 
 {
   int i;
 
@@ -216,7 +218,7 @@ void PANSTAMP::init()
     regTable[i]->init();
 
   // Setup CC1101
-  cc1101.init();
+  cc1101.init(freq);
 
   // Security disabled by default
   security = 0;
