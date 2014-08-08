@@ -22,7 +22,6 @@
  * Creation date: 08/05/2013
  */
 
-#include "Arduino.h"
 #include "Wire.h"
 #include "mma8652.h"
 
@@ -71,8 +70,8 @@ void MMA8652::init(void)
  */
 void MMA8652::attachInterrupt(void (*funct)(void))
 {
-  pinMode(ACC_INT2, INPUT);
-  ::attachInterrupt(ACC_INT2, funct, FALLING);
+  pinMode(intPin, INPUT);
+  ::attachInterrupt(intPin, funct, FALLING);
 }
 
 /**
@@ -88,7 +87,7 @@ uint8_t MMA8652::read(uint8_t address)
   Wire.write(address);
   Wire.endTransmission(false);
   
-  Wire.requestFrom(MMA8652_CTRL_ID_DEFAULT, 1);
+  Wire.requestFrom((int)MMA8652_CTRL_ID_DEFAULT, (int)1);
   while(!Wire.available());
   
   return Wire.read();
@@ -113,7 +112,7 @@ uint8_t MMA8652::read(uint8_t address, uint8_t *buffer, uint8_t length)
   Wire.write(address);
   Wire.endTransmission(false);
   
-  Wire.requestFrom(MMA8652_CTRL_ID_DEFAULT, length);
+  Wire.requestFrom((int)MMA8652_CTRL_ID_DEFAULT, (int)length);
 
   for(i=0 ; i<length ; i++)
   {

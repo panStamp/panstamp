@@ -25,6 +25,7 @@
 #ifndef MMA8652_h
 #define MMA8652_h
 
+#include "Arduino.h"
 #include "mma8652_regs.h"
 
 /**
@@ -60,6 +61,11 @@ struct AXIS
 class MMA8652
 {
   private:
+    /**
+     * MCU's digital pin connected to sensor's INT2 pin
+     */
+    uint8_t intPin;
+    
     /**
      * Current MMA8652_CTRL_REG4 value
      */
@@ -99,6 +105,12 @@ class MMA8652
     void disableInt(uint8_t source);
     
   public:
+
+    /**
+     * Class constructor
+     */
+    MMA8652(const uint8_t pin): intPin(pin) {};
+    
     /**
      * Axis information
      */
@@ -218,7 +230,7 @@ class MMA8652
      */
     inline bool eventAvailable(void)
     {
-      return !digitalRead(ACC_INT2);
+      return !(::digitalRead(intPin));
     }
 };
 
