@@ -26,6 +26,8 @@
 #include "calibration.h"
 #include "Arduino.h"
 #include <avr/wdt.h>
+#include <avr/sleep.h>
+#include <avr/power.h>
 
 #define enableIRQ_GDO0()          ::attachInterrupt(0, radioISR, FALLING);
 #define disableIRQ_GDO0()         ::detachInterrupt(0);
@@ -140,6 +142,37 @@ void PANSTAMP::wakeUp(void)
 {
   rtc.wakeUp();
   state = RXON;
+}
+
+/**
+ * sleep
+ *
+ * Enter LPM4
+ */
+void PANSTAMP::sleep(void)
+{
+  // Power down radio
+  radio.setPowerDownState();
+   
+  // Power-down panStamp
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  sleep_enable();
+  delayMicroseconds(10);
+  // Disable ADC
+  ADCSRA &= ~(1 << ADEN);
+  // Unpower functions
+#if defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__)
+  PRR0 = 0xFF;
+#else
+  PRR = 0xFF;
+#endif
+  // Enter sleep mode
+  sleep_mode();
+
+  // ZZZZZZZZ...
+
+  // Wake-up!!
+  wakeUp();
 }
 
 /**

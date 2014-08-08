@@ -128,6 +128,13 @@ class PANSTAMP
      * Wake from sleep mode
      */
     void wakeUp(void);
+
+    /**
+     * sleep
+     *
+     * Enter sleep mode forever and wake up only in case of INT1 event
+     */
+    void sleep(void);
     
     /**
      * sleepSec
