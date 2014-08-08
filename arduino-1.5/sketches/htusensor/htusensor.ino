@@ -1,52 +1,106 @@
-/* 
- HTU21D Humidity Sensor Example Code
- By: Nathan Seidle
- SparkFun Electronics
- Date: September 15th, 2013
- License: This code is public domain but you buy me a beer if you use this and we meet someday (Beerware license).
- 
- Uses the HTU21D library to display the current humidity and temperature
- 
- Open serial monitor at 9600 baud to see readings. Errors 998 if not sensor is detected. Error 999 if CRC is bad.
-  
- Hardware Connections (Breakoutboard to Arduino):
- -VCC = 3.3V
- -GND = GND
- -SDA = A4 (use inline 10k resistor if your board is 5V)
- -SCL = A5 (use inline 10k resistor if your board is 5V)
-
+/*
+ * Copyright (c) 2014 Daniel Berenguer <contact@panstamp.com>
+ * 
+ * This file is part of the panStamp project.
+ * 
+ * panStamp  is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ * 
+ * panStamp is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with panStamp; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301
+ * USA
+ * 
+ * Author: Daniel Berenguer
+ * Creation date: 08/08/2014
+ *
+ * Device:
+ * Dual Temperature + Humidity sensor
+ *
+ * Description:
+ * This sketch generates a SWAP temperature+humidity sensor device
+ * relying on HTU21D senor and Sparkfun's library
+ * https://github.com/sparkfun/HTU21D_Breakout
+ *
+ * These devices are low-power enabled so they will enter low-power mode
+ * just after reading the sensor values and transmitting them over the
+ * SWAP network.
+ *
+ * Associated Device Definition Files, defining registers, endpoints and
+ * configuration parameters:
+ * temphum.xml (Dual Humidity + Temperature sensor)
  */
 
 #include "Wire.h"
-#include "HardwareSerial.h"
+#include "regtable.h"
+#include "swap.h"
 #include "HTU21D.h"
 
-//Create an instance of the object
-HTU21D myHumidity;
+/**
+ * LED pin
+ */
+#ifdef ONBOARD_LED
+#define LED  ONBOARD_LED
+#else
+#define LED  4
+#endif
+
+//Create an instance of the sensor object
+HTU21D htu;
 
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("HTU21D Example!");
+  int i;
 
-  myHumidity.begin();
+  // Init panStamp
+  //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
+
+  // Initialize LED pins
+  pinMode(LED, OUTPUT);
+
+  // Initialize sensor
+  htu.begin();
+
+  // Transmit product code
+  getRegister(REGI_PRODUCTCODE)->getData();
+
+  // Enter SYNC state
+  swap.enterSystemState(SYSTATE_SYNC);
+
+  // During 3 seconds, listen the network for possible commands whilst the LED blinks
+  for(i=0 ; i<6 ; i++)
+  {
+    digitalWrite(LED, HIGH);
+    delay(100);
+    digitalWrite(LED, LOW);
+    delay(400);
+  }
+
+  // Transmit periodic Tx interval
+  getRegister(REGI_TXINTERVAL)->getData();
+  // Transmit power voltage
+  getRegister(REGI_VOLTSUPPLY)->getData();
+   // Switch to Rx OFF state
+  swap.enterSystemState(SYSTATE_RXOFF);
 }
 
 void loop()
 {
-//  float humd = myHumidity.readHumidity();
-  float temp = myHumidity.readTemperature();
+//  digitalWrite(LED, HIGH);
+  // Transmit sensor data
+  getRegister(REGI_SENSOR)->getData();
+  // Transmit power voltage
+  getRegister(REGI_VOLTSUPPLY)->getData();
+//  digitalWrite(LED, LOW);
 
-  Serial.print("Time:");
-  Serial.print(millis());
-  Serial.print(" Temperature:");
-  Serial.print(temp, 1);
-  Serial.print("C");
-//  Serial.print(" Humidity:");
-//  Serial.print(humd, 1);
-//  Serial.print("%");
-
-  Serial.println();
-  delay(1000);
+  // Sleep
+  swap.goToSleep();
 }
 
