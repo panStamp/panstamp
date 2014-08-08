@@ -31,8 +31,17 @@
 #include "Wire.h"
 #include "mma8652.h"
 
-// Accelerometer object
-MMA8652 accel;
+/**
+ * LED pin
+ */
+#ifdef ONBOARD_LED
+#define LEDPIN  ONBOARD_LED  // panStamp NRG has an on-board LED
+#else
+#define LEDPIN  4  // panStamp AVR does not but we can use a pin to drive an external LED
+#endif
+
+// Accelerometer object. Interruptable pin = D3
+MMA8652 accel = MMA8652(3);
 
 // Used to read statuses and source registers
 uint8_t status, intSource;
@@ -55,8 +64,9 @@ void setup()
   Serial.begin(9600);
   Serial.println("Starting...");
 
+  pinMode(LEDPIN, OUTPUT);
+
   // Init accelerometer
-  
   accel.init();
   delay(1);
   // Enable single-tap detection interruption
@@ -128,10 +138,10 @@ void loop()
   else
   {
     // Go to sleep
-    digitalWrite(ONBOARD_LED, LOW);
+    digitalWrite(LEDPIN, LOW);
     accel.sleep();    // Accelerometer in sleep mode
     panstamp.sleep(); // panStamp in sleep mode
-    digitalWrite(ONBOARD_LED, HIGH);
+    digitalWrite(LEDPIN, HIGH);
   }
 }
 
