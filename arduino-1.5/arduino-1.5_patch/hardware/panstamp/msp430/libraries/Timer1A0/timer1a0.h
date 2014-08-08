@@ -30,11 +30,6 @@
 #ifdef __MSP430_HAS_T1A3__
 
 /**
- * Macros
- */
-#define attachInterrupt(ptrFunc)   timer1a0overflow = ptrFunc
-
-/**
  * Class: TIMER1
  */
 class TIMER1A0
@@ -65,6 +60,18 @@ class TIMER1A0
      * Stop T1A3 timer
      */
     void stop(void);
+
+    /**
+     * attachInterrupt
+     * 
+     * Declare custom ISR, to be called whenever the timer overflows
+     * 
+     * @param funct pointer to the custom function
+     */
+     inline void attachInterrupt(void (*funct)(void))
+     {
+       timer1a0overflow = funct;
+     }
 };
 
 extern TIMER1A0 timer1a0;
