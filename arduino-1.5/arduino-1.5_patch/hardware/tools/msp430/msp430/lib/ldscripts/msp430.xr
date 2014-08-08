@@ -1,0 +1,125 @@
+/* Script for ld -r: link without relocation */
+OUTPUT_FORMAT("elf32-msp430")
+OUTPUT_ARCH("msp430")
+SECTIONS
+{
+  /* Read-only sections, merged into text segment.  */
+  .hash          0 : { *(.hash)          }
+  .dynsym        0 : { *(.dynsym)        }
+  .dynstr        0 : { *(.dynstr)        }
+  .gnu.version   0 : { *(.gnu.version)   }
+  .gnu.version_d 0 : { *(.gnu.version_d) }
+  .gnu.version_r 0 : { *(.gnu.version_r) }
+  .rel.init    0 : { *(.rel.init)  }
+  .rela.init   0 : { *(.rela.init) }
+  .rel.fini    0 : { *(.rel.fini)  }
+  .rela.fini   0 : { *(.rela.fini) }
+  .rel.text    0 : { *(.rel.text)        }
+  .rela.text   0 : { *(.rela.text)     }
+  .rel.rodata  0 : { *(.rel.rodata)    }
+  .rela.rodata 0 : { *(.rela.rodata) }
+  .rel.data    0 : { *(.rel.data)        }
+  .rela.data   0 : { *(.rela.data)     }
+  .rel.bss     0 : { *(.rel.bss)          }
+  .rela.bss    0 : { *(.rela.bss)       }
+  .rel.ctors   0 : { *(.rel.ctors)  }
+  .rela.ctors  0 : { *(.rela.ctors) }
+  .rel.dtors   0 : { *(.rel.dtors)  }
+  .rela.dtors  0 : { *(.rela.dtors) }
+  .rel.got     0 : { *(.rel.got)    }
+  .rela.got    0 : { *(.rela.got)   }
+  .rel.plt     0 : { *(.rel.plt)    }
+  .rela.plt    0 : { *(.rela.plt)   }
+  .text :
+  {
+    *(.text)
+  }
+  .rodata 0 :
+  {
+    *(.rodata)
+  }
+   /* Past last read-only (loadable) segment */
+  .data 0 :
+  {
+    *(.data)
+     /* Past last read-write (loadable) segment */
+  }
+  .bss 0 :
+  {
+    *(.bss)
+    *(COMMON)
+  }
+  .noinit 0 :
+  {
+    *(.noinit)
+  }
+   /* Past last write (loadable) segment */
+  .infomem 0 :
+  {
+    *(.infomem)
+    *(.infomem.*)
+  }
+  .infomemnobits 0 :
+  {
+    *(.infomemnobits)
+    *(.infomemnobits.*)
+  }
+  .infoa 0 :
+  {
+    *(.infoa)
+  }
+  .infob 0 :
+  {
+    *(.infob)
+  }
+  .infoc 0 :
+  {
+    *(.infoc)
+  }
+  .infod 0 :
+  {
+    *(.infod)
+  }
+  .vectors 0:
+  {
+    KEEP(*(.vectors*))
+  }
+  .fartext :
+  {
+    *(.fartext)
+    *(.fartext.*)
+  }
+  /* Stabs for profiling information*/
+  .profiler 0 : { *(.profiler) }
+  /* Stabs debugging sections.  */
+  .stab 0 : { *(.stab) }
+  .stabstr 0 : { *(.stabstr) }
+  .stab.excl 0 : { *(.stab.excl) }
+  .stab.exclstr 0 : { *(.stab.exclstr) }
+  .stab.index 0 : { *(.stab.index) }
+  .stab.indexstr 0 : { *(.stab.indexstr) }
+  .comment 0 : { *(.comment) }
+  /* DWARF debug sections.
+     Symbols in the DWARF debugging sections are relative to the beginning
+     of the section so we begin them at 0.  */
+  /* DWARF 1 */
+  .debug          0 : { *(.debug) }
+  .line           0 : { *(.line) }
+  /* GNU DWARF 1 extensions */
+  .debug_srcinfo  0 : { *(.debug_srcinfo) }
+  .debug_sfnames  0 : { *(.debug_sfnames) }
+  /* DWARF 1.1 and DWARF 2 */
+  .debug_aranges  0 : { *(.debug_aranges) }
+  .debug_pubnames 0 : { *(.debug_pubnames) }
+  /* DWARF 2 */
+  .debug_info     0 : { *(.debug_info) *(.gnu.linkonce.wi.*) }
+  .debug_abbrev   0 : { *(.debug_abbrev) }
+  .debug_line     0 : { *(.debug_line) }
+  .debug_frame    0 : { *(.debug_frame) }
+  .debug_str      0 : { *(.debug_str) }
+  .debug_loc      0 : { *(.debug_loc) }
+  .debug_macinfo  0 : { *(.debug_macinfo) }
+  /* DWARF 3 */
+  .debug_pubtypes 0 : { *(.debug_pubtypes) }
+  .debug_ranges   0 : { *(.debug_ranges) }
+}

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/637/trunk/arduino/sketches/rgbdriver
+END
+rgbled.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/915/trunk/arduino/sketches/rgbdriver/rgbled.cpp
+END
+rgbled.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/637/trunk/arduino/sketches/rgbdriver/rgbled.h
+END
+product.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/637/trunk/arduino/sketches/rgbdriver/product.h
+END
+regtable.ino
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/637/trunk/arduino/sketches/rgbdriver/regtable.ino
+END
+rgbdriver.ino
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/915/trunk/arduino/sketches/rgbdriver/rgbdriver.ino
+END
+regtable.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/637/trunk/arduino/sketches/rgbdriver/regtable.h
+END

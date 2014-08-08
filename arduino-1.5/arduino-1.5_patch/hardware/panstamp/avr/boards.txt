@@ -1,0 +1,21 @@
+# See: http://code.google.com/p/arduino/wiki/Platforms
+
+menu.cpu=Processor
+
+##############################################################
+avr.name=panStamp AVR w/ atmega328p
+
+avr.upload.tool=avrdude
+avr.upload.protocol=arduino
+avr.upload.maximum_data_size=2048
+avr.upload.maximum_size=32256
+avr.upload.speed=57600
+
+avr.build.core=panstamp
+avr.build.mcu=atmega328p
+avr.build.f_cpu=8000000L
+avr.build.variant=panstamp
+avr.build.board=PANSTAMP_AVR
+
+##############################################################
+

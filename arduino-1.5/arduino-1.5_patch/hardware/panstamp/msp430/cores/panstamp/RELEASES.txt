@@ -1,0 +1,63 @@
+May 26 2013
+---------------
+- Fixed bug in panstamp.cpp so that repeaters no longer respond to queries and commands not
+addressed to them.
+- Added "enabled" flag in repeater.cpp
+- enableRepeater(0) now stops the repeater mode
+
+May 14 2013
+---------------
+- Fixed bug in wakeUp
+
+May 13 2013
+---------------
+- Skip sleeping loop in goToSleep after running wakeUp
+
+May 8 2013
+---------------
+- New implementation of getInternalTemp
+
+May 7 2013
+---------------
+- Bug fixed in setRegValue from register.h
+
+May 1 2013
+---------------
+- Changes in REPEATER class
+- New setRegValue method in class REGISTER to set register value from a 1-to-4 byte number
+- setSyncWord from CC1101 class now accepts the main argument to be passed as individual bytes
+  (High byte and low byte of the sync word)
+- 433MHz band now supported from the CC1101 class
+
+Apr 13 2013
+---------------
+- CCPACKET and SWPACKET objects become static in isrGDO0event()
+
+Mar 21 2013
+---------------
+- Switched to LGPL license
+
+Mar 20 2013
+---------------
+- Fixed problem with Timer 2 being disabled during SLEEP
+
+Feb 23 2013
+---------------
+- Self-detection of 32.768 KHz crystal
+- Timer 1 reverted to its original settings after calibration
+
+Feb 10 2013
+---------------
+- Fixed problem about Rx interrupts happening wjilst in Tx mode
+- Señf-detection of the external 32.768 KHz crystal. No more need to define (or comment)
+EXTERNAL_RTC_CRYSTAL in config.h
+
+Jan 17 2013
+---------------
+- Check for RX_OVERFLOW in sendData whilst trying to enter Rx state
+
+Dec 10 2012
+---------------
+- EXTERNAL_RTC_CRYSTAL now enabled by default from config.h. This option needs to be disabled
+for old versions of panStamp, without the external 32.768 KHz crystal
+

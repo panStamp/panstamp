@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Copyright (c) 2011, Peter A. Bigot, licensed under New BSD (see COPYING)
+# This file is part of msp430mcu (http://sourceforge.net/projects/mspgcc/)
+
+usage () {
+      cat <<EOText
+Usage: msp430mcu-config [OPTIONS]
+Options:
+	--prefix : root of mspgcc/msp430mcu installation
+	--version : version of msp430mcu
+	--upstream-version : version of TI headers used in msp430mcu
+	--scriptpath : absolute path to ldscripts directory
+	--incpath : absolute path to include files
+EOText
+      exit 1
+}
+
+if [ $# -eq 0 ] ; then
+  usage
+fi
+
+for a in "${@}" ; do
+  case "${a}"
+  in
+    --prefix)
+      echo /home/robertinant/opt/mspgcc_energia
+      ;;
+    --scriptpath)
+      echo /home/robertinant/opt/mspgcc_energia/msp430/lib/ldscripts
+      ;;
+    --incpath)
+      echo /home/robertinant/opt/mspgcc_energia/msp430/include
+      ;;
+    --version)
+      echo 20120406
+      ;;
+    --upstream-version)
+      echo 20120330
+      ;;
+    --help|*)
+      ;;
+  esac
+done
