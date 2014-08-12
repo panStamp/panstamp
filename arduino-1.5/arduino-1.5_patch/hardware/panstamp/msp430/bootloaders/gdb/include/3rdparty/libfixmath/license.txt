@@ -1,0 +1,7 @@
+license.txt - MIT License
+-------------------------
+
+All the code in directory is from the libfixmath project from:
+ https://code.google.com/p/libfixmath/
+
+This version is a snapshot of r88 from the source tree
