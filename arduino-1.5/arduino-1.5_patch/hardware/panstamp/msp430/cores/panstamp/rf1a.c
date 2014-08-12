@@ -122,19 +122,20 @@ unsigned char ReadSingleReg(unsigned char addr)
 // @return      none
 // *************************************************************************************************
 void WriteSingleReg(unsigned char addr, unsigned char value)
-{ 
-	unsigned int int_state;
+{
+  unsigned int i;
+  unsigned int int_state;
 
-	ENTER_CRITICAL_SECTION(int_state);
+  ENTER_CRITICAL_SECTION(int_state);
 	
-    while (!(RF1AIFCTL1 & RFINSTRIFG));     // Wait for the Radio to be ready for the next instruction    
+  while (!(RF1AIFCTL1 & RFINSTRIFG));     // Wait for the Radio to be ready for the next instruction    
     
     RF1AINSTRW = ((addr | RF_REGWR)<<8 ) + value; // Send address + Instruction
-	while (!(RFDINIFG & RF1AIFCTL1));
+  while (!(RFDINIFG & RF1AIFCTL1));
 
-	i = RF1ADOUTB;                            // Reset RFDOUTIFG flag which contains status byte
+  i = RF1ADOUTB;                            // Reset RFDOUTIFG flag which contains status byte
 
-	EXIT_CRITICAL_SECTION(int_state);
+  EXIT_CRITICAL_SECTION(int_state);
 }
 
 
