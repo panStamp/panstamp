@@ -1,0 +1,8 @@
+
+Arduino cores, libraries and sketches for panStamp
+-----------------------------------------------------
+
+VERSION 0.1 - Released on 12-Aug 2014
+----------------------------------------
+1. First release, ready for beta-test
+
