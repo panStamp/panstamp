@@ -256,6 +256,9 @@ void setup()
   // Init panStamp
   //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
 
+  // Init SWAP stack
+  swap.init();
+  
   // Transmit product code
   getRegister(REGI_PRODUCTCODE)->getData();
 

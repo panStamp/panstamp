@@ -94,6 +94,9 @@ void setup()
   // Init panStamp
   //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
 
+  // Init SWAP stack
+  swap.init();
+  
   // Optionally set transmission amplifier to its maximum level (10dB)
   //panstamp.setHighTxPower();
 

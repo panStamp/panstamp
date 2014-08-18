@@ -97,6 +97,9 @@ void setup()
   // Init panStamp
   //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
 
+  // Init SWAP stack
+  swap.init();
+  
   // Declare callback function for dispatching incoming SWAP status packets
   swap.attachInterrupt(STATUS, swapStatusReceived);
   

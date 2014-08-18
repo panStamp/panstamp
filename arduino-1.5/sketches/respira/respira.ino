@@ -63,6 +63,9 @@ void setup()
   // Init panStamp
   panstamp.init();
 
+  // Init SWAP stack
+  swap.init();
+  
   /*
   Serial.begin(38400);
   Serial.println("Respira sensor ready!");

@@ -44,6 +44,7 @@
  
 #include "regtable.h"
 #include "swap.h"
+#include "HardwareSerial.h"
 
 /**
  * LED pin
@@ -79,7 +80,7 @@ uint8_t pwmPin[] = {9, 6, 5, 3};
    // Place here you code if you want the outputs to change
    // according to the value of any external register/endpoint
  }
- 
+
 /**
  * setup
  *
@@ -100,6 +101,9 @@ void setup()
 
   // Init panStamp
   //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
+  
+  // Init SWAP stack
+  swap.init();
   
   //byte password[] = {1,2,3,4,5,6,7,8,9,10,11,12};
   //panstamp.setSmartPassword(password);

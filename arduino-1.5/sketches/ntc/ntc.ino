@@ -76,6 +76,9 @@ void setup()
   // Init panStamp
   //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
 
+  // Init SWAP stack
+  swap.init();
+
   pinMode(NTC_POWER_PIN, OUTPUT);    // Configure power pin. This pin will be used to power the thermistor
   powerThermistorOff();          // Unpower sensor by default
 
