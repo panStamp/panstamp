@@ -146,15 +146,43 @@ void pacKetReceived(CCPACKET *packet)
  */
 SWAP::SWAP(REGISTER** regTbl, uint8_t numRegs)
 {
+  uint8_t i;
+
   swap.regTable = regTbl;
   swap.regTableSize = numRegs;
 
-  //panstamp.setPacketRxCallback(pacKetReceived);
   panstamp.attachInterrupt(pacKetReceived);
   statusReceived = NULL;
   repeater = NULL;
   encryptPwd = NULL;
   security = 0;
+}
+
+/**
+ * init
+ *
+ * Initialize SWAP registers
+ */
+void SWAP::init(void)
+{
+  uint8_t i;
+  STORAGE nvMem;
+
+  // Read signature from info/eeprom memory
+  uint8_t signature[2];
+  nvMem.read(signature, DEFAULT_NVOLAT_SECTION, NVOLAT_SIGNATURE, sizeof(signature));
+
+  // Correct signature in non-volatile memory?
+  if ((signature[0] != NVOLAT_SIGNATURE_HIGH) || (signature[1] != NVOLAT_SIGNATURE_LOW))
+    nvolatToFactoryDefaults(); // Copy default settings in non-volatile memory  
+
+  // Intialize registers
+  for(i=0 ; i<regTableSize ; i++)
+    regTable[i]->init();
+
+  // Config radio settings
+  panstamp.radio.devAddress = devAddress & 0xFF; 
+  panstamp.radio.setCCregs();
 }
 
 /**
@@ -231,4 +259,35 @@ void SWAP::goToSleep(void)
   systemState = SYSTATE_RXOFF;
   panstamp.sleepSec(txInterval);
   systemState = SYSTATE_RXON;
+}
+
+/**
+ * nvolatToFactoryDefaults
+ * 
+ * Write default config values in non-volatile memory
+ */
+void SWAP::nvolatToFactoryDefaults(void)
+{
+  STORAGE nvMem;
+
+  // Signature
+  uint8_t signature[] = {NVOLAT_SIGNATURE_HIGH, NVOLAT_SIGNATURE_LOW};
+  nvMem.write(signature, DEFAULT_NVOLAT_SECTION, NVOLAT_SIGNATURE, sizeof(signature));
+  
+  // Frequency channel
+  uint8_t channel[] = {CCDEF_CHANNR};
+  nvMem.write(channel, DEFAULT_NVOLAT_SECTION, NVOLAT_FREQ_CHANNEL, sizeof(channel));
+  
+  // Sync word
+  uint8_t syncW[] = {CCDEF_SYNC1, CCDEF_SYNC0};
+  nvMem.write(syncW, DEFAULT_NVOLAT_SECTION, NVOLAT_SYNC_WORD, sizeof(syncW));
+
+  // SWAP address (random number)
+  uint16_t random = 0x4567;//panstamp.GET_RANDOM();
+  uint8_t addr[] = {(random >> 8) & 0xFF, random & 0xFF};
+  nvMem.write(addr, DEFAULT_NVOLAT_SECTION, NVOLAT_DEVICE_ADDR, sizeof(addr));
+  
+  // TX interval
+  uint8_t txInt[] = {0, 0xFF};
+  nvMem.write(txInt, DEFAULT_NVOLAT_SECTION, NVOLAT_TX_INTERVAL, sizeof(txInt));
 }

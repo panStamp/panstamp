@@ -32,13 +32,7 @@
 /**
  * Macros
  */
-#define eepromToFactoryDefaults()                     \
-  EEPROM.write(EEPROM_SYNC_WORD, CCDEF_SYNC1);        \
-  EEPROM.write(EEPROM_SYNC_WORD + 1, CCDEF_SYNC0);    \
-  EEPROM.write(EEPROM_DEVICE_ADDR, CCDEF_ADDR);       \
-  EEPROM.write(EEPROM_FREQ_CHANNEL, CCDEF_CHANNR);    \
-  EEPROM.write(EEPROM_TX_INTERVAL, 0xFF);             \
-  EEPROM.write(EEPROM_TX_INTERVAL + 1, 0xFF)
+#define eepromToFactoryDefaults()   swap.nvolatToFactoryDefaults()
 
 #define enableAntiPlayback()    security |= 0x01
 
@@ -91,9 +85,13 @@ class SWAP
     REPEATER *repeater;
 
     /**
-     * SWAP extended address
+     * SWAP address
      */
+    #ifdef SWAP_EXTENDED_ADDRESS
     uint16_t devAddress;
+    #else
+    uint8_t devAddress;
+    #endif
 
     /**
      * Security options
@@ -145,6 +143,13 @@ class SWAP
     SWAP(REGISTER** regTbl, uint8_t numRegs);
 
     /**
+     * init
+     *
+     * Initialize SWAP registers
+     */
+    void init(void);
+
+    /**
      * enterSystemState
      *
      * Enter system state
@@ -167,7 +172,14 @@ class SWAP
      * @param password Encryption password
      */
     void setSmartPassword(unsigned char* password);
-    
+
+    /**
+     * nvolatToFactoryDefaults
+     * 
+     * Write default config values in non-volatile memory
+     */
+    void nvolatToFactoryDefaults(void);
+
     /**
      * attachInterrupt
      * 
