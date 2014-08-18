@@ -153,13 +153,6 @@ class CC430RADIO
      */
     uint8_t rfState;
 
-    /**
-     * setCCregs
-     * 
-     * Configure CC1101 registers
-     */
-    void setCCregs(void);
-
   public:
     /**
      * Tx Power byte (single PATABLE config)
@@ -192,6 +185,13 @@ class CC430RADIO
      * Class constructor
      */
     CC430RADIO(void);
+
+    /**
+     * setCCregs
+     * 
+     * Configure CC1101 registers
+     */
+    void setCCregs(void);
 
     /**
      * reset
