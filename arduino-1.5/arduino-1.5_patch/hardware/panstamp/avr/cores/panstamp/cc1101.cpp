@@ -197,15 +197,15 @@ void CC1101::reset(void)
 
   cc1101_Deselect();                    // Deselect CC1101
 
-  setDefaultRegs();                     // Reconfigure CC1101
+  setCCregs();                          // Reconfigure CC1101
 }
 
 /**
- * setDefaultRegs
+ * setCCregs
  * 
  * Configure CC1101 registers
  */
-void CC1101::setDefaultRegs(void) 
+void CC1101::setCCregs(void) 
 {
   writeReg(CC1101_IOCFG2,  CC1101_DEFVAL_IOCFG2);
   writeReg(CC1101_IOCFG1,  CC1101_DEFVAL_IOCFG1);
@@ -261,6 +261,11 @@ void CC1101::setDefaultRegs(void)
   writeReg(CC1101_TEST2,  CC1101_DEFVAL_TEST2);
   writeReg(CC1101_TEST1,  CC1101_DEFVAL_TEST1);
   writeReg(CC1101_TEST0,  CC1101_DEFVAL_TEST0);
+  
+  // Send empty packet
+  CCPACKET packet;
+  packet.length = 0;
+  sendData(packet);
 }
 
 /**
@@ -419,13 +424,16 @@ bool CC1101::sendData(CCPACKET packet)
 
   delayMicroseconds(500);
 
-  // Set data length at the first position of the TX FIFO
-  writeReg(CC1101_TXFIFO,  packet.length);
-  // Write data into the TX FIFO
-  writeBurstReg(CC1101_TXFIFO, packet.data, packet.length);
+  if (packet.length > 0)
+  {
+    // Set data length at the first position of the TX FIFO
+    writeReg(CC1101_TXFIFO,  packet.length);
+    // Write data into the TX FIFO
+    writeBurstReg(CC1101_TXFIFO, packet.data, packet.length);
 
-  // CCA enabled: will enter TX state only if the channel is clear
-  setTxState();
+    // CCA enabled: will enter TX state only if the channel is clear
+    setTxState();
+  }
 
   // Check that TX state is being entered (state = RXTX_SETTLING)
   marcState = readStatusReg(CC1101_MARCSTATE) & 0x1F;

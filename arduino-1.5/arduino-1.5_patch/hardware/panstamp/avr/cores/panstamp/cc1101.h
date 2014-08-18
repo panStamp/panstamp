@@ -269,6 +269,14 @@ enum RFSTATE
 #define CC1101_DEFVAL_TEST0      0x09        // Various Test Settings
 
 /**
+ * Alias for some default values
+ */
+#define CCDEF_CHANNR  CC1101_DEFVAL_CHANNR
+#define CCDEF_SYNC0  CC1101_DEFVAL_SYNC0
+#define CCDEF_SYNC1  CC1101_DEFVAL_SYNC1
+#define CCDEF_ADDR  CC1101_DEFVAL_ADDR
+
+/**
  * Macros
  */
 // Read CC1101 Config register
@@ -334,13 +342,6 @@ class CC1101
      * 'len'	Data length
      */
     void readBurstReg(uint8_t * buffer, uint8_t regAddr, uint8_t len);
-
-    /**
-     * setDefaultRegs
-     * 
-     * Configure CC1101 registers
-     */
-    void setDefaultRegs(void);
 
     /**
      * setRegsFromEeprom
@@ -425,6 +426,13 @@ class CC1101
      * 'value'	Value to be writen
      */
     void writeReg(uint8_t regAddr, uint8_t value);
+
+    /**
+     * setCCregs
+     * 
+     * Configure CC1101 registers
+     */
+    void setCCregs(void);
 
     /**
      * reset
