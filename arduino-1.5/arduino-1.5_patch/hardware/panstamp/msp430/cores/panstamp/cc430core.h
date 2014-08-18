@@ -27,6 +27,8 @@
 
 #include "wiring.h"
 
+#define UID_SIZE  8
+
 /**
  * Port state structure
  */
@@ -56,19 +58,7 @@ class CC430CORE
      */
     PORTCFG portConfig[3];
 
-    /**
-     * getUID
-     * 
-     * Read Die Record from Device Descriptor memory and build UID
-     */
-    void getUID(void);
-
   public:
-    /**
-     * Unique ID based on the Die Record
-     */
-    uint8_t uid[8];
-
     /**
      * init
      * 
@@ -92,6 +82,24 @@ class CC430CORE
      * Revert from low power mode
      */
     void setNormalMode(void);
+
+    /**
+     * getUID
+     * 
+     * Read Die Record from Device Descriptor memory and build UID
+     * 
+     * @param buffer Pointer to the buffer that will receive the result
+     */
+    void getUID(uint8_t *buffer);
+
+    /**
+     * getShortUID
+     * 
+     * Read Die Record from Device Descriptor memory and build a short 2-byte id
+     * 
+     * @return unsigned integer containing a 2-byte uid
+     */
+    uint16_t getShortUID(void);
 
     /**
      * getVcc

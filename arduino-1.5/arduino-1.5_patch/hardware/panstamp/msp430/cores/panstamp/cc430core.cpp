@@ -25,6 +25,7 @@
 #include "cc430core.h"
 #include "cc430x513x.h"
 
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -243,9 +244,6 @@ void CC430CORE::init(void)
    * Interrupt Edge select register: 1 == Interrupt on High to Low transition.
    */
   RF1AIES = BIT0 | BIT9;
-
-  // Read UID
-  getUID();
 }
 
 /**
@@ -283,18 +281,42 @@ int CC430CORE::getTemp(void)
  * getUID
  * 
  * Read Die Record from Device Descriptor memory and build UID
+ * 
+ * @param buffer Pointer to the buffer that will receive the result
  */
-void CC430CORE::getUID(void)
+void CC430CORE::getUID(uint8_t *buffer)
 {
   uint8_t *flashPtr = (uint8_t *) 0x1A0A;
-  uid[0] = flashPtr[3]; // Wafer ID
-  uid[1] = flashPtr[2];
-  uid[2] = flashPtr[1];
-  uid[3] = flashPtr[0];
-  uid[6] = flashPtr[5]; // Die X position
-  uid[7] = flashPtr[4];
-  uid[4] = flashPtr[7]; // Die Y position
-  uid[5] = flashPtr[6];
+  buffer[0] = flashPtr[3]; // Wafer ID
+  buffer[1] = flashPtr[2];
+  buffer[2] = flashPtr[1];
+  buffer[3] = flashPtr[0];
+  buffer[6] = flashPtr[5]; // Die X position
+  buffer[7] = flashPtr[4];
+  buffer[4] = flashPtr[7]; // Die Y position
+  buffer[5] = flashPtr[6];
+}
+
+/**
+ * getShortUID
+ * 
+ * Read Die Record from Device Descriptor memory and build a short 2-byte id
+ * 
+ * @return unsigned integer containing a 2-byte uid
+ */
+uint16_t CC430CORE::getShortUID(void)
+{
+  uint8_t buffer[2];
+  uint16_t result;
+  
+  uint8_t *flashPtr = (uint8_t *) 0x1A0A;
+  buffer[0] = flashPtr[5]; // Die X position
+  buffer[1] = flashPtr[4];
+  
+  result = buffer[0];
+  result = (result << 8) | buffer[1];
+  
+  return result;
 }
 
 /**
