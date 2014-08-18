@@ -2,6 +2,11 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.2 - Released on 18-Aug 2014
+----------------------------------------
+1. swap.init() now initializes all SWAP registers
+2. SWAP address taken from Vcc (AVR) or UID (NRG)
+
 VERSION 0.1 - Released on 12-Aug 2014
 ----------------------------------------
 1. First release, ready for beta-test
