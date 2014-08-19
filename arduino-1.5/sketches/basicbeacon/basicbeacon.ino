@@ -46,10 +46,13 @@ void setup()
 {
   byte i;
 
+  // Init panStamp
+  //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
+  
   panstamp.radio.setChannel(RFCHANNEL);
   panstamp.radio.setSyncWord(SYNCWORD1, SYNCWORD0);
   panstamp.radio.setDevAddress(SOURCE_ADDR);
-  panstamp.radio.reset();
+  panstamp.radio.setCCregs();
   panstamp.setHighTxPower();
 
   packet.length = 10;

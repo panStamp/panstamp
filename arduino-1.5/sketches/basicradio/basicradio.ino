@@ -69,6 +69,7 @@ void setup()
   panstamp.radio.setChannel(RFCHANNEL);
   panstamp.radio.setSyncWord(SYNCWORD1, SYNCWORD0);
   panstamp.radio.setDevAddress(SOURCE_ADDR);
+  panstamp.radio.setCCregs();
 
   // Let's disable address check for the current project so that our device
   // will receive packets even not addressed to it.
