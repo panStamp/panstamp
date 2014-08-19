@@ -52,20 +52,22 @@ uint16_t analogRead(uint8_t pin)
   // Check if pin is an analog input
 	else if ((channel = digitalPinToADCIn(pin)) == NOT_ON_ADC)
 		return 0;
+  else
+  {
+    uint8_t bit = digitalPinToBitMask(pin);
+    uint8_t port = digitalPinToPort(pin);
 
-  uint8_t bit = digitalPinToBitMask(pin);
-	uint8_t port = digitalPinToPort(pin);
-
-	volatile uint8_t *sel = portSelRegister(port);
-  *sel |= bit;
+    volatile uint8_t *sel = portSelRegister(port);
+    *sel |= bit;
+  }
   
   // Set ADC reference  
   if (analogRef == ADCREF_VCC)
       ADC12MCTL0 = ADC12SREF_0;  // Vr+=Vcc and Vr-=AVss
   else
   {
-    // Enable shared reference, disable temperature sensor to save power
-    REFCTL0 |= REFMSTR + analogRef + REFON + REFTCOFF;
+    // Enable shared reference
+    REFCTL0 |= REFMSTR + analogRef + REFON;
     ADC12MCTL0 = ADC12SREF_1;  // Vr+=Vref+ and Vr-=AVss
   }
 

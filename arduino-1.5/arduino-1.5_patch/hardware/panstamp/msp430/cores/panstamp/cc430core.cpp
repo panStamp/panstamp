@@ -256,9 +256,12 @@ void CC430CORE::init(void)
 uint16_t CC430CORE::getVcc(void)
 {
   analogReference(INTERNAL2V0);
-  uint16_t data = map(analogRead(A11), 0, 4095, 0, 4000);
+  
+  uint32_t data = analogRead(A11);
+  data *= 4000;
+  data /= 4095;
 
-  return data;
+  return (uint16_t) data;
 }
 
 /**
