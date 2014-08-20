@@ -183,7 +183,7 @@ class SWAP
     /**
      * attachInterrupt
      * 
-     * Declare custom ISR, to be called whenever a SWAP packet is received
+     * Declare custom ISR, to be called whenever a SWAP status packet is received
      * 
      * @param type of packet that triggers the user function
      * @param funct pointer to the custom function
