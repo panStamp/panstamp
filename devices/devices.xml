@@ -15,8 +15,9 @@
     <dev id="12" name="binouts2" label="Advanced Binary/PWM output module + repeater"/>
     <dev id="13" name="respira" label="Respira sensor for CO and NO2"/>
     <dev id="14" name="soilmoisture" label="Soil moisture sensor"/>
-    <dev id="15" name="easyvr" label="EasyVR voice recognition module"/>
-    <dev id="16" name="firmloader" label="Firmware server"/>
+<!--    <dev id="15" name="easyvr" label="EasyVR voice recognition module"/> 
+    <dev id="16" name="firmloader" label="Firmware server"/> -->
+    <dev id="16" name="firmserver" label="Firmware server"/>
   </developer>
   <developer id="17" name="Robomotic">
     <dev id="1" name="EmmaTI" label="Emma watch"/>
