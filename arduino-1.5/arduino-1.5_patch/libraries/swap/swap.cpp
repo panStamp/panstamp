@@ -32,12 +32,6 @@ DEFINE_COMMON_REGINDEX_START()
 DEFINE_COMMON_REGINDEX_END()
 
 /**
- * Array of registers
- */
-//extern REGISTER* regTable[];
-//extern uint8_t regTableSize;
-
-/**
  * pacKetReceived
  *
  * CCPACKET received
@@ -46,7 +40,7 @@ DEFINE_COMMON_REGINDEX_END()
  */
 void pacKetReceived(CCPACKET *packet)
 {
-  static SWPACKET swPacket = SWPACKET(*packet);
+  SWPACKET swPacket = SWPACKET(*packet);
   REGISTER *reg;
   bool eval = true;
 
@@ -86,7 +80,7 @@ void pacKetReceived(CCPACKET *packet)
         if (swPacket.destAddr != swPacket.regAddr)
           break;
         // Valid register?
-        if ((reg = getRegister(swPacket.regId)) == NULL)
+        if ((reg = swap.getRegister(swPacket.regId)) == NULL)
           break;
         // Anti-playback security enabled?
         if (swap.security & 0x01)
@@ -95,7 +89,7 @@ void pacKetReceived(CCPACKET *packet)
           if (swap.nonce != swPacket.nonce)
           {
             // Nonce missmatch. Transmit correct nonce.
-            reg = getRegister(REGI_SECUNONCE);
+            reg = swap.getRegister(REGI_SECUNONCE);
             reg->sendSwapStatus();
             break;
           }
@@ -121,7 +115,7 @@ void pacKetReceived(CCPACKET *packet)
         if (swPacket.destAddr != swPacket.regAddr)
           break;
         // Valid register?
-        if ((reg = getRegister(swPacket.regId)) == NULL)
+        if ((reg = swap.getRegister(swPacket.regId)) == NULL)
           break;
         reg->getData();
         break;
@@ -140,18 +134,9 @@ void pacKetReceived(CCPACKET *packet)
  * SWAP
  *
  * Class constructor
- * 
- * @param regTbl  Pointer to table of SWAP registers
- * @param numRegs  Number of registers
  */
-SWAP::SWAP(REGISTER** regTbl, uint8_t numRegs)
-{
-  uint8_t i;
-
-  swap.regTable = regTbl;
-  swap.regTableSize = numRegs;
-
-  panstamp.attachInterrupt(pacKetReceived);
+SWAP::SWAP(void)
+{  
   statusReceived = NULL;
   repeater = NULL;
   encryptPwd = NULL;
@@ -161,7 +146,7 @@ SWAP::SWAP(REGISTER** regTbl, uint8_t numRegs)
 /**
  * init
  *
- * Initialize SWAP registers
+ * Initialize SWAP registers and stack
  */
 void SWAP::init(void)
 {
@@ -183,6 +168,9 @@ void SWAP::init(void)
   // Config radio settings
   panstamp.radio.devAddress = devAddress & 0xFF; 
   panstamp.radio.setCCregs();
+  
+  // Attach RF ISR
+  panstamp.attachInterrupt(pacKetReceived);
 }
 
 /**
@@ -203,35 +191,6 @@ void SWAP::enableRepeater(unsigned char maxHop)
 
   if (maxHop == 0)
     repeater->stop();
-}
-
-/**
- * getRegister
- *
- * Return pointer to register with ID = regId
- *
- * @param regId Register ID
- */
-REGISTER * getRegister(unsigned char regId)
-{
-  if (regId >= swap.regTableSize)
-    return NULL;
-
-  return swap.regTable[regId]; 
-}
-
-/**
- * enterSystemState
- *
- * Enter system state
- *
- * @param state New system state
- */
-void SWAP::enterSystemState(SYSTATE state)
-{
-  // Enter SYNC mode (full Rx mode)
-  unsigned char newState[] = {state};
-  regTable[REGI_SYSSTATE]->setData(newState);
 }
 
 /**
@@ -282,12 +241,17 @@ void SWAP::nvolatToFactoryDefaults(void)
   uint8_t syncW[] = {CCDEF_SYNC1, CCDEF_SYNC0};
   nvMem.write(syncW, DEFAULT_NVOLAT_SECTION, NVOLAT_SYNC_WORD, sizeof(syncW));
 
-  // SWAP address (random number)
-  uint16_t random = 0x4567;//panstamp.GET_RANDOM();
+  // SWAP address (pseudo-random number)
+  uint16_t random = panstamp.GET_RANDOM();
   uint8_t addr[] = {(random >> 8) & 0xFF, random & 0xFF};
   nvMem.write(addr, DEFAULT_NVOLAT_SECTION, NVOLAT_DEVICE_ADDR, sizeof(addr));
   
   // TX interval
-  uint8_t txInt[] = {0, 0xFF};
+  uint8_t txInt[] = {0xFF, 0};
   nvMem.write(txInt, DEFAULT_NVOLAT_SECTION, NVOLAT_TX_INTERVAL, sizeof(txInt));
 }
+
+/**
+ * Pre-instantiate SWAP object
+ */
+SWAP swap;

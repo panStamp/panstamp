@@ -114,8 +114,7 @@ REGISTER *regTable[] = {             \
 #define DECLARE_REGISTERS_END()      \
 };                                   \
 /* Size of regTable */               \
-const uint8_t regTableSize = sizeof(regTable)/sizeof(*regTable);  \
-SWAP swap(regTable, regTableSize);
+uint8_t regTableSize = sizeof(regTable)/sizeof(*regTable);
 
 /**
  * Macro for the definition of getter/setter functions related to all common registers
@@ -136,7 +135,7 @@ const void setSysState(uint8_t id, uint8_t *state)       \
   {                                                         \
     case SYSTATE_RESTART:                                  \
       /* Send status message before restarting the mote */  \
-      getRegister(REGI_SYSSTATE)->sendSwapStatus();         \
+      swap.getRegister(REGI_SYSSTATE)->sendSwapStatus();    \
       panstamp.reset();                                     \
       break;                                                \
     default:                                                \
@@ -195,7 +194,7 @@ const void setDevAddress(uint8_t id, uint8_t *addr)               \
  * 'rId' Register ID                                        \
  * 'nId' New network id                                     \
  */                                                         \
-const void setNetworkId(uint8_t rId, uint8_t *nId)                \
+const void setNetworkId(uint8_t rId, uint8_t *nId)       \
 {                                                           \
   if ((nId[0] != regNetworkId.value[0]) ||                  \
       (nId[1] != regNetworkId.value[1]))                    \
@@ -215,7 +214,7 @@ const void setNetworkId(uint8_t rId, uint8_t *nId)                \
  * 'id'        Register ID                                  \
  * 'interval'  New interval (in seconds)                    \
  */                                                         \
-const void setTxInterval(uint8_t id, uint8_t *interval)           \
+const void setTxInterval(uint8_t id, uint8_t *interval)  \
 {                                                           \
   /* Set new Tx interval. BE to LE conversion */            \
   regTxInterval.setValueFromBeBuffer(interval);             \
