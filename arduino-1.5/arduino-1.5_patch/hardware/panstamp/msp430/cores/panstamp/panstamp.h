@@ -57,9 +57,8 @@
 #define setHighTxPower()    radio.setTxPowerAmp(PA_LongDistance)
 #define setLowTxPower()     radio.setTxPowerAmp(PA_LowPower)
 
-#define wakeUp()  core.setNormalMode();      // Exit low-power mode
+#define GET_RANDOM()  core.getShortUID()
 
-#define getVcc()  core.getVcc()
 /**
  * Class: PANSTAMP
  * 
@@ -102,7 +101,7 @@ class PANSTAMP
      * Enable RF reception
      */
     void rxOn(void);
-
+    
     /**
      * rxOff
      *
@@ -153,6 +152,29 @@ class PANSTAMP
      inline void attachInterrupt(void (*funct)(CCPACKET*))
      {
        ccPacketReceived = funct;
+     }
+     
+    /**
+     * getVcc
+     *
+     * Read MCU's voltage supply
+     *
+     * @return voltage in mV
+     */
+     inline uint16_t getVcc(void)
+     {
+       return core.getVcc();
+     }
+     
+    /**
+     * wakeUp
+     *
+     * Wake from sleep mode
+     */
+     inline void wakeUp(void)
+     {
+        core.setNormalMode();
+        radio.setRxState();
      }
 };
 

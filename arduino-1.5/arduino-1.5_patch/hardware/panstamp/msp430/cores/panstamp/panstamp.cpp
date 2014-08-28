@@ -61,7 +61,7 @@ void radioISR(void)
         {
           // Is CRC OK?
           if (ccPacket.crc_ok)
-          {
+          {            
             if (panstamp.ccPacketReceived != NULL)
               panstamp.ccPacketReceived(&ccPacket);
           }
@@ -80,26 +80,6 @@ void radioISR(void)
 PANSTAMP::PANSTAMP(void)
 {
   ccPacketReceived = NULL;
-}
-
-/**
- * rxOn
- *
- * Enable RF reception
- */
-void PANSTAMP::rxOn(void)
-{
-  MRFI_ENABLE_SYNC_PIN_INT();
-}
-
-/**
- * rxOff
- *
- * Disable RF reception
- */
-void PANSTAMP::rxOff(void)
-{
-  MRFI_DISABLE_SYNC_PIN_INT();
 }
 
 /**
@@ -125,14 +105,23 @@ void PANSTAMP::init(uint8_t freq)
 }
 
 /**
- * reset
- * 
- * Reset panStamp
+ * rxOn
+ *
+ * Enable RF reception
  */
-void PANSTAMP::reset() 
+void PANSTAMP::rxOn(void)
 {
-  WDTCTL = 0;
-  while (1) {}
+  MRFI_ENABLE_SYNC_PIN_INT();
+}
+
+/**
+ * rxOff
+ *
+ * Disable RF reception
+ */
+void PANSTAMP::rxOff(void)
+{
+  MRFI_DISABLE_SYNC_PIN_INT();
 }
 
 /**
@@ -158,17 +147,33 @@ void PANSTAMP::sleep(void)
  * @param source Source of interruption (RTCSRC_VLO or RTCSRC_XT1)
  */
 void PANSTAMP::sleepSec(uint16_t time, RTCSRC source)
-{
+{ 
   if (time == 0)
     return;
-    
+   
   // Power down radio
   radio.setPowerDownState();
 
+  core.delayClockCycles(0xFFFF);
+
   // Sleep
   rtc.sleep(time, source);
+   
+  // Wake-up radio
+  radio.setRxState();
 }
 
+/**
+ * reset
+ * 
+ * Reset panStamp
+ */
+void PANSTAMP::reset(void)
+{
+  WDTCTL = 0;
+  while (1) {}
+}
+    
 /**
  * Pre-instantiate PANSTAMP object
  */

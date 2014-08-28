@@ -28,6 +28,7 @@
 #include "rf1a.h"
 #ifdef __cplusplus
 }
+
 #endif
 #include "cc430radio.h"
 #include "cc430x513x.h"
@@ -292,6 +293,9 @@ void CC430RADIO::setRxOffState(void)
  */
 void CC430RADIO::setPowerDownState() 
 {
+  // Disable RF reception
+  setRxOffState();
+  
   /* Chip bug: Radio does not come out of this SLEEP when put to sleep
    * using the SPWD cmd. However, it does wakes up if SXOFF was used to
    * put it to sleep.

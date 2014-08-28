@@ -27,6 +27,7 @@
 
 #include "cc1101.h"
 #include "avrrtc.h"
+#include "Arduino.h"
 
 /**
  * Default carrier frequency
@@ -165,6 +166,18 @@ class PANSTAMP
      inline void attachInterrupt(void (*funct)(CCPACKET*))
      {
        ccPacketReceived = funct;
+     }
+     
+    /**
+     * GET_RANDOM
+     * 
+     * Pseudo-random generator. Use OSCAL.
+     * 
+     * @return pseudo-random number
+     */
+     inline uint16_t GET_RANDOM(void)
+     {
+       return OSCCAL;
      }
 };
 
