@@ -43,14 +43,6 @@
 #include "swap.h"
 #include "HTU21D.h"
 
-/**
- * LED pin
- */
-#ifdef ONBOARD_LED
-#define LED  ONBOARD_LED
-#else
-#define LED  4
-#endif
 
 //Create an instance of the sensor object
 HTU21D htu;
@@ -72,7 +64,7 @@ void setup()
   htu.begin();
 
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter SYNC state
   swap.enterSystemState(SYSTATE_SYNC);
@@ -87,9 +79,9 @@ void setup()
   }
 
   // Transmit periodic Tx interval
-  getRegister(REGI_TXINTERVAL)->getData();
+  swap.getRegister(REGI_TXINTERVAL)->getData();
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData();
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
    // Switch to Rx OFF state
   swap.enterSystemState(SYSTATE_RXOFF);
 }
@@ -98,9 +90,9 @@ void loop()
 {
 //  digitalWrite(LED, HIGH);
   // Transmit sensor data
-  getRegister(REGI_SENSOR)->getData();
+  swap.getRegister(REGI_SENSOR)->getData();
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData();
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
 //  digitalWrite(LED, LOW);
 
   // Sleep

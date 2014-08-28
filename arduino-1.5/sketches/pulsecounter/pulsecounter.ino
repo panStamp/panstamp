@@ -96,7 +96,7 @@ void setup()
   swap.init();
   
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter SYNC state
   swap.enterSystemState(SYSTATE_SYNC);
@@ -110,11 +110,11 @@ void setup()
     delay(400);
   }
   // Transmit periodic Tx interval
-  getRegister(REGI_TXINTERVAL)->getData();
+  swap.getRegister(REGI_TXINTERVAL)->getData();
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData(); 
+  swap.getRegister(REGI_VOLTSUPPLY)->getData(); 
   // Transmit initial counter values
-  getRegister(REGI_COUNTER)->getData();
+  swap.getRegister(REGI_COUNTER)->getData();
   
   // Switch to Rx OFF state
   swap.enterSystemState(SYSTATE_RXOFF);
@@ -138,7 +138,7 @@ void loop()
   // Transmit counter value only if changed
   if (currentCounter != oldCounter)
   {
-    getRegister(REGI_COUNTER)->getData();
+    swap.getRegister(REGI_COUNTER)->getData();
     oldCounter = currentCounter;
   }
 

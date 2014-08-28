@@ -70,15 +70,6 @@
 #endif
 
 /**
- * LED pin
- */
-#ifdef ONBOARD_LED
-#define LEDPIN  ONBOARD_LED  // panStamp NRG has an on-board LED
-#else
-#define LEDPIN  4  // panStamp AVR does not but we can use a pin to drive an external LED
-#endif
-
-/**
  * Pin Change Interrupt flag
  */
 volatile boolean pcIRQ = false;
@@ -247,8 +238,8 @@ void setup()
 {
   int i;
 
-  pinMode(LEDPIN, OUTPUT);
-  digitalWrite(LEDPIN, LOW);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
 
   // Configure ports
   configPorts();
@@ -260,7 +251,7 @@ void setup()
   swap.init();
   
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter SYNC state
   swap.enterSystemState(SYSTATE_SYNC);
@@ -268,21 +259,21 @@ void setup()
   // During 3 seconds, listen the network for possible commands whilst the LED blinks
   for(i=0 ; i<6 ; i++)
   {
-    digitalWrite(LEDPIN, HIGH);
+    digitalWrite(LED, HIGH);
     delay(100);
-    digitalWrite(LEDPIN, LOW);
+    digitalWrite(LED, LOW);
     delay(400);
   }
   // Transmit periodic Tx interval
-  getRegister(REGI_TXINTERVAL)->getData();
+  swap.getRegister(REGI_TXINTERVAL)->getData();
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData();
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
   
   updateValues();
   // Transmit initial binary states
-  getRegister(REGI_BININPUTS)->getData();
+  swap.getRegister(REGI_BININPUTS)->getData();
   // Transmit initial counter values
-  getRegister(REGI_COUNTERS)->getData();
+  swap.getRegister(REGI_COUNTERS)->getData();
   
   // Switch to Rx OFF state
   swap.enterSystemState(SYSTATE_RXOFF);
@@ -309,10 +300,10 @@ void loop()
     {
       case 2:
         // Transmit counter values
-        getRegister(REGI_COUNTERS)->getData();
+        swap.getRegister(REGI_COUNTERS)->getData();
       case 1:
         // Transmit binary states
-        getRegister(REGI_BININPUTS)->getData();
+        swap.getRegister(REGI_BININPUTS)->getData();
         break;
       default:
         break;
@@ -324,8 +315,8 @@ void loop()
   {    
     // Just send states and counter values periodically, according to the value
     // of panstamp.txInterval (register 10)
-    getRegister(REGI_COUNTERS)->getData();
-    getRegister(REGI_BININPUTS)->getData();
+    swap.getRegister(REGI_COUNTERS)->getData();
+    swap.getRegister(REGI_BININPUTS)->getData();
   }
 
   pcEnableInterrupt();

@@ -41,14 +41,6 @@
 #include "swap.h"
 #include "thermistor.h"
 
-/**
- * LED pin
- */
-#ifdef ONBOARD_LED
-#define LED  ONBOARD_LED
-#else
-#define LED  4
-#endif
 
 // Digital output used to power the thermistor circuit
 #define NTC_POWER_PIN         14
@@ -81,9 +73,9 @@ void setup()
 
   pinMode(NTC_POWER_PIN, OUTPUT);    // Configure power pin. This pin will be used to power the thermistor
   powerThermistorOff();          // Unpower sensor by default
-
+  
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter SYNC state
   swap.enterSystemState(SYSTATE_SYNC);
@@ -98,8 +90,8 @@ void setup()
   }
 
   // Transmit periodic Tx interval
-  getRegister(REGI_TXINTERVAL)->getData();
-  
+  swap.getRegister(REGI_TXINTERVAL)->getData();
+
    // Switch to Rx OFF state
   swap.enterSystemState(SYSTATE_RXOFF);
 }
@@ -113,13 +105,13 @@ void loop()
 {
   digitalWrite(LED, HIGH);
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData();
-   
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
   // Transmit temperature value
-  getRegister(REGI_SENSOR)->getData();
+  swap.getRegister(REGI_SENSOR)->getData();
   digitalWrite(LED, LOW);
 
   // Sleep
-  swap.goToSleep();
+//  swap.goToSleep();
+panstamp.sleepSec(10);
 }
 

@@ -84,7 +84,7 @@ void setup()
   swap.init();
   
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter SYNC state
   swap.enterSystemState(SYSTATE_SYNC);
@@ -99,9 +99,9 @@ void setup()
   }
 
   // Transmit periodic Tx interval
-  getRegister(REGI_TXINTERVAL)->getData();
+  swap.getRegister(REGI_TXINTERVAL)->getData();
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData();
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
    // Switch to Rx OFF state
   swap.enterSystemState(SYSTATE_RXOFF);
 }
@@ -114,9 +114,9 @@ void setup()
 void loop()
 {
   // Transmit sensor data
-  getRegister(REGI_SENSOR)->getData();
+  swap.getRegister(REGI_SENSOR)->getData();
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData();
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
 
   // Sleep
   swap.goToSleep();

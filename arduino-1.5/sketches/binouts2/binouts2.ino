@@ -47,14 +47,6 @@
 #include "regtable.h"
 #include "swap.h"
 
-/**
- * LED pin
- */
-#ifdef ONBOARD_LED
-#define LEDPIN  ONBOARD_LED  // panStamp NRG has an on-board LED
-#else
-#define LEDPIN  4  // panStamp AVR does not but we can use a pin to drive an external LED
-#endif
 
 /**
  * Maximum repeating count
@@ -82,8 +74,8 @@ void setup()
 {
   int i;
   
-  pinMode(LEDPIN, OUTPUT);
-  digitalWrite(LEDPIN, LOW);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
 
   // Configure output pins
   for(i=0 ; i<sizeof(binaryPin) ; i++)
@@ -104,16 +96,16 @@ void setup()
   swap.enableRepeater(maxRepeaterHop);
 
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter SYNC state
   swap.enterSystemState(SYSTATE_RXON);
   // Transmit initial binary states
   for(i=0 ; i<sizeof(binaryPin) ; i++)
-    getRegister(REGI_BINOUTPUT0 + i)->getData();
+    swap.getRegister(REGI_BINOUTPUT0 + i)->getData();
   // Transmit initial PWM values
   for(i=0 ; i<sizeof(pwmPin) ; i++)
-    getRegister(REGI_PWMOUTPUT0 + i)->getData();
+    swap.getRegister(REGI_PWMOUTPUT0 + i)->getData();
 }
 
 /**
@@ -123,9 +115,9 @@ void setup()
  */
 void loop()
 {
-  digitalWrite(LEDPIN, HIGH);
+  digitalWrite(LED, HIGH);
   delay(100);
-  digitalWrite(LEDPIN, LOW);
+  digitalWrite(LED, LOW);
   delay(4900);
 }
 
