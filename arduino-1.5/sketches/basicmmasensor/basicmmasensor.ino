@@ -31,8 +31,8 @@
 #include "Wire.h"
 #include "mma8652.h"
 
-// Accelerometer object. Interruptable pin = D3
-MMA8652 accel = MMA8652(3);
+// Accelerometer object. Interruptable pin = D2
+MMA8652 accel = MMA8652(2);
 
 // Used to read statuses and source registers
 uint8_t status, intSource;
@@ -43,7 +43,7 @@ uint8_t status, intSource;
  * Custom ISR. Will be called whenever the accelerometer generates an interupt
  */
 void accEvent(void)
-{ 
+{
   panstamp.wakeUp();
 }
 
@@ -79,60 +79,58 @@ void setup()
  */
 void loop()
 {
-  if (accel.eventAvailable())
-  {
-    // Read source of interrupt
-    intSource = accel.readIntSource();
+  // Go to sleep
+  digitalWrite(LED, LOW);
+  accel.sleep();    // Accelerometer in sleep mode
+  panstamp.sleep(); // panStamp in sleep mode
+  digitalWrite(LED, HIGH);
     
-    // Read XYZ data. Available from accel.axis
-    accel.readXYZ();
+  // We could be polling for an ACC event but we prefer to be interrupted instead
+  //if (accel.eventAvailable()) {}
+  
+  // Read source of interrupt
+  intSource = accel.readIntSource();
+  
+  // Read XYZ data. Available from accel.axis
+  accel.readXYZ();
 
-    /*
-      Serial.print("X axis : ");
-      Serial.println(accel.axis.x);
-      Serial.print("Y axis : ");
-      Serial.println(accel.axis.y);
-      Serial.print("Z axis : ");
-      Serial.println(accel.axis.z);
-    */
-    
-    // Portrait/Landscape orientation interrupt?
-    if(intSource & SRC_LNDPRT_MASK)
-    {
-      status = accel.readPlStatus();
-      Serial.print("PL status : ");
-      Serial.println(status, HEX);
-    }
-    // Pulse detection interrupt?
-    if(intSource & SRC_PULSE_MASK)
-    {
-      status = accel.readPulseSource();
-      Serial.print("TAP status : ");
-      Serial.println(status, HEX);
-    }
-    //
-    if(intSource & SRC_FF_MT_MASK)
-    {
-      status = accel.readFreeFallSource();
-      Serial.print("FFMT status : ");
-      Serial.println(status, HEX);
-    }
-    if(intSource & SRC_ASLP_MASK)
-    {
-      Serial.println("Auto-WAKE event");
-    }
-    else
-    {
-      // Still doing something until the interrupt pin goes high again
-    }  
+  /*
+    Serial.print("X axis : ");
+    Serial.println(accel.axis.x);
+    Serial.print("Y axis : ");
+    Serial.println(accel.axis.y);
+    Serial.print("Z axis : ");
+    Serial.println(accel.axis.z);
+  */
+  
+  // Portrait/Landscape orientation interrupt?
+  if(intSource & SRC_LNDPRT_MASK)
+  {
+    status = accel.readPlStatus();
+    Serial.print("PL status : ");
+    Serial.println(status, HEX);
+  }
+  // Pulse detection interrupt?
+  if(intSource & SRC_PULSE_MASK)
+  {
+    status = accel.readPulseSource();
+    Serial.print("TAP status : ");
+    Serial.println(status, HEX);
+  }
+  //
+  if(intSource & SRC_FF_MT_MASK)
+  {
+    status = accel.readFreeFallSource();
+    Serial.print("FFMT status : ");
+    Serial.println(status, HEX);
+  }
+  if(intSource & SRC_ASLP_MASK)
+  {
+    Serial.println("Auto-WAKE event");
   }
   else
   {
-    // Go to sleep
-    digitalWrite(LED, LOW);
-    accel.sleep();    // Accelerometer in sleep mode
-    panstamp.sleep(); // panStamp in sleep mode
-    digitalWrite(LED, HIGH);
+    // Still doing something until the interrupt pin goes high again
   }
 }
 
