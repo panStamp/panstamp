@@ -33,10 +33,6 @@
  */
 // Enable double-pulse detection on each axis
 #define enableDoubleTapInt(sens)  enableTapInt(sens, true)
-  // Place MMA8652 in standby
-#define _ENTER_STANDBY_MODE()  write(MMA8652_CTRL_REG1, 0)
-// Active=1 to take the part out of standby and enable sampling. Data rate = 400 Hz, sleep rate = 12.5 Hz
-#define _ENTER_ACTIVE_MODE()  write(MMA8652_CTRL_REG1, 0x61) //write(MMA8652_CTRL_REG1, 0x21)
 // True if Portrait/Landscape orientation interrupt is enabled
 #define _IS_PL_INT_ENABLED()  (ctrlReg4 & SRC_LNDPRT_MASK)
 // Read interrupt source register (see MMA8652FC datasheet, p. 28)
@@ -130,7 +126,11 @@ class MMA8652
      * 
      * @param funct custom callback function
      */
-    void attachInterrupt(void (*funct)(void));
+    inline void attachInterrupt(void (*funct)(void))
+    {
+      pinMode(intPin, INPUT);
+      ::attachInterrupt(intPin, funct, FALLING);
+    }
 
     /**
      * read
@@ -232,6 +232,28 @@ class MMA8652
     {
       return !(::digitalRead(intPin));
     }
+    
+    /**
+     * active
+     * 
+     * Enter active mode
+     */
+    inline void active(void)
+    {
+      // Active=1 to take the part out of standby and enable sampling
+      // Data rate = 400 Hz, sleep rate = 12.5 Hz
+      write(MMA8652_CTRL_REG1, 0x61);
+    }
+    
+    /**
+     * standBy
+     * 
+     * Enter standby mode.
+     */
+    inline void standBy(void)
+    {
+      write(MMA8652_CTRL_REG1, 0);
+    }    
 };
 
 #endif

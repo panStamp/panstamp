@@ -36,7 +36,7 @@ void MMA8652::init(void)
   ctrlReg4 = 0;
   
   // Place MMA8652 in standby mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1);
    
   // Accelerometer range of +/-2g range with 0.244mg/LSB
@@ -57,21 +57,8 @@ void MMA8652::init(void)
   write(MMA8652_CTRL_REG5, 0);
   delay(1);
 
-  // Back to active mode
-  _ENTER_ACTIVE_MODE();
-}
-
-/**
- * attachInterrupt
- * 
- * Attach custom ISR to MMA8652 event
- * 
- * @param funct custom callback function
- */
-void MMA8652::attachInterrupt(void (*funct)(void))
-{
-  pinMode(intPin, INPUT);
-  ::attachInterrupt(intPin, funct, FALLING);
+  // Enter active mode
+  active();
 }
 
 /**
@@ -146,11 +133,11 @@ void MMA8652::write(uint8_t address, uint8_t data)
  */
 void MMA8652::reset(void)
 {
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1);
   write(MMA8652_CTRL_REG2, RST_MASK);
   delay(1);
-  _ENTER_ACTIVE_MODE();
+  active();
 }
 
 /**
@@ -227,7 +214,7 @@ void MMA8652::enableTapInt(uint8_t sensibility, bool doubleTap)
   uint8_t cfg;
   
   // Enter stand-by mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1); 
   enableInt(SRC_PULSE_MASK);
   delay(1);
@@ -248,7 +235,7 @@ void MMA8652::enableTapInt(uint8_t sensibility, bool doubleTap)
   delay(1);  
   
   // Back to active mode
-  _ENTER_ACTIVE_MODE();
+  active();
 }
 
 /**
@@ -259,7 +246,7 @@ void MMA8652::enableTapInt(uint8_t sensibility, bool doubleTap)
 void MMA8652::disableTapInt(void)
 {
   // Enter stand-by mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1); 
   disableInt(SRC_PULSE_MASK);
   delay(1);
@@ -267,7 +254,7 @@ void MMA8652::disableTapInt(void)
   write(MMA8652_PULSE_CFG, 0);
   delay(1);
   // Back to active mode
-  _ENTER_ACTIVE_MODE();
+  active();
 }
 
 /**
@@ -280,7 +267,7 @@ void MMA8652::disableTapInt(void)
 void MMA8652::enableFreeFallInt(uint8_t sensibility)
 {
   // Enter stand-by mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1); 
   enableInt(SRC_FF_MT_MASK);
   delay(1);
@@ -290,7 +277,7 @@ void MMA8652::enableFreeFallInt(uint8_t sensibility)
   write(MMA8652_FF_MT_THS, sensibility);
   delay(1);
   // Back to active mode
-  _ENTER_ACTIVE_MODE();
+  active();
 }
 
 /**
@@ -301,7 +288,7 @@ void MMA8652::enableFreeFallInt(uint8_t sensibility)
 void MMA8652::disableFreeFallInt(void)
 {
   // Enter stand-by mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1); 
   disableInt(SRC_FF_MT_MASK);
   delay(1);
@@ -309,7 +296,7 @@ void MMA8652::disableFreeFallInt(void)
   write(MMA8652_FF_MT_CFG, 0);
   delay(1);
   // Back to active mode
-  _ENTER_ACTIVE_MODE();
+  active();
 }
 
 /**
@@ -321,7 +308,7 @@ void MMA8652::disableFreeFallInt(void)
 void MMA8652::enablePlInt(void)
 {
   // Enter stand-by mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1);
   enableInt(SRC_LNDPRT_MASK);
   delay(1);
@@ -329,7 +316,7 @@ void MMA8652::enablePlInt(void)
   write(MMA8652_PL_CFG, PL_EN_MASK);
   delay(1);
   // Back to active mode
-  _ENTER_ACTIVE_MODE();
+  active();
 }
 
 /**
@@ -340,7 +327,7 @@ void MMA8652::enablePlInt(void)
 void MMA8652::disablePlInt(void)
 {
   // Enter stand-by mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1); 
   disableInt(SRC_LNDPRT_MASK);
   delay(1);
@@ -348,7 +335,7 @@ void MMA8652::disablePlInt(void)
   write(MMA8652_PL_CFG, 0);
   delay(1);
   // Back to active mode
-  _ENTER_ACTIVE_MODE();
+  active();
 }
 
 /**
@@ -368,7 +355,7 @@ void MMA8652::sleep(void)
   }
      
   // Enter stand-by mode
-  _ENTER_STANDBY_MODE();
+  standBy();
   delay(1); 
   delay(1);
   write(MMA8652_CTRL_REG2, 0x1C);
@@ -376,5 +363,5 @@ void MMA8652::sleep(void)
   write(MMA8652_ASLP_COUNT, 1);
   delay(1);
   // Back to active mode
-  _ENTER_ACTIVE_MODE();
+  active();
 }
