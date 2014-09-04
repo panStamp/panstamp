@@ -1120,8 +1120,6 @@ Wire Wire Line
 Wire Wire Line
 	3850 9300 3400 9300
 Wire Wire Line
-	3850 9550 3400 9550
-Wire Wire Line
 	3850 9700 3400 9700
 Wire Wire Line
 	6350 9900 6750 9900
@@ -1293,10 +1291,8 @@ Text Label 14300 7900 2    60   ~ 0
 I2C_SDA
 Text Label 14300 8000 2    60   ~ 0
 I2C_SCL
-Text Label 3400 9550 0    60   ~ 0
-P1.3
 Text Label 3400 9700 0    60   ~ 0
-P1.2
+P3.6
 $Comp
 L VCC #PWR034
 U 1 1 523B325E
@@ -1590,10 +1586,8 @@ F 3 "" H 9300 4300 60  0001 C CNN
 	1    9300 4300
 	0    -1   -1   0   
 $EndComp
-Text Notes 7600 8100 0    60   ~ 0
-CL=((C1 x C2) / (C1 + C2)) + 2.5p
 Text Label 3400 8650 0    60   ~ 0
-P3.3
+P3.7
 $Comp
 L VCC #PWR039
 U 1 1 532815A4
@@ -1732,4 +1726,7 @@ Text Label 2700 8900 2    60   ~ 0
 P2.2/A2
 Text Label 2700 9650 2    60   ~ 0
 P2.1/A1
+NoConn ~ 3850 9550
+Text Notes 7600 8100 0    60   ~ 0
+CL=((C1 x C2) / (C1 + C2)) + 2.5p
 $EndSCHEMATC
