@@ -1,6 +1,6 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
-menu.cpu=Processor
+menu.rfloader=Wireless bootloader
 
 ##############################################################
 nrg.name=panStamp NRG w/ cc430f5137
@@ -8,9 +8,21 @@ nrg.build.core=panstamp
 nrg.upload.tool=msp430-gdb
 nrg.upload.protocol=msp430-gdb
 nrg.upload.maximum_size=32640
-#nrg.bootloader.lock_bits=0x0F
 nrg.build.mcu=cc430f5137
 nrg.build.f_cpu=12000000L
 nrg.build.variant=standard
 nrg.build.board=PANSTAMP_NRG
+
+nrg.ldscript=ldscript
+
+## With serial bootloader only
+##------------------------------------------------------------
+nrg.menu.rfloader.enabled=on
+nrg.menu.rfloader.enabled.ldscript=ldscript_rf
+
+## With serial and wireless bootloader
+##------------------------------------------------------------
+nrg.menu.rfloader.disabled=off
+nrg.menu.rfloader.disabled.ldscript=ldscript
+
 ##############################################################
