@@ -2,6 +2,12 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.5 - Released on 25-Sep 2014
+----------------------------------------
+1. MMA8652FC library - Some functions switched to "inline"
+2. Fixed bug in vcore management (low-power mode)
+3. New SWAP (wireless) firmware loader
+4. Wireless bootloader triggered by SWAP command
 
 VERSION 0.4 - Released on 28-Aug 2014
 ----------------------------------------
