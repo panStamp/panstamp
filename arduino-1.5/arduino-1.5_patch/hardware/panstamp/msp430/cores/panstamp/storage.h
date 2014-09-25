@@ -31,5 +31,15 @@
 
 #define STORAGE  CC430INFO
 
+/**
+ * RAM memory
+ */
+const uint16_t RAM_END_ADDRESS = 0x2BFF;
+
+/**
+ * Flash memory
+ */
+const uint16_t WIRELESS_BOOT_ADDR = 0x8000;
+
 #endif
 

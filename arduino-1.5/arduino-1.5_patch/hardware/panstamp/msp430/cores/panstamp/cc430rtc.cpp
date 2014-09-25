@@ -86,9 +86,10 @@ __attribute__((interrupt(RTC_VECTOR)))
 void rtcISR(void)
 {
   RTC_ACK_ISR();
-  __bic_SR_register_on_exit(LPM3_bits);  // clears the bits corresponding to LPM3 and exits the low power mode
   RTC_STOP_COUNTER();
-  RTC_RESET_COUNTER();
+  RTC_RESET_COUNTER(); 
+
+  __bic_SR_register_on_exit(LPM3_bits);  // clears the bits corresponding to LPM3 and exits the low power mode
 }
 
 /**

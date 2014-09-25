@@ -91,6 +91,9 @@ PANSTAMP::PANSTAMP(void)
  */
 void PANSTAMP::init(uint8_t freq) 
 {
+  // Disable wireless bootloader
+  enableWirelessBoot(false);
+  
   // Initialize MCU core
   core.init();
 

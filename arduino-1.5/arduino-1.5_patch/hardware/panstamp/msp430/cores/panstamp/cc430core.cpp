@@ -140,9 +140,15 @@ void CC430CORE::setLowPowerMode(bool lpm4)
  */
 void CC430CORE::setNormalMode(void)
 {
+  PJOUT |= BIT1;
+
+	// Configure PMM and SCLK for RF operation
+  //_SET_VCORE_12MHZ(2);
+  _SET_VCORE_8MHZ(0);
+  
   // Enable WDT again
   enableWatchDog();
-  
+     
   // Recover old port mapping
   P1MAP0 = portConfig[0].mapping[0];
   P1MAP1 = portConfig[0].mapping[1];
@@ -180,10 +186,8 @@ void CC430CORE::setNormalMode(void)
   P1DIR = portConfig[0].direction;
   P2DIR = portConfig[1].direction;
   P3DIR = portConfig[2].direction;
-
-
-	// Configure PMM and SCLK for RF operation
-  _SET_VCORE_12MHZ(2);
+ 
+  PJOUT &= ~BIT1;
 }
 
 /**
@@ -224,7 +228,7 @@ void CC430CORE::init(uint8_t vCore, uint16_t dcorsel, uint16_t flln)
    * Configure CPU clock
    */
   setMCLK(dcorsel, flln);
-  
+ 
   // Loop until XT1 & DCO stabilizes, use do-while to ensure that 
   // the body is executed at least once
   do
@@ -254,11 +258,11 @@ void CC430CORE::init(uint8_t vCore, uint16_t dcorsel, uint16_t flln)
  */
 void __inline__ CC430CORE::setVcoreMCLK(uint8_t vCore, uint16_t dcorsel, uint16_t flln)
 {
-  // Set MCLK
-  setMCLK(dcorsel, flln);
-
 	// Configure PMM
 	SetVCore(vCore);
+  
+  // Set MCLK
+  setMCLK(dcorsel, flln);
 }
 
 /**

@@ -29,6 +29,7 @@
 #include "cc430radio.h"
 #include "cc430rtc.h"
 #include "wiring.h"
+#include "storage.h"
 
 /**
  * Default carrier frequency
@@ -173,8 +174,38 @@ class PANSTAMP
      */
      inline void wakeUp(void)
      {
-        core.setNormalMode();
-        radio.setRxState();
+       core.setNormalMode();
+       radio.setRxState();
+     }
+
+    /**
+     * enableWirelessBoot
+     * 
+     * Enable/Disable wireless bootloader when the module starts
+     * 
+     * @param ena true for enabling the wireless bootloader
+     */
+    inline void enableWirelessBoot(bool ena)
+    {
+      bool * ptr;
+      ptr = (bool*)RAM_END_ADDRESS;
+      *ptr = !ena;
+    }
+
+    /**
+     * goToWirelessBoot
+     *
+     * Start wireless bootloader
+     */
+     inline void goToWirelessBoot(void)
+     {
+       // Enable wireless bootloader
+       enableWirelessBoot(true);
+       
+       // Go to wireless boot address
+       void (*p)(void);
+       p = (void (*)(void))WIRELESS_BOOT_ADDR;
+       (*p)(); 
      }
 };
 

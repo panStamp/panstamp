@@ -46,13 +46,13 @@ uint16_t analogRead(uint8_t pin)
 {
   uint8_t channel;
 
-
   // Special analog channel?
   if (pin >= 128)
   {
     channel = pin - 128;
     REFCTL0 &= ~REFTCOFF; // Temp sensor enabled
   }
+
   // Check if pin is an analog input
 	else if ((channel = digitalPinToADCIn(pin)) == NOT_ON_ADC)
 		return 0;
@@ -69,23 +69,25 @@ uint16_t analogRead(uint8_t pin)
   if (analogRef == ADCREF_VCC)
       ADC12MCTL0 = ADC12SREF_0;  // Vr+=Vcc and Vr-=AVss
   else
-  {
+  {    
     //while(REFCTL0 & REFGENBUSY);
     // Enable shared reference
     REFCTL0 |= REFMSTR + analogRef + REFON;
-    ADC12MCTL0 = ADC12SREF_1;  // Vr+=Vref+ and Vr-=AVss
+    ADC12MCTL0 = ADC12SREF_1;    // Vr+=Vref+ and Vr-=AVss
   }
 
   ADC12IFG = 0;                                   // Clear flags
   ADC12CTL0 = ADC12SHT02 + ADC12ON;               // Sampling time=64 cycles, ADC12 on
   ADC12CTL1 = ADC12SHP;                           // Use sampling timer
   ADC12MCTL0 |= channel;                          // Select channel
-
-  __delay_cycles(1000);
+  ADC12IE = 0;                                    // Disable interrupt
+  
+  __delay_cycles(250);
 
   ADC12CTL0 |= ADC12ENC | ADC12SC;                // Enable ADC and start conversion
 
   while (!(ADC12IFG & BIT0));                     // Wait until ADC is completed
+
   ADC12IFG = 0;
 
   // POWER: Turn ADC and reference voltage off to conserve power
