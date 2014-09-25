@@ -61,6 +61,7 @@ THERMISTOR thermistor(NTC_PIN,        // Analog pin
  *
  * Arduino setup function
  */
+ #include "HardwareSerial.h"
 void setup()
 {
   int i;
@@ -104,14 +105,15 @@ void setup()
 void loop()
 {
   digitalWrite(LED, HIGH);
-  // Transmit power voltage
-  swap.getRegister(REGI_VOLTSUPPLY)->getData();
+
   // Transmit temperature value
   swap.getRegister(REGI_SENSOR)->getData();
+  // Transmit power voltage
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
+
   digitalWrite(LED, LOW);
 
   // Sleep
-//  swap.goToSleep();
-panstamp.sleepSec(10);
+  swap.goToSleep();
 }
 
