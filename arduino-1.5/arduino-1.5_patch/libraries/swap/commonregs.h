@@ -138,6 +138,9 @@ const void setSysState(uint8_t id, uint8_t *state)       \
       swap.getRegister(REGI_SYSSTATE)->sendSwapStatus();    \
       panstamp.reset();                                     \
       break;                                                \
+    case SYSTATE_UPGRADE:                                   \
+      panstamp.goToWirelessBoot();                          \
+      break;                                                \
     default:                                                \
       break;                                                \
   }                                                         \

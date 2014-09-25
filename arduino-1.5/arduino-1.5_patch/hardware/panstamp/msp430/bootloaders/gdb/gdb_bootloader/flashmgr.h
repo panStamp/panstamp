@@ -34,35 +34,39 @@
 
 struct FlashMgr {
 
-  //ALWAYS_INLINE
+	static void wait_ready() {
+  	while(FCTL3 & BUSY) { ;	}
+	}
+
   static void enable_write(void) {
-#warning verify flash clocking!
-//    FCTL2 = FWKEY | FLASHCLOCK; // Set to flash compatible speed
+  	wait_ready();
     FCTL3 = FWKEY;              // Clear LOCK
     FCTL1 = FWKEY | WRT;        // Enable write
   }
 
-  //ALWAYS_INLINE
   static void disable_write() {
+  	wait_ready();
     FCTL1 = FWKEY;              // Done. Clear WRT
     FCTL3 = FWKEY | LOCK;       // Set LOCK
   }
 
+ NEVER_INLINE
   static void erase_segment(unsigned char *flash) {
-#warning verify flash clocking!
-//    FCTL2 = FWKEY | FLASHCLOCK; // Set to flash compatible speed
+	 wait_ready();
     FCTL3 = FWKEY;              // Clear LOCK
     FCTL1 = FWKEY | ERASE;      // Enable segment erase
     *flash = 0;                 // Dummy write, erase Segment
+  	wait_ready();
     FCTL3 = FWKEY | LOCK;       // Done, set LOCK
   }
 
-  static void write_u16(unsigned *flash_dest, const unsigned value) {
-#warning verify flash clocking!
-//    FCTL2 = FWKEY | FLASHCLOCK; // Set to flash compatible speed
+  //NEVER_INLINE
+  static void write_u16(unsigned * flash_dest, const unsigned value) {
+  	wait_ready();
     FCTL3 = FWKEY;              // Clear LOCK
     FCTL1 = FWKEY | WRT;        // Enable write
     *flash_dest = value;
+  	wait_ready();
     FCTL1 = FWKEY;              // Done. Clear WRT
     FCTL3 = FWKEY | LOCK;       // Set LOCK
   }
