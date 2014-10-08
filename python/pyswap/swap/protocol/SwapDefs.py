@@ -61,6 +61,7 @@ class SwapRegId:
     ID_NETWORK_ID = 8
     ID_DEVICE_ADDR = 9
     ID_TX_INTERVAL = 10
+    ID_FIRMWARE = 11
     
 
 class SwapState:
@@ -72,6 +73,7 @@ class SwapState:
     RXOFF = 2
     SYNC = 3
     LOWBAT = 4
+    UPGRADE = 5
 
     @staticmethod
     def toString(state):

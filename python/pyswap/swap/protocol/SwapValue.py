@@ -120,6 +120,24 @@ class SwapValue(object):
         return False
 
 
+    def str_to_int(self, str_int):
+        """
+        Convert string to integer
+        
+        @param str Integer in string format
+        """
+        try:
+            val = int(str_int)
+        except ValueError:
+            if str_int[:2] == "0x":
+                try:
+                    val = int(str_int[2:], 16)
+                except ValueError:
+                    raise
+                    
+        return val
+    
+    
     def __init__(self, value=None, length=0):
         """
         Class constructor
@@ -146,7 +164,7 @@ class SwapValue(object):
                     # Remove decimal point
                     value = value.replace(".", "")
                     # Convert to integer
-                    res = int(value)
+                    res = self.str_to_int(value)
                 except ValueError:
                     isAsciiString = True
             else:
@@ -155,6 +173,8 @@ class SwapValue(object):
             if isAsciiString:
                 # OK, treat value as a pure ASCII string
                 strlen = len(value)
+                if length == 0:
+                    length = strlen
                 # Truncate string
                 if strlen > length:                    
                     value = value[:length]
@@ -166,7 +186,7 @@ class SwapValue(object):
                     for i in range(length - strlen):
                         self._data.append(0)
             # In case of integer or long
-            elif length > 0 and length <= 4:
+            elif 0 < length <= 4:
                 for i in range(length):
                     val = (res >> (8 * (length-1-i))) & 0xFF
                     self._data.append(val)

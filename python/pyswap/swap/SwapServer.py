@@ -85,7 +85,7 @@ class SwapServer(threading.Thread):
                         raise SwapException("Unable to set modem's device address to " + self._xmlnetwork.devaddress)
                     else:
                         param_changed = True
-            # Device address
+            # Network id
             if self._xmlnetwork.network_id is not None:
                 if self.modem.syncword != self._xmlnetwork.network_id:
                     if self.modem.setSyncWord(self._xmlnetwork.network_id) == False:
@@ -111,9 +111,10 @@ class SwapServer(threading.Thread):
                     
             # Discover motes in the current SWAP network
             self._discoverMotes()
-        except SwapException:
+        except SwapException as ex:
             threading.Thread.__init__(self)
-            raise
+            # Report error to SwapInterface
+            self._eventHandler.swapServerError(ex)
         
         threading.Thread.__init__(self)        
            
@@ -177,7 +178,8 @@ class SwapServer(threading.Thread):
             # Product code received
             if swPacket.regId == SwapRegId.ID_PRODUCT_CODE:
                 try:
-                    mote = SwapMote(self, swPacket.value.toAsciiHex(), swPacket.srcAddress, swPacket.security, swPacket.nonce)
+                    extended_address = (swPacket.function & 0x80) != 0
+                    mote = SwapMote(self, swPacket.value.toAsciiHex(), swPacket.srcAddress, swPacket.security, swPacket.nonce, extended_address)
                     mote.nonce = swPacket.nonce
                     self._checkMote(mote)
                 except IOError as ex:

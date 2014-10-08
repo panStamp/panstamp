@@ -109,22 +109,56 @@ class SwapPacket(CcPacket):
         """
         Update ccPacket data bytes
         """
-        self.data = []
+        if self.extended_address:
+            """
+            self.data[0] = (self.destAddress >> 8) & 0x0F
+            self.data[1] = self.destAddress & 0x0F
+            self.data[5] = (self.srcAddress >> 8) & 0x0F
+            self.data[6] = self.srcAddress & 0x0F
+            self.data[7] = (self.regAddress >> 8) & 0x0F
+            self.data[8] = self.regAddress & 0x0F
+            self.data[9] = self.regId
+            """
+            self.data.append((self.destAddress >> 8) & 0x0F)
+            self.data.append(self.destAddress & 0x0F)
+            
+            self.data.append((self.hop << 4) | (self.security & 0x0F))
+            self.data.append(self.nonce)
+            self.data.append(self.function | (self.extended_address * (0x80)))
+            
+            self.data.append((self.srcAddress >> 8) & 0x0F)
+            self.data.append(self.srcAddress & 0x0F)
+            self.data.append((self.regAddress >> 8) & 0x0F)
+            self.data.append(self.regAddress & 0x0F)
+            self.data.append(self.regId)
+        else:
+            """
+            self.data[0] = self.destAddress
+            self.data[1] = self.srcAddress
+            self.data[5] = self.srcAddress
+            self.data[6] = self.regId
+            """
 
-        self.data.append(self.destAddress)
-        self.data.append(self.srcAddress)
-        self.data.append((self.hop << 4) | (self.security & 0x0F))
-        self.data.append(self.nonce)
-        self.data.append(self.function)
-        self.data.append(self.regAddress)
-        self.data.append(self.regId)
-
+            self.data.append(self.destAddress)
+            self.data.append(self.srcAddress)       
+            self.data.append((self.hop << 4) | (self.security & 0x0F))
+            self.data.append(self.nonce)
+            self.data.append(self.function | (self.extended_address * (0x80)))
+            self.data.append(self.srcAddress)
+            self.data.append(self.regId)
+            
+        """
+        self.data[2] = (self.hop << 4) | (self.security & 0x0F)
+        self.data[3] = self.nonce
+        self.data[4] = self.function | (self.extended_address * (0x80))       
+        """
+        
         if self.value is not None:
             for item in self.value.toList():
                 self.data.append(item)
 
 
-    def __init__(self, ccPacket=None, destAddr=SwapAddress.BROADCAST_ADDR, hop=0, nonce=0, function=SwapFunction.STATUS, regAddr=0, regId=0, value=None):
+    def __init__(self, ccPacket=None, destAddr=SwapAddress.BROADCAST_ADDR, hop=0, nonce=0, function=SwapFunction.STATUS, regAddr=0, regId=0, value=None, extended_addr=False):
         """
         Class constructor
         
@@ -138,6 +172,9 @@ class SwapPacket(CcPacket):
         @param value: Register value  
         """
         CcPacket.__init__(self)
+
+        ## Extended address disabled by default
+        self.extended_address = extended_addr
 
         ## Destination address
         self.destAddress = destAddr
@@ -161,6 +198,11 @@ class SwapPacket(CcPacket):
         if ccPacket is not None:
             if len(ccPacket.data) < 7:
                 raise SwapException("Packet received is too short")
+            
+            # Function code
+            self.function = ccPacket.data[4] & 0x7F
+            # Extended address indicator
+            self.extended_address = (ccPacket.data[4] & 0x80) != 0
             # Superclass attributes
             ## RSSI byte
             self.rssi = ccPacket.rssi
@@ -168,22 +210,32 @@ class SwapPacket(CcPacket):
             self.lqi = ccPacket.lqi
             ## CcPacket data field
             self.data = ccPacket.data
-            # Destination address
-            self.destAddress = ccPacket.data[0]
-            # Source address
-            self.srcAddress = ccPacket.data[1]
+                        
+            if self.extended_address:
+                # Destination address
+                self.destAddress = (ccPacket.data[0] << 8) | ccPacket.data[1]
+                # Source address
+                self.srcAddress = (ccPacket.data[5] << 8) | ccPacket.data[6]
+                # Register address
+                self.regAddress = (ccPacket.data[7] << 8) | ccPacket.data[8]
+                # Register ID
+                self.regId = ccPacket.data[9]
+            else:
+                # Destination address
+                self.destAddress = ccPacket.data[0]
+                # Source address
+                self.srcAddress = ccPacket.data[1]
+                # Register address
+                self.regAddress = ccPacket.data[5]
+                # Register ID
+                self.regId = ccPacket.data[6]
+                
             # Hop count for repeating purposes
             self.hop = (ccPacket.data[2] >> 4) & 0x0F
             # Security option
             self.security = ccPacket.data[2] & 0x0F
             # Security nonce
             self.nonce = ccPacket.data[3]
-            # Function code
-            self.function = ccPacket.data[4]
-            # Register address
-            self.regAddress = ccPacket.data[5]
-            # Register ID
-            self.regId = ccPacket.data[6]
                        
             if len(ccPacket.data) >= 8:
                 self.value = SwapValue(ccPacket.data[7:])   
@@ -200,7 +252,7 @@ class SwapStatusPacket(SwapPacket):
     """
     SWAP status packet class
     """
-    def __init__(self, rAddr, rId, val):
+    def __init__(self, rAddr, rId, val, extended_addr=False):
         """
         Class constructor
         
@@ -208,28 +260,28 @@ class SwapStatusPacket(SwapPacket):
         @param rId: Register ID
         @param val: New value
         """
-        SwapPacket.__init__(self, regAddr=rAddr, regId=rId, value=val)
+        SwapPacket.__init__(self, regAddr=rAddr, regId=rId, value=val, extended_addr=extended_addr)
  
 
 class SwapQueryPacket(SwapPacket):
     """
     SWAP Query packet class
     """
-    def __init__(self, rAddr=SwapAddress.BROADCAST_ADDR, rId=0):
+    def __init__(self, rAddr=SwapAddress.BROADCAST_ADDR, rId=0, extended_addr=False):
         """
         Class constructor
         
         @param rAddr: Register address
         @param rId: Register ID
         """
-        SwapPacket.__init__(self, destAddr=rAddr, function=SwapFunction.QUERY, regAddr=rAddr, regId=rId)
+        SwapPacket.__init__(self, destAddr=rAddr, function=SwapFunction.QUERY, regAddr=rAddr, regId=rId, extended_addr=extended_addr)
         
         
 class SwapCommandPacket(SwapPacket):
     """
     SWAP Command packet class
     """
-    def __init__(self, rAddr, rId, val, nonce=0):
+    def __init__(self, rAddr, rId, val, nonce=0, extended_addr=False):
         """
         Class constructor
         
@@ -238,4 +290,4 @@ class SwapCommandPacket(SwapPacket):
         @param val: New value
         @param nonce: Security nonce
         """
-        SwapPacket.__init__(self, destAddr=rAddr, nonce=nonce, function=SwapFunction.COMMAND, regAddr=rAddr, regId=rId, value=val)
+        SwapPacket.__init__(self, destAddr=rAddr, nonce=nonce, function=SwapFunction.COMMAND, regAddr=rAddr, regId=rId, value=val, extended_addr=extended_addr)
