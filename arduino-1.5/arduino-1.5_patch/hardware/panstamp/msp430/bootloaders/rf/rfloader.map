@@ -821,7 +821,7 @@ LOAD /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000008000      0xc8a
+.text           0x0000000000008000      0xc00
                 0x0000000000008000                . = ALIGN (0x2)
  *(.init .init.*)
  *(.init0)
@@ -848,11 +848,11 @@ LOAD /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib
  *(.init7)
  *(.init8)
  *(.init9)
- .init9         0x000000000000803a      0x3c0 rfloader.o
+ .init9         0x000000000000803a      0x35c rfloader.o
                 0x000000000000803a                main
  *(.fini9)
- .fini9         0x00000000000083fa        0x0 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__stop_progExec__-dwdt.o)
-                0x00000000000083fa                __stop_progExec__
+ .fini9         0x0000000000008396        0x0 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__stop_progExec__-dwdt.o)
+                0x0000000000008396                __stop_progExec__
  *(.fini8)
  *(.fini7)
  *(.fini6)
@@ -862,123 +862,121 @@ LOAD /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib
  *(.fini2)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000000000083fa        0x6 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
-                0x00000000000083fa                _endless_loop__
+ .fini0         0x0000000000008396        0x6 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
+                0x0000000000008396                _endless_loop__
  *(.fini .fini.*)
-                0x0000000000008400                . = ALIGN (0x2)
-                0x0000000000008400                __ctors_start = .
+                0x000000000000839c                . = ALIGN (0x2)
+                0x000000000000839c                __ctors_start = .
  *(.ctors)
- .ctors         0x0000000000008400        0x2 rfloader.o
-                0x0000000000008402                __ctors_end = .
-                0x0000000000008402                __dtors_start = .
+ .ctors         0x000000000000839c        0x2 rfloader.o
+                0x000000000000839e                __ctors_end = .
+                0x000000000000839e                __dtors_start = .
  *(.dtors)
-                0x0000000000008402                __dtors_end = .
-                0x0000000000008402                . = ALIGN (0x2)
+                0x000000000000839e                __dtors_end = .
+                0x000000000000839e                . = ALIGN (0x2)
  *(.text .text.* .gnu.linkonce.t.*)
- .text          0x0000000000008402        0x4 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/crt0ivtbl64.o
-                0x0000000000008402                __isr_37
-                0x0000000000008402                __isr_47
-                0x0000000000008402                __isr_51
-                0x0000000000008402                __isr_57
-                0x0000000000008402                __isr_33
-                0x0000000000008402                __isr_32
-                0x0000000000008402                __isr_54
-                0x0000000000008402                __isr_42
-                0x0000000000008402                __isr_49
-                0x0000000000008402                __isr_59
-                0x0000000000008402                __isr_39
-                0x0000000000008402                __isr_46
-                0x0000000000008402                __isr_53
-                0x0000000000008402                __isr_41
-                0x0000000000008402                __isr_60
-                0x0000000000008402                __isr_36
-                0x0000000000008402                __isr_34
-                0x0000000000008402                __isr_44
-                0x0000000000008402                __isr_61
-                0x0000000000008402                __isr_48
-                0x0000000000008402                __isr_55
-                0x0000000000008402                __isr_43
-                0x0000000000008402                __isr_50
-                0x0000000000008402                __isr_56
-                0x0000000000008402                __isr_38
-                0x0000000000008402                __isr_35
-                0x0000000000008402                __isr_45
-                0x0000000000008402                __isr_58
-                0x0000000000008402                __isr_62
-                0x0000000000008402                __isr_52
-                0x0000000000008402                __isr_40
+ .text          0x000000000000839e        0x4 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/crt0ivtbl64.o
+                0x000000000000839e                __isr_37
+                0x000000000000839e                __isr_47
+                0x000000000000839e                __isr_51
+                0x000000000000839e                __isr_57
+                0x000000000000839e                __isr_33
+                0x000000000000839e                __isr_32
+                0x000000000000839e                __isr_54
+                0x000000000000839e                __isr_42
+                0x000000000000839e                __isr_49
+                0x000000000000839e                __isr_59
+                0x000000000000839e                __isr_39
+                0x000000000000839e                __isr_46
+                0x000000000000839e                __isr_53
+                0x000000000000839e                __isr_41
+                0x000000000000839e                __isr_60
+                0x000000000000839e                __isr_36
+                0x000000000000839e                __isr_34
+                0x000000000000839e                __isr_44
+                0x000000000000839e                __isr_61
+                0x000000000000839e                __isr_48
+                0x000000000000839e                __isr_55
+                0x000000000000839e                __isr_43
+                0x000000000000839e                __isr_50
+                0x000000000000839e                __isr_56
+                0x000000000000839e                __isr_38
+                0x000000000000839e                __isr_35
+                0x000000000000839e                __isr_45
+                0x000000000000839e                __isr_58
+                0x000000000000839e                __isr_62
+                0x000000000000839e                __isr_52
+                0x000000000000839e                __isr_40
  .text._ZN10CC430FLASH12eraseSegmentEPh.isra.1
-                0x0000000000008406       0x24 rfloader.o
+                0x00000000000083a2       0x24 rfloader.o
  .text._ZN10CC430FLASH4readEPhS0_h.isra.2
-                0x000000000000842a       0x1e rfloader.o
+                0x00000000000083c6       0x1e rfloader.o
  .text._ZN10CC430FLASH5writeEPhS0_h.isra.3
-                0x0000000000008448       0x44 rfloader.o
- .text._Z18readWirelessPacketv
-                0x000000000000848c       0x9c rfloader.o
-                0x000000000000848c                _Z18readWirelessPacketv
+                0x00000000000083e4       0x44 rfloader.o
+ .text._Z11readHexLinej
+                0x0000000000008428       0x76 rfloader.o
+                0x0000000000008428                _Z11readHexLinej
  .text._ZN4SWAP13sendPacketValIhEEvhhT_
-                0x0000000000008528       0x16 rfloader.o
-                0x0000000000008528                _ZN4SWAP13sendPacketValIhEEvhhT_
+                0x000000000000849e       0x16 rfloader.o
+                0x000000000000849e                _ZN4SWAP13sendPacketValIhEEvhhT_
  .text.startup._GLOBAL__sub_I_swap
-                0x000000000000853e        0xa rfloader.o
+                0x00000000000084b4        0xa rfloader.o
  .text._ZN10CC430RADIOC2Ev
-                0x0000000000008548       0x22 cc430radio.o
-                0x0000000000008548                _ZN10CC430RADIOC2Ev
-                0x0000000000008548                _ZN10CC430RADIOC1Ev
+                0x00000000000084be       0x22 cc430radio.o
+                0x00000000000084be                _ZN10CC430RADIOC2Ev
+                0x00000000000084be                _ZN10CC430RADIOC1Ev
  .text._ZN10CC430RADIO9setCCregsEv
-                0x000000000000856a      0x210 cc430radio.o
-                0x000000000000856a                _ZN10CC430RADIO9setCCregsEv
+                0x00000000000084e0      0x210 cc430radio.o
+                0x00000000000084e0                _ZN10CC430RADIO9setCCregsEv
  .text._ZN10CC430RADIO8sendDataE8CCPACKET
-                0x000000000000877a       0x8c cc430radio.o
-                0x000000000000877a                _ZN10CC430RADIO8sendDataE8CCPACKET
+                0x00000000000086f0       0x8c cc430radio.o
+                0x00000000000086f0                _ZN10CC430RADIO8sendDataE8CCPACKET
  .text._ZN10CC430RADIO11receiveDataEP8CCPACKET
-                0x0000000000008806       0x9e cc430radio.o
-                0x0000000000008806                _ZN10CC430RADIO11receiveDataEP8CCPACKET
+                0x000000000000877c       0x9e cc430radio.o
+                0x000000000000877c                _ZN10CC430RADIO11receiveDataEP8CCPACKET
  .text._Z13ReadSingleRegh
-                0x00000000000088a4       0x16 rf1a.o
-                0x00000000000088a4                _Z13ReadSingleRegh
+                0x000000000000881a       0x16 rf1a.o
+                0x000000000000881a                _Z13ReadSingleRegh
  .text._Z14WriteSingleReghh
-                0x00000000000088ba       0x38 rf1a.o
-                0x00000000000088ba                _Z14WriteSingleReghh
+                0x0000000000008830       0x38 rf1a.o
+                0x0000000000008830                _Z14WriteSingleReghh
  .text._Z6Strobeh
-                0x00000000000088f2       0x94 rf1a.o
-                0x00000000000088f2                _Z6Strobeh
+                0x0000000000008868       0x94 rf1a.o
+                0x0000000000008868                _Z6Strobeh
  .text._Z12ReadBurstReghPhh
-                0x0000000000008986       0x4c rf1a.o
-                0x0000000000008986                _Z12ReadBurstReghPhh
+                0x00000000000088fc       0x4c rf1a.o
+                0x00000000000088fc                _Z12ReadBurstReghPhh
  .text._Z13WriteBurstReghPhh
-                0x00000000000089d2       0x44 rf1a.o
-                0x00000000000089d2                _Z13WriteBurstReghPhh
+                0x0000000000008948       0x44 rf1a.o
+                0x0000000000008948                _Z13WriteBurstReghPhh
  .text._Z12WritePATableh
-                0x0000000000008a16       0x6a rf1a.o
-                0x0000000000008a16                _Z12WritePATableh
+                0x000000000000898c       0x6a rf1a.o
+                0x000000000000898c                _Z12WritePATableh
  .text._Z10SetVCoreUph
-                0x0000000000008a80       0x46 pmm.o
-                0x0000000000008a80                _Z10SetVCoreUph
+                0x00000000000089f6       0x46 pmm.o
+                0x00000000000089f6                _Z10SetVCoreUph
  .text._Z12SetVCoreDownh
-                0x0000000000008ac6       0x28 pmm.o
-                0x0000000000008ac6                _Z12SetVCoreDownh
+                0x0000000000008a3c       0x28 pmm.o
+                0x0000000000008a3c                _Z12SetVCoreDownh
  .text._Z8SetVCoreh
-                0x0000000000008aee       0x2c pmm.o
-                0x0000000000008aee                _Z8SetVCoreh
+                0x0000000000008a64       0x2c pmm.o
+                0x0000000000008a64                _Z8SetVCoreh
  .text._ZN4SWAP10sendPacketEhhPhh
-                0x0000000000008b1a       0x8a swap.o
-                0x0000000000008b1a                _ZN4SWAP10sendPacketEhhPhh
- .text          0x0000000000008ba4       0xe4 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
-                0x0000000000008ba4                memcpy
- .text.crt0     0x0000000000008c88        0x2 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
-                0x0000000000008c88                _unexpected_
-                0x0000000000008c8a                . = ALIGN (0x2)
+                0x0000000000008a90       0x8a swap.o
+                0x0000000000008a90                _ZN4SWAP10sendPacketEhhPhh
+ .text          0x0000000000008b1a       0xe4 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
+                0x0000000000008b1a                memcpy
+ .text.crt0     0x0000000000008bfe        0x2 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
+                0x0000000000008bfe                _unexpected_
+                0x0000000000008c00                . = ALIGN (0x2)
 
-.rodata         0x0000000000008c8a        0x8
-                0x0000000000008c8a                . = ALIGN (0x2)
+.rodata         0x0000000000008c00        0x0
+                0x0000000000008c00                . = ALIGN (0x2)
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata._ZL16firmloader_pCode
-                0x0000000000008c8a        0x8 rfloader.o
-                0x0000000000008c92                . = ALIGN (0x2)
-                0x0000000000008c92                _etext = .
+                0x0000000000008c00                . = ALIGN (0x2)
+                0x0000000000008c00                _etext = .
 
-.data           0x0000000000001c00        0x2 load address 0x0000000000008c92
+.data           0x0000000000001c00        0x2 load address 0x0000000000008c00
                 0x0000000000001c00                . = ALIGN (0x2)
                 0x0000000000001c00                PROVIDE (__data_start, .)
  *(.data .data.* .gnu.linkonce.d.*)
@@ -988,10 +986,10 @@ LOAD /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib
                 0x0000000000001c02                . = ALIGN (0x2)
  *fill*         0x0000000000001c01        0x1 00
                 0x0000000000001c02                _edata = .
-                0x0000000000008c92                PROVIDE (__data_load_start, LOADADDR (.data))
+                0x0000000000008c00                PROVIDE (__data_load_start, LOADADDR (.data))
                 0x0000000000000002                PROVIDE (__data_size, SIZEOF (.data))
 
-.bss            0x0000000000001c02       0xd6 load address 0x0000000000008c94
+.bss            0x0000000000001c02       0xd2 load address 0x0000000000008c02
                 0x0000000000001c02                PROVIDE (__bss_start, .)
  *(.bss .bss.*)
  .bss.isrTable  0x0000000000001c02       0x80 rfloader.o
@@ -1001,38 +999,31 @@ LOAD /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib
  .bss.lineLength
                 0x0000000000001c84        0x1 rfloader.o
                 0x0000000000001c84                lineLength
- *fill*         0x0000000000001c85        0x1 00
- .bss.lineNumber
-                0x0000000000001c86        0x2 rfloader.o
-                0x0000000000001c86                lineNumber
  .bss.lineReceived
-                0x0000000000001c88        0x1 rfloader.o
-                0x0000000000001c88                lineReceived
- .bss.serverFound
-                0x0000000000001c89        0x1 rfloader.o
-                0x0000000000001c89                serverFound
- .bss.packet    0x0000000000001c8a       0x42 rfloader.o
-                0x0000000000001c8a                packet
+                0x0000000000001c85        0x1 rfloader.o
+                0x0000000000001c85                lineReceived
+ .bss.packet    0x0000000000001c86       0x42 rfloader.o
+                0x0000000000001c86                packet
  .bss.userCodeAddr
-                0x0000000000001ccc        0x2 rfloader.o
-                0x0000000000001ccc                userCodeAddr
- .bss.swap      0x0000000000001cce        0x8 rfloader.o
-                0x0000000000001cce                swap
+                0x0000000000001cc8        0x2 rfloader.o
+                0x0000000000001cc8                userCodeAddr
+ .bss.swap      0x0000000000001cca        0x8 rfloader.o
+                0x0000000000001cca                swap
  .bss._ZZN4SWAP10sendPacketEhhPhhE5nonce
-                0x0000000000001cd6        0x1 swap.o
+                0x0000000000001cd2        0x1 swap.o
  *(COMMON)
-                0x0000000000001cd8                . = ALIGN (0x2)
- *fill*         0x0000000000001cd7        0x1 00
-                0x0000000000001cd8                PROVIDE (__bss_end, .)
-                0x00000000000000d6                PROVIDE (__bss_size, SIZEOF (.bss))
+                0x0000000000001cd4                . = ALIGN (0x2)
+ *fill*         0x0000000000001cd3        0x1 00
+                0x0000000000001cd4                PROVIDE (__bss_end, .)
+                0x00000000000000d2                PROVIDE (__bss_size, SIZEOF (.bss))
 
-.noinit         0x0000000000001cd8        0x0 load address 0x0000000000008c94
-                0x0000000000001cd8                PROVIDE (__noinit_start, .)
+.noinit         0x0000000000001cd4        0x0 load address 0x0000000000008c02
+                0x0000000000001cd4                PROVIDE (__noinit_start, .)
  *(.noinit .noinit.*)
-                0x0000000000001cd8                . = ALIGN (0x2)
-                0x0000000000001cd8                PROVIDE (__noinit_end, .)
-                0x0000000000001cd8                . = ALIGN (0x2)
-                0x0000000000001cd8                _end = .
+                0x0000000000001cd4                . = ALIGN (0x2)
+                0x0000000000001cd4                PROVIDE (__noinit_end, .)
+                0x0000000000001cd4                . = ALIGN (0x2)
+                0x0000000000001cd4                _end = .
 
 .infomem        0x0000000000001800        0x0
  *(.infomem)
@@ -1138,100 +1129,100 @@ LOAD /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x2749
+.debug_info     0x0000000000000000     0x269f
  *(.debug_info)
- .debug_info    0x0000000000000000     0x1288 rfloader.o
- .debug_info    0x0000000000001288      0x643 cc430radio.o
- .debug_info    0x00000000000018cb      0x35d rf1a.o
- .debug_info    0x0000000000001c28      0x121 pmm.o
- .debug_info    0x0000000000001d49      0x5d8 swap.o
- .debug_info    0x0000000000002321      0x111 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
- .debug_info    0x0000000000002432       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__watchdog_support-dwdt.o)
- .debug_info    0x00000000000024a3       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__init_stack-dwdt.o)
- .debug_info    0x0000000000002514       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_copy_data-dwdt.o)
- .debug_info    0x0000000000002585       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_clear_bss-dwdt.o)
- .debug_info    0x00000000000025f6       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
- .debug_info    0x0000000000002667       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
- .debug_info    0x00000000000026d8       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_ctors430-dwdt.o)
+ .debug_info    0x0000000000000000     0x11de rfloader.o
+ .debug_info    0x00000000000011de      0x643 cc430radio.o
+ .debug_info    0x0000000000001821      0x35d rf1a.o
+ .debug_info    0x0000000000001b7e      0x121 pmm.o
+ .debug_info    0x0000000000001c9f      0x5d8 swap.o
+ .debug_info    0x0000000000002277      0x111 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
+ .debug_info    0x0000000000002388       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__watchdog_support-dwdt.o)
+ .debug_info    0x00000000000023f9       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__init_stack-dwdt.o)
+ .debug_info    0x000000000000246a       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_copy_data-dwdt.o)
+ .debug_info    0x00000000000024db       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_clear_bss-dwdt.o)
+ .debug_info    0x000000000000254c       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
+ .debug_info    0x00000000000025bd       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
+ .debug_info    0x000000000000262e       0x71 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_ctors430-dwdt.o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x0000000000000000      0xbcc
+.debug_abbrev   0x0000000000000000      0xbb3
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000      0x460 rfloader.o
- .debug_abbrev  0x0000000000000460      0x252 cc430radio.o
- .debug_abbrev  0x00000000000006b2      0x164 rf1a.o
- .debug_abbrev  0x0000000000000816       0xa4 pmm.o
- .debug_abbrev  0x00000000000008ba      0x1e0 swap.o
- .debug_abbrev  0x0000000000000a9a       0xa6 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
- .debug_abbrev  0x0000000000000b40       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__watchdog_support-dwdt.o)
- .debug_abbrev  0x0000000000000b54       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__init_stack-dwdt.o)
- .debug_abbrev  0x0000000000000b68       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_copy_data-dwdt.o)
- .debug_abbrev  0x0000000000000b7c       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_clear_bss-dwdt.o)
- .debug_abbrev  0x0000000000000b90       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
- .debug_abbrev  0x0000000000000ba4       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
- .debug_abbrev  0x0000000000000bb8       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_ctors430-dwdt.o)
+ .debug_abbrev  0x0000000000000000      0x447 rfloader.o
+ .debug_abbrev  0x0000000000000447      0x252 cc430radio.o
+ .debug_abbrev  0x0000000000000699      0x164 rf1a.o
+ .debug_abbrev  0x00000000000007fd       0xa4 pmm.o
+ .debug_abbrev  0x00000000000008a1      0x1e0 swap.o
+ .debug_abbrev  0x0000000000000a81       0xa6 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
+ .debug_abbrev  0x0000000000000b27       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__watchdog_support-dwdt.o)
+ .debug_abbrev  0x0000000000000b3b       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__init_stack-dwdt.o)
+ .debug_abbrev  0x0000000000000b4f       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_copy_data-dwdt.o)
+ .debug_abbrev  0x0000000000000b63       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_clear_bss-dwdt.o)
+ .debug_abbrev  0x0000000000000b77       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
+ .debug_abbrev  0x0000000000000b8b       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
+ .debug_abbrev  0x0000000000000b9f       0x14 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_ctors430-dwdt.o)
 
-.debug_line     0x0000000000000000      0xd69
+.debug_line     0x0000000000000000      0xd2e
  *(.debug_line)
- .debug_line    0x0000000000000000      0x387 rfloader.o
- .debug_line    0x0000000000000387      0x208 cc430radio.o
- .debug_line    0x000000000000058f      0x1e6 rf1a.o
- .debug_line    0x0000000000000775      0x12f pmm.o
- .debug_line    0x00000000000008a4      0x161 swap.o
- .debug_line    0x0000000000000a05      0x109 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
- .debug_line    0x0000000000000b0e       0x54 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__watchdog_support-dwdt.o)
- .debug_line    0x0000000000000b62       0x54 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__init_stack-dwdt.o)
- .debug_line    0x0000000000000bb6       0x59 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_copy_data-dwdt.o)
- .debug_line    0x0000000000000c0f       0x59 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_clear_bss-dwdt.o)
- .debug_line    0x0000000000000c68       0x55 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
- .debug_line    0x0000000000000cbd       0x54 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
- .debug_line    0x0000000000000d11       0x58 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_ctors430-dwdt.o)
+ .debug_line    0x0000000000000000      0x34c rfloader.o
+ .debug_line    0x000000000000034c      0x208 cc430radio.o
+ .debug_line    0x0000000000000554      0x1e6 rf1a.o
+ .debug_line    0x000000000000073a      0x12f pmm.o
+ .debug_line    0x0000000000000869      0x161 swap.o
+ .debug_line    0x00000000000009ca      0x109 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
+ .debug_line    0x0000000000000ad3       0x54 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__watchdog_support-dwdt.o)
+ .debug_line    0x0000000000000b27       0x54 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(__init_stack-dwdt.o)
+ .debug_line    0x0000000000000b7b       0x59 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_copy_data-dwdt.o)
+ .debug_line    0x0000000000000bd4       0x59 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_clear_bss-dwdt.o)
+ .debug_line    0x0000000000000c2d       0x55 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_endless_loop__-dwdt.o)
+ .debug_line    0x0000000000000c82       0x54 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_unexpected_-dwdt.o)
+ .debug_line    0x0000000000000cd6       0x58 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/mcpu-430x/mmpy-16/libcrt0dwdt.a(_ctors430-dwdt.o)
 
-.debug_frame    0x0000000000000000      0x224
+.debug_frame    0x0000000000000000      0x21e
  *(.debug_frame)
- .debug_frame   0x0000000000000000       0xa2 rfloader.o
- .debug_frame   0x00000000000000a2       0x5a cc430radio.o
- .debug_frame   0x00000000000000fc       0x8a rf1a.o
- .debug_frame   0x0000000000000186       0x3e pmm.o
- .debug_frame   0x00000000000001c4       0x34 swap.o
- .debug_frame   0x00000000000001f8       0x2c /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
+ .debug_frame   0x0000000000000000       0x9c rfloader.o
+ .debug_frame   0x000000000000009c       0x5a cc430radio.o
+ .debug_frame   0x00000000000000f6       0x8a rf1a.o
+ .debug_frame   0x0000000000000180       0x3e pmm.o
+ .debug_frame   0x00000000000001be       0x34 swap.o
+ .debug_frame   0x00000000000001f2       0x2c /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
 
-.debug_str      0x0000000000000000      0xe2d
+.debug_str      0x0000000000000000      0xe1a
  *(.debug_str)
- .debug_str     0x0000000000000000      0xb03 rfloader.o
-                                        0xbee (size before relaxing)
- .debug_str     0x0000000000000b03       0x3c cc430radio.o
+ .debug_str     0x0000000000000000      0xaf0 rfloader.o
+                                        0xbdb (size before relaxing)
+ .debug_str     0x0000000000000af0       0x3c cc430radio.o
                                         0x44f (size before relaxing)
- .debug_str     0x0000000000000b3f      0x19c rf1a.o
+ .debug_str     0x0000000000000b2c      0x19c rf1a.o
                                         0x2bf (size before relaxing)
- .debug_str     0x0000000000000cdb       0x70 pmm.o
+ .debug_str     0x0000000000000cc8       0x70 pmm.o
                                         0x170 (size before relaxing)
- .debug_str     0x0000000000000d4b        0xf swap.o
+ .debug_str     0x0000000000000d38        0xf swap.o
                                         0x611 (size before relaxing)
- .debug_str     0x0000000000000d5a       0xd3 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
+ .debug_str     0x0000000000000d47       0xd3 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
                                         0x121 (size before relaxing)
 
-.debug_loc      0x0000000000000000      0x8a4
+.debug_loc      0x0000000000000000      0x880
  *(.debug_loc)
- .debug_loc     0x0000000000000000      0x3ae rfloader.o
- .debug_loc     0x00000000000003ae      0x12d cc430radio.o
- .debug_loc     0x00000000000004db      0x16c rf1a.o
- .debug_loc     0x0000000000000647       0x26 pmm.o
- .debug_loc     0x000000000000066d       0x80 swap.o
- .debug_loc     0x00000000000006ed      0x1b7 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
+ .debug_loc     0x0000000000000000      0x38a rfloader.o
+ .debug_loc     0x000000000000038a      0x12d cc430radio.o
+ .debug_loc     0x00000000000004b7      0x16c rf1a.o
+ .debug_loc     0x0000000000000623       0x26 pmm.o
+ .debug_loc     0x0000000000000649       0x80 swap.o
+ .debug_loc     0x00000000000006c9      0x1b7 /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib/gcc/msp430/4.6.3/../../../../msp430/lib/mcpu-430x/mmpy-16/libc.a(memcpy.o)
 
-.debug_macinfo  0x0000000000000000    0x511c5
+.debug_macinfo  0x0000000000000000    0x511c6
  *(.debug_macinfo)
  .debug_macinfo
-                0x0000000000000000    0x10944 rfloader.o
+                0x0000000000000000    0x10945 rfloader.o
  .debug_macinfo
-                0x0000000000010944    0x10544 cc430radio.o
+                0x0000000000010945    0x10544 cc430radio.o
  .debug_macinfo
-                0x0000000000020e88     0xfe8a rf1a.o
+                0x0000000000020e89     0xfe8a rf1a.o
  .debug_macinfo
-                0x0000000000030d12     0xfde7 pmm.o
+                0x0000000000030d13     0xfde7 pmm.o
  .debug_macinfo
-                0x0000000000040af9    0x106cc swap.o
+                0x0000000000040afa    0x106cc swap.o
 
 .debug_pubtypes
  *(.debug_pubtypes)
@@ -1244,6 +1235,6 @@ LOAD /home/daniel/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/../lib
  .debug_ranges  0x0000000000000060       0x10 pmm.o
  .debug_ranges  0x0000000000000070        0x8 swap.o
                 0x0000000000002bfe                PROVIDE (__stack, (ORIGIN (ram) + 0xffe))
-                0x0000000000008c92                PROVIDE (__data_start_rom, _etext)
-                0x0000000000008c94                PROVIDE (__data_end_rom, (_etext + SIZEOF (.data)))
+                0x0000000000008c00                PROVIDE (__data_start_rom, _etext)
+                0x0000000000008c02                PROVIDE (__data_end_rom, (_etext + SIZEOF (.data)))
 OUTPUT(rfloader.elf elf32-msp430)

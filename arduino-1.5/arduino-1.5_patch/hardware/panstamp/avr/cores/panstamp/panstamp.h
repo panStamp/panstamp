@@ -179,6 +179,15 @@ class PANSTAMP
      {
        return OSCCAL;
      }
+     
+    /**
+     * goToWirelessBoot
+     *
+     * Start wireless bootloader
+     */
+     inline void goToWirelessBoot(void)
+     {
+     }
 };
 
 /**

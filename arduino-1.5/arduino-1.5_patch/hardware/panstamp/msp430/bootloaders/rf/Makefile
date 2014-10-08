@@ -1,3 +1,4 @@
+
 MCU = cc430f5137
 SRCS ?= rfloader.cpp cc430radio.cpp rf1a.cpp pmm.cpp swap.cpp
 
@@ -12,14 +13,15 @@ LDFLAGS = $(FLAGS) -mdisable-watchdog
 LDFLAGS += -Wl,--gc-sections,-Map=$(PROG).map,-umain
 LDFLAGS += -ffixed-r6
 
-#CROSS = ../../../../tools/msp430/bin/msp430-
-CROSS = ~/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/msp430-
-CC = $(CROSS)gcc
-CXX = $(CROSS)g++
-AS = $(cross)gcc -x assembler-with-cpp
-OBJDUMP = $(CROSS)objdump
-OBJCOPY = $(CROSS)objcopy
-SIZE = $(CROSS)size
+# Change path to the toolchain
+TOOLCHAIN = ~/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/msp430-
+
+CC = $(TOOLCHAIN)gcc
+CXX = $(TOOLCHAIN)g++
+AS = $(TOOLCHAIN)gcc -x assembler-with-cpp
+OBJDUMP = $(TOOLCHAIN)objdump
+OBJCOPY = $(TOOLCHAIN)objcopy
+SIZE = $(TOOLCHAIN)size
 LD = $(CC)
 
 PROG := $(firstword $(SRCS:.cpp=))
@@ -44,4 +46,4 @@ clean:
 	-rm -f $(PROG).elf $(PROG).lst $(PROG).hex $(OBJS) *.d *~
 
 flash:
-	./msp430-gdb -b 38400 -ex 'set debug remote 0' -ex 'target remote /dev/ttyUSB1' $(PROG).elf -ex 'erase' -ex 'load' -ex 'quit'
+	$(TOOLCHAIN)gdb -b 38400 -ex 'set debug remote 0' -ex 'target remote /dev/ttyUSB1' $(PROG).elf -ex 'erase' -ex 'load' -ex 'quit'

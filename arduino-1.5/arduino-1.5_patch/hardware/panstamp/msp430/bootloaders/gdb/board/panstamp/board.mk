@@ -2,8 +2,8 @@
 # board/chip specific options
 #
 
-#TOOLCHAIN = msp430-
-TOOLCHAIN = ../../../../tools/msp430/bin/msp430-
+TOOLCHAIN = msp430-
+#TOOLCHAIN = ../../../../tools/msp430/bin/msp430-
 CORE = msp430
 CORE_FLAGS = -mmcu=cc430f5137
 F_CPU ?= 6500000

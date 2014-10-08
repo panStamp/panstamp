@@ -2,6 +2,11 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.6 - Release on 8-Oct-2014
+----------------------------------------
+1. Empty PANSTAMP::goToWirelessBoot method created for AVR architecture
+2. Wireless firmloader (rfloader) improved
+
 VERSION 0.5 - Released on 25-Sep 2014
 ----------------------------------------
 1. MMA8652FC library - Some functions switched to "inline"

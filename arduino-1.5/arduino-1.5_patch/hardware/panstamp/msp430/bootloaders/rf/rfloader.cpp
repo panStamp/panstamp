@@ -24,9 +24,9 @@
 
 #include "rfloader.h"
 
-// Responses from server have to be received before 1000 ms after sending
+// Responses from server have to be received before 10000 ms after sending
 // the query
-#define RESPONSE_TIMEOUT  1000
+#define RESPONSE_TIMEOUT  10000
 // Maximum number of queries sent to the server for a given line of firmware
 #define MAX_REPEAT_QUERY  10
 
@@ -34,16 +34,10 @@
 uint16_t userCodeAddr;
 // Global packet
 CCPACKET packet;
-// Product code of teh firmware server device
-const uint8_t firmloader_pCode[] = FIRMSERVER_PRODUCT_CODE;
-// Firmware server found
-volatile bool serverFound = false;
 // New firmware line received
 volatile bool lineReceived = false;
 // First hex line flag
 bool firstLine = true;
-// Current firmware line being queried from hex file
-uint16_t lineNumber = 0;
 // Length of last line received
 uint8_t lineLength = 0;
 // Pointer to line buffer
@@ -53,11 +47,15 @@ uint8_t isrTable[8][16];
 
 
 /**
- * readWirelessPacket
+ * readHexLine
  *
- * Read wireless packet
+ * Read wireless packet and extract HEX line
+ * 
+ * @param lineNb Line number being queried
+ * 
+ * @return Correct line received (true) or not (false)
  */
-void readWirelessPacket(void)
+bool readHexLine(uint16_t lineNumber)
 {
   // Any packet waiting to be read?
   if (swap.radio.receiveData(&packet) > 0)
@@ -78,49 +76,27 @@ void readWirelessPacket(void)
           ptrLine = packet.data + SWAP_DATA_HEAD_LEN + 1;
           lineLength = packet.length - SWAP_DATA_HEAD_LEN - 1;
 
-          // Eval SWAP register ID
-          switch(packet.SWAP_REGID)
+          // // Firmware page received?
+          if(packet.SWAP_REGID == REGI_FIRMWARE)
           {
-            // Product code received?
-            case REGI_PRODUCTCODE:
-
-              // Still not hooked to a given server?
-              if (!serverFound)
-              {                     
-                // Is this a SWAP firmware server?
-                uint8_t i;
-                serverFound = true;
-                for(i=0 ; i<sizeof(firmloader_pCode) ; i++)
-                {
-                  if (ptrLine[i] != firmloader_pCode[i])
-                  {
-                    serverFound = false;
-                    break;
-                  }
-                }
-              }
-              break;
-            // Firmware page received?
-            case REGI_FIRMWARE:
-              // Correct data length?
-              if (lineLength <= BYTES_PER_LINE)
+            // Correct data length?
+            if (lineLength <= BYTES_PER_LINE)
+            {
+              // Correct line number?
+              if (getLineNumber(ptrLine) == lineNumber)
               {
-                // Correct line number?
-                if (getLineNumber(ptrLine) == lineNumber)
-                {
-                  ptrLine += 2;
-                  lineLength -= 2;
-                }                       
-                lineReceived = true;             
-              }
-              break;
-            default:
-              break;
+                ptrLine += 2;
+                lineLength -= 2;
+                lineReceived = true;
+                return true;
+              }                       
+            }
           }
         }
       }
     }
   }
+  return false;
 }
 
 /**
@@ -131,6 +107,8 @@ void readWirelessPacket(void)
 int main(void)
 {
   uint8_t state, status, bytes, i, count=0;
+  // Current firmware line being queried from hex file
+  uint16_t lineNumber = 0;
 
   CONFIG_LED();
 
@@ -163,33 +141,6 @@ int main(void)
   
   // Init SWAP comms
   swap.init();
-
-  // Query product code from address 1
-  TRANSMIT_SWAP_QUERY_PCODE();
-
-  // Start timer
-  timer.start(RESPONSE_TIMEOUT);
-
-  // Wait until a firmware server identifies itself
-  while(!serverFound)
-  {      
-    status = ReadSingleReg(PKTSTATUS);
-    bytes = ReadSingleReg(RXBYTES);
-    
-    // Poll PKSTATUS and number of bytes in the Rx FIFO
-    if ((status & 0x01) && bytes)
-    {
-      readWirelessPacket();
-      break;
-    }
-    
-    // No response after timeout?
-    if (timer.timeout())
-    {
-      // Jump to user code
-      jumpToUserCode();
-    }
-  }
 
   // Enter upgrade mode
   state = (uint8_t)SYSTATE_UPGRADE;
@@ -230,11 +181,13 @@ int main(void)
         {
           while (ReadSingleReg(PKTSTATUS) & 0x01);
           LED_ON();
-          // Packet received. Read packet
-          readWirelessPacket();
-          count = 0;  // Reset counter
+          // Packet received. Read packet and extract HEX line
+          if (readHexLine(lineNumber))
+          {
+            count = 0;  // Reset counter
+            break;
+          }
           LED_OFF();
-          break;
         }
       }
     }
@@ -517,4 +470,3 @@ void delayClockCycles(register uint32_t n)
                 " jne        1b \n"
         : [n] "+r"(n));
 }
-
