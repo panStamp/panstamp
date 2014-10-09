@@ -163,9 +163,7 @@ int main(void)
         // If the flash was not erased then start user code
         if (firstLine)
           jumpToUserCode();
-        // Stop asking and enter LPM
-        else
-          sleep();
+        // Otherwise continue forever asking
       }
       
       // Start timer
