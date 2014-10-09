@@ -150,7 +150,8 @@ class SwapManager(SwapInterface):
         status.send(self.server)
 
     
-    def str_to_int(self, str_int):
+    @staticmethod
+    def str_to_int(str_int):
         """
         Convert string to integer
         
@@ -184,7 +185,7 @@ class SwapManager(SwapInterface):
         elif len(command) < 2:
             print "Incorrect command. Run \"help\" to get more information"
         # Print SWAP traffic
-        if command[0] == "traffic":
+        elif command[0] == "traffic":
             if command[1].lower() == "on":
                 self.verbose = True
                 self.server.verbose = True

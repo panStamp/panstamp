@@ -78,7 +78,7 @@ if __name__ == '__main__':
         serial_cfg.port = opts.port
         save_file = True
     if opts.speed is not None:
-        serial_cfg.speed = int(opts.speed)
+        serial_cfg.speed = SwapManager.str_to_int(opts.speed)
         save_file = True
 
     if save_file:
@@ -87,17 +87,25 @@ if __name__ == '__main__':
     save_file = False
     # Save network parameters
     if opts.channel is not None:
-        network_cfg.freq_channel = int(opts.channel)
-        save_file = True
+        channel = SwapManager.str_to_int(opts.channel)
+        if channel is not None:
+            SwapManager.str_to_int = channel
+            save_file = True
     if opts.netid is not None:
-        network_cfg.network_id = int(opts.netid)
-        save_file = True
+        netid = SwapManager.str_to_int(opts.netid)
+        if nedid is not None:
+            network_cfg.network_id = netid
+            save_file = True
     if opts.address is not None:
-        network_cfg.devaddress = int(opts.address)
-        save_file = True
+        addr = SwapManager.str_to_int(opts.address)
+        if addr is not None:
+            network_cfg.devaddress = addr
+            save_file = True
     if opts.security is not None:
-        network_cfg.security = int(opts.security)
-        save_file = True
+        secu = SwapManager.str_to_int(opts.security)
+        if secu is not None:
+            network_cfg.security = secu
+            save_file = True
         
     if save_file:
         network_cfg.save()
