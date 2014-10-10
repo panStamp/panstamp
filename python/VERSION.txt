@@ -1,0 +1,8 @@
+
+Python applications for panStamp
+-----------------------------------------------------
+
+VERSION 2.2 - Release on 10-Oct-2014
+----------------------------------------
+1. Creation of SWAPdmt-cmd
+2. Improvement of error handling from pyswap
