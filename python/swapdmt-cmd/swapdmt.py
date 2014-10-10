@@ -122,7 +122,7 @@ if __name__ == '__main__':
 
     while True:
         if swap_manager.server_started == True and swap_manager.prog_address is None:
-            cmd = raw_input(">>")
+            cmd = raw_input(">> ")
             
             command = []
             for item in cmd.split(" "):
