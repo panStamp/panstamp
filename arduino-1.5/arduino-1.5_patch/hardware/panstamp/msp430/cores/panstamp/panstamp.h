@@ -29,6 +29,7 @@
 #include "cc430radio.h"
 #include "cc430rtc.h"
 #include "wiring.h"
+#include "storage.h"
 
 /**
  * Default carrier frequency
@@ -57,9 +58,8 @@
 #define setHighTxPower()    radio.setTxPowerAmp(PA_LongDistance)
 #define setLowTxPower()     radio.setTxPowerAmp(PA_LowPower)
 
-#define wakeUp()  core.setNormalMode();      // Exit low-power mode
+#define GET_RANDOM()  core.getShortUID()
 
-#define getVcc()  core.getVcc()
 /**
  * Class: PANSTAMP
  * 
@@ -102,7 +102,7 @@ class PANSTAMP
      * Enable RF reception
      */
     void rxOn(void);
-
+    
     /**
      * rxOff
      *
@@ -153,6 +153,59 @@ class PANSTAMP
      inline void attachInterrupt(void (*funct)(CCPACKET*))
      {
        ccPacketReceived = funct;
+     }
+     
+    /**
+     * getVcc
+     *
+     * Read MCU's voltage supply
+     *
+     * @return voltage in mV
+     */
+     inline uint16_t getVcc(void)
+     {
+       return core.getVcc();
+     }
+     
+    /**
+     * wakeUp
+     *
+     * Wake from sleep mode
+     */
+     inline void wakeUp(void)
+     {
+       core.setNormalMode();
+       radio.setRxState();
+     }
+
+    /**
+     * enableWirelessBoot
+     * 
+     * Enable/Disable wireless bootloader when the module starts
+     * 
+     * @param ena true for enabling the wireless bootloader
+     */
+    inline void enableWirelessBoot(bool ena)
+    {
+      bool * ptr;
+      ptr = (bool*)RAM_END_ADDRESS;
+      *ptr = !ena;
+    }
+
+    /**
+     * goToWirelessBoot
+     *
+     * Start wireless bootloader
+     */
+     inline void goToWirelessBoot(void)
+     {
+       // Enable wireless bootloader
+       enableWirelessBoot(true);
+       
+       // Go to wireless boot address
+       void (*p)(void);
+       p = (void (*)(void))WIRELESS_BOOT_ADDR;
+       (*p)(); 
      }
 };
 

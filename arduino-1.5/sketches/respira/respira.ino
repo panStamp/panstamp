@@ -72,15 +72,15 @@ void setup()
   */
   
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter Rx ON state
   swap.enterSystemState(SYSTATE_RXON);
 
   // Transmit periodic Tx interval
-  getRegister(REGI_TXINTERVAL)->getData();
+  swap.getRegister(REGI_TXINTERVAL)->getData();
   // Transmit power voltage
-  getRegister(REGI_VOLTSUPPLY)->getData();
+  swap.getRegister(REGI_VOLTSUPPLY)->getData();
   
   // Initialize sensors
   initSensor();
@@ -96,12 +96,12 @@ void loop()
   digitalWrite(LEDPIN, HIGH);
 
   // Transmit Humidity + temperaturesensor data
-  getRegister(REGI_HTSENSOR)->getData();
+  swap.getRegister(REGI_HTSENSOR)->getData();
 
   delay(100);
 
   // Transmit CO + NO2 sensor level
-  getRegister(REGI_AIRSENSOR)->getData();
+  swap.getRegister(REGI_AIRSENSOR)->getData();
 
   digitalWrite(LEDPIN, LOW);
   

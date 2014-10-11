@@ -2,6 +2,25 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.6 - Release on 8-Oct-2014
+----------------------------------------
+1. Empty PANSTAMP::goToWirelessBoot method created for AVR architecture
+2. Wireless firmloader (rfloader) improved
+
+VERSION 0.5 - Released on 25-Sep 2014
+----------------------------------------
+1. MMA8652FC library - Some functions switched to "inline"
+2. Fixed bug in vcore management (low-power mode)
+3. New SWAP (wireless) firmware loader
+4. Wireless bootloader triggered by SWAP command
+
+VERSION 0.4 - Released on 28-Aug 2014
+----------------------------------------
+1. getRegister becomes a member of class SWAP. Sample sketches updated
+2. Sleeping routines fixed on NRG
+3. Thermistor library added to repository
+4. Internal ADC reference fixed
+
 VERSION 0.3 - Released on 19-Aug 2014
 ----------------------------------------
 1. Broken links fixed

@@ -41,7 +41,7 @@ void setup()
   swap.init();
   
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 }
 
 /**

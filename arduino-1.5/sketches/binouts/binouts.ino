@@ -46,14 +46,6 @@
 #include "swap.h"
 #include "HardwareSerial.h"
 
-/**
- * LED pin
- */
-#ifdef ONBOARD_LED
-#define LEDPIN  ONBOARD_LED  // panStamp NRG has an on-board LED
-#else
-#define LEDPIN  4  // panStamp AVR does not but we can use a pin to drive an external LED
-#endif
 
 #ifdef PANSTAMP_NRG
 // Binary output pins (Arduino digital pins)
@@ -90,8 +82,8 @@ void setup()
 {
   int i;
 
-  pinMode(LEDPIN, OUTPUT);
-  digitalWrite(LEDPIN, LOW);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
 
   // Configure output pins
   for(i=0 ; i<sizeof(binaryPin) ; i++)
@@ -109,14 +101,14 @@ void setup()
   //panstamp.setSmartPassword(password);
 
   // Transmit product code
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 
   // Enter Rx ON state
   swap.enterSystemState(SYSTATE_RXON);
   // Transmit initial binary states
-  getRegister(REGI_BINOUTPUTS)->getData();
+  swap.getRegister(REGI_BINOUTPUTS)->getData();
   // Transmit initial PWM values
-  getRegister(REGI_PWMOUTPUTS)->getData();
+  swap.getRegister(REGI_PWMOUTPUTS)->getData();
 }
 
 /**
@@ -126,9 +118,9 @@ void setup()
  */
 void loop()
 {
-  digitalWrite(LEDPIN, HIGH);
+  digitalWrite(LED, HIGH);
   delay(100);
-  digitalWrite(LEDPIN, LOW);
+  digitalWrite(LED, LOW);
   delay(4900);
 }
 

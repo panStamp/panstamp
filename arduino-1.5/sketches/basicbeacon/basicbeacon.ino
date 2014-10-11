@@ -29,12 +29,7 @@
  * wakes-up every five seconds to transmit a packet and then enters the sleep
  * mode again
  */
- 
-#ifdef ONBOARD_LED               // NRG module with on-board LED?
-#define LED  ONBOARD_LED
-#else
-#define LED              4       // Connect led to digital pin 4
-#endif
+
 #define RFCHANNEL        0       // Let's use channel 0
 #define SYNCWORD1        0xB5    // Synchronization word, high byte
 #define SYNCWORD0        0x47    // Synchronization word, low byte
@@ -46,6 +41,10 @@ void setup()
 {
   byte i;
 
+  // Setup LED output pin
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
+  
   // Init panStamp
   //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
   
@@ -68,3 +67,4 @@ void loop()
   digitalWrite(LED, LOW);
   panstamp.sleepSec(5);
 }
+

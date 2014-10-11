@@ -518,3 +518,6 @@ class SwapEndpoint(SwapParam):
         ## Time stamp
         self.lastupdate = None
 
+        ## Name string
+        self.name = name +'_'+ str( self.getRegAddress())
+

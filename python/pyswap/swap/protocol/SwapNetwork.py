@@ -89,7 +89,8 @@ class SwapNetwork:
         """
         try:
             network = self.dumps()
-            print "Saving", self.filename
+            if self.server.verbose:
+                print "Saving", self.filename
             network_file = open(self.filename, 'w')     
             # Write network data into file
             json.dump(network, network_file, sort_keys=False, indent=2)
@@ -135,7 +136,7 @@ class SwapNetwork:
         """
         Return mote from list given its index or address
 
-        @param index: Index of hte mote within lstMotes
+        @param index: Index of the mote within lstMotes
         @param address: Address of the mote
         
         @return mote

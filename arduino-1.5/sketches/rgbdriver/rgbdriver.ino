@@ -82,7 +82,7 @@ byte chronosDevAddr = 0;
      if (status->regId == CHRONOS_REGID_ACC)
      {
        // Update RGB levels
-       getRegister(REGI_RGBLEVELS)->setData(status->value.data);
+       swap.getRegister(REGI_RGBLEVELS)->setData(status->value.data);
      }
    }
  }
@@ -104,7 +104,7 @@ void setup()
   swap.attachInterrupt(STATUS, swapStatusReceived);
   
   // Broadcast product status
-  getRegister(REGI_PRODUCTCODE)->getData();
+  swap.getRegister(REGI_PRODUCTCODE)->getData();
 }
 
 /**

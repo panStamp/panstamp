@@ -29,6 +29,7 @@
 #include "config.h"
 #include "repeater.h"
 
+
 /**
  * Macros
  */
@@ -61,6 +62,12 @@ enum SYSTATE
 #define COMMAND 2
 
 /**
+ * Array of registers
+ */
+extern REGISTER* regTable[];
+extern uint8_t regTableSize;
+
+/**
  * Class: SWAP
  * 
  * Description:
@@ -68,17 +75,7 @@ enum SYSTATE
  */
 class SWAP
 {   
-  public:   
-    /**
-     * Pointer to array of registers
-     */
-    REGISTER **regTable;
-    
-    /**
-     * Size of the array of registers
-     */
-    uint8_t regTableSize;
-    
+  public:      
     /**
      * Pointer to repeater object
      */
@@ -136,11 +133,8 @@ class SWAP
      * SWAP
      *
      * Class constructor
-     * 
-     * @param regTbl  Pointer to table of SWAP registers
-     * @param numRegs  Number of registers
      */
-    SWAP(REGISTER** regTbl, uint8_t numRegs);
+    SWAP(void);
 
     /**
      * init
@@ -156,7 +150,12 @@ class SWAP
      *
      * @param state New system state
      */
-    void enterSystemState(SYSTATE state);
+    void __inline__ enterSystemState(SYSTATE state)
+    {
+      // System state register -> id = 3
+      regTable[3]->setData((uint8_t *) &state);
+    }
+    
     /**
      * goToSleep
      *
@@ -183,7 +182,7 @@ class SWAP
     /**
      * attachInterrupt
      * 
-     * Declare custom ISR, to be called whenever a SWAP packet is received
+     * Declare custom ISR, to be called whenever a SWAP status packet is received
      * 
      * @param type of packet that triggers the user function
      * @param funct pointer to the custom function
@@ -193,21 +192,24 @@ class SWAP
        if (type == STATUS)
          statusReceived = funct;
      }
+     
+    /**
+     * getRegister
+     *
+     * Return pointer to register with ID = regId
+     *
+     * @param regId Register ID
+     */
+    inline REGISTER * getRegister(unsigned char regId)
+    {
+      return regTable[regId]; 
+    }
 };
 
 /**
  * Global SWAP object
  */
 extern SWAP swap;
-
-/**
- * getRegister
- *
- * Return pointer to register with ID = regId
- *
- * @param regId Register ID
- */
-REGISTER * getRegister(uint8_t regId);
 
 #endif
 

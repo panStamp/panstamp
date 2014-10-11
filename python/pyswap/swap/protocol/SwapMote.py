@@ -54,7 +54,7 @@ class SwapMote(object):
         # Expected response from mote
         infPacket = SwapStatusPacket(self.address, regId, value)
         # Command to be sent to the mote
-        cmdPacket = SwapCommandPacket(self.address, regId, value, self.nonce)
+        cmdPacket = SwapCommandPacket(self.address, regId, value, self.nonce, extended_addr=self.extended_addr)
         # Send command
         cmdPacket.send(self.server)
         # Return expected response
@@ -68,7 +68,7 @@ class SwapMote(object):
         @param regId: Register ID
         """
         # Query packet to be sent
-        qryPacket = SwapQueryPacket(self.address, regId)
+        qryPacket = SwapQueryPacket(self.address, regId, extended_addr=self.extended_addr)
         # Send query
         qryPacket.send(self.server)
 
@@ -83,7 +83,7 @@ class SwapMote(object):
         # Get register
         reg = self.getRegister(regId)
         # Status packet to be sent
-        infPacket = SwapStatusPacket(self.address, regId, reg.value)
+        infPacket = SwapStatusPacket(self.address, regId, reg.value, extended_addr=self.extended_addr)
         # Send SWAP status packet
         infPacket.send(self.server)
 
@@ -100,6 +100,17 @@ class SwapMote(object):
         return self.server.setMoteRegister(self, regId, value)
 
 
+    def qryRegisterWack(self, regId):
+        """
+        Send SWAP query to remote register and wait for response
+        
+        @param regId: Register ID
+        
+        @return register value received
+        """
+        return self.server.queryMoteRegister(self, regId)
+
+
     def setAddress(self, address):
         """
         Set mote address
@@ -109,7 +120,10 @@ class SwapMote(object):
         @return True if this command is confirmed from the mote. Return False otherwise
         """
         val = SwapValue(address, length=1)
-        return self.cmdRegisterWack(SwapRegId.ID_DEVICE_ADDR, val)
+        res = self.cmdRegisterWack(SwapRegId.ID_DEVICE_ADDR, val)
+        if res:
+            self.address = address
+        return res
 
 
     def setNetworkId(self, netId):
@@ -133,7 +147,7 @@ class SwapMote(object):
         @return True if this command is confirmed from the mote. Return False otherwise
         """
         val = SwapValue(channel, length=1)
-        return self.cmdRegisterWack(SwapRegId.ID_FREQ_CHANNEL, val)
+        res = self.cmdRegisterWack(SwapRegId.ID_FREQ_CHANNEL, val)
 
 
     def setSecurity(self, secu):
@@ -145,7 +159,10 @@ class SwapMote(object):
         @return True if this command is confirmed from the mote. Return False otherwise
         """
         val = SwapValue(secu, length=1)
-        return self.cmdRegisterWack(SwapRegId.ID_SECU_OPTION, val)
+        res = self.cmdRegisterWack(SwapRegId.ID_SECU_OPTION, val)
+        if res:
+            self.security = secu
+        return res
 
 
     def setTxInterval(self, interval):
@@ -157,7 +174,10 @@ class SwapMote(object):
         @return True if this command is confirmed from the mote. Return False otherwise
         """
         val = SwapValue(interval, length=2)
-        return self.cmdRegisterWack(SwapRegId.ID_TX_INTERVAL, val)
+        res = self.cmdRegisterWack(SwapRegId.ID_TX_INTERVAL, val)
+        if res:
+            self.txinterval = interval
+        return res
     
     
     def restart(self):
@@ -254,7 +274,7 @@ class SwapMote(object):
         return data
     
         
-    def __init__(self, server=None, product_code=None, address=0xFF, security=0, nonce=0):
+    def __init__(self, server=None, product_code=None, address=0xFF, security=0, nonce=0, extended_addr=False):
         """
         Class constructor
         
@@ -318,4 +338,6 @@ class SwapMote(object):
         self.pwrdownmode = self.definition.pwrdownmode
         ## Interval between periodic transmissions
         self.txinterval = self.definition.txinterval
+        ## Using extended address schema or not
+        self.extended_addr = extended_addr
 

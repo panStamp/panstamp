@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/866/trunk/devices/panStamp
+END
+pulsecounter.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/631/trunk/devices/panStamp/pulsecounter.xml
+END
+chronos.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/386/trunk/devices/panStamp/chronos.xml
+END
+meter.xml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/866/trunk/devices/panStamp/meter.xml
+END
+lcddriver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/861/trunk/devices/panStamp/lcddriver.xml
+END
+soilmoisture.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/910/trunk/devices/panStamp/soilmoisture.xml
+END
+temphum.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/860/trunk/devices/panStamp/temphum.xml
+END
+bininps.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/936/trunk/devices/panStamp/bininps.xml
+END
+temppress.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/860/trunk/devices/panStamp/temppress.xml
+END
+pulsegen.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/631/trunk/devices/panStamp/pulsegen.xml
+END
+binouts.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/507/trunk/devices/panStamp/binouts.xml
+END
+temp.xml
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/860/trunk/devices/panStamp/temp.xml
+END
+binouts2.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/767/trunk/devices/panStamp/binouts2.xml
+END
+respira.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/856/trunk/devices/panStamp/respira.xml
+END
+rgbdriver.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/670/trunk/devices/panStamp/rgbdriver.xml
+END

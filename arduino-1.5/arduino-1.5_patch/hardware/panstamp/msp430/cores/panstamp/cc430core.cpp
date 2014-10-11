@@ -47,10 +47,12 @@ void CC430CORE::setLowPowerMode(bool lpm4)
   // Stop WDT
   disableWatchDog();
   
+  /*
   // Disable ADC
   ADC12CTL0 &= ~ADC12ON;
   ADC12CTL0 &= ~ADC12REFON;
   ADC12CTL0 &= ~ADC12ENC;
+  */
 
   // Keep current port mapping
   portConfig[0].mapping[0] = P1MAP0;
@@ -98,7 +100,7 @@ void CC430CORE::setLowPowerMode(bool lpm4)
 /*
   // Set port levels
   PJOUT = 0;
-  P1OUT = 0x30; // I2C lines remain high to not to sink current from
+  P1OUT = 0;//0x30; // I2C lines remain high to not to sink current from
                 // I2C pull-up resistors (when present)                            
   P2OUT = 0;
   P3OUT = 0;
@@ -110,8 +112,8 @@ void CC430CORE::setLowPowerMode(bool lpm4)
   P3DIR = 0xFF;
 */
 
-  // Enter lowest power VCore level
-	SetVCore(0);
+  // Enter lowest power VCore level and MCLK = 1 MHz
+  _SET_VCORE_1MHZ(0);
 
   // Turn off SVSH, SVSM
   PMMCTL0_H = 0xA5;
@@ -138,9 +140,15 @@ void CC430CORE::setLowPowerMode(bool lpm4)
  */
 void CC430CORE::setNormalMode(void)
 {
+  PJOUT |= BIT1;
+
+	// Configure PMM and SCLK for RF operation
+  //_SET_VCORE_12MHZ(2);
+  _SET_VCORE_8MHZ(0);
+  
   // Enable WDT again
   enableWatchDog();
-  
+     
   // Recover old port mapping
   P1MAP0 = portConfig[0].mapping[0];
   P1MAP1 = portConfig[0].mapping[1];
@@ -178,20 +186,24 @@ void CC430CORE::setNormalMode(void)
   P1DIR = portConfig[0].direction;
   P2DIR = portConfig[1].direction;
   P3DIR = portConfig[2].direction;
-
-	// Configure PMM for RF operation
-	SetVCore(2);
+ 
+  PJOUT &= ~BIT1;
 }
 
 /**
  * init
  * 
  * Initialize CC430 core
+ * VCORE = 2 and SCLK = 12 MHz when no argument is passed
+ * 
+ * @param vCore VCORE level
+ * @param dcorsel CPU DCORSEL value
+ * @param flln MCLK multiplier bits
  */
-void CC430CORE::init(void) 
+void CC430CORE::init(uint8_t vCore, uint16_t dcorsel, uint16_t flln)
 {
 	// Configure PMM
-	SetVCore(2);
+	SetVCore(vCore);
 
   // Set the High-Power Mode Request Enable bit so LPM3 can be entered
   // with active radio enabled
@@ -212,22 +224,11 @@ void CC430CORE::init(void)
   UCSCTL3 = SELA__XT1CLK;
   UCSCTL4 = SELA__XT1CLK | SELS__DCOCLKDIV | SELM__DCOCLKDIV;  
 
-  /**
-   * Configure CPU clock for 12MHz
+  /*
+   * Configure CPU clock
    */
-  _BIS_SR(SCG0);              // Disable the FLL control loop
-  UCSCTL0 = 0x0000;           // Set lowest possible DCOx, MODx
-  UCSCTL1 = DCORSEL_5;        // Select suitable range
-  UCSCTL2 = FLLD_1 + 0x16E;   // Set DCO Multiplier
-  _BIC_SR(SCG0);              // Enable the FLL control loop
-
-  // Worst-case settling time for the DCO when the DCO range bits have been
-  // changed is n x 32 x 32 x f_MCLK / f_FLL_reference. See UCS chapter in 5xx
-  // UG for optimization.
-  // 32 x 32 x 8 MHz / 32,768 Hz = 250000 = MCLK cycles for DCO to settle
-  //__delay_cycles(250000);
-  delayClockCycles(0xFFFF);
-
+  setMCLK(dcorsel, flln);
+ 
   // Loop until XT1 & DCO stabilizes, use do-while to ensure that 
   // the body is executed at least once
   do
@@ -247,94 +248,46 @@ void CC430CORE::init(void)
 }
 
 /**
- * getVcc
+ * setVcoreMCLK
  *
- * Read voltage supply
+ * Config VCORE and MCLK registers
  *
- * @return voltage in mV
+ * @param vCore VCORE level
+ * @param dcorsel CPU DCORSEL value
+ * @param flln MCLK multiplier bits
  */
-uint16_t CC430CORE::getVcc(void)
+void __inline__ CC430CORE::setVcoreMCLK(uint8_t vCore, uint16_t dcorsel, uint16_t flln)
 {
-  analogReference(INTERNAL2V0);
+	// Configure PMM
+	SetVCore(vCore);
   
-  uint32_t data = analogRead(A11);
-  data *= 4000;
-  data /= 4095;
-
-  return (uint16_t) data;
+  // Set MCLK
+  setMCLK(dcorsel, flln);
 }
 
 /**
- * getTemp
+ * setMCLK
  *
- * Read internal temperature from CC430 MCU
+ * Config MCLK registers
  *
- * @return voltage in 0.1 ºC
+ * @param dcorsel CPU DCORSEL value
+ * @param flln MCLK multiplier bits
  */
-int CC430CORE::getTemp(void)
+void __inline__ CC430CORE::setMCLK(uint16_t dcorsel, uint16_t flln)
 {
-  analogReference(INTERNAL2V0);
-  int data = analogRead(A10);
-  data = data * 1.45 - 6.68;
+  /**
+   * Configure CPU clock for 12MHz
+   */
+  _BIS_SR(SCG0);              // Disable the FLL control loop
+  UCSCTL0 = 0x0000;           // Set lowest possible DCOx, MODx
+  UCSCTL1 = dcorsel;          // Select suitable range
+  UCSCTL2 = FLLD_1 + flln;    // Set DCO Multiplier
+  _BIC_SR(SCG0);              // Enable the FLL control loop
 
-  return data;
+  // Worst-case settling time for the DCO when the DCO range bits have been
+  // changed is n x 32 x 32 x f_MCLK / f_FLL_reference. See UCS chapter in 5xx
+  // UG for optimization.
+  // 32 x 32 x 8 MHz / 32,768 Hz = 250000 = MCLK cycles for DCO to settle
+  //__delay_cycles(250000);
+  delayClockCycles(0xFFFF);
 }
-
-/**
- * getUID
- * 
- * Read Die Record from Device Descriptor memory and build UID
- * 
- * @param buffer Pointer to the buffer that will receive the result
- */
-void CC430CORE::getUID(uint8_t *buffer)
-{
-  uint8_t *flashPtr = (uint8_t *) 0x1A0A;
-  buffer[0] = flashPtr[3]; // Wafer ID
-  buffer[1] = flashPtr[2];
-  buffer[2] = flashPtr[1];
-  buffer[3] = flashPtr[0];
-  buffer[6] = flashPtr[5]; // Die X position
-  buffer[7] = flashPtr[4];
-  buffer[4] = flashPtr[7]; // Die Y position
-  buffer[5] = flashPtr[6];
-}
-
-/**
- * getShortUID
- * 
- * Read Die Record from Device Descriptor memory and build a short 2-byte id
- * 
- * @return unsigned integer containing a 2-byte uid
- */
-uint16_t CC430CORE::getShortUID(void)
-{
-  uint8_t buffer[2];
-  uint16_t result;
-  
-  uint8_t *flashPtr = (uint8_t *) 0x1A0A;
-  buffer[0] = flashPtr[5]; // Die X position
-  buffer[1] = flashPtr[4];
-  
-  result = buffer[0];
-  result = (result << 8) | buffer[1];
-  
-  return result;
-}
-
-/**
- * delayClockCycles
- *
- * Clock cycle delay
- *
- * @param n clock cycles to wait
- */
-void __inline__ CC430CORE::delayClockCycles(register uint16_t n)
-{
-    __asm__ __volatile__ (
-                "1: \n"
-                " dec        %[n] \n"
-                " jne        1b \n"
-        : [n] "+r"(n));
-}
-

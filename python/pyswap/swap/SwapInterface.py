@@ -34,6 +34,14 @@ class SwapInterface:
     """
     SWAP Interface superclass. Any SWAP application should derive from this one
     """
+    def swapServerError(self, ex):
+        """
+        SWAP server error detected
+        
+        @param ex exception
+        """
+        pass
+    
     def swapServerStarted(self):
         """
         SWAP server started successfully
@@ -241,7 +249,10 @@ class SwapInterface:
                        
         if start:
             print "SWAP server starting... "
-        self.server = SwapServer(self, settings, start)
+        try:
+            self.server = SwapServer(self, settings, start)
+        except:
+            raise
         self.network = self.server.network
         if start:
             print "SWAP server is now running... "
