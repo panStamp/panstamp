@@ -31,22 +31,9 @@ from swap.protocol.SwapDefs import SwapState
 from swap.SwapException import SwapException
 
 from MainFrame import MainFrame
+from wxcomms import WxComms
 
 import wx
-import wxversion
-
-if wxversion.checkInstalled("2.8"):
-    wx_version = "2.8"
-    from wx.lib.pubsub import Publisher
-    pub = Publisher
-elif wxversion.checkInstalled("2.9"):
-    wx_version = "2.9"
-    from wx.lib.pubsub import pub
-elif wxversion.checkInstalled("3.0"):
-    wx_version = "3.0"
-    from wx.lib.pubsub import pub
-else:
-    print "version of wxpython not supported"
 
 
 class SwapManager(SwapInterface):
@@ -57,10 +44,10 @@ class SwapManager(SwapInterface):
         """
         SWAP server started successfully
         """
-        wx.CallAfter(pub.sendMessage, "server_started", msg=None)
+        WxComms.send_message("server_started")
 
         # Display event
-        wx.CallAfter(pub.sendMessage, "add_event", msg="SWAP server started")
+        WxComms.send_message("add_event", "SWAP server started")
         
 
     def swapPacketReceived(self, packet):
@@ -69,7 +56,7 @@ class SwapManager(SwapInterface):
         
         @param packet: SWAP packet received
         """
-        wx.CallAfter(pub.sendMessage, "packet_received", msg=packet)
+        WxComms.send_message("packet_received", packet)
     
 
     def swapPacketSent(self, packet):
@@ -78,7 +65,7 @@ class SwapManager(SwapInterface):
         
         @param packet: SWAP packet transmitted
         """
-        wx.CallAfter(pub.sendMessage, "packet_sent", msg=packet)
+        WxComms.send_message("packet_sent", packet)
 
 
     def newMoteDetected(self, mote):
@@ -91,10 +78,10 @@ class SwapManager(SwapInterface):
             # Display event
             evntext = "New mote with address " + str(mote.address) + " : " + mote.definition.product + \
             " (by " + mote.definition.manufacturer + ")"
-            wx.CallAfter(pub.sendMessage, "add_event", msg=evntext)
+            WxComms.send_message("add_event", evntext)
             
             # Append mote to the browsing tree
-            wx.CallAfter(pub.sendMessage, "add_mote", msg=mote)
+            WxComms.send_message("add_mote", mote)
 
 
     def newEndpointDetected(self, endpoint):
@@ -106,7 +93,7 @@ class SwapManager(SwapInterface):
         if self.dmtframe is not None:
             # Display event
             evntext = "New endpoint with Reg ID = " + str(endpoint.getRegId()) + " : " + endpoint.name
-            wx.CallAfter(pub.sendMessage, "add_event", msg=evntext)
+            WxComms.send_message("add_event", evntext)
 
 
     def moteStateChanged(self, mote):
@@ -119,11 +106,11 @@ class SwapManager(SwapInterface):
             # Display event
             evntext = "Mote with address " + str(mote.address) + " switched to \"" + \
                 SwapState.toString(mote.state) + "\""
-            wx.CallAfter(pub.sendMessage, "add_event", msg=evntext)
+            WxComms.send_message("add_event", evntext)
             
             # SYNC mode entered?
             if mote.state == SwapState.SYNC:
-                wx.CallAfter(pub.sendMessage, "sync_received", msg=mote)
+                WxComms.send_message("sync_received", mote)
 
 
     def moteAddressChanged(self, mote):
@@ -135,10 +122,10 @@ class SwapManager(SwapInterface):
         if self.dmtframe is not None:
             # Display event
             evntext = "Mote changed address to " + str(mote.address)
-            wx.CallAfter(pub.sendMessage, "add_event", msg=evntext)
+            WxComms.send_message("add_event", evntext)            
                 
             # Update address in tree
-            wx.CallAfter(pub.sendMessage, "changed_addr", msg=mote)
+            WxComms.send_message("changed_addr", mote)
 
 
     def endpointValueChanged(self, endpoint):
@@ -150,10 +137,10 @@ class SwapManager(SwapInterface):
         if self.dmtframe is not None:
             # Display event
             evntext = endpoint.name + " in address " + str(endpoint.getRegAddress()) + " changed to " + endpoint.getValueInAscii()
-            wx.CallAfter(pub.sendMessage, "add_event", msg=evntext)
+            WxComms.send_message("add_event", evntext)            
 
             # Update value in SWAP dmtframe
-            wx.CallAfter(pub.sendMessage, "changed_val", msg=endpoint)    
+            WxComms.send_message("changed_val", endpoint)    
 
 
     def parameterValueChanged(self, param):
@@ -165,10 +152,10 @@ class SwapManager(SwapInterface):
         if self.dmtframe is not None:
             # Display event
             evntext = param.name + " in address " + str(param.getRegAddress()) + " changed to " + param.getValueInAscii()
-            wx.CallAfter(pub.sendMessage, "add_event", msg=evntext)
+            WxComms.send_message("add_event", evntext)
                 
             # Update value in SWAP dmtframe
-            wx.CallAfter(pub.sendMessage, "changed_val", msg=param) 
+            WxComms.send_message("changed_val", param)
         
 
     def terminate(self):

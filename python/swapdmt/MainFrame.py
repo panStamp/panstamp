@@ -34,6 +34,7 @@ from WaitDialog import WaitDialog
 from SerialDialog import SerialDialog
 from NetworkDialog import NetworkDialog
 from SecurityDialog import SecurityDialog
+from wxcomms import WxComms
 
 from swap.protocol.SwapDefs import SwapType, SwapState, SwapFunction
 from swap.protocol.SwapPacket import SwapPacket
@@ -54,7 +55,7 @@ import wxversion
 if wxversion.checkInstalled("2.8"):
     wx_version = "2.8"
     from wx.lib.pubsub import Publisher
-    pub = Publisher
+    pub = Publisher()
 elif wxversion.checkInstalled("2.9"):
     wx_version = "2.9"
     from wx.lib.pubsub import pub
@@ -63,8 +64,6 @@ elif wxversion.checkInstalled("3.0"):
     from wx.lib.pubsub import pub
 else:
     print "version of wxpython not supported"
-
-
 
 class MainFrame(wx.Frame):
     '''
@@ -214,7 +213,7 @@ class MainFrame(wx.Frame):
         @param msg: not used
         """ 
         if self._waitfor_startdialog is not None:
-            wx.CallAfter(pub.sendMessage, "close_wait", msg=None)
+            WxComms.send_message("close_wait")
         
            
     def cb_changed_addr(self, msg):
@@ -652,7 +651,7 @@ class MainFrame(wx.Frame):
                     
             return True
                     
-        
+      
 class BrowserPanel(wx.Panel):
     """
     GUI panel containing the SWAP network tree
@@ -1140,7 +1139,7 @@ class RedirectText(object):
         if self.out is not None:
             wx.CallAfter(self.out.write, string)
 
-                    
+
 #if __name__ == "__main__":
 #    app = wx.PySimpleApp()
 #    frame = MainFrame("SWAP Device Management Tool")
