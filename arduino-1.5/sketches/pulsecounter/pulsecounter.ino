@@ -53,15 +53,6 @@
 #define DISABLE_PIN_IRQ()         detachInterrupt(1)
 
 /**
- * LED pin
- */
-#ifdef ONBOARD_LED
-#define LEDPIN  ONBOARD_LED
-#else
-#define LEDPIN  4
-#endif
-
-/**
  * Counter values
  */
 unsigned long currentCounter = 0;
@@ -86,8 +77,8 @@ void setup()
 {
   int i;
 
-  pinMode(LEDPIN, OUTPUT);
-  digitalWrite(LEDPIN, LOW);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
 
   // Init panStamp
   //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
@@ -104,9 +95,9 @@ void setup()
   // During 3 seconds, listen the network for possible commands whilst the LED blinks
   for(i=0 ; i<6 ; i++)
   {
-    digitalWrite(LEDPIN, HIGH);
+    digitalWrite(LED, HIGH);
     delay(100);
-    digitalWrite(LEDPIN, LOW);
+    digitalWrite(LED, LOW);
     delay(400);
   }
   // Transmit periodic Tx interval

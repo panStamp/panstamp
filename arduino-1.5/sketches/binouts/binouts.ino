@@ -44,8 +44,9 @@
  
 #include "regtable.h"
 #include "swap.h"
-#include "HardwareSerial.h"
-
+#ifdef PANDTAMP_NRG
+#include "cc430aes.h"
+#endif
 
 #ifdef PANSTAMP_NRG
 // Binary output pins (Arduino digital pins)
@@ -90,19 +91,20 @@ void setup()
     pinMode(binaryPin[i], OUTPUT);
   for(i=0 ; i<sizeof(pwmPin) ; i++)
     pinMode(pwmPin[i], OUTPUT);
-
-  // Init panStamp
-  //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
-  
+ 
   // Init SWAP stack
   swap.init();
   
+  // AES-128 encryption (for NRG only)
+  //byte aesKey[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};  
+  //swap.setAesPassword(aesKey);
+  
+  // Smart Encryption (software encryption)
   //byte password[] = {1,2,3,4,5,6,7,8,9,10,11,12};
   //panstamp.setSmartPassword(password);
 
   // Transmit product code
   swap.getRegister(REGI_PRODUCTCODE)->getData();
-
   // Enter Rx ON state
   swap.enterSystemState(SYSTATE_RXON);
   // Transmit initial binary states

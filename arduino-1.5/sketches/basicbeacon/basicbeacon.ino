@@ -44,10 +44,7 @@ void setup()
   // Setup LED output pin
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
-  
-  // Init panStamp
-  //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
-  
+   
   panstamp.radio.setChannel(RFCHANNEL);
   panstamp.radio.setSyncWord(SYNCWORD1, SYNCWORD0);
   panstamp.radio.setDevAddress(SOURCE_ADDR);

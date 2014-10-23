@@ -66,9 +66,6 @@ void setup()
 {
   int i;
 
-  // Init panStamp
-  //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
-
   // Init SWAP stack
   swap.init();
 
@@ -114,6 +111,7 @@ void loop()
   digitalWrite(LED, LOW);
 
   // Sleep
-  swap.goToSleep();
+  //swap.goToSleep();
+  panstamp.sleepSec(10);
 }
 

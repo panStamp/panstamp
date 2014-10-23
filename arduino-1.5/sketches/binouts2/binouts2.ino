@@ -83,9 +83,6 @@ void setup()
   for(i=0 ; i<sizeof(pwmPin) ; i++)
     pinMode(pwmPin[i], OUTPUT);
 
-  // Init panStamp
-  //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
-
   // Init SWAP stack
   swap.init();
   
