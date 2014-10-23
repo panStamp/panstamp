@@ -34,6 +34,8 @@ from SwapValue import SwapValue
 from SwapDefs import SwapAddress, SwapFunction
 from swap.SwapException import SwapException
 
+from Crypto.Cipher import AES
+
 import copy
 
 
@@ -42,7 +44,75 @@ class SwapPacket(CcPacket):
     SWAP packet class
     """
     smart_encrypt_pwd = None
+    aes_encrypt_pwd = None
 
+    def aes_encryption(self, password, decrypt=False):
+        """
+        Encrypt/Decrypt packet using the Smart Encryption mechanism
+        
+        @param password: Smart Encryption password
+        @param decrypt:  Decrypt packet if True. Encrypt otherwise
+        """
+        # Update password
+        SwapPacket.aes_encrypt_pwd = password
+        
+        # Data length
+        data_length = len(self.data[4:])
+
+        # Data in binary format
+        data = self.data[4:]
+        # Data in binary string format
+        strdata = ''.join([chr(item) for item in self.data[4:]])
+ 
+        # Number of iterations
+        loops = data_length / 16
+        if data_length % 16:
+            loops += 1
+        
+        # Create initial nonce       
+        init_nonce = []
+        for i in range(0,4):
+            for j in range(0,4):
+                init_nonce.append(self.data[j])                             
+        
+        # Password in binary string format
+        strpwd = ''.join([chr(item) for item in password.data])       
+        
+        encryptor = AES.new(strpwd)
+        
+        for i in range(0, loops):
+            str_nonce = ''.join([chr(item) for item in init_nonce])
+            encrypted_count = encryptor.encrypt(str_nonce)
+            # XOR encypted count against data
+            for j in range(0,16):
+                k = j + i*16
+                if k < data_length:
+                    data[k] ^= ord(encrypted_count[j])
+                else:
+                    break
+            # Increment nonce
+            init_nonce[-1] += 1
+        
+        # Update raw data
+        self.data[4:] = data
+        
+        if not decrypt:
+            # Update packet fields   
+            self.function = data[0] & 0x7F;
+                       
+            if self.extended_address:
+                self.srcAddress = (data[1] << 8) | data[2]
+                self.regAddress = (data[3] << 8) | data[4]
+                self.regId = data[5]
+                if len(data[6:]) > 0:
+                    self.value = SwapValue(data[6:])
+            else:
+                self.regAddress = data[1]
+                self.regId = data[2]
+                if len(data[3:]) > 0:
+                    self.value = SwapValue(data[3:])
+                
+        
     def smart_encryption(self, password, decrypt=False):
         """
         Encrypt/Decrypt packet using the Smart Encryption mechanism
@@ -99,6 +169,10 @@ class SwapPacket(CcPacket):
         if self.security & 0x02:
             # Encrypt packet
             self.smart_encryption(server.password)
+        # AES-128 encryption enabled?
+        elif self.security & 0x04:
+            # Encrypt packet
+            self.aes_encryption(server.password)
         
         CcPacket.send(self, server.modem)
         # Notify event        
@@ -109,6 +183,8 @@ class SwapPacket(CcPacket):
         """
         Update ccPacket data bytes
         """
+        self.data = []
+        
         if self.extended_address:
             """
             self.data[0] = (self.destAddress >> 8) & 0x0F
@@ -198,11 +274,14 @@ class SwapPacket(CcPacket):
         if ccPacket is not None:
             if len(ccPacket.data) < 7:
                 raise SwapException("Packet received is too short")
-            
-            # Function code
-            self.function = ccPacket.data[4] & 0x7F
-            # Extended address indicator
-            self.extended_address = (ccPacket.data[4] & 0x80) != 0
+                        
+            # Hop count for repeating purposes
+            self.hop = (ccPacket.data[2] >> 4) & 0x0F
+            # Security option
+            self.security = ccPacket.data[2] & 0x0F
+            # Security nonce
+            self.nonce = ccPacket.data[3]
+                                        
             # Superclass attributes
             ## RSSI byte
             self.rssi = ccPacket.rssi
@@ -211,6 +290,22 @@ class SwapPacket(CcPacket):
             ## CcPacket data field
             self.data = ccPacket.data
                         
+            # Smart Encryption enabled?
+            if self.security & 0x02 and SwapPacket.smart_encrypt_pwd is not None:
+                # Decrypt packet
+                self.smart_encryption(SwapPacket.smart_encrypt_pwd, decrypt=True)
+            # AES-128 Encryption enabled?
+            elif self.security & 0x04 and SwapPacket.aes_encrypt_pwd is not None:
+                # Decrypt packet
+                self.aes_encryption(SwapPacket.aes_encrypt_pwd, decrypt=True)
+            elif self.security & 0x06:
+                return
+
+            # Function code
+            self.function = ccPacket.data[4] & 0x7F
+            # Extended address indicator
+            self.extended_address = (ccPacket.data[4] & 0x80) != 0
+            
             if self.extended_address:
                 # Destination address
                 self.destAddress = (ccPacket.data[0] << 8) | ccPacket.data[1]
@@ -220,6 +315,10 @@ class SwapPacket(CcPacket):
                 self.regAddress = (ccPacket.data[7] << 8) | ccPacket.data[8]
                 # Register ID
                 self.regId = ccPacket.data[9]
+                # Register value
+                if len(ccPacket.data) >= 11:
+                    self.value = SwapValue(ccPacket.data[10:])
+
             else:
                 # Destination address
                 self.destAddress = ccPacket.data[0]
@@ -229,20 +328,9 @@ class SwapPacket(CcPacket):
                 self.regAddress = ccPacket.data[5]
                 # Register ID
                 self.regId = ccPacket.data[6]
-                
-            # Hop count for repeating purposes
-            self.hop = (ccPacket.data[2] >> 4) & 0x0F
-            # Security option
-            self.security = ccPacket.data[2] & 0x0F
-            # Security nonce
-            self.nonce = ccPacket.data[3]
-                       
-            if len(ccPacket.data) >= 8:
-                self.value = SwapValue(ccPacket.data[7:])   
-            # Encryption enabled?
-            if self.security & 0x02 and SwapPacket.smart_encrypt_pwd is not None:
-                # Decrypt packet
-                self.smart_encryption(SwapPacket.smart_encrypt_pwd, decrypt=True)
+                # Register value
+                if len(ccPacket.data) >= 8:
+                    self.value = SwapValue(ccPacket.data[7:])        
         
         else:
             self._update_ccdata()
