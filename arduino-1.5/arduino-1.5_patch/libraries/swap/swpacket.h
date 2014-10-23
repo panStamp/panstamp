@@ -89,9 +89,14 @@ struct SWDATA
     SWDTYPE type;
 };
 
-class SWPACKET : public CCPACKET
+class SWPACKET
 {
   private:
+    /**
+     * Raw packet
+     */
+     CCPACKET ccPacket;
+     
     /**
      * smartEncrypt
      * 
@@ -102,6 +107,16 @@ class SWPACKET : public CCPACKET
     #ifndef SWAP_EXTENDED_ADDRESS
     void smartEncrypt(bool decrypt=false);
     #endif
+
+    /**
+     * aesCrypto
+     * 
+     * Apply AES-128 encryption with CTR cipher to the SWAP packet passed
+     * as argument
+     */
+    //#ifdef PANSTAMP_NRG
+    void aesCrypto(void);
+    //#endif
 
   public:
     /**

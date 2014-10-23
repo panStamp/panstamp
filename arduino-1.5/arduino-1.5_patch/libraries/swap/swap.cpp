@@ -194,21 +194,6 @@ void SWAP::enableRepeater(unsigned char maxHop)
 }
 
 /**
- * setSmartPassword
- * 
- * Set Smart Encryption password
- * 
- * @param password Encryption password
- */
-void SWAP::setSmartPassword(unsigned char* password)
-{
-  // Save password
-  encryptPwd = password;
-  // Enable Smart Encryption
-  security |= 0x02;
-}
-
-/**
  * goToSleep
  *
  * put the MCU in sleep mode during txInterval seconds

@@ -29,6 +29,9 @@
 #include "config.h"
 #include "repeater.h"
 
+#ifdef PANSTAMP_NRG
+#include "cc430aes.h"
+#endif
 
 /**
  * Macros
@@ -164,15 +167,6 @@ class SWAP
     void goToSleep(void);
 
     /**
-     * setSmartPassword
-     * 
-     * Set Smart Encryption password
-     * 
-     * @param password Encryption password
-     */
-    void setSmartPassword(unsigned char* password);
-
-    /**
      * nvolatToFactoryDefaults
      * 
      * Write default config values in non-volatile memory
@@ -204,6 +198,39 @@ class SWAP
     {
       return regTable[regId]; 
     }
+    
+    /**
+     * setSmartPassword
+     * 
+     * Set Smart Encryption password
+     * 
+     * @param password Encryption password. 12-byte length
+     */
+    inline void setSmartPassword(unsigned char* password)
+    {
+      // Save password
+      encryptPwd = password;
+      // Enable Smart Encryption
+      security |= 0x02;
+    }
+    
+    /**
+     * setAesPassword
+     * 
+     * Set AES-128 Encryption password
+     * 
+     * @param password Encryption password. It must be 16 byte length
+     */
+    #ifdef PANSTAMP_NRG
+    inline void setAesPassword(unsigned char* password)
+    {
+      // Set AES-128 key
+      CC430AES::setKey(password);
+     
+      // Enable AES Encryption
+      security |= 0x04;
+    }
+    #endif
 };
 
 /**
