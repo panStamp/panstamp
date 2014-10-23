@@ -272,9 +272,6 @@ void setup()
   // Default mode is COMMAND 
   Serial.println("Modem ready!");
 
-  // Setup radio
-  //panstamp.init(CFREQ_868); // Not necessary unless you want to configure a different frequency
-
   // Disable address check from the RF IC
   panstamp.radio.disableAddressCheck();
 
