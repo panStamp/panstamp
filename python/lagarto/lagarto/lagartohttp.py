@@ -193,7 +193,7 @@ class LagartoHttpServer(threading.Thread):
                 return json.dumps(response.dumps())
                 
         return None
-  
+   
     
     @staticmethod
     def _get_endpoint_id(path):
@@ -201,8 +201,8 @@ class LagartoHttpServer(threading.Thread):
         Read endpoint id (if any) from http path
         
         @param path: tokenized ('/') PATH_INFO read from HTTP/GET request
-        """
-        if len(path) != 3:
+        """                
+        if len(path) != 2:
             return None
         
         return path[1]
@@ -215,7 +215,7 @@ class LagartoHttpServer(threading.Thread):
         
         @param path: tokenized ('/') PATH_INFO read from HTTP/GET request
         """
-        if len(path) < 4:
+        if len(path) < 3:
             return None
         
         return path[1]
@@ -228,7 +228,7 @@ class LagartoHttpServer(threading.Thread):
         
         @param path: tokenized ('/') PATH_INFO read from HTTP/GET request
         """
-        if len(path) < 4:
+        if len(path) < 3:
             return None
         
         return path[2]
@@ -265,7 +265,7 @@ class LagartoHttpServer(threading.Thread):
         path = path[1:]
         
         # Read/Write endpoint?
-        if path[0] == "values":
+        if path[0] == "values":            
             (status, response_headers, response_body) = LagartoHttpServer._serve_values(LagartoHttpServer.query_string, path)
         elif path[0] == "command":
             (status, response_headers, response_body) = LagartoHttpServer._send_command(LagartoHttpServer.query_string, path)
@@ -311,6 +311,10 @@ class LagartoHttpServer(threading.Thread):
         
         @return response (status, headers, body) tuple
         """
+        # Remove empty strings from path
+        while "" in path:
+            path.remove("")
+            
         # Dictionary containing lists as values.
         d = parse_qs(query_string)
         
@@ -318,7 +322,7 @@ class LagartoHttpServer(threading.Thread):
         names = d.get("name", [])
         uids = d.get("id", [])
         values = d.get("value", [])
-    
+
         # Simple format / single endpoint?
         if len(locations) == 0 and len(uids) == 0:
             # Endpoint information containied in the url:
@@ -332,7 +336,7 @@ class LagartoHttpServer(threading.Thread):
             else:            
                 if len(values) == 0:
                     body = LagartoHttpServer._http_simple_get_value(endpoint_id, endpoint_location, endpoint_name)
-                else:
+                else:                    
                     body = LagartoHttpServer._http_simple_set_value(endpoint_id, endpoint_location, endpoint_name, values[0])
                 mime_type = "text/html"            
         # JSON format?
