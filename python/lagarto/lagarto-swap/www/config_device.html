@@ -1,0 +1,46 @@
+<!-- Copyright (c) Daniel Berenguer (panStamp) 2012 */ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta name="author" content="panStamp">
+    <title>Lagarto-SWAP</title>
+    <link rel="stylesheet" type="text/css" href="/lagarto/styles.css">
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon", type="image/png", href="/lagarto/images/favicon.png">
+    <script src="/lagarto/js/ajax.js"></script>
+    <script src="/lagarto/js/tools.js"></script>
+    <script src="/js/config_device.js"></script>
+  </head>
+  <body bgcolor="#FFFFFF">
+    <div id="divcontainer" style="position:relative; visibility:visible; width:550px; top:0px; left:0px;">
+      <script type="text/javascript" src="/lagarto/js/header.js"></script>
+      <script type="text/javascript" src="/js/menu.js"></script>
+      <h1>Device configuration</h1>
+      <form action="/command/config_mote" method="post">
+        <table align="center" width="450px" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="celltitle">Address:</td>
+            <td align="left">
+              <input type="hidden" id="address" name="address"/>
+              <input type="text" id="newaddr" name="newaddr" class="inputdatashort"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="celltitle">Tx interval:</td>
+            <td align="left">
+              <input type="text" id="txinterval" name="txinterval" class="inputdatashort"/>
+            </td>
+          </tr>
+        </table>
+        <p>
+          <input type='button' class='button_a' onClick='history.back()' value='CANCEL'/>
+          <input type='submit' class='button_a' value='SAVE'/>
+        </p>
+      </form>
+    </div>
+    <script language="JavaScript" type="text/javascript">
+      loadJSONdata("../config/swapnet.json", updateValues);
+    </script>
+  </body>
+</html>
+

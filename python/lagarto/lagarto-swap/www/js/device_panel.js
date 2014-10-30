@@ -36,7 +36,18 @@ function addMote(mote)
   label = document.createTextNode(mote.name);
   cell.appendChild(label);
   // Action
+  // Edit device
   cell = row.insertCell(3);
+  cell.className = "cellaction";
+  cfglink = document.createElement("a");
+  cfglink.setAttribute("href", "/config_device.html/?address=" + mote.address);
+  cell.appendChild(cfglink);
+  img = document.createElement("img");
+  img.setAttribute("src","/lagarto/images/edit.png");
+  img.title = "edit";
+  cfglink.appendChild(img);
+  // Delete device
+  cell = row.insertCell(4);
   cell.className = "cellaction";
   cfglink = document.createElement("a");
   cfglink.setAttribute("href", "/command/delete_mote/?address=" + mote.address);

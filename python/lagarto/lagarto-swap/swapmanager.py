@@ -29,16 +29,19 @@ __date__  ="$Jan 23, 2012$"
 import os
 import sys
 
+working_dir = os.path.dirname(__file__)
+lagarto_dir = os.path.split(working_dir)[0]
+#panstamp_dir = os.path.split(working_dir)[0]
+lagarto_lagarto_dir = os.path.join(lagarto_dir, "lagarto")
+sys.path.append(lagarto_lagarto_dir) 
+
 from swap.SwapInterface import SwapInterface
-from swap.protocol.SwapDefs import SwapState
+from swap.protocol.SwapDefs import SwapRegId, SwapState
+from swap.protocol.SwapValue import SwapValue
 from swap.xmltools.XmlSettings import XmlSettings
 from swap.xmltools.XmlSerial import XmlSerial
 from swap.xmltools.XmlNetwork import XmlNetwork
 
-working_dir = os.path.dirname(__file__)
-panstamp_dir = os.path.split(working_dir)[0]
-lagarto_dir = os.path.join(panstamp_dir, "lagarto")
-sys.path.append(lagarto_dir) 
 from lagartocomms import LagartoServer
 
 
@@ -194,6 +197,23 @@ class SwapManager(SwapInterface, LagartoServer):
                 self.network.save()
             elif command == "delete_mote":
                 self.network.delete_mote(int(params["address"]))
+            elif command == "config_mote":
+                # Get mote object
+                mote = self.server.network.get_mote(address=int(params["address"]))
+                if mote is not None:
+                    # Save commands
+                    res = mote.save_txinterval_command(int(params["txinterval"]))
+                    
+                    newaddr = int(params["newaddr"])
+                    if mote.address != newaddr:
+                        mote.save_address_command(newaddr)
+                    
+                    if res is None:
+                        return "command_saved.html"
+                    elif res:
+                        return "command_received.html"
+                    else:
+                        return "command_not_received.html"
             else:
                 # Save gateway's wireless settings
                 if command == "modem_network":
