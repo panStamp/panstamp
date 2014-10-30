@@ -1,3 +1,5 @@
+Arduino cores. libraries and sample sketches for panStamp
+
 How to install and first steps:
 https://github.com/panStamp/panstamp/wiki/First-steps
 
