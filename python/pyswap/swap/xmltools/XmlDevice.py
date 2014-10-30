@@ -308,7 +308,7 @@ class XmlDevice(object):
                         # Read XML fields
                         paramType = param.get("type", default="num")
                         paramDir = param.get("dir", default="inp")
-                        paramName = param.get("name", default="")
+                        paramName = param.get("name", default="").replace(" ", "_")
                         paramPos = "0"
                         elem = param.find("position")
                         if elem is not None:

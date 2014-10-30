@@ -189,14 +189,18 @@ class SwapServer(threading.Thread):
             # Device address received
             elif swPacket.regId == SwapRegId.ID_DEVICE_ADDR:
                 # Check address in list of motes
-                self._updateMoteAddress(swPacket.srcAddress, swPacket.value.toInteger())
+                if self._updateMoteAddress(swPacket.srcAddress, swPacket.value.toInteger()):
+                    # Update network file
+                    self.network.save()
             # System state received
             elif swPacket.regId == SwapRegId.ID_SYSTEM_STATE:
                 self._updateMoteState(swPacket)
             # Periodic Tx interval received
             elif swPacket.regId == SwapRegId.ID_TX_INTERVAL:
                 # Update interval in list of motes
-                self._updateMoteTxInterval(swPacket)
+                if self._updateMoteTxInterval(swPacket):
+                    # Update network file
+                    self.network.save()
             # For any other register id
             else:
                 # Update register in the list of motes
@@ -259,10 +263,12 @@ class SwapServer(threading.Thread):
         
         @param oldAddr: Old address
         @param newAddr: New address
+        
+        @return True if the value changed. False otherwise
         """
         # Has the address really changed?
         if oldAddr == newAddr:
-            return
+            return False
         # Get mote from list
         mote = self.network.get_mote(address=oldAddr)
         if mote is not None:
@@ -270,6 +276,9 @@ class SwapServer(threading.Thread):
             # Notify address change to event handler
             if self._eventHandler.moteAddressChanged is not None:
                 self._eventHandler.moteAddressChanged(mote)
+                
+            return True
+        return False
 
 
     def _updateMoteState(self, packet):
@@ -277,6 +286,8 @@ class SwapServer(threading.Thread):
         Update mote state in list
 
         @param packet: SWAP packet to extract the information from
+        
+        @return True if the value changed. False otherwise
         """
         # New system state
         state = packet.value.toInteger()
@@ -286,21 +297,26 @@ class SwapServer(threading.Thread):
         if mote is not None:
             # Has the state really changed?
             if mote.state == state:
-                return
+                return False
 
-            # Update system state in the list
-            mote.state = state
-
+            # Update mote's state
+            mote.update_state(state)
+            
             # Notify state change to event handler
             if self._eventHandler.moteStateChanged is not None:
                 self._eventHandler.moteStateChanged(mote)
 
+            return True
+        return False
+    
 
     def _updateMoteTxInterval(self, packet):
         """
         Update mote Tx interval in list
 
         @param packet: SWAP packet to extract the information from
+        
+        @return True if the value changed. False otherwise
         """
         # New periodic Tx interval (in seconds)
         interval = packet.value.toInteger()
@@ -310,10 +326,13 @@ class SwapServer(threading.Thread):
         if mote is not None:
             # Has the interval really changed?
             if mote.txinterval == interval:
-                return
+                return False
 
             # Update system state in the list
             mote.txinterval = interval
+            
+            return True
+        return False
        
         
     def _updateRegisterValue(self, packet):
@@ -369,6 +388,8 @@ class SwapServer(threading.Thread):
                                 for param in reg.parameters:
                                     if param.valueChanged == True:
                                         self._eventHandler.parameterValueChanged(param)
+                            # Update network file
+                            self.network.save()
                             return
             return
 

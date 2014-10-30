@@ -36,6 +36,7 @@ from swap.SwapException import SwapException
 from swap.xmltools.XmlDevice import XmlDevice
 
 import time
+from collections import deque
 
 
 class SwapMote(object):
@@ -111,6 +112,72 @@ class SwapMote(object):
         return self.server.queryMoteRegister(self, regId)
 
 
+    def save_command(self, regid, value):
+        """
+        Save SWAP command and transmit it later, when the mote enter Rx mode again
+        
+        @param regId: Register ID
+        @param value: New value
+        
+        @return True if the command has been received by the target device
+                False if the command was not received by the target device
+                None if the command has been saved for later transmission
+        """
+        # Still in Rx ON state?
+        if self.state == SwapState.RXON or not self.pwrdownmode:
+            return self.cmdRegisterWack(regid, value)
+        else:
+            self.queued_commands.append((regid, value))
+            
+        return None
+    
+
+    def save_address_command(self, address):
+        """
+        Save address command for later transmission
+        
+        @param address: New mote address
+        
+        @return True if the command has been received by the target device
+                False if the command was not received by the target device
+                None if the command has been saved for later transmission
+        """
+        val = SwapValue(address, length=1)       
+        return self.save_command(SwapRegId.ID_DEVICE_ADDR, val)
+
+
+    def save_txinterval_command(self, interval):
+        """
+        Save Tx Interval command for later transmission
+        
+        @param interval: New Tx Interval
+        
+        @return True if the command has been received by the target device
+                False if the command was not received by the target device
+                None if the command has been saved for later transmission
+        """
+        val = SwapValue(interval, length=2)       
+        return self.save_command(SwapRegId.ID_TX_INTERVAL, val)
+
+
+    def nbof_saved_commands(self):
+        """
+        Return amount of saved commands for this node
+        
+        @return amount of saved commands
+        """
+        return len(self.queued_commands)
+    
+    
+    def get_saved_command(self):
+        """
+        Get last saved command from queue
+        
+        @return last saved command from queue
+        """
+        return self.queued_commands.popleft()
+    
+    
     def setAddress(self, address):
         """
         Set mote address
@@ -248,7 +315,28 @@ class SwapMote(object):
                 
         return None
     
-    
+
+    def update_state(self, state):
+        """
+        Update device state
+        
+        @param state New state
+        """
+        self.state = state
+        
+        # Device in Rx state?
+        if state == SwapState.RXON:
+            nb_cmds = self.nbof_saved_commands()
+            # Any queued command?
+            if nb_cmds > 0:
+                for i in range(nb_cmds):
+                    # Read command from queue
+                    (regid, value) = self.get_saved_command()
+                    # Transmit command
+                    #self.cmdRegisterWack(regid, value)
+                    self.cmdRegister(regid, value)
+                    
+                    
     def dumps(self, include_units=False):
         """
         Serialize mote data to a JSON formatted string
@@ -261,6 +349,7 @@ class SwapMote(object):
         data["manufacturer"] = self.definition.manufacturer 
         data["name"] = self.definition.product
         data["address"] = self.address
+        data["txinterval"] = self.txinterval
         
         regs = []
         try:
@@ -282,6 +371,10 @@ class SwapMote(object):
         @param product_code: Product Code
         @param address: Mote address
         """
+        
+        # Queue of commands
+        self.queued_commands = deque()
+        
         if server is None:
             raise SwapException("SwapMote constructor needs a valid SwapServer object")
         ## Swap server object
