@@ -2,6 +2,14 @@
 Python applications for panStamp
 -----------------------------------------------------
 
+VERSION 2.3 - Release on 6-Nov-2014
+----------------------------------------
+1. AES-128 CRT implemented in SwapPacket.py
+2. New device config from lagarto-swap's web interface
+3. http query of values fixed. No more need to append "/" at the end of the URL
+4. Bulk upload of endpoint values from lagarto-max to ThingSpeak
+5. Version command added to SWAPdmt
+
 VERSION 2.2 - Release on 10-Oct-2014
 ----------------------------------------
 1. Creation of SWAPdmt-cmd
