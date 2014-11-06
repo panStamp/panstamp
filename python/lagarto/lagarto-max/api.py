@@ -421,4 +421,3 @@ class CloudAPI:
           return None
         except LagartoException as ex:
             ex.log()
-

@@ -7,6 +7,7 @@ document.write("\t\t<td class='cellmenu'><a class='menu' href='/event_panel.html
 document.write("\t\t<td class='cellmenu'><a class='menu' href='/endpoint_panel.html'>Network</a></td>\n")
 document.write("\t\t<td class='cellmenu'><a class='menu' href='/db_panel.html'>Database</a></td>\n")
 document.write("\t\t<td class='cellmenu'><a class='menu' href='/graph_panel.html'>Graphs</a></td>\n")
+document.write("\t\t<td class='cellmenu'><a class='menu' href='/cloud_panel.html'>Cloud</a></td>\n")
 document.write("\t\t<td class='cellmenu'><a class='menu' href='/lagarto/account_panel.html'>Security</a></td>\n");
 document.write("\t</tr>\n");
 document.write("</table>\n");

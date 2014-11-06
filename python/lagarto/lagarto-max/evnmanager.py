@@ -30,6 +30,7 @@ import os
 import sys
 import threading
 import time
+import json
 from xmltools import XmlSettings
 from database import DataBase
 from maxdefs import MaxDefinitions
@@ -39,6 +40,7 @@ from lagartoresources import LagartoEndpoint, LagartoException
 
 from api import TimeAPI, NetworkAPI
 from clouding import OpenSense
+from bulkcloud import BulkCloud
 
 
 try:
@@ -79,23 +81,36 @@ class PeriodicTrigger(threading.Thread):
             try:
                 # Run time-based events
                 TimeEvent()
-                ## Update contents in database
-                self.database.update_tables()
             except LagartoException as ex:
                 ex.log()
     
+            try:
+                # Update contents in database
+                self.database.update_tables()
+            except LagartoException as ex:
+                ex.log()
+                
+            try:
+                # Upload bulk data to cloud services
+                self.cloud.eval_upload()
+            except LagartoException as ex:
+                ex.log()
+                
        
-    def __init__(self, database):
+    def __init__(self, database, cloud):
         """
         Constructor
         
         @param database Database object
+        @param cloud BulkCloud object
         """
         threading.Thread.__init__(self)
         # Configure thread as daemon
         self.daemon = True
         # Database object
         self.database = database
+        # BulkCloud onject
+        self.cloud = cloud
         # Run thread
         self.start()
 
@@ -326,7 +341,16 @@ class EvnManager(LagartoBroker):
                     if "samples" in params:
                         samples = params["samples"]
                 return self.database.query_table(params["table"], columns, start, end, samples)
-        
+                
+            elif command == "edit_cloud_tx":
+                endp_dict = json.loads(params["endpoints"])
+                self.bulkcloud.edit_cloud_tx(params["name"], params["service"], endp_dict, params["apikey"], params["interval"])
+                return "cloud_panel.html"
+
+            elif command == "delete_cloud_tx":
+                self.bulkcloud.delete_cloud_tx(params["name"])
+                return "cloud_panel.html"
+                
         except LagartoException as ex:
             ex.log()
         except Exception as ex:
@@ -365,8 +389,11 @@ class EvnManager(LagartoBroker):
         # Open database
         self.database = DataBase()
         
+        # Cloud transmissions
+        self.bulkcloud = BulkCloud()
+        
         # Start periodic trigger thread
-        PeriodicTrigger(self.database)
+        PeriodicTrigger(self.database, self.bulkcloud)
         
         # Start Lagarto client
         self.start()

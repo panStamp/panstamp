@@ -108,7 +108,7 @@ class ThingSpeakPacket:
         
         try:
             conn = httplib.HTTPConnection(url, timeout=5)
-            conn.request("POST", "/update", self.params, headers)       
+            conn.request("POST", "/update", self.params, headers)
             response = conn.getresponse()
             res = response.reason
         except:
@@ -324,5 +324,4 @@ class GroveStreamsPacket:
             dstream["streamId"] = "data"
             dstream["data"] = endp[1]
             self.datastreams.append(dstream)
-
 
