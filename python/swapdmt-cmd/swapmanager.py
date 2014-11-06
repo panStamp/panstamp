@@ -50,6 +50,11 @@ class SwapManager(SwapInterface):
     """
     Product code of firmware server
     """
+
+    ## Version number
+    VERSION_NUMBER = "0.4"
+    
+    ## Product code of Firmware server
     FIRMSERVER_PRODUCT_CODE = [0, 0, 0, 1, 0, 0, 0, 16]
 
     def swapServerError(self, ex):
@@ -179,6 +184,8 @@ class SwapManager(SwapInterface):
         if len(command) == 1:
             if command[0] == "help":
                 self.print_help()
+            elif command[0] == "version":
+                print self.VERSION_NUMBER
             elif command[0] == "quit":
                 self.stop()
                 sys.exit(0)
@@ -386,6 +393,7 @@ class SwapManager(SwapInterface):
         print "SWAPdmt commands and syntax:"
         print ""
         print "help                         Print help"
+        print "version                      Print version number"
         print "quit                         Quit application"
         print "traffic <on|off>             Print or hide SWAP traffic"
         print "hexfile <path to hex file>   Enter hex file for SWAP firmware upgrade"
