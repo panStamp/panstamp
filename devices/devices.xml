@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 <devices>
+<!-- developer id and name values are maintained and assigned by panStamp 
+Note: each developer name must have a corresponding sub-directory
+within the devices directory. Name and sub-directory are case
+sensitive and must match.
+-->
   <developer id="1" name="panStamp">
+  <!-- dev (for device) values are maintained and assigned by the developer
+  Note: each dev name must have a corresponding xml file within the developer
+  sub-directory. Name and xml file must match and are case sensitive.
+  Append .xml to the dev name. (i.e. name="abc" corresponds to abc.xml)
+  -->
     <dev id="1" name="temphum" label="Dual Temperature/Humidity sensor"/>
     <dev id="2" name="chronos" label="SWAP-enabled Chronos watch"/>
     <dev id="3" name="rgbdriver" label="RGB driver board"/>
@@ -36,5 +46,8 @@
   </developer>
   <developer id="29" name="panMillenium">
     <dev id="1" name="panmillenium1" label="Crouzet Millenium 3 wireless interface by panSTamp"/>
+  </developer>
+  <developer id="50" name="VentonaNet">
+    <dev id="1" name="raphio" label="Raphael's IO module"/>
   </developer>
 </devices>
