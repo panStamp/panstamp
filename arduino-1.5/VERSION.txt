@@ -2,36 +2,44 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
-VERSION 0.6 - Release on 8-Oct-2014
+VERSION 0.07 - Release on 11-Nov-2014
+----------------------------------------
+1. New CC430AES class for AES-128 encryption/decryption (only available for NRG)
+2. AES-128 implemented from SWAP library
+3. New SI7021 (I2C temperature+humidity sensor) library and sample sketch
+4. IPAddress and UDP cores added into AVR/cores/
+5. dhtsensor sample sketch modified to work with battery-board for AVR and NRG
+
+VERSION 0.06 - Release on 8-Oct-2014
 ----------------------------------------
 1. Empty PANSTAMP::goToWirelessBoot method created for AVR architecture
 2. Wireless firmloader (rfloader) improved
 
-VERSION 0.5 - Released on 25-Sep 2014
+VERSION 0.05 - Released on 25-Sep 2014
 ----------------------------------------
 1. MMA8652FC library - Some functions switched to "inline"
 2. Fixed bug in vcore management (low-power mode)
 3. New SWAP (wireless) firmware loader
 4. Wireless bootloader triggered by SWAP command
 
-VERSION 0.4 - Released on 28-Aug 2014
+VERSION 0.04 - Released on 28-Aug 2014
 ----------------------------------------
 1. getRegister becomes a member of class SWAP. Sample sketches updated
 2. Sleeping routines fixed on NRG
 3. Thermistor library added to repository
 4. Internal ADC reference fixed
 
-VERSION 0.3 - Released on 19-Aug 2014
+VERSION 0.03 - Released on 19-Aug 2014
 ----------------------------------------
 1. Broken links fixed
 2. NRG core.getVcc() fixed
 
-VERSION 0.2 - Released on 18-Aug 2014
+VERSION 0.02 - Released on 18-Aug 2014
 ----------------------------------------
 1. swap.init() now initializes all SWAP registers
 2. SWAP address taken from Vcc (AVR) or UID (NRG)
 
-VERSION 0.1 - Released on 12-Aug 2014
+VERSION 0.01 - Released on 12-Aug 2014
 ----------------------------------------
 1. First release, ready for beta-test
 
