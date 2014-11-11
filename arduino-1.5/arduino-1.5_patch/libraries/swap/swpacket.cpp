@@ -45,9 +45,11 @@ SWPACKET::SWPACKET(CCPACKET packet)
   hop = (ccPacket.data[2] >> 4) & 0x0F;
   security = ccPacket.data[2] & 0x0F;
   
+  #ifdef PANSTAMP_NRG
   // AES-128 encrypted?
   if (security & 0x04)
     aesCrypto();  // Decrypt
+  #endif
   
   nonce = ccPacket.data[3];
   function = ccPacket.data[4] & ~SWAP_EXTENDED_ADDRESS_BIT;
@@ -159,9 +161,11 @@ bool SWPACKET::send(void)
     ccPacket.data[6] = regId;
   #endif
 
+  #ifdef PANSTAMP_NRG
   // Need to be AES-128 encrypted?
   if (security & 0x04)
     aesCrypto();  // Encrypt
+  #endif
 
   i = SWAP_NB_TX_TRIES;
   while(!(res = panstamp.radio.sendData(ccPacket)) && i>1)
