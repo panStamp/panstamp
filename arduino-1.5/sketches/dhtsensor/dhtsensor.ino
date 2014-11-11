@@ -48,7 +48,11 @@
  */
 #define VOLT_SUPPLY_A0   1
 
+#ifdef PANSTAMP_NRG
 #define DHTPIN 14
+#else
+#define DHTPIN 16
+#endif
 DHT dht(DHTPIN, DHT22);
 #define PWRPIN 15
 
