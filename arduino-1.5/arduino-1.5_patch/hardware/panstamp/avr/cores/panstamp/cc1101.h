@@ -25,7 +25,7 @@
 #ifndef _CC1101_H
 #define _CC1101_H
 
-#include "spi.h"
+#include "simplespi.h"
 #include "ccpacket.h"
 
 
@@ -319,7 +319,7 @@ class CC1101
     /**
      * Atmega's SPI interface
      */
-    SPI spi;
+    SIMPLESPI spi;
 
     /**
      * writeBurstReg

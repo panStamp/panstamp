@@ -22,8 +22,8 @@
  * Creation date: 03/03/2011
  */
 
-#ifndef _SPI_H
-#define _SPI_H
+#ifndef _SIMPLESPI_H
+#define _SIMPLESPI_H
 
 #include <stdint.h>
 
@@ -74,12 +74,12 @@
 #define wait_Spi()  while(!(SPSR & _BV(SPIF)))
 
 /**
- * Class: SPI
+ * Class: SIMPLESPI
  * 
  * Description:
  * Basic SPI class
  */
-class SPI
+class SIMPLESPI
 {
   public:
     /**

@@ -22,7 +22,7 @@
  * Creation date: 03/03/2011
  */
 
-#include "spi.h"
+#include "simplespi.h"
 #include <Arduino.h>
 
 /**
@@ -30,7 +30,7 @@
  * 
  * SPI initialization
  */
-void SPI::init() 
+void SIMPLESPI::init() 
 {
   digitalWrite(SPI_SS, HIGH);
   
@@ -57,7 +57,7 @@ void SPI::init()
  * Return:
  * 	Response received from SPI slave
  */
-byte SPI::send(byte value) 
+byte SIMPLESPI::send(byte value) 
 {
   SPDR = value;                          // Transfer byte via SPI
   wait_Spi();                            // Wait until SPI operation is terminated
