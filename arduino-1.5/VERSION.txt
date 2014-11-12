@@ -2,6 +2,10 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.08 - Release on 12-Nov-2014
+----------------------------------------
+1. panStamp AVR internal class SPI renamed to SIMPLESPI
+
 VERSION 0.07 - Release on 11-Nov-2014
 ----------------------------------------
 1. New CC430AES class for AES-128 encryption/decryption (only available for NRG)
