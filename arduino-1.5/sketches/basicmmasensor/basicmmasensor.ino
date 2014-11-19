@@ -31,8 +31,8 @@
 #include "Wire.h"
 #include "mma8652.h"
 
-// Accelerometer object. Interruptable pin = D2
-MMA8652 accel = MMA8652(2);
+// Accelerometer object. Interruptable pin = internal ACC_INT pin
+MMA8652 accel = MMA8652(ACC_INT);
 
 // Used to read statuses and source registers
 uint8_t status, intSource;
@@ -57,9 +57,14 @@ void setup()
 
   pinMode(LED, OUTPUT);
 
+  // Turn ON accelerometer
+  digitalWrite(ACC_POWER_PIN, HIGH);
+  delay(100);
+  
   // Init accelerometer
   accel.init();
   delay(1);
+  
   // Enable single-tap detection interruption
   accel.enableTapInt(0x10);
   delay(1);
@@ -78,15 +83,19 @@ void setup()
  * loop
  */
 void loop()
-{
+{ 
   // Go to sleep
   digitalWrite(LED, LOW);
   accel.sleep();    // Accelerometer in sleep mode
   panstamp.sleep(); // panStamp in sleep mode
   digitalWrite(LED, HIGH);
     
-  // We could be polling for an ACC event but we prefer to be interrupted instead
-  //if (accel.eventAvailable()) {}
+  /**
+   * We could be polling for an ACC event but we prefer to be interrupted instead
+   * If you want to display all the above Serial.prints correctly then comment
+   * panstamp.sleep() out and uncomment the following line
+   */
+   //if (accel.eventAvailable()) {}
   
   // Read source of interrupt
   intSource = accel.readIntSource();
@@ -95,12 +104,12 @@ void loop()
   accel.readXYZ();
 
   /*
-    Serial.print("X axis : ");
-    Serial.println(accel.axis.x);
-    Serial.print("Y axis : ");
-    Serial.println(accel.axis.y);
-    Serial.print("Z axis : ");
-    Serial.println(accel.axis.z);
+  Serial.print("X axis : ");
+  Serial.println(accel.axis.x);
+  Serial.print("Y axis : ");
+  Serial.println(accel.axis.y);
+  Serial.print("Z axis : ");
+  Serial.println(accel.axis.z);
   */
   
   // Portrait/Landscape orientation interrupt?
