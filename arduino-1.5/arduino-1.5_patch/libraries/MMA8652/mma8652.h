@@ -242,7 +242,7 @@ class MMA8652
     {
       // Active=1 to take the part out of standby and enable sampling
       // Data rate = 400 Hz, sleep rate = 12.5 Hz
-      write(MMA8652_CTRL_REG1, 0x61);
+      write(MMA8652_CTRL_REG1, 0x49);
     }
     
     /**
