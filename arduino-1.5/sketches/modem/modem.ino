@@ -265,7 +265,8 @@ void setup()
   // Reset serial buffer
   memset(strSerial, 0, sizeof(strSerial));
 
-  Serial.begin(57600);
+  Serial.begin(38400);
+  //Serial.begin(57600);
   Serial.flush();
   Serial.println("");
   
