@@ -27,7 +27,6 @@
 
 #include "wiring.h"
 
-
 /**
  * VCORE + MCLK config macros
  */
@@ -42,21 +41,6 @@
 #define _SET_MCLK_20MHZ()   setVcoreMCLK(3, DCORSEL_4, 0x262)
 
 /**
- * Port state structure
- */
-struct PORTCFG
-{
-    // Function selection
-    uint8_t selection;
-
-    // Port mapping
-    uint16_t mapping[8];
-
-    // Port direction
-    uint8_t direction;
-};
-
-/**
  * Class: CC430CORE
  * 
  * Description:
@@ -64,12 +48,7 @@ struct PORTCFG
  */
 class CC430CORE
 {
-  private:
-    /**
-     * Configuration of ports
-     */
-    PORTCFG portConfig[3];
-    
+  private:   
     /**
      * setVcoreMCLK
      *
@@ -186,11 +165,11 @@ class CC430CORE
      */
     inline int getTemp(void)
     {
-      analogReference(INTERNAL2V0);
-      int data = analogRead(A10);
+      analogReference(INTERNAL1V5);
+      long data = analogRead(A10);
       data = data * 1.45 - 6.68;
 
-      return data;
+      return (int) data;
     }
 
     /**
