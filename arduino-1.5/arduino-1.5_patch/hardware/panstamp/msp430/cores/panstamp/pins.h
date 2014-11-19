@@ -27,6 +27,9 @@
 
 #include <stdint.h>
 
+// Enable pseudo-pin interrupts on P3
+#define __ENABLE_P3_PIN_INTERRUPTS__  1
+
 // UART
 #define pinUARTmap()      P1MAP6 = PM_UCA0TXD; P1MAP7 = PM_UCA0RXD
 #define pinUARTconfig()   P1SEL |= BIT6 | BIT7      // Set P1.6 and P1.7 to USCI Mode
@@ -72,12 +75,12 @@ static const uint8_t A11 = 128 + 11; // special. This is Vcc/2
 // On-board LED
 #define ONBOARD_LED 19
 #define LED      ONBOARD_LED
+#define INIT_ONBOARD_LED()    PJDIR |= BIT1; PJOUT &= ~BIT1
+// Acc INT pin
+#define ACC_INT 20
 // Acc power pin
-#define ACC_POWER_PIN 20
-// Acc INT1 pin
-#define ACC_INT1 3
-// Acc INT2 pin
-#define ACC_INT2 2
+#define ACC_POWER_PIN 21
+#define INIT_ACC_POWER()     P3DIR |= BIT7; P3OUT &= ~BIT7
 // Preferred analog pin to measure battery voltage
 #define BATT_VOLT_PIN   A0
 
@@ -106,6 +109,8 @@ static const uint8_t A11 = 128 + 11; // special. This is Vcc/2
 //
 //                  TEMPSENSOR  -- P2.5
 //                  ONBOARD_LED -- PJ.1
+//                  ACC_INT     -- P3.6
+//                  ACC_POWER   -- P3.7
 
 
 //#ifdef ARDUINO_MAIN
@@ -130,7 +135,8 @@ const uint16_t digital_pin_to_pmap[] = {
   (uint16_t) &P3MAP1,
   (uint16_t) &P3MAP2,
 	NOT_A_PIN,
-  (uint16_t) &P3MAP3
+  (uint16_t) &P3MAP6,
+  (uint16_t) &P3MAP7
 };
 
 const uint16_t port_to_input[] = {
@@ -201,8 +207,9 @@ const uint8_t digital_pin_to_timer[] = {
 	T1A0,         /* P3.0 - note: A0 output cannot be used with analogWrite */
 	T1A1,         /* P3.1 */
 	T1A2,         /* P3.2 */
-	NOT_ON_TIMER, /* Pj.1 -> ONBOARD_LED */
-  NOT_ON_TIMER  /* P3.3 -> Acc power pin */
+	NOT_ON_TIMER, /* PJ.1 -> ONBOARD_LED */
+  NOT_ON_TIMER, /* P3.6 -> Acc INT pin */
+  NOT_ON_TIMER  /* P3.7 -> Acc power pin */
 };
 
 const uint8_t digital_pin_to_port[] = {
@@ -226,7 +233,8 @@ const uint8_t digital_pin_to_port[] = {
 	P3,           /* P3.1 */
 	P3,           /* P3.2 */
 	PJ,           /* PJ.1 -> ONBOARD_LED */
-	P3            /* P3.3 -> Acc power pin */
+	P3,           /* P3.6 -> Acc INT pin */
+	P3            /* P3.7 -> Acc power pin */
 };
 
 const uint8_t digital_pin_to_bit_mask[] = {
@@ -250,7 +258,8 @@ const uint8_t digital_pin_to_bit_mask[] = {
 	BIT1,        /* P3.1 */
 	BIT2,        /* P3.2 */
 	BIT1,        /* PJ.1 -> ONBOARD_LED */
-	BIT3         /* P3.3 -> Acc power pin */
+	BIT6,        /* P3.6 -> Acc INT pin */
+	BIT7         /* P3.7 -> Acc power pin */
 };
 
 const uint16_t digital_pin_to_analog_in[] = {
@@ -274,7 +283,8 @@ const uint16_t digital_pin_to_analog_in[] = {
 	NOT_ON_ADC,   /* P3.1 */
 	NOT_ON_ADC,   /* P3.2 */
 	NOT_ON_ADC,   /* PJ.1 -> ONBOARD_LED */
-	NOT_ON_ADC    /* P3.3 -> Acc power pin */
+	NOT_ON_ADC,   /* P3.6 -> Acc INT pin */
+	NOT_ON_ADC    /* P3.7 -> Acc power pin */
 };
 
 #endif
