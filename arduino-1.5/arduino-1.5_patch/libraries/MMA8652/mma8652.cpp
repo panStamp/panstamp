@@ -353,15 +353,18 @@ void MMA8652::sleep(void)
     disablePlInt();
     delay(1);
   }
-     
+
+  // Re-enter active mode first
+  active();
+  delay(2);
   // Enter stand-by mode
   standBy();
-  delay(1); 
-  delay(1);
+  delay(2); 
   write(MMA8652_CTRL_REG2, 0x1C);
   delay(1);
   write(MMA8652_ASLP_COUNT, 1);
   delay(1);
+
   // Back to active mode
   active();
 }
