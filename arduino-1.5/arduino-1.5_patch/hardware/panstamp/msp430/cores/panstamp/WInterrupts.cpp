@@ -58,11 +58,15 @@ static volatile uint8_t intChangeVectP1 = 0x00;
 static volatile voidFuncPtr intFuncP2[NUM_INTS_PER_PORT];
 static volatile uint8_t intChangeVectP2 = 0x00;
 #endif
+#if defined(__MSP430_HAS_PORT3_R__) && defined (__ENABLE_P3_PIN_INTERRUPTS__)
+static volatile voidFuncPtr intFuncP3;
+static uint16_t captureMode;
+#endif
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) {
 	uint8_t bit = digitalPinToBitMask(interruptNum);
 	uint8_t port = digitalPinToPort(interruptNum);
-
+  volatile uint8_t *pmap = digitalPinToPortMap(interruptNum);
 	if ((port == NOT_A_PIN) || !((mode == FALLING) || (mode == RISING)
 		|| (mode == CHANGE))) return;
 
@@ -92,6 +96,27 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) {
 		P2IE |= bit;
 		break;
 	#endif
+  // Port P3 is not interruptible but we can do a workaround by using
+  // a timer capture interrupt
+	#if defined(__MSP430_HAS_PORT3_R__) && defined(__ENABLE_P3_PIN_INTERRUPTS__)
+	case P3:
+    intFuncP3 = userFunc;
+    // use Port Mapping Controller to map TA0.2 to P3.0
+    PMAPPWD = PMAPKEY;       // Get write-access to port mapping regs
+    /*P3MAP6*/*pmap = PM_TA0CCR2A;       // Map TA0.2 input to P3.6
+    PMAPPWD = 0;             // Lock port mapping registers
+    P3SEL = bit;
+       
+    if (mode == RISING)
+      captureMode = CM_1;
+    else
+      captureMode = CM_2;
+      
+    // setup TA0.2 as compare input on falling edge
+    TA0CCTL2 = captureMode + CCIS_0 + SCS + CAP + CCIE;
+    TA0CTL = TASSEL__SMCLK + MC__UP + TACLR;
+    break;
+  #endif
 	default:
 		break;
 	}
@@ -158,5 +183,18 @@ void Port_2(void)
 			}
 		}
 	}
+}
+#endif
+
+#if defined(__MSP430_HAS_PORT3_R__) && defined(__ENABLE_P3_PIN_INTERRUPTS__)
+#pragma vector=TIMER0_A1_VECTOR
+__interrupt void Timer_A0_CCRx_Isr(void)
+{
+  if (intFuncP3)
+  {
+    intFuncP3();
+    // setup TA0.2 as compare input
+    TA0CCTL2 = captureMode + CCIS_0 + SCS + CAP + CCIE;
+  }
 }
 #endif
