@@ -97,9 +97,11 @@ void PANSTAMP::init(uint8_t freq)
   // Initialize MCU core
   core.init();
 
-  // Configure LED pin as output
-  PJDIR |= BIT1;
-  PJOUT &= ~BIT1;
+  // Initialize onboard LED pin
+  INIT_ONBOARD_LED();
+
+  // Initialize internal ACC power pin
+  INIT_ACC_POWER();
 
   // Setup radio interface
   radio.init(freq);
