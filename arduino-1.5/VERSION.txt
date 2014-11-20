@@ -2,6 +2,17 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.09 - Release on 20-Nov-2014
+----------------------------------------
+1. Adapting basicmmasensor sketch and cores for panStamp NRG 1.0 modules
+2. MMA8652 library modified to enter active mode before entering in low-power
+   mode
+3. ADC calibration based on TLV registers
+4. Modem sketch programmed for 38400 bps serial comms
+5. SI7021 library and sketch removed since the sensor is 100% compatible with
+   the existing resources for the HTU21D sensor
+
+
 VERSION 0.08 - Release on 12-Nov-2014
 ----------------------------------------
 1. panStamp AVR internal class SPI renamed to SIMPLESPI
