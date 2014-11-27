@@ -68,6 +68,9 @@ void setup()
   // Init SWAP stack
   swap.init();
 
+  // Initialize LED pins
+  pinMode(LED, OUTPUT);
+  
   pinMode(NTC_POWER_PIN, OUTPUT);    // Configure power pin. This pin will be used to power the thermistor
   powerThermistorOff();          // Unpower sensor by default
   
@@ -110,7 +113,6 @@ void loop()
   digitalWrite(LED, LOW);
 
   // Sleep
-  //swap.goToSleep();
-  panstamp.sleepSec(10);
+  swap.goToSleep();
 }
 
