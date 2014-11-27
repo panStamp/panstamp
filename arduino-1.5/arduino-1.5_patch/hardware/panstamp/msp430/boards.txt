@@ -17,12 +17,12 @@ nrg.ldscript=ldscript
 
 ## With serial bootloader only
 ##------------------------------------------------------------
-nrg.menu.rfloader.enabled=on
-nrg.menu.rfloader.enabled.ldscript=ldscript_rf
+nrg.menu.rfloader.disabled=off
+nrg.menu.rfloader.disabled.ldscript=ldscript
 
 ## With serial and wireless bootloader
 ##------------------------------------------------------------
-nrg.menu.rfloader.disabled=off
-nrg.menu.rfloader.disabled.ldscript=ldscript
+nrg.menu.rfloader.enabled=on
+nrg.menu.rfloader.enabled.ldscript=ldscript_rf
 
 ##############################################################
