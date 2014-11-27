@@ -93,11 +93,11 @@ static const uint8_t A11 = 128 + 11; // special. This is Vcc/2
 //                      +-----------+
 //               GND   1|    ||||   |24  GND
 //         (D16) P3.0  2|           |23  P1.0 (D0)
-//   (PWM) (D17) P3.1  3|           |22  P1.1 (D1)
-//   (PWM) (D18) P3.2  4|           |21  P1.2 (D2) (PWM)
-//         (D15) P2.7  5|           |20  P1.3 (SPI_MOSI) (D3) (PWM)
-//         (D14) P2.6  6|           |19  P1.4 (SPI_MISO / I2C_SDA) (D4) (PWM)
-//               GND   7|           |18  P1.5 (SPI_SCK / I2C_SCL) (D5) (PWM)
+//   (PWM) (D17) P3.1  3|           |22  P1.1 (SPI_MOSI) (D1)
+//   (PWM) (D18) P3.2  4|           |21  P1.2 (SPI_MISO) (D2) (PWM)
+//         (D15) P2.7  5|           |20  P1.3 (SPI_SCK) (D3) (PWM)
+//         (D14) P2.6  6|           |19  P1.4 (I2C_SDA) (D4) (PWM)
+//               GND   7|           |18  P1.5 (I2C_SCL) (D5) (PWM)
 //      (D12/A4) P2.4  8|           |17  P1.6 (UART_TX) (D6)
 //      (D11/A3) P2.3  9|           |16  P1.7 (UART_RX) (D7)
 //      (D10/A2) P2.2 10|           |15  GND
