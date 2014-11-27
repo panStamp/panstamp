@@ -2,6 +2,11 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.10 - Release on 27-Nov-2014
+----------------------------------------
+1. Better pin management in low-power mode
+2. Re-map SPI pins
+
 VERSION 0.09 - Release on 20-Nov-2014
 ----------------------------------------
 1. Adapting basicmmasensor sketch and cores for panStamp NRG 1.0 modules
