@@ -46,7 +46,33 @@ void CC430CORE::setLowPowerMode(bool lpm4)
 {
   // Stop WDT
   disableWatchDog();
+
+  // Keep current port selections
+  portSelection[0] = P1SEL;
+  portSelection[1] = P2SEL;
+  portSelection[2] = P3SEL;
+
+  // Configure ports as binary I/O's
+  P1SEL = 0;
+  P2SEL = 0;
   
+  // Current hardware version (1.0) uses P3.6 to detect interrupts from
+  // the on-board accelerometer. For this application, P3.6 is configured
+  // as a timer capture input to simulate pin interrupts.
+  // (P3 does not natively support pin interrupts)
+  // In future hardware revisions, a pin supporting true pin interrupts
+  // should be used instead.
+  P3SEL &= BIT6;
+  P3DIR |= portSelection[3] & ~BIT6;
+    
+  // I2C lines remain high to not to sink current through
+  // I2C pull-up resistors
+  P1OUT |= 0x30;
+ 
+  // Configure ports working as alternative functions as outputs
+  P1DIR |= portSelection[0];
+  P2DIR |= portSelection[1];
+
   // Enter lowest power VCore level and MCLK = 1 MHz
   _SET_VCORE_1MHZ(0);
 
@@ -81,6 +107,11 @@ void CC430CORE::setNormalMode(void)
   
   // Enable WDT again
   enableWatchDog();
+
+  // Recover old port selections
+  P1SEL = portSelection[0];
+  P2SEL = portSelection[1];
+  P3SEL = portSelection[2];
 }
 
 /**
@@ -133,11 +164,24 @@ void CC430CORE::init(uint8_t vCore, uint16_t dcorsel, uint16_t flln)
   UCSCTL6 &= ~(XT1DRIVE_3);                 // Xtal is now stable, reduce drive
                                             // strength
 
-  /* 
+  /*
    * Select Interrupt edge for PA_PD and SYNC signal:
    * Interrupt Edge select register: 1 == Interrupt on High to Low transition.
    */
   RF1AIES = BIT0 | BIT9;
+  
+  // POWER: Turn ADC and reference voltage off to conserve power
+  ADC12CTL0 &= ~ADC12ENC;
+  ADC12CTL0 &= ~ADC12ON;
+  ADC12CTL0 &= ~ADC12REFON;
+  REFCTL0 &= ~REFON;
+  REFCTL0 |= REFTCOFF;  // Temp sensor disabled
+  
+  // Config pins as outputs by default
+  P1DIR = 0xFF;
+  P2DIR = 0xFF;
+  P3DIR = 0xFF;
+  PJDIR = 0xFF;
 }
 
 /**

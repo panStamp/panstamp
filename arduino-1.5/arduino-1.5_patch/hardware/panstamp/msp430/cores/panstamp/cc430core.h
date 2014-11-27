@@ -48,7 +48,12 @@
  */
 class CC430CORE
 {
-  private:   
+  private:
+    /**
+     * Configuration of ports
+     */
+    uint8_t portSelection[3];
+
     /**
      * setVcoreMCLK
      *
