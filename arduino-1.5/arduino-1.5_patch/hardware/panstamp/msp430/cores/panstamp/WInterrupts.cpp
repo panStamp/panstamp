@@ -101,9 +101,9 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) {
 	#if defined(__MSP430_HAS_PORT3_R__) && defined(__ENABLE_P3_PIN_INTERRUPTS__)
 	case P3:
     intFuncP3 = userFunc;
-    // use Port Mapping Controller to map TA0.2 to P3.0
+    // Use Port Mapping Controller to map TA0.2 to P3 pin
     PMAPPWD = PMAPKEY;       // Get write-access to port mapping regs
-    /*P3MAP6*/*pmap = PM_TA0CCR2A;       // Map TA0.2 input to P3.6
+    *pmap = PM_TA0CCR2A;     // Map TA0.2 input to P3 pin
     PMAPPWD = 0;             // Lock port mapping registers
     P3SEL = bit;
        
