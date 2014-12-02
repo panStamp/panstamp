@@ -2,6 +2,12 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+
+VERSION 0.11 - Release on 2-Dec-2014
+----------------------------------------
+1. compiler.c.elf.flags path adapted for Windows in hardware/panstamp/msp430/platform.txt
+2. Wire + twi (AVR) linking problem fixed
+
 VERSION 0.10 - Release on 27-Nov-2014
 ----------------------------------------
 1. Better pin management in low-power mode
