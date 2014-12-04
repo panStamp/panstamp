@@ -2,6 +2,10 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.12 - Release on 4-Dec-2014
+----------------------------------------
+1. New SPI cores and library for panStamp NRG
+2. compiler.c.elf.flags path fixed in platform.txt to support blank spaces
 
 VERSION 0.11 - Release on 2-Dec-2014
 ----------------------------------------
