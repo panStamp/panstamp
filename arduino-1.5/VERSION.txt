@@ -3,10 +3,11 @@ Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
 
-VERSION 0.13 - Release on ??-Dec-2014
+VERSION 0.13 - Release on 5-Dec-2014
 ----------------------------------------
 1. Quotaes added around some paths in platform.txt
 2. tools.msp430-gdb.upload.pattern fixed in win/platform.txt
+3. MSP430 toolchain for OSX updated
 
 VERSION 0.12 - Release on 4-Dec-2014
 ----------------------------------------
