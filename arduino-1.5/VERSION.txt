@@ -2,6 +2,12 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+
+VERSION 0.13 - Release on ??-Dec-2014
+----------------------------------------
+1. Quotaes added around some paths in platform.txt
+2. tools.msp430-gdb.upload.pattern fixed in win/platform.txt
+
 VERSION 0.12 - Release on 4-Dec-2014
 ----------------------------------------
 1. New SPI cores and library for panStamp NRG

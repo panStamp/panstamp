@@ -71,7 +71,7 @@ tools.msp430-gdb.cmd.path={runtime.ide.path}/hardware/tools/msp430/bin/msp430-gd
 tools.msp430-gdb.upload.params.verbose=
 tools.msp430-gdb.upload.params.quiet=
 #tools.msp430-gdb.upload.pattern={cmd.path} -b 38400 -ex 'target remote {serial.port}' -ex 'set debug remote 0' {build.path}/{build.project_name}.elf -ex 'erase' -ex 'load' -ex 'quit'
-tools.msp430-gdb.upload.pattern=java -cp {runtime.ide.path}/hardware/panstamp/msp430/scripts/GdbLoader.jar GdbLoader {cmd.path} {build.path}/{build.project_name}.elf {serial.port}
+tools.msp430-gdb.upload.pattern=java -cp "{runtime.ide.path}/hardware/panstamp/msp430/scripts/GdbLoader.jar" GdbLoader "{cmd.path}" "{build.path}/{build.project_name}.elf" {serial.port}
 
 # USB Default Flags
 # Default blank usb manufacturer will be filled it at compile time
