@@ -52,6 +52,9 @@ uint16_t analogRef = ADCREF_VCC;
  */
 uint16_t analogRead(uint8_t pin)
 {
+  uint8_t port, bit;
+  volatile uint8_t *dir;
+  
   uint16_t refGain = 0;
    
   uint8_t channel;
@@ -73,11 +76,14 @@ uint16_t analogRead(uint8_t pin)
 		return 0;
   else
   {
-    uint8_t bit = digitalPinToBitMask(pin);
-    uint8_t port = digitalPinToPort(pin);
+    bit = digitalPinToBitMask(pin);
+    port = digitalPinToPort(pin);
 
     volatile uint8_t *sel = portSelRegister(port);
     *sel |= bit;
+    
+    dir = portDirRegister(port);
+    *dir &= ~bit; // Configure pin as input
   }
 
   // Set ADC reference  
@@ -124,6 +130,9 @@ uint16_t analogRead(uint8_t pin)
   ADC12CTL0 &= ~ADC12REFON;
   REFCTL0 &= ~REFON;
   REFCTL0 |= REFTCOFF;  // Temp sensor disabled
+
+  // Config pin as output to save current
+  *dir |= bit;
 
   uint64_t result = ADC12MEM0;
 
