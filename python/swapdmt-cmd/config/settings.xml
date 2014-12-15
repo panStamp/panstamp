@@ -4,7 +4,7 @@
   <devices>
     <local>devices</local>
     <remote>http://www.panstamp.org/devices/devices.tar</remote>
-    <update>false</update>
+    <update>true</update>
   </devices>
   <serial>serial.xml</serial>
   <network>network.xml</network>
