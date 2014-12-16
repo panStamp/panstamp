@@ -93,7 +93,7 @@ if __name__ == '__main__':
             save_file = True
     if opts.netid is not None:
         netid = SwapManager.str_to_int(opts.netid)
-        if nedid is not None:
+        if netid is not None:
             network_cfg.network_id = netid
             save_file = True
     if opts.address is not None:
