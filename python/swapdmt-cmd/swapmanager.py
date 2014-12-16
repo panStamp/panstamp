@@ -35,6 +35,7 @@ from swap.protocol.SwapDefs import SwapAddress, SwapFunction, SwapRegId, SwapSta
 from swap.protocol.SwapPacket import SwapStatusPacket
 from swap.protocol.SwapValue import SwapValue
 from progressbar import AnimatedProgressBar
+from macro import Macro
 
 from hexfile import HexFile
 
@@ -174,8 +175,33 @@ class SwapManager(SwapInterface):
                     
         return val
         
-        
+
     def dispatch_user_command(self, command):
+        """
+        Apply user command
+        
+        @param command : user command
+        """
+        if len(command) == 2:
+            if command[0] == "macro":
+                self.dispatch_macro(command[1])
+        else:
+            self.dispatch_command(command)
+            
+            
+    def dispatch_macro(self, path):
+        """
+        Execute custom macro
+        
+        @path to the custom macro file
+        """
+        macro = Macro(path)
+
+        for cmd in macro.commands:
+            self.dispatch_command(cmd)
+        
+        
+    def dispatch_command(self, command):
         """
         Apply user command
         
@@ -345,7 +371,7 @@ class SwapManager(SwapInterface):
                             print "Command not supported"
         else:
             print "Command not supported"
-                            
+                                       
 
     def print_format_error(self, command):
         """
@@ -396,6 +422,7 @@ class SwapManager(SwapInterface):
         print "version                      Print version number"
         print "quit                         Quit application"
         print "traffic <on|off>             Print or hide SWAP traffic"
+        print "macro <path to macro file>   Run commands listed in macro file"
         print "hexfile <path to hex file>   Enter hex file for SWAP firmware upgrade"
         print "list nodes                   Print list of nodes detected in the SWAP network"
         print "clear nodes                  Clear list of nodes detected in the SWAP network"
