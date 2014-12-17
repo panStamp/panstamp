@@ -46,4 +46,4 @@ clean:
 	-rm -f $(PROG).elf $(PROG).lst $(PROG).hex $(OBJS) *.d *~
 
 flash:
-	$(TOOLCHAIN)gdb -b 38400 -ex 'set debug remote 0' -ex 'target remote /dev/ttyUSB1' $(PROG).elf -ex 'erase' -ex 'load' -ex 'quit'
+	$(TOOLCHAIN)gdb -n -b 38400 -ex 'set debug remote 0' -ex 'target remote /dev/ttyUSB1' $(PROG).elf -ex 'erase' -ex 'load' -ex 'set confirm off' -ex 'quit'
