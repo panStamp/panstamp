@@ -60,6 +60,7 @@ if __name__ == '__main__':
     parser.add_argument('--netid', help="Network ID")
     parser.add_argument('--address', help="SWAP address of modem")
     parser.add_argument('--security', help="Security flag")
+    parser.add_argument('--ex', help="Execute command", action="append")
     opts = parser.parse_args()
 
     direc = os.path.join(os.path.dirname(sys.argv[0]), "config")
@@ -122,6 +123,12 @@ if __name__ == '__main__':
 
     while True:
         if swap_manager.server_started == True and swap_manager.prog_address is None:
+            if opts.ex:
+                for cmd in opts.ex:
+                    print "Running command", cmd
+                    swap_manager.dispatch_user_command(cmd.split(" "))
+                opts.ex = None
+
             cmd = raw_input(">> ")
             
             command = []
