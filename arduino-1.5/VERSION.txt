@@ -2,6 +2,11 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.15 - Release on 19-Dec-2014
+----------------------------------------
+1. Use of GdbLoader.class instead of GdbLoader.jar
+2. GdbLoader compiled against JDK 6
+3. New msp430 toolchain for OSX
 
 VERSION 0.14 - Release on 11-Dec-2014
 ----------------------------------------
