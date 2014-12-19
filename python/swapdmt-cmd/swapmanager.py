@@ -182,9 +182,8 @@ class SwapManager(SwapInterface):
         
         @param command : user command
         """
-        if len(command) == 2:
-            if command[0] == "macro":
-                self.dispatch_macro(command[1])
+        if len(command) == 2 and command[0] == "macro":
+            self.dispatch_macro(command[1])
         else:
             self.dispatch_command(command)
             
