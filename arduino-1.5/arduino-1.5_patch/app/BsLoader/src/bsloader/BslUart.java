@@ -99,7 +99,8 @@ public class BslUart
   {
     try
     {
-      serialPort.closePort();
+      //quitBsl();
+      serialPort.closePort();      
     }
     catch (SerialPortException ex)
     {
@@ -157,26 +158,24 @@ public class BslUart
     try
     {
       // RESET + TEST sequence
-      setRESET(true);
-      setTEST(true);
-      sleep(250);
+      //setRESET(true);
+      //setTEST(true);
+      //sleep(250);
       setRESET(false);
-      sleep(10);
-      setTEST(true);
-      sleep(10);
+      sleep(100);
       setTEST(false);
-      sleep(10);
+      sleep(50);
       setTEST(true);
-      sleep(10);
+      sleep(50);
       setTEST(false);
-      sleep(10);
+      sleep(50);
       setTEST(true);
-      sleep(10);
+      sleep(50);
       setTEST(false);
-      sleep(10);
+      sleep(50);
+      setTEST(true);
+      sleep(50);
       setRESET(true);
-      sleep(10);
-      setTEST(true);
       sleep(250);
     }
     catch (SerialPortException ex)

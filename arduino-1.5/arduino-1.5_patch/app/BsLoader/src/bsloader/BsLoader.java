@@ -84,6 +84,7 @@ public class BsLoader
         System.out.println("ERROR");
       
       // Close connection
+      System.out.println("Closing connection with BSL...");
       bsl.close();
     }
     catch (BslException ex)
