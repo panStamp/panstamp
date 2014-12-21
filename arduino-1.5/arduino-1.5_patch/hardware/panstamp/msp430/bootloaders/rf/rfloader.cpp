@@ -160,8 +160,8 @@ int main(void)
       // Repeat query a limited amount of times if necessary
       if (count++ == MAX_REPEAT_QUERY)
       {
-        // If the flash was not erased then start user code
-        if (firstLine)
+        // If the flash was not erased and we have a valid user code, then start user code
+        if (firstLine && userCodeAddr != 0xFFFF)
           jumpToUserCode();
         // Otherwise continue forever asking
       }
