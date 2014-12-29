@@ -1,46 +1,5 @@
 EESchema Schematic File Version 2
 LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:special
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:atmega8
-LIBS:atmel89cxxxx
-LIBS:atmel-1
-LIBS:atmel-2005
-LIBS:avr
-LIBS:avr-1
-LIBS:avr-2
-LIBS:avr-3
-LIBS:avr-4
-LIBS:hopf
-LIBS:rfm-ash
-LIBS:mycomponents
 LIBS:panstamp-cache
 EELAYER 24 0
 EELAYER END
@@ -866,11 +825,11 @@ Text Label 12250 7800 0    60   ~ 0
 P1.3
 Text Label 12250 7900 0    60   ~ 0
 P1.4
-Text Label 12250 8000 0    60   ~ 0
+Text Label 12250 8200 0    60   ~ 0
 P1.5
 Text Label 12250 8100 0    60   ~ 0
 P1.6
-Text Label 12250 8200 0    60   ~ 0
+Text Label 12250 8000 0    60   ~ 0
 P1.7
 Text Label 11300 8500 0    60   ~ 0
 #RST/SBWTDIO
@@ -927,7 +886,7 @@ U 1 1 52372C32
 P 2300 9300
 F 0 "TH1" V 2400 9350 50  0000 C CNN
 F 1 "THERMISTOR" V 2200 9300 50  0000 C CNN
-F 2 "SM0603S" H 2300 9300 60  0001 C CNN
+F 2 "SM0402" H 2300 9300 60  0001 C CNN
 F 3 "" H 2300 9300 60  0000 C CNN
 	1    2300 9300
 	-1   0    0    1   
@@ -938,7 +897,7 @@ U 1 1 52372C63
 P 2300 10000
 F 0 "R1" V 2380 10000 40  0000 C CNN
 F 1 "10k" V 2307 10001 40  0000 C CNN
-F 2 "SM0603" V 2230 10000 30  0001 C CNN
+F 2 "SM0402" V 2230 10000 30  0001 C CNN
 F 3 "" H 2300 10000 30  0001 C CNN
 	1    2300 10000
 	1    0    0    -1  
@@ -1216,7 +1175,7 @@ ANTENNA
 Text Label 13650 6200 0    60   ~ 0
 P1.6
 Text Label 13650 6100 0    60   ~ 0
-P1.7
+P1.5
 $Comp
 L C C6
 U 1 1 523ACFCC
@@ -1276,11 +1235,11 @@ Wire Wire Line
 Wire Wire Line
 	13450 8200 14300 8200
 Text Label 13450 8200 0    60   ~ 0
-P1.7
+P1.5
 Text Label 13450 8100 0    60   ~ 0
 P1.6
 Text Label 13450 8000 0    60   ~ 0
-P1.5
+P1.7
 Text Label 13450 7900 0    60   ~ 0
 P1.4
 Text Label 14300 8100 2    60   ~ 0
@@ -1292,7 +1251,7 @@ I2C_SDA
 Text Label 14300 8000 2    60   ~ 0
 I2C_SCL
 Text Label 3400 9700 0    60   ~ 0
-P3.6
+P1.3
 $Comp
 L VCC #PWR034
 U 1 1 523B325E
@@ -1694,39 +1653,13 @@ F 3 "" H 5900 2650 60  0001 C CNN
 	1    5900 2650
 	-1   0    0    1   
 $EndComp
-$Comp
-L C C30
-U 1 1 533568D9
-P 4350 6150
-F 0 "C30" H 4400 6250 50  0000 L CNN
-F 1 "10u" H 4400 6050 50  0000 L CNN
-F 2 "SM0603S" H 4350 6150 60  0001 C CNN
-F 3 "" H 4350 6150 60  0001 C CNN
-	1    4350 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR043
-U 1 1 533568EC
-P 4350 6450
-F 0 "#PWR043" H 4350 6450 30  0001 C CNN
-F 1 "GND" H 4350 6380 30  0001 C CNN
-F 2 "" H 4350 6450 60  0001 C CNN
-F 3 "" H 4350 6450 60  0001 C CNN
-	1    4350 6450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5200 5850 4350 5850
-Wire Wire Line
-	4350 5850 4350 5950
-Wire Wire Line
-	4350 6350 4350 6450
-Text Label 2700 8900 2    60   ~ 0
-P2.2/A2
 Text Label 2700 9650 2    60   ~ 0
-P2.1/A1
+P2.5/A5
 NoConn ~ 3850 9550
 Text Notes 7600 8100 0    60   ~ 0
 CL=((C1 x C2) / (C1 + C2)) + 2.5p
+Wire Wire Line
+	5200 5850 4750 5850
+Text Label 2700 8900 2    60   ~ 0
+P3.6
 $EndSCHEMATC
