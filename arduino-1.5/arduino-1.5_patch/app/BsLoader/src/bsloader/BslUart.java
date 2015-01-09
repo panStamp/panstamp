@@ -43,7 +43,7 @@ public class BslUart
   /**
    * Verbose flag
    */
-  private boolean verbose = false;
+  private boolean verbose = true;
   
   /**
    * Serial port

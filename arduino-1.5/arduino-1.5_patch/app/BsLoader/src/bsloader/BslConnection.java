@@ -137,6 +137,18 @@ public class BslConnection
     return checkReply();
   }
   
+  public boolean startApp() throws BslException
+  {
+    byte[] command = {(byte)CMD_LOAD_PC, (byte)0x00, (byte)0x80, (byte)0x00};
+    
+    // Transmit command to BSL
+    sendCommand(command);
+    
+    // check reply from BSL
+    //return checkReply();
+    return true;
+  }
+  
   /**
    * Apply mass erase by sending an incorrect password to BSL
    * 

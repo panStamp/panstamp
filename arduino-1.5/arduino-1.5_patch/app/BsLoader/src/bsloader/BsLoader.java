@@ -83,6 +83,9 @@ public class BsLoader
       else
         System.out.println("ERROR");
       
+      System.out.println("Starting user application...");
+      bsl.startApp();
+      
       // Close connection
       System.out.println("Closing connection with BSL...");
       bsl.close();
@@ -174,7 +177,7 @@ public class BsLoader
   {
     String args0 = "/home/daniel/Documents/firmware/simpletest.hex";
     String args1 = "/dev/ttyUSB0";
-    String args2 = "--verbose-off";
+    String args2 = "--verbose-on";
 
     //BsLoader uploader = new BsLoader(args[0], args[1]);
     BsLoader uploader = new BsLoader(args0, args1);
