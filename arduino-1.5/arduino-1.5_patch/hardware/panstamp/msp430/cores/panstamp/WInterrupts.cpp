@@ -164,6 +164,7 @@ void Port_1(void)
 			}
 		}
 	}
+  __bic_SR_register_on_exit(LPM4_bits);  // clears the bits corresponding to LPM4 and exits the low power mode
 }
 
 #if defined(__MSP430_HAS_PORT2_R__)
@@ -183,6 +184,7 @@ void Port_2(void)
 			}
 		}
 	}
+  __bic_SR_register_on_exit(LPM4_bits);  // clears the bits corresponding to LPM4 and exits the low power mode
 }
 #endif
 
@@ -196,5 +198,6 @@ __interrupt void Timer_A0_CCRx_Isr(void)
     // setup TA0.2 as compare input
     TA0CCTL2 = captureMode + CCIS_0 + SCS + CAP + CCIE;
   }
+  __bic_SR_register_on_exit(LPM4_bits);  // clears the bits corresponding to LPM4 and exits the low power mode
 }
 #endif
