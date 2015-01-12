@@ -91,24 +91,14 @@ public class BslConnection
    * 
    * @param buildPath Path to the firmware image (hex file)
    * @param strPort Name or path of the serial port
+   * @param verbose Print serial traffic if true
    */
-  public BslConnection(String buildPath, String strPort) throws BslException
+  public BslConnection(String buildPath, String strPort, boolean verbose) throws BslException
   {
     this.buildPath = buildPath;
-    uart = new BslUart(strPort);
-    //uart.setVerbose(true);  
+    uart = new BslUart(strPort, verbose);
   }
-  
-  /**
-   * Handle verbose flag
-   * 
-   * @param val Set to true to enable verbose. Set to false to disable
-   */
-  public void setVerbose(boolean val)
-  {
-    uart.setVerbose(val);
-  }
-  
+   
   /**
    * Close connection
    */

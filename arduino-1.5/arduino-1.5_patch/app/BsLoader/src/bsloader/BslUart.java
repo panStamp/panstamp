@@ -43,7 +43,7 @@ public class BslUart
   /**
    * Verbose flag
    */
-  private boolean verbose = true;
+  private boolean verbose = false;
   
   /**
    * Serial port
@@ -64,9 +64,11 @@ public class BslUart
    * Class constructor
    * 
    * @param path Path to the serial port
+   * @param verbose Print serial traffic if true
    */
-  public BslUart(String path) throws BslException
-  {   
+  public BslUart(String path, boolean verbose) throws BslException
+  {
+    this.verbose = verbose;
     open(path);    
     invokeBsl();
   }
@@ -267,17 +269,7 @@ public class BslUart
       throw new BslException("Unable to send command to BSL. Reason: " + ex.getMessage());
     }
   }
-  
-  /**
-   * Handle verbose flag
-   * 
-   * @param val Set to true to enable verbose. Set to false to disable
-   */
-  public void setVerbose(boolean val)
-  {
-    verbose = val;
-  }
-  
+   
   /**
    * Convert array of bytes into a printable hex string
    * 

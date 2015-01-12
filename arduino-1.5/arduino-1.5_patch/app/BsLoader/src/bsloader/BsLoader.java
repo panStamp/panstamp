@@ -45,67 +45,91 @@ public class BsLoader
    * 
    * @param buildPath Path to the firmware image (hex file)
    * @param strPort Name or path of the serial port
+   * @param verbose Print serial traffic if true
    */
-  public BsLoader(String buildPath, String strPort)
+  public BsLoader(String buildPath, String strPort, boolean verbose)
   {
     hexFilePath = buildPath;
+    boolean tryAgain = true;
+    boolean success = false;
     
-    try
+    while (tryAgain)
     {
-      // Connect
-      System.out.println("Connecting to target board");
-      bsl = new BslConnection(buildPath, strPort);
+      tryAgain = false;
       
-      // Mass erase (main + info flash)
-      System.out.println("Erasing main flash");
-      if (bsl.massErase())
-        System.out.println("OK");
-      else
-        System.out.println("ERROR");
-      // Unlock flash
-      System.out.println("Unlocking flash...");
-      if (bsl.unlock())
-        System.out.println("OK");
-      else
-        System.out.println("ERROR");
-      
-      // Write firmware image
-      System.out.println("Writing data into main flash...");
-      if (writeImage())
-        System.out.println("OK");
-      else
-        System.out.println("ERROR");
-      
-      // Verify firmware image from flash
-      System.out.println("Verifying data from main flash...");
-      if (verifImage())
-        System.out.println("OK");
-      else
-        System.out.println("ERROR");
-      
-      System.out.println("Starting user application...");
-      bsl.startApp();
-      
-      // Close connection
-      System.out.println("Closing connection with BSL...");
-      bsl.close();
-    }
-    catch (BslException ex)
-    {
-      System.out.println(ex);
-    }
-  }
+      try
+      {
+        // Connect
+        System.out.println("Connecting to target board");
+        bsl = new BslConnection(buildPath, strPort, verbose);
 
-  /**
-   * Handle verbose flag
-   * 
-   * @param val Set to true to enable verbose. Set to false to disable
-   */
-  public void setVerbose(boolean val)
-  {
-    bsl.setVerbose(val);
+        // Mass erase (main + info flash)
+        System.out.println("Erasing main flash...");
+        if (bsl.massErase())
+        {
+          System.out.println("OK");
+
+          // Unlock flash
+          System.out.println("Unlocking flash...");
+          if (bsl.unlock())
+          {
+            System.out.println("OK");
+            // Write firmware image
+            System.out.println("Writing data into main flash...");
+            if (writeImage())
+            {
+              System.out.println("OK");
+              // Verify firmware image from flash
+              System.out.println("Verifying data from main flash...");
+              if (verifImage())
+              {
+                System.out.println("OK");
+                System.out.println("Starting user application...");
+                bsl.startApp();
+                success = true;
+              }
+              else
+                System.out.println("ERROR");
+            }
+            else
+              System.out.println("ERROR");
+          }
+          else
+            System.out.println("ERROR");
+        }
+        else
+          System.out.println("ERROR");
+
+      }
+      catch (BslException ex)
+      {
+        System.out.println(ex);
+        
+        if (ex.toString().contains("CRC mismatch"))
+        {
+          System.out.println("Trying again...");
+          tryAgain = true;
+        }
+      }
+      finally
+      {
+        try
+        {
+          // Close connection
+          System.out.println("Closing connection with BSL...");
+          bsl.close();
+          
+          if (success)
+            System.out.println("\nNew image uploaded successfully");
+        }
+        catch (BslException ex)
+        {
+          System.out.println(ex);
+        }
+      }
+    }
   }
-  
+ 
   /**
    * Load firmware image (.hex) into target board running BSL
    * 
@@ -176,13 +200,15 @@ public class BsLoader
   public static void main(String [ ] args)
   {
     String args0 = "/home/daniel/Documents/firmware/simpletest.hex";
-    String args1 = "/dev/ttyUSB0";
-    String args2 = "--verbose-on";
+    String args1 = "/dev/ttyUSB1";
+    String args2 = "--verbose-off";
 
-    //BsLoader uploader = new BsLoader(args[0], args[1]);
-    BsLoader uploader = new BsLoader(args0, args1);
+    boolean verbose = false;
     
     if (args2.equals("--verbose-on"))
-      uploader.setVerbose(true);
+      verbose = true;
+    
+    //BsLoader uploader = new BsLoader(args[0], args[1]);
+    BsLoader uploader = new BsLoader(args0, args1, verbose);   
   }
 }
