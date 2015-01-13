@@ -88,13 +88,13 @@ public class GdbLoader
     {
       if (uploader.status == STATUS_CODE.HALTED)
       { 
-        System.out.println("Upload failed");
-        System.exit(-2);
+        System.out.println("Upload failed");        
       }
       else if (uploader.status == STATUS_CODE.SERIAL_NOK)
       {
         System.out.println("Serial port not found");
       }
+      System.exit(-2);
     }
     else
     {
