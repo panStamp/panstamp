@@ -38,6 +38,8 @@ HTU21D::HTU21D()
 bool HTU21D::begin(void)
 {
   Wire.begin();
+  
+  return true;
 }
 
 //Read the humidity

@@ -67,14 +67,14 @@ enum CUSTOM_REGINDEX                    \
  */
 #define DEFINE_COMMON_REGISTERS()                                                                                            \
 /* Product code */                                                                                                           \
-static uint8_t dtProductCode[8] = {SWAP_MANUFACT_ID >> 24, SWAP_MANUFACT_ID >> 16 , SWAP_MANUFACT_ID >> 8, SWAP_MANUFACT_ID,    \
-                       SWAP_PRODUCT_ID >> 24, SWAP_PRODUCT_ID >> 16 , SWAP_PRODUCT_ID >> 8, SWAP_PRODUCT_ID};                \
+static uint8_t dtProductCode[8] = {(uint8_t)(SWAP_MANUFACT_ID >> 24), (uint8_t)(SWAP_MANUFACT_ID >> 16) , (uint8_t)(SWAP_MANUFACT_ID >> 8), (uint8_t)(SWAP_MANUFACT_ID),    \
+        (uint8_t)(SWAP_PRODUCT_ID >> 24), (uint8_t)(SWAP_PRODUCT_ID >> 16) , (uint8_t)(SWAP_PRODUCT_ID >> 8), (uint8_t)(SWAP_PRODUCT_ID)};                \
 REGISTER regProductCode(dtProductCode, sizeof(dtProductCode), NULL, NULL);                                                   \
 /* Hardware version */                                                                                                       \
-static uint8_t dtHwVersion[4] = {HARDWARE_VERSION >> 24, HARDWARE_VERSION >> 16 , HARDWARE_VERSION >> 8, HARDWARE_VERSION};     \
+static uint8_t dtHwVersion[4] = {(uint8_t)(HARDWARE_VERSION >> 24), (uint8_t)(HARDWARE_VERSION >> 16) , (uint8_t)(HARDWARE_VERSION >> 8), (uint8_t)(HARDWARE_VERSION)};     \
 REGISTER regHwVersion(dtHwVersion, sizeof(dtHwVersion), NULL, NULL);                                                         \
 /* Firmware version */                                                                                                       \
-static uint8_t dtFwVersion[4] = {FIRMWARE_VERSION >> 24, FIRMWARE_VERSION >> 16 , FIRMWARE_VERSION >> 8, FIRMWARE_VERSION};     \
+static uint8_t dtFwVersion[4] = {(uint8_t)(FIRMWARE_VERSION >> 24), (uint8_t)(FIRMWARE_VERSION >> 16) , (uint8_t)(FIRMWARE_VERSION >> 8), (uint8_t)(FIRMWARE_VERSION)};     \
 REGISTER regFwVersion(dtFwVersion, sizeof(dtFwVersion), NULL, NULL);                                                         \
 /* System state */                                                                                                           \
 REGISTER regSysState(&swap.systemState, sizeof(swap.systemState), NULL, &setSysState);                               \
@@ -90,9 +90,9 @@ REGISTER regSecuNonce(&swap.nonce, sizeof(swap.nonce), NULL, NULL);             
 /* Network Id */                                                                                                             \
 REGISTER regNetworkId(panstamp.radio.syncWord, sizeof(panstamp.radio.syncWord), NULL, &setNetworkId, SWDTYPE_OTHER, NVOLAT_SYNC_WORD);  \
 /* Device address */                                                                                                         \
-REGISTER regDevAddress((unsigned char*)&swap.devAddress, sizeof(swap.devAddress), NULL, &setDevAddress, SWDTYPE_INTEGER, NVOLAT_DEVICE_ADDRESS);  \
+REGISTER regDevAddress((uint8_t*)&swap.devAddress, sizeof(swap.devAddress), NULL, &setDevAddress, SWDTYPE_INTEGER, NVOLAT_DEVICE_ADDRESS);  \
 /* Periodic Tx interval */                                                                                                   \
-REGISTER regTxInterval((unsigned char*)&swap.txInterval, sizeof(swap.txInterval), NULL, &setTxInterval, SWDTYPE_INTEGER, NVOLAT_TX_INTERVAL);
+REGISTER regTxInterval((uint8_t*)&swap.txInterval, sizeof(swap.txInterval), NULL, &setTxInterval, SWDTYPE_INTEGER, NVOLAT_TX_INTERVAL);
 
 /**
  * Macros for the declaration of global table of registers
