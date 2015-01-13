@@ -10,7 +10,7 @@ nrg.upload.protocol=msp430-gdb
 nrg.upload.maximum_size=32640
 nrg.build.mcu=cc430f5137
 nrg.build.f_cpu=12000000L
-nrg.build.variant=standard
+nrg.build.variant=panstamp_nrg_1.0
 nrg.build.board=PANSTAMP_NRG
 
 nrg.ldscript=ldscript
