@@ -49,7 +49,8 @@ enum SWAPFUNCT
 {
   SWAPFUNCT_STA = 0x00,
   SWAPFUNCT_QRY,
-  SWAPFUNCT_CMD
+  SWAPFUNCT_CMD,
+  SWAPFUNCT_ACK  // 0x04 - Reserved for future adoption by SWAP
 };
 
 /**
