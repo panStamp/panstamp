@@ -14,12 +14,12 @@ version=1.5.6
 # Default "compiler.path" is correct, change only if you want to overidde the initial value
 compiler.path={runtime.ide.path}/hardware/tools/msp430/bin/
 compiler.c.cmd=msp430-gcc
-compiler.c.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD
+compiler.c.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD -Wno-unused-but-set-variable
 compiler.c.elf.flags=-Os -Wl,--gc-sections,-u,main,-L {runtime.ide.path}/hardware/panstamp/msp430/scripts/ldscript/ -T {ldscript}.x
 compiler.c.elf.cmd=msp430-gcc
 compiler.S.flags=-c -g -assembler-with-cpp
 compiler.cpp.cmd=msp430-g++
-compiler.cpp.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD -std=gnu++98 -fwrapv -fomit-frame-pointer -ggdb3 -fno-rtti
+compiler.cpp.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD -std=gnu++98 -fwrapv -fomit-frame-pointer -ggdb3 -fno-rtti -Wno-reorder
 compiler.ar.cmd=msp430-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=msp430-objcopy
