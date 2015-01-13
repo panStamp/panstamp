@@ -7,6 +7,7 @@ VERSION 0.17 - Release on 13-Jan-2015
 1. Exit from LPM after calling pin interrupt ISR's on the NRG
 2. pins.h moved to variants folder
 3. Warnings fixed in wiring_analog.cpp, f1ac.c, HTU21D for NRG
+4. SWAP ACK function reserved for future adoption
 
 VERSION 0.16 - Release on 22-Dec-2014
 ----------------------------------------
