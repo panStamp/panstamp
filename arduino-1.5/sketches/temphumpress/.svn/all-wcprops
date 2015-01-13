@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/743/trunk/arduino/sketches/temphumpress
+END
+product.h
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/638/trunk/arduino/sketches/temphumpress/product.h
+END
+regtable.ino
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/743/trunk/arduino/sketches/temphumpress/regtable.ino
+END
+regtable.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/638/trunk/arduino/sketches/temphumpress/regtable.h
+END
+sensor.ino
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/737/trunk/arduino/sketches/temphumpress/sensor.ino
+END
+sensor.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/691/trunk/arduino/sketches/temphumpress/sensor.h
+END
+temphumpress.ino
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/686/trunk/arduino/sketches/temphumpress/temphumpress.ino
+END
