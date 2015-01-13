@@ -14,12 +14,12 @@ version=1.5.6
 # Default "compiler.path" is correct, change only if you want to overidde the initial value
 compiler.path={runtime.ide.path}/hardware/tools/msp430/bin/
 compiler.c.cmd=msp430-gcc
-compiler.c.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD
-compiler.c.elf.flags=-Os -Wl,--gc-sections,-u,main,-L "{runtime.ide.path}\hardware\panstamp\msp430\scripts\ldscript\" -T {ldscript}.x
+compiler.c.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD -Wno-unused-but-set-variable
+compiler.c.elf.flags=-Os -Wl,--gc-sections,-u,main,-L "{runtime.ide.path}\hardware\panstamp\msp430\ldscript\" -T {ldscript}.x
 compiler.c.elf.cmd=msp430-gcc
 compiler.S.flags=-c -g -assembler-with-cpp
 compiler.cpp.cmd=msp430-g++
-compiler.cpp.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD -std=gnu++98 -fwrapv -fomit-frame-pointer -ggdb3 -fno-rtti
+compiler.cpp.flags=-c -g -Os -Wall -ffunction-sections -fdata-sections -MMD -std=gnu++98 -fwrapv -fomit-frame-pointer -ggdb3 -fno-rtti -Wno-reorder
 compiler.ar.cmd=msp430-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=msp430-objcopy
@@ -71,7 +71,13 @@ tools.msp430-gdb.cmd.path={runtime.ide.path}\hardware\tools\msp430\bin\msp430-gd
 tools.msp430-gdb.upload.params.verbose=
 tools.msp430-gdb.upload.params.quiet=
 #tools.msp430-gdb.upload.pattern={cmd.path} -b 38400 -ex 'target remote {serial.port}' -ex 'set debug remote 0' {build.path}/{build.project_name}.elf -ex 'erase' -ex 'load' -ex 'quit'
-tools.msp430-gdb.upload.pattern=java -cp "{runtime.ide.path}\hardware\panstamp\msp430\scripts\" GdbLoader "{cmd.path}" "{build.path}\{build.project_name}.elf" {serial.port}
+tools.msp430-gdb.upload.pattern=java -cp "{runtime.ide.path}\app\GdbLoader\" GdbLoader "{cmd.path}" "{build.path}\{build.project_name}.elf" "{serial.port}"
+
+tools.rf2500.cmd.path={runtime.ide.path}\hardware\tools\msp430\bin\mspdebug
+tools.rf2500.upload.pattern={cmd.path} rf2500 'prog {build.path}\{build.project_name}.hex'
+
+tools.ti-bsl.cmd.path={runtime.ide.path}\app\BsLoader\build\classes\bsloader\ BsLoader
+tools.ti-bsl.upload.pattern=java -cp {cmd.path} "{build.path}\{build.project_name}.hex" "{serial.port}" "--verbose-off"
 
 # USB Default Flags
 # Default blank usb manufacturer will be filled it at compile time
