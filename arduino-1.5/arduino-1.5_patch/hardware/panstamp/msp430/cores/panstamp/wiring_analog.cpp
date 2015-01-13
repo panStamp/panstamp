@@ -52,8 +52,8 @@ uint16_t analogRef = ADCREF_VCC;
  */
 uint16_t analogRead(uint8_t pin)
 {
-  uint8_t port, bit;
-  volatile uint8_t *dir;
+  uint8_t port, bit=0;
+  volatile uint8_t *dir=NULL;
   
   uint16_t refGain = 0;
    
