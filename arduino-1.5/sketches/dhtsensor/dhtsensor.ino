@@ -24,6 +24,9 @@
  * Device:
  * Dual Temperature + Humidity sensor
  *
+ * IMPORTANT: This sketch works only for panStamp NRG. For panStamp AVR
+ * use temphumpress instead.
+ *
  * Description:
  * This sketch generates a SWAP temperature+humidity sensor device
  * relying on the popular DHT22 senor and Adafruit's library
