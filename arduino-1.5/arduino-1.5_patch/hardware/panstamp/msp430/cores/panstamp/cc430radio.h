@@ -115,6 +115,9 @@ enum RFSTATE
  * Macros
  */
 // RADIO
+#define MRFI_CLEAR_GDO0_INT_FLAG()                  (RF1AIFG &= ~BIT0)
+#define MRFI_GDO0_INT_FLAG_IS_SET()                 (RF1AIFG & BIT0)
+
 #define MRFI_ENABLE_SYNC_PIN_INT()                  (RF1AIE |= BIT9)
 #define MRFI_DISABLE_SYNC_PIN_INT()                 (RF1AIE &= ~BIT9)
 #define MRFI_CLEAR_SYNC_PIN_INT_FLAG()              (RF1AIFG &= ~BIT9)
