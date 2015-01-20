@@ -7,6 +7,7 @@ printf "Installing patch...\n"
 
 cp -R libraries $ARDUINO_DIR/
 cp -R hardware $ARDUINO_DIR/
+cp -R app $ARDUINO_DIR/
 cp -R lin/platform.txt $ARDUINO_DIR/hardware/panstamp/msp430/
 
 if [ "$(uname)" == "Darwin" ]; then
