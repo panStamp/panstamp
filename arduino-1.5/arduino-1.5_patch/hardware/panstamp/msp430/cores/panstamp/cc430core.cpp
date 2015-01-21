@@ -102,8 +102,7 @@ void CC430CORE::setLowPowerMode(bool lpm4)
 void CC430CORE::setNormalMode(void)
 {
 	// Configure PMM and SCLK for RF operation
-  //_SET_VCORE_12MHZ(2);
-  _SET_VCORE_8MHZ(0);
+  _SET_VCORE_12MHZ(2);
   
   // Enable WDT again
   enableWatchDog();
