@@ -69,6 +69,15 @@ void radioISR(void)
         }
       }
     }
+    // Check for RF_RDY (Event1 WOR) interrupt
+    else if(coreIntSource == RF1AIV_RFIFG14)
+    {
+      RF1AIE |= BIT9 + BIT1;
+      RF1AIFG &= ~(BIT9 + BIT1);
+      RF1AIES |= BIT9; // Falling edge of RFIFG9
+      panstamp.radio.setRxState();
+      __bic_SR_register_on_exit(LPM3_bits);
+    }
   }
 }
 

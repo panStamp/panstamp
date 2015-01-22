@@ -350,7 +350,7 @@ bool CC430RADIO::sendData(CCPACKET packet)
     if (marcState == 0x11)        // RX_OVERFLOW
       flushRxFifo();              // flush receive queue
   }
-
+ 
   delayMicroseconds(500);
   
   // Set data length at the first position of the TX FIFO
@@ -463,7 +463,7 @@ void CC430RADIO::enableAddressCheck(bool enable)
  *
  * Turn on/ff CCA mechanism
  *
- * @param enable True if address check has to be enabled
+ * @param enable True if CCA has to be enabled
  */
 void CC430RADIO::enableCCA(bool enable)
 {
@@ -471,4 +471,37 @@ void CC430RADIO::enableCCA(bool enable)
     WriteSingleReg(MCSM1, CCDEF_MCSM1);
   else
     WriteSingleReg(MCSM1, 0);
+}
+
+/**
+ * setWorState
+ *
+ * Enter Wake-On-Radio state
+ * 
+ * @param millis Sleeping interval in milliseconds
+ *   This interval has to be greater than 12 ms and not greater than 2000 ms
+ */
+void CC430RADIO::setWorState(uint16_t millis)
+{
+  uint32_t interval = millis * 32768;
+  interval /= 1000;
+  
+  if (interval > 0xFFFF)
+    interval = 0xFFFF;
+  else if (interval < 0x189)
+    interval = 0x189;
+    
+  disableWatchDog();
+  
+  WriteSingleReg(WOREVT1, ((uint16_t)interval >> 8) & 0xFF);
+  WriteSingleReg(WOREVT0, (uint16_t)interval & 0xFF);
+  WriteSingleReg(MCSM2, 0x00);  // Timeout for sync word search = 12.5%
+  WriteSingleReg(WORCTRL, (7 << 4) | 0); // EVENT1 = 48 clk periods = 1.465 ms
+  WriteSingleReg(IOCFG1, 0x29); // GDO1 = RF_RDY
+
+  Strobe(RF_SWOR);
+  RF1AIE |= ((BIT6) << 8);      // BIT14 = BIT6 << 8
+  __bis_SR_register(LPM3_bits + GIE);
+
+  enableWatchDog();
 }

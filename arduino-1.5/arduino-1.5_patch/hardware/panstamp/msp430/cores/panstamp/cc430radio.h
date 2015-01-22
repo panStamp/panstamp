@@ -323,6 +323,16 @@ class CC430RADIO
      * @param enable True if address check has to be enabled
      */
     void enableCCA(bool enable=true);
+    
+    /**
+     * setWorState
+     *
+     * Enter Wake-On-Radio state
+     * 
+     * @param millis Sleeping interval in milliseconds
+     *   This interval has to be greater than 12 ms and not greater than 2000 ms
+     */
+    void setWorState(uint16_t millis);
 };
 
 #endif
