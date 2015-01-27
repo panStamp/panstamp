@@ -2,6 +2,13 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+
+VERSION 0.18 - Release on 27-Jan-2015
+----------------------------------------
+1. temphumpress ported to Arduino 1.5 IDE
+2. CCA implemented for NRG
+3. setNormalMode from CC430CORE now correctly reverts to VCORE at 12 MHz
+
 VERSION 0.17 - Release on 13-Jan-2015
 ----------------------------------------
 1. Exit from LPM after calling pin interrupt ISR's on the NRG
