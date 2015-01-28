@@ -2,6 +2,15 @@
 Python applications for panStamp
 -----------------------------------------------------
 
+VERSION 2.4 - Release on 28-Jan-2015
+----------------------------------------
+1. Update flag enabled from swapdmt-cmd/config/settings.xml
+2. New macro feature added to swapdmt-cmd
+3. Swiched to Cherrypy micro-webserver for lagarto
+4. Lagarto error log now configured from config/settings.xml
+5. Creation of a common lagarto script to run lagarto-max and lagarto-swap
+   with a single command
+
 VERSION 2.3 - Release on 6-Nov-2014
 ----------------------------------------
 1. AES-128 CRT implemented in SwapPacket.py
