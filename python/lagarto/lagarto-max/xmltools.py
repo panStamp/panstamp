@@ -43,7 +43,7 @@ class XmlSettings(object):
     ## Longitude
     longitude = 0
     ## Name/path of the error log file
-    error_file = "error.log"
+    error_file = "lagarto.err"
 
     def read(self):
         """
@@ -88,13 +88,14 @@ class XmlSettings(object):
 
     def save(self):
         """
-        Save serial port settings in disk
+        Save settings in disk
         """
         f = open(XmlSettings.file_name, 'w')
         f.write("<?xml version=\"1.0\"?>\n")
         f.write("<settings>\n")
         f.write("\t<debug>" + str(XmlSettings.debug) + "</debug>\n")
         f.write("\t<database>" + str(XmlSettings.database) + "</database>\n")
+        f.write("\t<errlog>" + XmlSettings.error_file + "</errlog>\n")
         f.write("\t<location>\n")
         f.write("\t\t<latitude>" + str(XmlSettings.latitude) + "</latitude>\n")
         f.write("\t\t<longitude>" + str(XmlSettings.longitude) + "</longitude>\n")
