@@ -372,16 +372,17 @@ class EvnManager(LagartoBroker):
         """
         Constructor
         """
+        # Read configuration
+        config_file = os.path.join(MaxDefinitions.working_dir, "config", "settings.xml")
+        XmlSettings(config_file)
+        
         # Set log file to trace lagarto exceptions
-        LagartoException.error_file = os.path.join(MaxDefinitions.working_dir, "logs", "lagarto.err")
+        LagartoException.error_file = XmlSettings.error_file
+        
         # Lagarto broker constructor
         LagartoBroker.__init__(self, MaxDefinitions.working_dir)
 
         NetworkAPI(lagarto_client=self)
-
-        # Read configuration
-        config_file = os.path.join(MaxDefinitions.working_dir, "config", "settings.xml")
-        XmlSettings(config_file)
 
         # Run startup script
         scripts.events.startup()      

@@ -25,7 +25,6 @@
 __author__="Daniel Berenguer"
 __date__  ="$Feb 14, 2012$"
 __appname__= "lagarto-max"
-__version__= "0.1.9"
 #########################################################################
 
 from evnmanager import EvnManager
