@@ -21,14 +21,16 @@
 #
 #########################################################################
 __author__="Daniel Berenguer"
-__date__  ="$Feb 04, 2012$"
+__date__  ="$Jan 26, 2014$"
 #########################################################################
 
 from lagartoresources import LagartoEndpoint, LagartoMessage
 import lagartoauth as auth
+from lagartoauth import LagartoAuth
 
-from wsgiref.simple_server import make_server
-from cgi import parse_qs, escape
+import cherrypy
+from cherrypy.lib import auth_basic
+
 import threading
 import json
 import sys
@@ -39,38 +41,155 @@ class LagartoHttpServer(threading.Thread):
     """
     Lagarto HTTP/GET server
     """
-    # Data server
-    data_server = None
-    ## Process name
-    proc_name = None
-    ## HTTP server port
-    port = None
-    ## Local IP address
-    address = None
-    ## Working directory
-    working_dir = None
     ## Lagarto directory
     lagarto_dir = os.path.dirname(__file__)
     
-    path_info = None
-    query_string = None
+    ## Working directory
+    working_dir = ""
     
-    mime_types = {
-                  "htm" : "text/html",
-                  "html" : "text/html",
-                  "css" : "text/css",
-                  "txt" : "text/plain",
-                  "xml" : "application/xml",
-                  "json" : "application/json",
-                  "jpg" : "image/jpeg",
-                  "jpeg" : "image/jpeg",
-                  "gif" : "image/gif",
-                  "js" : "application/javascript"
-                  }
-   
+
+    @cherrypy.expose
+    def default(self,*args,**kwargs):
+        """
+        Catch default HTTP request
+        """        
+        if args[0] == "command":
+            if len(args) == 2:
+                command = args[1]
+                params = kwargs 
+                res = self.data_server.http_command_received(command, params)
+
+                if res == True:
+                    raise cherrypy.HTTPRedirect("../lagarto/command_ok.html")
+                elif res == False:
+                    raise cherrypy.HTTPRedirect("../lagarto/command_nok.html")
+                elif type(res) == str:
+                    raise cherrypy.HTTPRedirect("../" + res)
+                else:
+                    cherrypy.response.headers['Content-Type'] = "application/json"
+                    return json.dumps(res)
+        return None
+
+
+    @cherrypy.expose
+    def values(self, id=None, location=None, name=None, value=None, format=None):
+        """
+        HTTP call to /values
+        """        
+        if format is not None:
+            # Simple representation?
+            if format == "simple":
+                if value is None:
+                    return _http_simple_get_value(self, id, location, name)
+                else:
+                    return _http_simple_set_value(self, id, location, name, value)
+        
+        # Otherwise keep JSON format
+        cherrypy.response.headers['Content-Type'] = "application/json"               
+        if value is None:                    
+            return self._http_json_get_value(id, location, name)
+        else:
+            return self._http_json_set_value(id, location, name, value)
+
+
+    @cherrypy.expose
+    def config_server(self, procname, broadcast, httpport):
+        """
+        Configure endpoint
+        
+        @param procname process name
+        @param broadcast ZeroMQ briadcast and port
+        @param httpport HTTP port
+        """
+        if procname is not None:
+            self.data_server.config.procname = procname
+        if broadcast is not None:
+            self.data_server.config.broadcast = broadcast
+        if httpport is not None:
+            self.data_server.config.httpport = httpport
+        self.data_server.config.save()
+        
+        raise cherrypy.HTTPRedirect("lagarto/command_ok.html")
     
-    @staticmethod
-    def _http_simple_get_value(uid, location, name):
+
+    @cherrypy.expose
+    def edit_account(self, user, olduser=None, password=None):
+        """
+        Edit user account for web authentication
+        
+        @param user new user name
+        @param olduser old user name
+        @param password user password
+        """
+        if olduser == "":
+            olduser = None
+        
+        if auth.LagartoAuth.set_account(username=user, password=password, oldusername=olduser):            
+            raise cherrypy.HTTPRedirect("lagarto/account_panel.html")
+        else:
+            raise cherrypy.HTTPRedirect("lagarto/command_nok.html")
+
+
+    @cherrypy.expose
+    def delete_account(self, user):
+        """
+        Edit delete account for web authentication
+        
+        @param user user name
+        @param olduser old user name
+        @param password user password
+        """
+        if auth.LagartoAuth.delete_account(user):
+            raise cherrypy.HTTPRedirect("lagarto/command_ok.html")
+        else:
+            raise cherrypy.HTTPRedirect("lagarto/command_nok.html")
+        
+
+    @cherrypy.expose
+    def general_settings(self, debug, local, remote, update, serial, network, swapnet):
+        """
+        Configure serial modem
+        
+        @param debug debug level
+        @param local local device definition folder
+        @param remote remote device definition folder
+        @param update update local device definition folder on start-up
+        @param serial serial gateway config file
+        @param network wireless config file
+        @param swapnet SWAP network file
+        """
+        self.data_server.general_settings(debug, local, remote, update, serial, network, swapnet)
+        raise cherrypy.HTTPRedirect("lagarto/command_ok.html")    
+    
+
+    @cherrypy.expose
+    def get_accounts(self):
+        """
+        Return list of user accounts
+
+        @return list of user accounts
+        """
+        accounts = auth.LagartoAuth.get_user_names()
+        res = json.dumps({"accounts": accounts})          
+        cherrypy.response.headers['Content-Type'] = "application/json"
+        return res 
+           
+        
+    @cherrypy.expose
+    def core(self, command=None, params=None):
+        """
+        HTTP call to /values
+        """
+        if command is None:
+            return None
+
+        if command == "restart_process":
+            python = sys.executable
+            os.execl(python, python, * sys.argv)
+            return None
+
+
+    def _http_simple_get_value(self, uid, location, name):
         """
         Get endpoint value from data source
         
@@ -96,7 +215,7 @@ class LagartoHttpServer(threading.Thread):
 
 
     @staticmethod
-    def _http_simple_set_value(uid, location, name, value):
+    def _http_simple_set_value(self, uid, location, name, value):
         """
         Set endpoint value on data source
         
@@ -119,412 +238,132 @@ class LagartoHttpServer(threading.Thread):
                     return res
                 
         return None
+    
 
-
-    @staticmethod
-    def _http_json_get_value(uids=None, locations=None, names=None):
+    def _http_json_get_value(self, uid=None, location=None, name=None):
         """
         Get single or multiple endpoint values from data source
         
-        @param uids: list of endpoint ids
-        @param locations: list of endpoint locations
-        @param names: list of endpoint names
+        @param uid: endpoint uid
+        @param location: endpoint locations
+        @param name: endpoint name
         
         @return list of endpoint values in JSON format
         """
         # Create list of JSON endpoint data
         req = []
-        if uids is not None and locations is not None and names is not None:
-            if len(uids) > 0:
-                for uid in uids:
-                    endp = LagartoEndpoint(endp_id=uid)
-                    req.append(endp.dumps())
-            elif len(locations) == len(names) > 0:
-                for i, loc in enumerate(locations):
-                    endp = LagartoEndpoint(location=loc, name=names[i])
-                    req.append(endp.dumps())
+        if uid is not None:
+            endp = LagartoEndpoint(endp_id=uid)
+            req.append(endp.dumps())
+        elif location is not None and name is not None:
+            endp = LagartoEndpoint(location=location, name=name)
+            req.append(endp.dumps())
         else:  # Return whole network status
             req = None
                     
-        status = LagartoHttpServer.data_server.get_status(req)
+        status = self.data_server.get_status(req)
         
         if status is not None:
             if len(status) > 0:
                 # Create complete Lagarto status message
-                http_server = LagartoHttpServer.address + ":" + str(LagartoHttpServer.port)
-                response = LagartoMessage(proc_name=LagartoHttpServer.proc_name, http_server=http_server, status=status)
+                http_server = self.address + ":" + str(self.port)
+                response = LagartoMessage(proc_name=self.proc_name, http_server=http_server, status=status)
                 return json.dumps(response.dumps())
                 
         return None
     
 
-    @staticmethod
-    def _http_json_set_value(uids, locations, names, values):
+    def _http_json_set_value(self, uid, location, name, value):
         """
-        Set single or multiple endpoint values on data source
+        Set single or multiple endpoint values from data source
         
-        @param uids: list of endpoint ids
-        @param locations: list of endpoint locations
-        @param names: list of endpoint names
-        @param values: list of endpoint values
+        @param uids: endpoint id
+        @param locations: endpoint location
+        @param names: endpoint name
+        @param values: endpoint value
         
         @return list of endpoint values in JSON format
         """
         # Create list of JSON endpoint data
         req = []
-        if values is not None:
-            if len(values) > 0:
-                for i, val in enumerate(values):
-                    if len(locations) == len(names) > i:
-                        endp = LagartoEndpoint(location = locations[i], name=names[i], value=val)
-                    elif len(uids) > i:
-                        endp = LagartoEndpoint(endp_id=uids[i], value=val)
-                    req.append(endp.dumps())
+        if value is not None:
+            if uid is not None:
+                endp = LagartoEndpoint(endp_id=uid, value=value)
+            elif location is not None and name is not None:
+                endp = LagartoEndpoint(location = location, name=name, value=value)
+
+            req.append(endp.dumps())
         else:
             return None
                     
-        status = LagartoHttpServer.data_server.set_status(req)
+        status = self.data_server.set_status(req)
         
         if status is not None:
             if len(status) > 0:
                 # Create complete Lagarto status message
-                http_server = LagartoHttpServer.address + ":" + str(LagartoHttpServer.port)
-                response = LagartoMessage(proc_name=LagartoHttpServer.proc_name, http_server=http_server, status=status)
+                http_server = self.address + ":" + str(self.port)
+                response = LagartoMessage(proc_name=self.proc_name, http_server=http_server, status=status)
                 return json.dumps(response.dumps())
                 
         return None
-   
-    
-    @staticmethod
-    def _get_endpoint_id(path):
-        """
-        Read endpoint id (if any) from http path
-        
-        @param path: tokenized ('/') PATH_INFO read from HTTP/GET request
-        """                
-        if len(path) != 2:
-            return None
-        
-        return path[1]
-    
-    
-    @staticmethod
-    def _get_endpoint_location(path):
-        """
-        Read endpoint location (if any) from http path
-        
-        @param path: tokenized ('/') PATH_INFO read from HTTP/GET request
-        """
-        if len(path) < 3:
-            return None
-        
-        return path[1]
-    
-    
-    @staticmethod
-    def _get_endpoint_name(path):
-        """
-        Read endpoint name (if any) from HTTP path
-        
-        @param path: tokenized ('/') PATH_INFO read from HTTP/GET request
-        """
-        if len(path) < 3:
-            return None
-        
-        return path[2]
 
-
-    @staticmethod
-    def _process_request(environ, start_response):
-        """
-        Process http request
-        """
-        # The environment variable CONTENT_LENGTH may be empty or missing
-        request_method = "POST"
-        try:
-            request_body_size = int(environ.get('CONTENT_LENGTH', 0))
-            if request_body_size == 0:
-                request_method = "GET"
-        except (ValueError):
-            request_method = "GET"
- 
-        # Read PATH_INFO string
-        LagartoHttpServer.path_info = environ["PATH_INFO"] 
-        
-        # HTTP POST request?
-        if request_method == "POST":
-            # When the method is POST the query string will be sent
-            # in the HTTP request body which is passed by the WSGI server
-            # in the file like wsgi.input environment variable.
-            LagartoHttpServer.query_string = environ['wsgi.input'].read(request_body_size)
-        # HTTP GET request?
-        else:
-            LagartoHttpServer.query_string = environ["QUERY_STRING"]
-
-        path = escape(LagartoHttpServer.path_info).split('/')
-        path = path[1:]
-        
-        # Read/Write endpoint?
-        if path[0] == "values":            
-            (status, response_headers, response_body) = LagartoHttpServer._serve_values(LagartoHttpServer.query_string, path)
-        elif path[0] == "command":
-            (status, response_headers, response_body) = LagartoHttpServer._send_command(LagartoHttpServer.query_string, path)
-        else:
-            # Process request with basic auth enabled
-            return LagartoHttpServer._process_request_secu(environ, start_response)
-            
-        start_response(status, response_headers)
-        return [response_body]
-
-
-    @staticmethod
-    @auth.lagartoauth
-    def _process_request_secu(environ, start_response):
-        """
-        Process http request
-        """       
-        path = escape(LagartoHttpServer.path_info).split('/')
-        path = path[1:]
-            
-        response_body = ""
-        
-        if path[0] == "command":
-            (status, response_headers, response_body) = LagartoHttpServer._send_command(LagartoHttpServer.query_string, path)
-        elif path[0] == "core":
-            (status, response_headers, response_body) = LagartoHttpServer._request_core(LagartoHttpServer.query_string, path)
-        # Serve static file
-        else:
-            (status, response_headers, response_body) = LagartoHttpServer._serve_file(LagartoHttpServer.path_info)
-          
-        start_response(status, response_headers)
-    
-        return [response_body]
-
-
-    @staticmethod
-    def _serve_values(query_string, path):
-        """
-        Serve endpoint values
-        
-        @param query_string: HTTP query string
-        @param path: HTTP path info as a list
-        
-        @return response (status, headers, body) tuple
-        """
-        # Remove empty strings from path
-        while "" in path:
-            path.remove("")
-            
-        # Dictionary containing lists as values.
-        d = parse_qs(query_string)
-        
-        locations = d.get("location", [])
-        names = d.get("name", [])
-        uids = d.get("id", [])
-        values = d.get("value", [])
-
-        # Simple format / single endpoint?
-        if len(locations) == 0 and len(uids) == 0:
-            # Endpoint information containied in the url:
-            endpoint_id = LagartoHttpServer._get_endpoint_id(path)
-            endpoint_location = LagartoHttpServer._get_endpoint_location(path)
-            endpoint_name = LagartoHttpServer._get_endpoint_name(path)
-            
-            if endpoint_id is None and endpoint_location is None:
-                body = LagartoHttpServer._http_json_get_value()
-                mime_type = "application/json"
-            else:            
-                if len(values) == 0:
-                    body = LagartoHttpServer._http_simple_get_value(endpoint_id, endpoint_location, endpoint_name)
-                else:                    
-                    body = LagartoHttpServer._http_simple_set_value(endpoint_id, endpoint_location, endpoint_name, values[0])
-                mime_type = "text/html"            
-        # JSON format?
-        else:
-            locations = [escape(loc) for loc in locations]
-            names = [escape(name) for name in names]
-            uids = [escape(uid) for uid in uids]
-            values = [escape(val) for val in values]
-        
-            if len(values) == 0:
-                body = LagartoHttpServer._http_json_get_value(uids, locations, names)
-            else:
-                body = LagartoHttpServer._http_json_set_value(uids, locations, names, values)
-            mime_type = "application/json"
-        
-        if body is None or body == "":
-            mime_type = "text/html"
-            status = "404 Not Found"
-            body = "Endpoint or endpoints not found"
-        else:
-            status = "200 OK"
-        
-        headers = [("Content-Type", mime_type), ("Content-Length", str(len(body)))]
-        
-        return (status, headers, body)
-
-
-    @staticmethod
-    def _serve_file(file_path):
-        """
-        Serve static file
-        
-        @param file_path: path to the file being requested
-        
-        @return response (status, headers, body) tuple
-        """
-        file_path = file_path.strip('/')      
-        fpath = file_path.split("/")
-        
-        # Redirect to the corrrect path
-        if fpath[0] == "lagarto":
-            file_path = os.path.join(LagartoHttpServer.lagarto_dir, "www", os.sep.join(fpath[1:]))
-        elif fpath[0] == "config":
-            file_path = os.path.join(LagartoHttpServer.working_dir, "config", os.sep.join(fpath[1:]))
-        elif fpath[0] == "":
-            file_path = os.path.join(LagartoHttpServer.working_dir, "www", "index.html")
-        else:
-            file_path = os.path.join(LagartoHttpServer.working_dir, "www", os.sep.join(fpath))
-               
-        try:
-            # Open and read file
-            f = open(file_path, 'rb')
-            body = f.read()
-            f.close()
-        
-            # Get file extension
-            file_extension = file_path.rpartition('.')[2]
-            # Get mime-type
-            if file_extension in LagartoHttpServer.mime_types:
-                mtype = LagartoHttpServer.mime_types[file_extension]
-            else:
-                mtype = "text/plain"
-
-            status = "200 OK"
-        except:
-            status = "404 Not Found"
-            mtype = "text/plain"
-            body = "Unable to open file " + file_path
-               
-        # Set response headers
-        headers = [("Content-Type", mtype), ("Content-Length", str(len(body)))]
-        
-        return (status, headers, body)
-
-
-    @staticmethod
-    def _send_command(query_string, path):
-        """
-        Send command to data server
-        
-        @param query_string: HTTP query string
-        @param path: HTTP path info as a list
-        
-        @return response (status, headers, body) tuple
-        """
-        # Get file extension
-        command = path[1]
-        # Dictionary containing lists as values.
-        query_list = parse_qs(query_string)
-        params = {}
-        
-        for key, val in query_list.iteritems():
-            params[key] = val[0]
- 
-        res = LagartoHttpServer.data_server.http_command_received(command, params)
- 
-        if res == True:
-            return LagartoHttpServer._serve_file("lagarto/command_ok.html")
-        elif res == False:
-            return LagartoHttpServer._serve_file("lagarto/command_nok.html")
-        elif type(res) == str:
-            return LagartoHttpServer._serve_file(res)
-        else:
-            mtype = "application/json"
-            status = "200 OK"
-            body = json.dumps(res)
-            headers = [("Content-Type", mtype), ("Content-Length", str(len(body)))]
-            return (status, headers, body)
-    
-
-    @staticmethod
-    def _request_core(query_string, path):
-        """
-        Request core function on data server
-        
-        @param query_string: HTTP query string
-        @param path: HTTP path info as a list
-        
-        @return response (status, headers, body) tuple
-        """
-        # Get file extension
-        command = path[1]
-        # Dictionary containing keyword:value pairs
-        query_list = parse_qs(query_string)
-        params = {}
-        
-        for key, val in query_list.iteritems():
-            params[key] = val[0]
- 
-        if command == "restart_process":
-            python = sys.executable
-            os.execl(python, python, * sys.argv)
-
-        elif command == "get_accounts":
-            accounts = auth.LagartoAuth.get_user_names()
-            body = json.dumps({"accounts": accounts})
-            mime_type = "application/json"
-            status = "200 OK"
-            headers = [("Content-Type", mime_type), ("Content-Length", str(len(body)))]
-            
-            return (status, headers, body)
-        
-        elif command == "server_config":
-            if "procname" in params:
-                LagartoHttpServer.data_server.config.procname = params["procname"]
-            if "broadcast" in params:
-                LagartoHttpServer.data_server.config.broadcast = params["broadcast"]
-            if "httpport" in params:
-                LagartoHttpServer.data_server.config.httpport = params["httpport"]
-            LagartoHttpServer.data_server.config.save()
-            
-            return LagartoHttpServer._serve_file("lagarto/command_ok.html")
-
-        elif command == "edit_account":
-            if "olduser" in params:
-                old_user = params["olduser"]
-            else:
-                old_user = None
-            if auth.LagartoAuth.set_account(username=params["user"],
-                                    password=params["password"],
-                                    oldusername=old_user):
-                return LagartoHttpServer._serve_file("lagarto/command_ok.html")
-        
-        elif command == "delete_account":
-            if auth.LagartoAuth.delete_account(params["user"]):
-                return LagartoHttpServer._serve_file("lagarto/command_ok.html")
-
-        return LagartoHttpServer._serve_file("lagarto/command_nok.html")
-
-
-    def run(self):
-        """
-        Run HTTP aserver
-        """
-        print "Starting HTTP server"
-        self.httpd = make_server("", LagartoHttpServer.port, LagartoHttpServer._process_request)
-        self.httpd.serve_forever(poll_interval=0.5)
-        print "Closing HTTP server..."
-        
 
     def stop(self):
         """
         Stop HTTP server
         """        
-        self.httpd.shutdown()
-        self.httpd.server_close()     
-        
+        cherrypy.engine.exit()    
 
+
+    def run(self):
+        """
+        Start web server
+        """       
+        conffile = os.path.join(LagartoHttpServer.working_dir, "config", "webserver.conf")
+        cherrypy.config.update(conffile)
+        
+        ## Lagarto directory
+        lagarto_dir = os.path.dirname(__file__)
+        lagarto_web_dir = os.path.join(lagarto_dir, "www")
+        
+        ## For basic auth
+        basic_auth = LagartoAuth()
+        
+        confdict = {"global" : {
+                            "server.socket_port": self.port},
+                    "/" : {
+                           "tools.staticdir.root" : LagartoHttpServer.working_dir},
+                    "/lagarto" : {
+                            "tools.staticdir.dir" : lagarto_web_dir},
+                    }
+        
+        if LagartoAuth.is_security_enabled():
+            confdict["/lagarto"] = {
+                            "tools.staticdir.dir" : lagarto_web_dir,
+                            "tools.auth_basic.on": True,
+                            'tools.auth_basic.realm': 'localhost',
+                            'tools.auth_basic.checkpassword': LagartoAuth.valid_user
+                            }
+            
+            confdict["/config"] = {
+                            "tools.auth_basic.on": True,
+                            'tools.auth_basic.realm': 'localhost',
+                            'tools.auth_basic.checkpassword': LagartoAuth.valid_user
+                            }
+        
+        cherrypy.config.update(confdict)
+        
+        app = cherrypy.tree.mount(self, '/', conffile)
+        app.merge(confdict)
+        
+        if hasattr(cherrypy.engine, "signal_handler"):
+            cherrypy.engine.signal_handler.subscribe()
+        if hasattr(cherrypy.engine, "console_control_handler"):
+            cherrypy.engine.console_control_handler.subscribe()
+        cherrypy.engine.start()
+        cherrypy.engine.block()
+        
+        
     def __init__(self, data_server, config, working_dir):
         """
         Constructor
@@ -536,12 +375,12 @@ class LagartoHttpServer(threading.Thread):
         threading.Thread.__init__(self)
         
         ## Data server, probably the parent object
-        LagartoHttpServer.data_server = data_server
+        self.data_server = data_server
         ## Process name
-        LagartoHttpServer.proc_name = config.procname
+        self.proc_name = config.procname
         ## HTTP server port
-        LagartoHttpServer.port = config.httpport
+        self.port = config.httpport
         ## Local IP address
-        LagartoHttpServer.address = config.address
+        self.address = config.address
         ## Working directory
         LagartoHttpServer.working_dir = working_dir

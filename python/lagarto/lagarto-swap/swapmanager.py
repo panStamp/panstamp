@@ -43,12 +43,23 @@ from swap.xmltools.XmlSerial import XmlSerial
 from swap.xmltools.XmlNetwork import XmlNetwork
 
 from lagartocomms import LagartoServer
+from lagartoresources import LagartoException 
 
 
 class SwapManager(SwapInterface, LagartoServer):
     """
     SWAP Management Class
     """
+    def swapServerError(self, ex):
+        """
+        SWAP server error detected
+        
+        @param ex exception
+        """
+        ex.display()
+        ex.log()
+        
+    
     def newMoteDetected(self, mote):
         """
         New mote detected by SWAP server
@@ -175,6 +186,136 @@ class SwapManager(SwapInterface, LagartoServer):
         return status
     
     
+    def config_mote(self, address, new_address, txinterval):
+        """
+        Configure device
+        
+        @param address current device address
+        @param new_address new address to be configured for the mote
+        @param txinterval Tx interval
+        """
+        try:
+            # Get mote object
+            mote = self.server.network.get_mote(address=int(address))
+            if mote is not None:
+                # Save commands
+                if txinterval != "":                
+                    res = mote.save_txinterval_command(int(txinterval))
+                
+                if new_address != "":
+                    newaddr = int(new_address)
+                    if mote.address != newaddr:
+                        res = mote.save_address_command(newaddr)
+                
+                return res
+        except:
+            raise LagartoException("Unable to config device with address = " + str(address))
+                    
+
+    def delete_mote(self, address):
+        """
+        Delete device
+        
+        @param address current device address
+        """
+        try:
+            self.network.delete_mote(int(address))
+            self.network.save()
+        except:
+            raise LagartoException("Unable to delete device with address = " + str(address))
+        
+        
+    def config_endpoint(self, id, name, location, unit=None):
+        """
+        Configure endpoint
+        
+        @param id unique id
+        @param name name of endpoint
+        @param location location of endpoint
+        @param unit units shown for the endpoint value
+        """
+        try:
+            endp = self.get_endpoint(endpid=id)
+            endp.name = name
+            endp.location = location
+            if unit is not None:
+                endp.setUnit(unit)
+            self.network.save()
+        except:
+            raise LagartoException("Unable to save endpoint settings")
+
+
+    def config_modem(self, port, speed):
+        """
+        Configure serial modem
+        
+        @param port serial port
+        @param serial baudrate
+        """
+        try:
+            # Open network configuration
+            config = XmlSerial(self.main_settings.serial_file)
+            # Change parameters
+            config.port = port
+            config.speed = int(speed)
+            # Save config file
+            config.save()
+        except:
+            raise LagartoException("Unable to save modem serial settings")
+        
+
+    def config_network(self, channel, netid, address, security, password):
+        """
+        Configure network parameters from the serial modem
+        
+        @param channel RF channel
+        @param netid SWAP network ID
+        @param address network address
+        @param security wireless security flag
+        @param password password for wireless security
+        """
+        try:
+            # Open network configuration
+            config = XmlNetwork(self.main_settings.network_file)
+            # Change parameters
+            config.freq_channel = int(channel)
+            config.network_id = int(netid, 16)
+            config.devaddress = int(address)
+            config.security = int(security)
+            config.password = password                   
+            config.save()
+        except:
+            raise LagartoException("Unable to save modem network settings")
+        
+
+    def general_settings(self, debug, local, remote, update, serial, network, swapnet):
+        """
+        Configure serial modem
+        
+        @param debug debug level
+        @param local local device definition folder
+        @param remote remote device definition folder
+        @param update update local device definition folder on start-up
+        @param serial serial gateway config file
+        @param network wireless config file
+        @param swapnet SWAP network file
+        """
+        try:            
+            config = XmlSettings(self.swap_settings)
+            config.debug = int(debug)
+            config.device_localdir = local
+            config.device_remote = remote
+            if update is not None:
+                config.updatedef = update == "true"
+            config.serial_file = serial
+            config.network_file = network
+            config.swap_file = swapnet                    
+            # Save config file
+            config.save()
+        except:
+            raise LagartoException("Unable to save general settings")
+              
+    
     def http_command_received(self, command, params):
         """
         Process command sent from HTTP server. Method to be overrided by data server.
@@ -189,65 +330,46 @@ class SwapManager(SwapInterface, LagartoServer):
         try:
             # Configure endpoint
             if command == "config_endpoint":
-                endp = self.get_endpoint(endpid=params["id"])
-                endp.name = params["name"]
-                endp.location = params["location"]
-                if "unit" in params:
-                    endp.setUnit(params["unit"])
-                self.network.save()
+                self.config_endpoint(params["id"],
+                                     params["name"],
+                                     params["location"],
+                                     params["unit"])
+                return "endpoint_panel.html"
             elif command == "delete_mote":
-                self.network.delete_mote(int(params["address"]))
-            elif command == "config_mote":
-                # Get mote object
-                mote = self.server.network.get_mote(address=int(params["address"]))
-                if mote is not None:
-                    # Save commands
-                    res = mote.save_txinterval_command(int(params["txinterval"]))
-                    
-                    newaddr = int(params["newaddr"])
-                    if mote.address != newaddr:
-                        mote.save_address_command(newaddr)
-                    
-                    if res is None:
-                        return "command_saved.html"
-                    elif res:
-                        return "command_received.html"
-                    else:
-                        return "command_not_received.html"
+                self.delete_mote(params["address"])
+                return "device_panel.html"              
+            elif command == "config_mote":                
+                res = self.config_mote(params["address"],
+                                       params["newaddr"],
+                                       params["txinterval"])
+                if res is None:
+                    return "command_saved.html"
+                elif res:
+                    return "command_received.html"
+                else:
+                    return "command_not_received.html"
             else:
                 # Save gateway's wireless settings
                 if command == "modem_network":
-                    main_settings = XmlSettings(self.swap_settings)
-                    # Open network configuration
-                    config = XmlNetwork(main_settings.network_file)
-                    # Change parameters
-                    config.freq_channel = int(params["channel"])
-                    config.network_id = int(params["netid"], 16)
-                    config.devaddress = int(params["address"])
-                    config.security = int(params["security"])
-                    config.password = params["password"]                   
+                    self.config_network(params["channel"],
+                                        params["netid"],
+                                        params["address"],
+                                        params["security"],
+                                        params["password"])                  
                 # Save gateway's port settings
                 elif command == "modem_serial":
-                    main_settings = XmlSettings(self.swap_settings)
-                    # Open network configuration
-                    config = XmlSerial(main_settings.serial_file)
-                    # Change parameters
-                    config.port = params["port"]
-                    config.speed = int(params["speed"])   
+                    self.config_modem(params["port"],
+                                      params["speed"])  
                 # Configure general settings
                 elif command == "general_settings":
-                    config = XmlSettings(self.swap_settings)
-                    config.debug = int(params["debug"])
-                    config.device_localdir = params["local"]
-                    config.device_remote = params["remote"]
-                    if "update" in params:
-                        config.updatedef = params["update"] == "true"
-                    config.serial_file = params["serial"]
-                    config.network_file = params["network"]
-                    config.swap_file = params["swapnet"]
+                    self.general_settings(params["debug"],
+                                          params["local"],
+                                          params["remote"],
+                                          params["update"],
+                                          params["serial"],
+                                          params["network"],
+                                          params["swapnet"])
                     
-                # Save config file
-                config.save()
                 # Save current network information
                 self.network.save()
                 # Restart server
@@ -258,7 +380,7 @@ class SwapManager(SwapInterface, LagartoServer):
             return False
         
         return True
-  
+    
     
     def stop(self):
         """
@@ -278,12 +400,16 @@ class SwapManager(SwapInterface, LagartoServer):
         @param verbose: Print out SWAP frames or not
         @param monitor: Print out network events or not
         """
-        # MAin configuration file
+       
+        # Main configuration file
         self.swap_settings = swap_settings
         # Print SWAP activity
         self._print_swap = False
         
         try:
+            self.main_settings = XmlSettings(self.swap_settings)
+            # Set log file to trace lagarto exceptions
+            LagartoException.error_file = XmlSettings.error_file
             # Superclass call
             SwapInterface.__init__(self, swap_settings)
         except:

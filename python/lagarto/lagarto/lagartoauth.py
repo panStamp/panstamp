@@ -26,12 +26,10 @@ __date__  ="$Feb 17, 2012$"
 
 import json
 import os
-from barrel import cooper
-from barrel.basic import BasicAuth
 import hashlib
 
 
-class LagartoAuth(BasicAuth):
+class LagartoAuth():
     """
     Lagarto HTTP authentication class
     """
@@ -41,8 +39,9 @@ class LagartoAuth(BasicAuth):
     ## Path to the HTTP authentication file
     httpauth = os.path.join(secu_dir, "httpauth")   
 
-    
-    def valid_user(self, username, password):
+
+    @staticmethod
+    def valid_user(realm, username, password):
         """
         Is this a valid username/password? (True or False)
         Method overriden
@@ -53,10 +52,11 @@ class LagartoAuth(BasicAuth):
         @return True if the supplied username/password pair is valid. Return
         False otherwise
         """
-        return self._check_account(username, password)
+        return LagartoAuth._check_account(username, password)
 
 
-    def _check_account(self, username, password):
+    @staticmethod
+    def _check_account(username, password):
         """
         Check if username/password pair is valid or not
         
@@ -205,23 +205,10 @@ class LagartoAuth(BasicAuth):
             return False
 
         
-    def __init__(self, app):
+    def __init__(self):
         """
         Constructor
         
         @param app: http server process
         """
-        BasicAuth.__init__(self, app, users=None)
-
-
-# Decorators
-def auth_disabled(func):
-    """
-    This decorator doesn't add any behavior
-    """
-    return func
-
-
-auth_enabled = cooper.decorize(LagartoAuth)
-
-lagartoauth = auth_enabled() if LagartoAuth.is_security_enabled() else auth_disabled
+        pass

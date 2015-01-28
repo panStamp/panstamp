@@ -23,7 +23,7 @@ function addEndpoint(endpoint)
   // Link to config page
   cell = row.insertCell(0);
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "config_endpoint.html/?id=" + endpoint.id);
+  cfglink.setAttribute("href", "config_endpoint.html?id=" + endpoint.id);
   cell.appendChild(cfglink);
   // Endpoint ID
   cell.className = "cellitem";

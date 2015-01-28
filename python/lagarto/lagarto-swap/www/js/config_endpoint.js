@@ -48,7 +48,7 @@ function updateValues()
             });
             unitField.value = endpoint.unit;
           }
-          loadJSONdata("../values/?id=" + getUrlVars()["id"], updateEndp);
+          loadJSONdata("../values?id=" + getUrlVars()["id"], updateEndp);
           return;
         }
       });

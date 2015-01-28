@@ -128,7 +128,7 @@ class LagartoProcess(object):
         # HTTP server
         self.http_server = LagartoHttpServer(self, self.config, working_dir)
         self.http_server.start()
-
+       
 
 class PeriodicHeartBeat(threading.Thread):
     """
@@ -142,7 +142,6 @@ class PeriodicHeartBeat(threading.Thread):
             self.send_hbeat()
             time.sleep(60.0)
                       
-    
     def __init__(self, send_hbeat):
         """
         Constructor
@@ -356,6 +355,13 @@ class LagartoClient(threading.Thread, LagartoProcess):
         
         @return network data in JSON format
         """
+        server_addr_port = server.split(":")
+        ip_address = server_addr_port[0]
+        port = server_addr_port[1]
+        
+        if ip_address == self.http_server.address:
+            server = "localhost:" + port 
+        
         try:
             conn = httplib.HTTPConnection(server, timeout=5)
             conn.request("GET", "/values")
@@ -384,6 +390,13 @@ class LagartoClient(threading.Thread, LagartoProcess):
 
         server = self.http_servers[endpoint.procname]
         
+        server_addr_port = server.split(":")
+        ip_address = server_addr_port[0]
+        port = server_addr_port[1]
+        
+        if ip_address == self.http_server.address:
+            server = "localhost:" + port
+
         try:
             conn = httplib.HTTPConnection(server, timeout=20)
             if endpoint.id is not None:

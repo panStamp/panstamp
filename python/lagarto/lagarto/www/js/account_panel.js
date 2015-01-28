@@ -30,7 +30,7 @@ function addAccount(user)
   cell = row.insertCell(1);
   cell.className = "cellaction";
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/core/delete_account/?user=" + user);
+  cfglink.setAttribute("href", "../delete_account?user=" + user);
   cfglink.onclick = function() {return confirm("Delete user?");};
   cfglink.setAttribute("alt", "delete");
   cfglink.style.pointer = "cursor";
@@ -43,7 +43,7 @@ function addAccount(user)
   cell = row.insertCell(2);
   cell.className = "cellaction";
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/lagarto/edit_account.html/?user=" + user);
+  cfglink.setAttribute("href", "/lagarto/edit_account.html?user=" + user);
   cell.appendChild(cfglink);
   img = document.createElement("img");
   img.setAttribute("src","/lagarto/images/edit.png");
