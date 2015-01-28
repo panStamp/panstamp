@@ -1,0 +1,26 @@
+eeschema (2013-mar-13)-testing  >> Creation date: Wed 01 May 2013 01:24:40 PM CEST
+
+#Cmp ( order = Value )
+| 100n         C4        ; SM0603S     
+| 100n         C5        ; SM0603S     
+| 100n         C6        ; SM0603S     
+| 1u           C3        ; SM0603S     
+| 22u          C2        ; SMDCPOL_5   
+| 47u          C1        ; SMDCPOL_6.3 
+| LED          D2        ; SM0603S     
+| LED          D3        ; SM0603S     
+| LED          D4        ; SM0603S     
+| DIODESCH     D1        ; SMA         
+| CONN_4       P2        ; bornier4    
+| CONN_5       P1        ; PIN_ARRAY_5X1
+| 120          R4        ; SM0603S     
+| 470          R1        ; SM0603S     
+| 470          R2        ; SM0603S     
+| 470          R3        ; SM0603S     
+| SW_PUSH_SMALL SW1       ; switch-tact-noah
+| PANSTAMP_02  U1        ; PANSTAMP_02 
+| MAX487       U3        ; SO8E        
+| UA78M33      U2        ; SOT223      
+#End Cmp
+
+#End List
