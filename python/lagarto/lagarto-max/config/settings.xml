@@ -2,6 +2,7 @@
 <settings>
   <debug>1</debug>
   <database>0</database>
+  <errlog>lagarto-max.err</errlog>
   <location>
     <latitude>38.39</latitude>
     <longitude>-6.36</longitude>

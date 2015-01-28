@@ -40,8 +40,11 @@ class ApiLog:
     API logging class
     """
     # Logging
+    # Logging disabled since it interferes with Cherrypy logging function
+    """
     logger = logging.getLogger('Lagarto-Max')
     logging.basicConfig(format='%(asctime)s %(module)s %(levelname)s %(message)s',filename='lagarto-max-cloud.log',level=logging.INFO)
+    """
 
 
 class PachubePacket:
@@ -224,7 +227,7 @@ class AutoRemotePacket:
 
         try:
             conn = httplib.HTTPSConnection(url, timeout=5)
-            ApiLog.logger.debug('AutoRemotePacket.push.conn.request( \"POST\", \"/sendmessage\", '+str(self.params)+', '+str(headers)+')')
+            #ApiLog.logger.debug('AutoRemotePacket.push.conn.request( \"POST\", \"/sendmessage\", '+str(self.params)+', '+str(headers)+')')
             conn.request("POST", "/sendmessage", self.params, headers)
             response = conn.getresponse()
             res = response.reason
@@ -232,7 +235,7 @@ class AutoRemotePacket:
             pass
 
         conn.close()
-        ApiLog.logger.debug('AutoRemotePacket.push.res: '+str(res))
+        #ApiLog.logger.debug('AutoRemotePacket.push.res: '+str(res))
 
         return res
 
@@ -249,7 +252,7 @@ class AutoRemotePacket:
         @param password: Device password
         
         """
-        ApiLog.logger.info('AutoRemotePacket('+key+', '+message+', '+target+', '+sender+', '+channel+', '+password+')')
+        #ApiLog.logger.info('AutoRemotePacket('+key+', '+message+', '+target+', '+sender+', '+channel+', '+password+')')
         params_dict = {'key': key, 'message': message}
         if target:
                 params_dict['target']=target
@@ -262,7 +265,7 @@ class AutoRemotePacket:
 
         # Parameters
         self.params = urllib.urlencode(params_dict)
-        ApiLog.logger.debug('AutoRemotePacket.params: '+self.params)
+        #ApiLog.logger.debug('AutoRemotePacket.params: '+self.params)
 
 
 class GroveStreamsPacket:
