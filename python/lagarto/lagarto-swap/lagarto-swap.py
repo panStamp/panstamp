@@ -25,7 +25,6 @@
 __author__="Daniel Berenguer"
 __date__  ="$Jan 29, 2012$"
 __appname__= "lagarto-swap"
-__version__= "0.1.7"
 #########################################################################
 
 from swap.SwapException import SwapException
