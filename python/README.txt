@@ -64,3 +64,6 @@ Manual installation:
 
     cd pyswap
     python setup.py install
+
+9. If you want to run the graphic version of SWAPdmt, then you will have to install
+   wxPython: http://www.wxpython.org/
