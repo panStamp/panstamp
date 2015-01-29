@@ -1,5 +1,6 @@
 pyserial>=2.6
 pyzmq
+cherrypy
+pycrypto
 pyephem
 twitter
-barrel>=0.1.3
