@@ -1,0 +1,185 @@
+Cmp-Mod V01 Created by Cvpcb (2014-jul-16 BZR unknown)-product   date = Fri 16 Jan 2015 12:28:25 PM CET
+
+BeginCmp
+TimeStamp = /54B80785;
+Reference = C1;
+ValeurCmp = 47u;
+IdModule  = myoldsmd:SMDCPOL_6.3;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B80784;
+Reference = C2;
+ValeurCmp = 22u;
+IdModule  = myoldsmd:SMDCPOL_5;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B8079A;
+Reference = C3;
+ValeurCmp = 1u;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B80794;
+Reference = C4;
+ValeurCmp = 100n;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B8EC8E;
+Reference = C5;
+ValeurCmp = 10u;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B807D0;
+Reference = C6;
+ValeurCmp = 100n;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B8EC82;
+Reference = C7;
+ValeurCmp = 100n;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B80795;
+Reference = D1;
+ValeurCmp = DIODESCH;
+IdModule  = myoldsmd:SMB;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B80789;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B83F66;
+Reference = D3;
+ValeurCmp = LED;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B83FE7;
+Reference = D4;
+ValeurCmp = LED;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B83FFD;
+Reference = D5;
+ValeurCmp = LED;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B807DD;
+Reference = P1;
+ValeurCmp = CONN_12;
+IdModule  = pinhead:pinhead-1X12;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B807E0;
+Reference = P2;
+ValeurCmp = CONN_12;
+IdModule  = pinhead:pinhead-1X12;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B82231;
+Reference = P3;
+ValeurCmp = CONN_01X02;
+IdModule  = myconnectors:terminal_block_5mm_2P;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B8F44F;
+Reference = P4;
+ValeurCmp = CONN_01X05;
+IdModule  = pinhead:pinhead-1X05;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B8078A;
+Reference = R1;
+ValeurCmp = 470;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B83F6C;
+Reference = R2;
+ValeurCmp = 470;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B83FED;
+Reference = R3;
+ValeurCmp = 470;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B84003;
+Reference = R4;
+ValeurCmp = 470;
+IdModule  = myoldsmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B80787;
+Reference = SW1;
+ValeurCmp = SW_PUSH_SMALL;
+IdModule  = myoldsmd:switch-tact-noah;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B8079B;
+Reference = U1;
+ValeurCmp = PANSTAMP_NRG;
+IdModule  = mymods:PANSTAMP_02;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B80792;
+Reference = U2;
+ValeurCmp = UA78M33;
+IdModule  = mysmd:SOT223;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B807A0;
+Reference = U3;
+ValeurCmp = ESP8266-01;
+IdModule  = pinhead:pinhead-2X04;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B807C6;
+Reference = U5;
+ValeurCmp = 23K256;
+IdModule  = myoldsmd:SOIC-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B8079C;
+Reference = U6;
+ValeurCmp = SDC_SOCKET;
+IdModule  = mysmd:MOLEX_MICROSD;
+EndCmp
+
+EndListe

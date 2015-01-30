@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name mymods)(type Legacy)(uri /usr/share/kicad/modules/mymods.mod)(options "")(descr ""))
+  (lib (name mysmd)(type KiCad)(uri /home/daniel/development/kicad/share/modules/mysmd.pretty)(options "")(descr ""))
+  (lib (name myconnectors)(type Legacy)(uri /usr/share/kicad/modules/myconnectors.mod)(options "")(descr ""))
+  (lib (name pinhead-1)(type Legacy)(uri /usr/share/kicad/modules/pinhead-1.mod)(options "")(descr ""))
+  (lib (name pinhead)(type Legacy)(uri /usr/share/kicad/modules/pinhead.mod)(options "")(descr ""))
+  (lib (name myoldsmd)(type Legacy)(uri /usr/share/kicad/modules/mysmd.mod)(options "")(descr ""))
+)
