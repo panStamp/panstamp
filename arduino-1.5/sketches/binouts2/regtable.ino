@@ -35,6 +35,9 @@ DEFINE_COMMON_REGISTERS()
 /*
  * Definition of custom registers
  */
+// Repater config. Not being used by the application. Only kept for backward compatibility
+byte dtRepeaterCfg[1];       // Repeater config
+REGISTER regRepeaterCfg(dtRepeaterCfg, sizeof(dtRepeaterCfg), NULL, NULL);
 // Binary output registers
 byte dtBinOutput0[1];       // Binary output state 0
 REGISTER regBinOutput0(dtBinOutput0, sizeof(dtBinOutput0), NULL, &setBinOutput);
@@ -66,7 +69,7 @@ REGISTER regPwmOutput3(dtPwmOutput3, sizeof(dtPwmOutput3), NULL, &setPwmOutput);
  * Initialize table of registers
  */
 DECLARE_REGISTERS_START()
-  NULL, // Repeater max hop no longer configurable via SWAP
+  &regRepeaterCfg, // Not used
   &regBinOutput0,
   &regBinOutput1,
   &regBinOutput2,
