@@ -40,7 +40,7 @@ typedef enum RTCSRC
  * Class: CC430RTC
  * 
  * Description:
- * CC430RADIO interface
+ * CC430RTC interface
  */
 class CC430RTC
 {
