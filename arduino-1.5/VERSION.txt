@@ -2,6 +2,12 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.19 - Release on 9-feb-2015
+----------------------------------------
+1. regRepeaterConfig created again in binouts2 to avoid breaking the
+   self-incremental register index
+2. msp430/spi cores and library fixed
+3. New SRAM (23K256) library
 
 VERSION 0.18 - Release on 27-Jan-2015
 ----------------------------------------
