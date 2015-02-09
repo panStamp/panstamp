@@ -44,7 +44,7 @@
  
 #include "regtable.h"
 #include "swap.h"
-#ifdef PANDTAMP_NRG
+#ifdef PANSTAMP_NRG
 #include "cc430aes.h"
 #endif
 
