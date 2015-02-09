@@ -25,7 +25,7 @@
 #ifndef _SPI_H_INCLUDED
 #define _SPI_H_INCLUDED
 
-#include <Arduino.h>
+//#include <Arduino.h>
 #include "cc430spi.h"
 
 
@@ -57,7 +57,7 @@ class SPIClass
      */
     inline uint8_t transfer(uint8_t data)
     {
-      return spiPort.write(data);
+      return spiPort.transfer(data);
     }
 
     /**
@@ -70,9 +70,9 @@ class SPIClass
      *
      * @return Amount of bytes transmitted
      */
-    inline static void transfer(void *buf, uint8_t count)
+    void inline transfer(uint8_t *buf, uint8_t count)
     {
-      spiPort.write(buf, count);
+      spiPort.transfer(buf, count);
     }
 
     /**
