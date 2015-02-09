@@ -30,12 +30,7 @@
 
 class CC430SPI
 {  
-  public:
-    /**
-     * Slave address
-     */
-    uint16_t slaveAddress;
-  
+  public: 
     /**
      * begin
      * 
@@ -44,7 +39,7 @@ class CC430SPI
     void begin(void);
 
     /**
-     * write
+     * transfer
      * 
      * Send single byte to SPI slave and read response
      *
@@ -52,17 +47,17 @@ class CC430SPI
      * 
      * @return byte returned by slave
      */
-    inline uint8_t write(uint8_t data) 
+    inline uint8_t transfer(uint8_t data) 
     {
       while (!(UCB0IFG & UCTXIFG));               // USCI_B0 TX buffer ready?
       UCB0TXBUF = data;
-      
+        
       while (!(UCB0IFG & UCRXIFG));               // Data received?
       return UCB0RXBUF;
     }
     
     /**
-     * write
+     * transfer
      * 
      * Send data buffer to SPI slave
      *
@@ -71,7 +66,7 @@ class CC430SPI
      *
      * @return Amount of bytes transmitted
      */
-    uint16_t write(uint8_t *data, uint16_t len);
+    uint16_t transfer(uint8_t *data, uint16_t len);
 };
 
 #endif

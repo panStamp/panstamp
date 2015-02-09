@@ -39,23 +39,21 @@ void CC430SPI::begin(void)
   PMAPCTL |= PMAPRECFG;                   // Leave Pin mapping open
   pinSPImap();                            // Map SPI pins
   PMAPPWD = 0;		                        // Lock port mapping registers
-   
-  pinSPIconfig();                         // Configure SPI pins
   
+  pinSPIconfig();                         // Configure SPI pins
 
-  UCB0CTL1 |= UCSWRST;                      // **Put state machine in reset**
-  UCB0CTL0 |= UCMST+UCSYNC+UCCKPL+UCMSB;    // 3-pin, 8-bit SPI master
-                                            // Clock polarity high, MSB
-  UCB0CTL1 |= UCSSEL_2;                     // SMCLK
-  UCB0BR0 = 0x02;                           // /2
-  UCB0BR1 = 0;                              //
-  //UCB0MCTL = 0;                             // No modulation
-  UCB0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
-  //UCB0IE |= UCRXIE;                         // Enable USCI_B0 RX interrupt
+  UCB0CTL1 |= UCSWRST;                    // **Put state machine in reset**
+  UCB0CTL0 = UCMST+UCSYNC+UCMSB+UCMODE_0; // 3-pin, 8-bit SPI master
+                                          // Clock polarity high, MSB
+  UCB0CTL1 |= UCSSEL_2;                   // SMCLK
+   
+  UCB0BR0 = 0x02;                         // SMCLK/2
+  UCB0BR1 = 0;
+  UCB0CTL1 &= ~UCSWRST;                   // **Initialize USCI state machine**
 }
 
 /**
- * write
+ * transfer
  * 
  * Send data buffer to SPI slave
  *
@@ -64,12 +62,12 @@ void CC430SPI::begin(void)
  *
  * @return Amount of bytes transmitted
  */
-uint16_t CC430SPI::write(uint8_t *data, uint16_t len) 
+uint16_t CC430SPI::transfer(uint8_t *data, uint16_t len)
 {
   uint16_t i;
   
   for(i=0 ; i<len ; i++)
-    write(data[i]);
+    transfer(data[i]);
     
   return i;
 }
