@@ -1,0 +1,964 @@
+
+panstamp_release/gdb_bootloader.elf:     file format elf32-msp430
+
+
+Disassembly of section .text:
+
+00001000 <__init_stack>:
+    1000:	31 40 fe 2b 	mov	#11262,	r1	;#0x2bfe
+
+00001004 <__low_level_init>:
+    1004:	b2 40 80 5a 	mov	#23168,	&0x015c	;#0x5a80
+    1008:	5c 01 
+
+0000100a <__do_clear_bss>:
+
+#ifndef _MAIN_H_
+#define _MAIN_H_
+
+int main(void)
+{
+    100a:	21 82       	sub	#4,	r1	;r2 As==10
+    return chksum;
+}
+
+void setup()
+{
+    P2SEL |= BIT0;                            // P2.0 ADC option select
+    100c:	d2 d3 0b 02 	bis.b	#1,	&0x020b	;r3 As==01
+    ADC12CTL0 = ADC12SHT02 + ADC12ON;         // Sampling time=64 cycles, ADC12 on
+    1010:	b2 40 10 04 	mov	#1040,	&0x0700	;#0x0410
+    1014:	00 07 
+    ADC12CTL1 = ADC12SHP;                     // Use sampling timer
+    1016:	b2 40 00 02 	mov	#512,	&0x0702	;#0x0200
+    101a:	02 07 
+    ADC12CTL0 |= ADC12ENC | ADC12SC;          // Enable ADC and start conversion
+    101c:	b2 d0 03 00 	bis	#3,	&0x0700	;#0x0003
+    1020:	00 07 
+
+    __delay_cycles(250);
+    1022:	03 43       	nop			
+    1024:	03 43       	nop			
+    1026:	3f 40 52 00 	mov	#82,	r15	;#0x0052
+    102a:	1f 83       	dec	r15		
+    102c:	fe 23       	jnz	$-2      	;abs 0x102a
+
+    while (!(ADC12IFG & BIT0));
+    102e:	1f 42 0a 07 	mov	&0x070a,r15	
+    1032:	1f f3       	and	#1,	r15	;r3 As==01
+    1034:	4f 93       	tst.b	r15		
+    1036:	fb 27       	jz	$-8      	;abs 0x102e
+
+    ADC12IFG = 0;
+    1038:	82 43 0a 07 	mov	#0,	&0x070a	;r3 As==00
+    //------------- 
+    //PUSH2::setmode_inputpullup();
+
+    //if (!PUSH2::is_low()) {
+    if (ADC12MEM0 > 15) {    // If A0 > 12 mV
+    103c:	1f 42 20 07 	mov	&0x0720,r15	
+    1040:	3f 90 10 00 	cmp	#16,	r15	;#0x0010
+    1044:	09 28       	jnc	$+20     	;abs 0x1058
+
+  /*
+   * pin direction functions
+   */
+  ALWAYS_INLINE static void setmode_input() {
+    PORT::PDIR() &= ~MASK;
+    1046:	f2 f0 fd ff 	and.b	#-3,	&0x0224	;#0xfffd
+    104a:	24 02 
+        " mov.w @r14, r0         ; else jump to usercode, never return r0==PC\n"
+        "run_gdb_boot:           ;\n"
+        :
+        : "i" (USER_RESET_VECTOR)
+        : "cc"
+      );
+    104c:	3e 40 be ff 	mov	#-66,	r14	;#0xffbe
+    1050:	2f 4e       	mov	@r14,	r15	
+    1052:	3f 93       	cmp	#-1,	r15	;r3 As==11
+    1054:	01 24       	jz	$+4      	;abs 0x1058
+    1056:	20 4e       	br	@r14		
+
+00001058 <run_gdb_boot>:
+
+    /*
+     * gdb_bootloader - GDB Remote Serial Protocol (RSP) server loop
+     */
+
+    CPU::init_clock();
+    1058:	b0 12 06 14 	call	#0x1406	
+
+  /*
+   *
+   */
+  ALWAYS_INLINE static void setmode_output() {
+    PORT::PDIR() |= MASK;
+    105c:	e2 d3 24 02 	bis.b	#2,	&0x0224	;r3 As==10
+  /*
+   *
+   */
+  ALWAYS_INLINE static void high() {
+    //__asm__ volatile("bis.b %1, %0": "+m" (PORT::POUT()) : "r" (MASK));
+    PORT::POUT() |= MASK;
+    1060:	e2 d3 22 02 	bis.b	#2,	&0x0222	;r3 As==10
+  /**
+   * begin( baudrate ) - initialize TX/RX pins
+   */
+  void begin(const uint32_t baud_ignored = BAUD /* not used */) {
+
+    PMAPPWD = 0x02D52;                        // Get write-access to port mapping regs
+    1064:	b2 40 52 2d 	mov	#11602,	&0x01c0	;#0x2d52
+    1068:	c0 01 
+    PMAPCTL |= PMAPRECFG;// Leave Pin mapping open
+    106a:	a2 d3 c2 01 	bis	#2,	&0x01c2	;r3 As==10
+    P1MAP6 = PM_UCA0TXD;
+    106e:	f2 40 12 00 	mov.b	#18,	&0x01ce	;#0x0012
+    1072:	ce 01 
+    P1MAP7 = PM_UCA0RXD;
+    1074:	f2 40 11 00 	mov.b	#17,	&0x01cf	;#0x0011
+    1078:	cf 01 
+    PMAPPWD = 0;                              // Lock port mapping registers
+    107a:	82 43 c0 01 	mov	#0,	&0x01c0	;r3 As==00
+
+  /*
+   *
+   */
+  ALWAYS_INLINE static void setmode_output() {
+    PORT::PDIR() |= MASK;
+    107e:	f2 d0 40 00 	bis.b	#64,	&0x0204	;#0x0040
+    1082:	04 02 
+    const unsigned long baud_rate_20_bits = (MCLK_HZ + (BAUD >> 1)) / BAUD;  // Bit rate divisor
+    //const unsigned long baud_rate_16_bits = MCCLK_HZ / BAUD;
+    // Configure TXPIN and RXPIN as UART controlled pins
+    if ( TXPIN::_portno != NO_PIN::_portno ) {
+      TXPIN::setmode_output();
+      TXPIN::PSEL() |= (TXPIN::pin_mask | RXPIN::pin_mask);
+    1084:	f2 d0 c0 ff 	bis.b	#-64,	&0x020a	;#0xffc0
+    1088:	0a 02 
+    }
+
+    UCA0CTL1 = UCSWRST;                             // Hold USCI in reset to allow configuration
+    108a:	d2 43 c0 05 	mov.b	#1,	&0x05c0	;r3 As==01
+    UCA0CTL0 = 0;// No parity, LSB first, 8 bits, one stop bit, UART (async)
+    108e:	c2 43 c1 05 	mov.b	#0,	&0x05c1	;r3 As==00
+    UCA0ABCTL = 0;
+    1092:	c2 43 d0 05 	mov.b	#0,	&0x05d0	;r3 As==00
+    UCA0BR1 = (baud_rate_20_bits >> 12) & 0xFF;// High byte of whole divisor
+    1096:	c2 43 c7 05 	mov.b	#0,	&0x05c7	;r3 As==00
+    UCA0BR0 = (baud_rate_20_bits >> 4) & 0xFF;// Low byte of whole divisor
+    109a:	f2 40 0a 00 	mov.b	#10,	&0x05c6	;#0x000a
+    109e:	c6 05 
+    UCA0MCTL = ((baud_rate_20_bits << 4) & 0xF0) | UCOS16;// Fractional divisor, over sampling mode
+    10a0:	f2 40 91 ff 	mov.b	#-111,	&0x05c8	;#0xff91
+    10a4:	c8 05 
+    UCA0CTL1 = UCSSEL_2;// Use SMCLK for bit rate generator, then release reset
+    10a6:	f2 40 80 ff 	mov.b	#-128,	&0x05c0	;#0xff80
+    10aa:	c0 05 
+    const unsigned bufsize = 128;          // should match packet size we advertise see query packet below
+    static uint8_t rsp_data[bufsize + 2];  // space to store received gdb rsp packet without '$' or '#xx' checksum
+    unsigned indx, c;
+
+    hex_work_t chksum;
+    chksum.c_str[2] = 0;  // reserve this byte for null termination
+    10ac:	c1 43 02 00 	mov.b	#0,	2(r1)	;r3 As==00, 0x0002(r1)
+                FlashMgr::enable_write();
+                do {
+                    // check for the _reset_vector and our code range,
+                    // we don't modify flash in those ranges
+//                    if (addr < GDB_LOADER_ADDR || addr > GDB_BOOT_END) {
+                        if (addr != 0xfffe && addr != 0xffff) {  // check for writes to GDB_BOOT_RESET_VECTOR 0xfffe, 0xffff
+    10b0:	17 43       	mov	#1,	r7	;r3 As==01
+        //----------------------------------------------------------------------------------------
+        // gather a GDB serial request packet
+
+        // find sync character '$'
+        do {
+            c = Serial.read();
+    10b2:	b0 12 2a 13 	call	#0x132a	
+
+        //----------------------------------------------------------------------------------------
+        // gather a GDB serial request packet
+
+        // find sync character '$'
+        do {
+    10b6:	3f 90 24 00 	cmp	#36,	r15	;#0x0024
+    10ba:	fb 23       	jnz	$-8      	;abs 0x10b2
+    10bc:	0b 43       	clr	r11		
+
+        // squirrel away the RSP data bytes. We don't parse on the fly.
+        // We want to be able to use this with software only UART
+        // solutions that might be time critical.
+        do {
+            c = Serial.read();
+    10be:	b0 12 2a 13 	call	#0x132a	
+
+            if (c == '#') {                      // end of packet data
+    10c2:	3f 90 23 00 	cmp	#35,	r15	;#0x0023
+    10c6:	0e 20       	jnz	$+30     	;abs 0x10e4
+                chksum.data[0] = Serial.read();     // read low byte
+    10c8:	b0 12 2a 13 	call	#0x132a	
+    10cc:	c1 4f 00 00 	mov.b	r15,	0(r1)	;0x0000(r1)
+                chksum.data[1] = Serial.read();     // read high byte
+    10d0:	b0 12 2a 13 	call	#0x132a	
+    10d4:	c1 4f 01 00 	mov.b	r15,	1(r1)	;0x0001(r1)
+                chksum.data[3] = hexstr2u16(chksum.data);
+    10d8:	0f 41       	mov	r1,	r15	
+    10da:	b0 12 d2 13 	call	#0x13d2	
+    10de:	c1 4f 03 00 	mov.b	r15,	3(r1)	;0x0003(r1)
+    10e2:	06 3c       	jmp	$+14     	;abs 0x10f0
+                break;                              // OK, now go handle it
+            }
+            rsp_data[indx++] = c;
+    10e4:	cb 4f 00 1c 	mov.b	r15,	7168(r11);0x1c00(r11)
+    10e8:	1b 53       	inc	r11		
+        } while(c != '$');
+
+        // squirrel away the RSP data bytes. We don't parse on the fly.
+        // We want to be able to use this with software only UART
+        // solutions that might be time critical.
+        do {
+    10ea:	3b 90 80 00 	cmp	#128,	r11	;#0x0080
+    10ee:	e7 23       	jnz	$-48     	;abs 0x10be
+                chksum.data[3] = hexstr2u16(chksum.data);
+                break;                              // OK, now go handle it
+            }
+            rsp_data[indx++] = c;
+        } while(indx < bufsize);
+        rsp_data[indx] = 0;                     // null terminate
+    10f0:	cb 43 00 1c 	mov.b	#0,	7168(r11);r3 As==00, 0x1c00(r11)
+ * checksum() - GDB RSP checksum - all data between '$' and '#'
+ *
+ */
+uint16_t compute_checksum(unsigned char* data, unsigned count)
+{
+    uint16_t chksum = 0;
+    10f4:	0f 43       	clr	r15		
+                chksum.data[3] = hexstr2u16(chksum.data);
+                break;                              // OK, now go handle it
+            }
+            rsp_data[indx++] = c;
+        } while(indx < bufsize);
+        rsp_data[indx] = 0;                     // null terminate
+    10f6:	3e 40 00 1c 	mov	#7168,	r14	;#0x1c00
+uint16_t compute_checksum(unsigned char* data, unsigned count)
+{
+    uint16_t chksum = 0;
+
+    do {
+        chksum = (chksum + *(data++)) % 256;
+    10fa:	6f 5e       	add.b	@r14,	r15	
+    10fc:	4f 4f       	mov.b	r15,	r15	
+    10fe:	1e 53       	inc	r14		
+ */
+uint16_t compute_checksum(unsigned char* data, unsigned count)
+{
+    uint16_t chksum = 0;
+
+    do {
+    1100:	3b 53       	add	#-1,	r11	;r3 As==11
+    1102:	fb 23       	jnz	$-8      	;abs 0x10fa
+        rsp_data[indx] = 0;                     // null terminate
+
+        // verify checksum, ACK '+' if good, NAK '-' if bad
+        // note: GDB will automatically re-send the request again if we NAK
+        unsigned _chkdigits = compute_checksum((unsigned char *) rsp_data, indx);
+        if (_chkdigits != chksum.data[3]) {
+    1104:	5e 41 03 00 	mov.b	3(r1),	r14	;0x0003(r1)
+    1108:	0f 9e       	cmp	r14,	r15	
+    110a:	03 24       	jz	$+8      	;abs 0x1112
+  // public
+  //------------------------------------------------------------
+public:
+
+  void print(const char * s) {
+    _puts(s);
+    110c:	3f 40 e5 12 	mov	#4837,	r15	;#0x12e5
+    1110:	d8 3c       	jmp	$+434    	;abs 0x12c2
+    1112:	3f 40 e7 12 	mov	#4839,	r15	;#0x12e7
+    1116:	b0 12 36 13 	call	#0x1336	
+        // handle the commands in the packet, send a null response for commands we don't
+        //
+        // Note: The if logic order here is based on most frequent to least frequent
+        //       command patterns.
+
+        if (rsp_data[0] == 'm' || rsp_data[0] == 'M') {
+    111a:	5f 42 00 1c 	mov.b	&0x1c00,r15	
+    111e:	7f 90 6d 00 	cmp.b	#109,	r15	;#0x006d
+    1122:	03 24       	jz	$+8      	;abs 0x112a
+    1124:	7f 90 4d 00 	cmp.b	#77,	r15	;#0x004d
+    1128:	7c 20       	jnz	$+250    	;abs 0x1222
+    112a:	3b 40 01 1c 	mov	#7169,	r11	;#0x1c01
+            uint8_t *begin, *end;
+
+            // get the staring address for flash memory writes
+            begin = end = &rsp_data[1];
+            while(*++end != ',');
+    112e:	1b 53       	inc	r11		
+    1130:	fb 90 2c 00 	cmp.b	#44,	0(r11)	;#0x002c, 0x0000(r11)
+    1134:	00 00 
+    1136:	fb 23       	jnz	$-8      	;abs 0x112e
+            *end = 0;
+    1138:	cb 43 00 00 	mov.b	#0,	0(r11)	;r3 As==00, 0x0000(r11)
+            uint16_t addr = hexstr2u16(begin);
+    113c:	3f 40 01 1c 	mov	#7169,	r15	;#0x1c01
+    1140:	b0 12 d2 13 	call	#0x13d2	
+    1144:	0a 4f       	mov	r15,	r10	
+            begin = end + 1;
+    1146:	0f 4b       	mov	r11,	r15	
+    1148:	1f 53       	inc	r15		
+
+            // get the count of how many bytes to read or write
+            while(*++end != ':');
+    114a:	1b 53       	inc	r11		
+    114c:	fb 90 3a 00 	cmp.b	#58,	0(r11)	;#0x003a, 0x0000(r11)
+    1150:	00 00 
+    1152:	fb 23       	jnz	$-8      	;abs 0x114a
+            *end = 0;
+    1154:	cb 43 00 00 	mov.b	#0,	0(r11)	;r3 As==00, 0x0000(r11)
+            unsigned cnt = hexstr2u16(begin);
+    1158:	b0 12 d2 13 	call	#0x13d2	
+    115c:	09 4f       	mov	r15,	r9	
+             * read memory - $maddr,length#checksum
+             *
+             * $mc000,1#bd
+             */
+
+            if (rsp_data[0] == 'm') {
+    115e:	5f 42 00 1c 	mov.b	&0x1c00,r15	
+    1162:	7f 90 6d 00 	cmp.b	#109,	r15	;#0x006d
+    1166:	34 20       	jnz	$+106    	;abs 0x11d0
+    1168:	3f 40 e9 12 	mov	#4841,	r15	;#0x12e9
+    116c:	b0 12 36 13 	call	#0x1336	
+                unsigned _chkdig = 0;
+    1170:	08 43       	clr	r8		
+
+                Serial << "$";
+                // reuse checksum structure as a work buffer
+                uint8_t *hex_value = chksum.c_str;
+                do {
+                    int16_t value_at_addr = *(uint8_t *) addr++;  // use signed to avoid clrc
+    1172:	6d 4a       	mov.b	@r10,	r13	
+    1174:	1a 53       	inc	r10		
+
+                    // output the value at the address
+                    hex_value[0] = u16tohexc(value_at_addr >> 4);
+    1176:	0e 4d       	mov	r13,	r14	
+    1178:	0e 11       	rra	r14		
+    117a:	0e 11       	rra	r14		
+    117c:	0e 11       	rra	r14		
+    117e:	0e 11       	rra	r14		
+    1180:	5b 4e d4 12 	mov.b	4820(r14),r11	;0x12d4(r14)
+    1184:	c1 4b 00 00 	mov.b	r11,	0(r1)	;0x0000(r1)
+                    _chkdig = (_chkdig + hex_value[0]) % 256;
+    1188:	4b 58       	add.b	r8,	r11	
+                    hex_value[1] = u16tohexc(value_at_addr & 0x0f);
+    118a:	3d f0 0f 00 	and	#15,	r13	;#0x000f
+    118e:	5e 4d d4 12 	mov.b	4820(r13),r14	;0x12d4(r13)
+    1192:	c1 4e 01 00 	mov.b	r14,	1(r1)	;0x0001(r1)
+                do {
+                    int16_t value_at_addr = *(uint8_t *) addr++;  // use signed to avoid clrc
+
+                    // output the value at the address
+                    hex_value[0] = u16tohexc(value_at_addr >> 4);
+                    _chkdig = (_chkdig + hex_value[0]) % 256;
+    1196:	4b 4b       	mov.b	r11,	r11	
+                    hex_value[1] = u16tohexc(value_at_addr & 0x0f);
+                    _chkdig = (_chkdig + hex_value[1]) % 256;
+    1198:	0b 5e       	add	r14,	r11	
+    119a:	08 4b       	mov	r11,	r8	
+    119c:	38 f0 ff 00 	and	#255,	r8	;#0x00ff
+  }
+
+  void print(char *s) {
+    _puts(s);
+    11a0:	0f 41       	mov	r1,	r15	
+    11a2:	b0 12 36 13 	call	#0x1336	
+                unsigned _chkdig = 0;
+
+                Serial << "$";
+                // reuse checksum structure as a work buffer
+                uint8_t *hex_value = chksum.c_str;
+                do {
+    11a6:	39 53       	add	#-1,	r9	;r3 As==11
+    11a8:	e4 23       	jnz	$-54     	;abs 0x1172
+
+                } while(--cnt);
+
+                // output checksum of the hex version of the value at address
+                //value_at_addr = compute_checksum(hex_value,2);
+                hex_value[1] = u16tohexc(_chkdig & 0x0f);
+    11aa:	3b f0 0f 00 	and	#15,	r11	;#0x000f
+    11ae:	d1 4b d4 12 	mov.b	4820(r11),1(r1)	;0x12d4(r11), 0x0001(r1)
+    11b2:	01 00 
+                hex_value[0] = u16tohexc((int) _chkdig >> 4);  // use signed to avoid clrc
+    11b4:	0f 48       	mov	r8,	r15	
+    11b6:	0f 11       	rra	r15		
+    11b8:	0f 11       	rra	r15		
+    11ba:	0f 11       	rra	r15		
+    11bc:	0f 11       	rra	r15		
+    11be:	d1 4f d4 12 	mov.b	4820(r15),0(r1)	;0x12d4(r15), 0x0000(r1)
+    11c2:	00 00 
+  // public
+  //------------------------------------------------------------
+public:
+
+  void print(const char * s) {
+    _puts(s);
+    11c4:	3f 40 eb 12 	mov	#4843,	r15	;#0x12eb
+    11c8:	b0 12 36 13 	call	#0x1336	
+  }
+
+  void print(char *s) {
+    _puts(s);
+    11cc:	0f 41       	mov	r1,	r15	
+    11ce:	79 3c       	jmp	$+244    	;abs 0x12c2
+            /*
+             * write memory - $Maddr,length:hexb#checksum
+             *
+             * $Mc000,c:b240805a2001314000043f40#4b
+             */
+            if (rsp_data[0] == 'M') {
+    11d0:	7f 90 4d 00 	cmp.b	#77,	r15	;#0x004d
+    11d4:	26 20       	jnz	$+78     	;abs 0x1222
+
+            // get the count of how many bytes to read or write
+            while(*++end != ':');
+            *end = 0;
+            unsigned cnt = hexstr2u16(begin);
+            begin = end + 1;
+    11d6:	1b 53       	inc	r11		
+             * $Mc000,c:b240805a2001314000043f40#4b
+             */
+            if (rsp_data[0] == 'M') {
+
+                // iterate over the data bytes and write each hex pair to flash memory
+                FlashMgr::enable_write();
+    11d8:	b0 12 56 13 	call	#0x1356	
+    11dc:	2a 53       	incd	r10		
+                do {
+                    // check for the _reset_vector and our code range,
+                    // we don't modify flash in those ranges
+//                    if (addr < GDB_LOADER_ADDR || addr > GDB_BOOT_END) {
+                        if (addr != 0xfffe && addr != 0xffff) {  // check for writes to GDB_BOOT_RESET_VECTOR 0xfffe, 0xffff
+    11de:	07 9a       	cmp	r10,	r7	
+    11e0:	0b 2c       	jc	$+24     	;abs 0x11f8
+                        // reuse chcksum as a temporary buffer
+                            chksum.data[0] = begin[0];
+    11e2:	e1 4b 00 00 	mov.b	@r11,	0(r1)	;0x0000(r1)
+                            chksum.data[1] = begin[1];
+    11e6:	d1 4b 01 00 	mov.b	1(r11),	1(r1)	;0x0001(r11), 0x0001(r1)
+    11ea:	01 00 
+                            *(uint8_t *) addr = hexstr2u16(chksum.data);  // FlashMgr::write_u8()...
+    11ec:	0f 41       	mov	r1,	r15	
+    11ee:	b0 12 d2 13 	call	#0x13d2	
+    11f2:	ca 4f fe ff 	mov.b	r15,	-2(r10)	;0xfffe(r10)
+    11f6:	0a 3c       	jmp	$+22     	;abs 0x120c
+                        }
+                        else {
+                            chksum.data[0] = begin[0];
+    11f8:	e1 4b 00 00 	mov.b	@r11,	0(r1)	;0x0000(r1)
+                            chksum.data[1] = begin[1];
+    11fc:	d1 4b 01 00 	mov.b	1(r11),	1(r1)	;0x0001(r11), 0x0001(r1)
+    1200:	01 00 
+                            uint16_t user_reset_vec = addr;
+                            // stuff the user's original reset vector into
+                            // an unused slot in the interrupt flash segment
+                            // USER_RESET_VECTOR = 0xfffe-64 or 0xffbe,0xffbf
+                            user_reset_vec = addr - 64;
+                            *(uint8_t *)(user_reset_vec)= hexstr2u16(chksum.data);
+    1202:	0f 41       	mov	r1,	r15	
+    1204:	b0 12 d2 13 	call	#0x13d2	
+    1208:	ca 4f be ff 	mov.b	r15,	-66(r10);0xffbe(r10)
+             */
+            if (rsp_data[0] == 'M') {
+
+                // iterate over the data bytes and write each hex pair to flash memory
+                FlashMgr::enable_write();
+                do {
+    120c:	39 53       	add	#-1,	r9	;r3 As==11
+    120e:	1a 53       	inc	r10		
+    1210:	09 93       	tst	r9		
+    1212:	02 24       	jz	$+6      	;abs 0x1218
+                            user_reset_vec = addr - 64;
+                            *(uint8_t *)(user_reset_vec)= hexstr2u16(chksum.data);
+                        }
+//                    }
+                    addr++;
+                    begin += 2;
+    1214:	2b 53       	incd	r11		
+    1216:	e3 3f       	jmp	$-56     	;abs 0x11de
+                } while(--cnt);
+                FlashMgr::disable_write();
+    1218:	b0 12 68 13 	call	#0x1368	
+  // public
+  //------------------------------------------------------------
+public:
+
+  void print(const char * s) {
+    _puts(s);
+    121c:	3f 40 ed 12 	mov	#4845,	r15	;#0x12ed
+    1220:	50 3c       	jmp	$+162    	;abs 0x12c2
+         *
+         * TODO: look at other random bytes in the packet to verify cmd, only
+         *       if this becomes a problem
+         */
+
+        if (rsp_data[0] == 'q') {
+    1222:	5f 42 00 1c 	mov.b	&0x1c00,r15	
+    1226:	7f 90 71 00 	cmp.b	#113,	r15	;#0x0071
+    122a:	22 20       	jnz	$+70     	;abs 0x1270
+            /*
+             * eraseflash - host asks to erase flash memory
+             *
+             * $qRcmd,657261736520616c6c#2e
+             */
+            if (chksum.data[3] == 0x2e) {
+    122c:	5f 41 03 00 	mov.b	3(r1),	r15	;0x0003(r1)
+    1230:	7f 90 2e 00 	cmp.b	#46,	r15	;#0x002e
+    1234:	17 20       	jnz	$+48     	;abs 0x1264
+    1236:	3b 40 00 80 	mov	#-32768,r11	;#0x8000
+
+                // erase main flash memory one 512 byte segment at a time
+                // only erase main memory, preserve the boot loader code
+                do
+                {
+                    FlashMgr::erase_segment((unsigned char *) addr);
+    123a:	0f 4b       	mov	r11,	r15	
+    123c:	b0 12 7a 13 	call	#0x137a	
+                    addr += 512;
+    1240:	3b 50 00 02 	add	#512,	r11	;#0x0200
+            if (chksum.data[3] == 0x2e) {
+                unsigned addr = GDB_ROMADDR;
+
+                // erase main flash memory one 512 byte segment at a time
+                // only erase main memory, preserve the boot loader code
+                do
+    1244:	3b 90 00 f8 	cmp	#-2048,	r11	;#0xf800
+    1248:	f8 23       	jnz	$-14     	;abs 0x123a
+                    addr += 512;
+                } while (addr < GDB_END_ROMADDR ) ;
+
+                // erase the vector table segment
+                // TODO: see if this can be more fined grained
+                FlashMgr::erase_segment((unsigned char *) VECTOR_TABLE_SEGMENT);
+    124a:	3f 40 00 fe 	mov	#-512,	r15	;#0xfe00
+    124e:	b0 12 7a 13 	call	#0x137a	
+
+                // replace their reset vector with our bootloader address
+                // this allows the user to provide their own interrupt vectors
+                // however, the gdb boot code still runs first to check the button state
+                FlashMgr::write_u16((unsigned *) GDB_BOOT_RESET_VECTOR,
+                                    GDB_LOADER_ADDR);
+    1252:	3e 40 00 10 	mov	#4096,	r14	;#0x1000
+    1256:	3f 40 fe ff 	mov	#-2,	r15	;#0xfffe
+    125a:	b0 12 a0 13 	call	#0x13a0	
+    125e:	3f 40 f4 12 	mov	#4852,	r15	;#0x12f4
+    1262:	2f 3c       	jmp	$+96     	;abs 0x12c2
+             *   we just tell them our max packet size. msp430-gdb should limit
+             *   the data packet requests to the length we provide
+             *
+             * $qSupported:qRelocInsn+#9a
+             */
+            if (chksum.data[3] == 0x9a) {
+    1264:	7f 90 9a ff 	cmp.b	#-102,	r15	;#0xff9a
+    1268:	10 20       	jnz	$+34     	;abs 0x128a
+    126a:	3f 40 ff 12 	mov	#4863,	r15	;#0x12ff
+    126e:	29 3c       	jmp	$+84     	;abs 0x12c2
+         * you will have to hold the P1.3 button down during restart
+         * to get gdb_bootloader to run again once code is loaded at 0xc000
+         *
+         * $k#6b
+         */
+        if (rsp_data[0] == 'k') {
+    1270:	7f 90 6b 00 	cmp.b	#107,	r15	;#0x006b
+    1274:	0a 20       	jnz	$+22     	;abs 0x128a
+    1276:	3f 40 11 13 	mov	#4881,	r15	;#0x1311
+    127a:	b0 12 36 13 	call	#0x1336	
+
+  /*
+   * flush() - wait for all bits to be sent/recvd
+   */
+  void flush() {
+    while (UCA0STAT & UCBUSY) ;
+    127e:	5f 42 ca 05 	mov.b	&0x05ca,r15	
+    1282:	1f f3       	and	#1,	r15	;r3 As==01
+    1284:	fc 23       	jnz	$-6      	;abs 0x127e
+            Serial << "$#00";
+            Serial.flush();
+            WDTCTL = 0;  // force a reset by using invalid WDT password
+    1286:	82 4f 5c 01 	mov	r15,	&0x015c	
+         * We just send back 0x8000 in R0 and zeroes for all others
+         *
+         * $g#67
+         */
+
+        if (rsp_data[0] == 'g') {
+    128a:	5f 42 00 1c 	mov.b	&0x1c00,r15	
+    128e:	7f 90 67 00 	cmp.b	#103,	r15	;#0x0067
+    1292:	0f 20       	jnz	$+32     	;abs 0x12b2
+    1294:	3f 40 16 13 	mov	#4886,	r15	;#0x1316
+    1298:	b0 12 36 13 	call	#0x1336	
+    129c:	3b 40 3c 00 	mov	#60,	r11	;#0x003c
+    12a0:	3f 40 1c 13 	mov	#4892,	r15	;#0x131c
+    12a4:	b0 12 36 13 	call	#0x1336	
+    12a8:	3b 53       	add	#-1,	r11	;r3 As==11
+    12aa:	fa 23       	jnz	$-10     	;abs 0x12a0
+    12ac:	3f 40 1e 13 	mov	#4894,	r15	;#0x131e
+    12b0:	08 3c       	jmp	$+18     	;abs 0x12c2
+         *
+         * Note: we get this one time at start up
+         *
+         * $?#3f
+         */
+        if (rsp_data[0] == '?') {
+    12b2:	7f 90 3f 00 	cmp.b	#63,	r15	;#0x003f
+    12b6:	03 20       	jnz	$+8      	;abs 0x12be
+    12b8:	3f 40 22 13 	mov	#4898,	r15	;#0x1322
+    12bc:	02 3c       	jmp	$+6      	;abs 0x12c2
+    12be:	3f 40 11 13 	mov	#4881,	r15	;#0x1311
+    12c2:	b0 12 36 13 	call	#0x1336	
+    12c6:	30 40 b2 10 	br	#0x10b2	
+
+000012ca <__stop_progExec__>:
+    12ca:	32 d0 f0 00 	bis	#240,	r2	;#0x00f0
+    12ce:	fd 3f       	jmp	$-4      	;abs 0x12ca
+
+000012d0 <__ctors_end>:
+    12d0:	30 40 62 14 	br	#0x1462	
+    12d4:	30 31       	jn	$+610    	;abs 0x1536
+    12d6:	32 33       	jn	$-410    	;abs 0x113c
+    12d8:	34 35       	jge	$+618    	;abs 0x1542
+    12da:	36 37       	jge	$-402    	;abs 0x1148
+    12dc:	38 39       	jl	$+626    	;abs 0x154e
+    12de:	61 62       	addc.b	#4,	r1	;r2 As==10
+    12e0:	63 64       	.word	0x6463;	????	Illegal as 2-op instr
+    12e2:	65 66       	addc.b	@r6,	r5	
+    12e4:	00 2d       	jc	$+514    	;abs 0x14e6
+    12e6:	00 2b       	jnc	$-510    	;abs 0x10e8
+    12e8:	00 24       	jz	$+2      	;abs 0x12ea
+    12ea:	00 23       	jnz	$-510    	;abs 0x10ec
+    12ec:	00 24       	jz	$+2      	;abs 0x12ee
+    12ee:	4f 4b       	mov.b	r11,	r15	
+    12f0:	23 39       	jl	$+584    	;abs 0x1538
+    12f2:	61 00 24 36 	mova	r0,	&0x13624
+    12f6:	66 36       	jge	$-818    	;abs 0xfc4
+    12f8:	62 30       	jn	$+198    	;abs 0x13be
+    12fa:	61 23       	jnz	$-316    	;abs 0x11be
+    12fc:	63 35       	jge	$+712    	;abs 0x15c4
+    12fe:	00 24       	jz	$+2      	;abs 0x1300
+    1300:	50 61 63 6b 	addc.b	27491(r1),r0	;0x6b63(r1)
+    1304:	65 74       	subc.b	@r4,	r5	
+    1306:	53 69       	.word	0x6953;	????	Illegal as 2-op instr
+    1308:	7a 65       	addc.b	@r5+,	r10	
+    130a:	3d 38       	jl	$+124    	;abs 0x1386
+    130c:	30 23       	jnz	$-414    	;abs 0x116e
+    130e:	39 38       	jl	$+116    	;abs 0x1382
+    1310:	00 24       	jz	$+2      	;abs 0x1312
+    1312:	23 30       	jn	$+72     	;abs 0x135a
+    1314:	30 00 24 30 	bra	0x3024		;PC rel. 0x0433a
+    1318:	30 38       	jl	$+98     	;abs 0x137a
+    131a:	30 00 30 00 	bra	0x0030		;PC rel. 0x0134c
+    131e:	23 30       	jn	$+72     	;abs 0x1366
+    1320:	38 00 24 53 	mova	0x5324,	r8	;PC rel. 0x06646
+    1324:	30 35       	jge	$+610    	;abs 0x1586
+    1326:	23 62       	.word	0x6223;	????	Illegal as 2-op instr
+    1328:	38 00 d2 b3 	mova	0xb3d2,	r8	;PC rel. 0xfc6fc
+
+0000132a <_ZN18serial_base_usci_tILm38400ELm6500000E8GPIO_PINILh64E16GPIO_PORT_IC_SELILi1ELZ6PAIN_LELZ7PAOUT_LELZ7PADIR_LELZ7PAIFG_LELZ7PAIES_LELZ6PAIE_LELZ7PASEL_LELZ7PAREN_LEE14gpio_pincaps_tILb0ELb0ELb0ELb0ELb0ELb0EEES0_ILh128ES2_S4_EE4readEv.clone.0>:
+
+  /*
+   * read() - blocking read
+   */
+  int read(void) {
+    while(!(UCA0IFG & UCRXIFG));                  // wait for something in the RX buffer
+    132a:	d2 b3 dd 05 	bit.b	#1,	&0x05dd	;r3 As==01
+    132e:	fd 27       	jz	$-4      	;abs 0x132a
+    return UCA0RXBUF;
+  }
+    1330:	5f 42 cc 05 	mov.b	&0x05cc,r15	
+    1334:	30 41       	ret			
+
+00001336 <_ZN7print_tI13usci_serial_tILm38400ELm6500000E8GPIO_PINILh64E16GPIO_PORT_IC_SELILi1ELZ6PAIN_LELZ7PAOUT_LELZ7PADIR_LELZ7PAIFG_LELZ7PAIES_LELZ6PAIE_LELZ7PASEL_LELZ7PAREN_LEE14gpio_pincaps_tILb0ELb0ELb0ELb0ELb0ELb0EEES1_ILh128ES3_S5_EEjmE5_putsEPKc.clone.6>:
+    1336:	07 3c       	jmp	$+16     	;abs 0x1346
+    _puts(str);
+  }
+
+  void _puts(const unsigned char *s) {
+    while (*s) {
+      write(*s++);
+    1338:	1f 53       	inc	r15		
+   * this template implements enough code to be considered a Writer pattern
+   * for use with the print_t<Writer>
+   *
+   */
+  int write_impl(uint8_t c) {
+    while(!(UCA0IFG & UCTXIFG));                  // wait for TX buffer to be empty
+    133a:	5e 42 dd 05 	mov.b	&0x05dd,r14	
+    133e:	2e f3       	and	#2,	r14	;r3 As==10
+    1340:	fc 27       	jz	$-6      	;abs 0x133a
+    UCA0TXBUF = c;
+    1342:	c2 4d ce 05 	mov.b	r13,	&0x05ce	
+
+    _puts(str);
+  }
+
+  void _puts(const unsigned char *s) {
+    while (*s) {
+    1346:	6d 4f       	mov.b	@r15,	r13	
+    1348:	4d 93       	tst.b	r13		
+    134a:	f6 23       	jnz	$-18     	;abs 0x1338
+    }
+  }
+
+  void _puts(const char *s) {
+    _puts(reinterpret_cast<const unsigned char *>(s));
+  }
+    134c:	30 41       	ret			
+
+0000134e <FlashMgr::wait_ready()>:
+#define FLASHCLOCK (FSSEL1 | ((F_CPU/400000L) & 0x3f))
+
+struct FlashMgr {
+
+	static void wait_ready() {
+  	while(FCTL3 & BUSY) { ;	}
+    134e:	92 b3 44 01 	bit	#1,	&0x0144	;r3 As==01
+    1352:	fd 23       	jnz	$-4      	;abs 0x134e
+	}
+    1354:	30 41       	ret			
+
+00001356 <FlashMgr::enable_write()>:
+
+  static void enable_write(void) {
+  	wait_ready();
+    1356:	b0 12 4e 13 	call	#0x134e	
+    FCTL3 = FWKEY;              // Clear LOCK
+    135a:	b2 40 00 a5 	mov	#-23296,&0x0144	;#0xa500
+    135e:	44 01 
+    FCTL1 = FWKEY | WRT;        // Enable write
+    1360:	b2 40 40 a5 	mov	#-23232,&0x0140	;#0xa540
+    1364:	40 01 
+  }
+    1366:	30 41       	ret			
+
+00001368 <FlashMgr::disable_write()>:
+
+  static void disable_write() {
+  	wait_ready();
+    1368:	b0 12 4e 13 	call	#0x134e	
+    FCTL1 = FWKEY;              // Done. Clear WRT
+    136c:	b2 40 00 a5 	mov	#-23296,&0x0140	;#0xa500
+    1370:	40 01 
+    FCTL3 = FWKEY | LOCK;       // Set LOCK
+    1372:	b2 40 10 a5 	mov	#-23280,&0x0144	;#0xa510
+    1376:	44 01 
+  }
+    1378:	30 41       	ret			
+
+0000137a <FlashMgr::erase_segment(unsigned char*)>:
+
+ NEVER_INLINE
+  static void erase_segment(unsigned char *flash) {
+    137a:	0b 12       	push	r11		
+    137c:	0b 4f       	mov	r15,	r11	
+	 wait_ready();
+    137e:	b0 12 4e 13 	call	#0x134e	
+    FCTL3 = FWKEY;              // Clear LOCK
+    1382:	b2 40 00 a5 	mov	#-23296,&0x0144	;#0xa500
+    1386:	44 01 
+    FCTL1 = FWKEY | ERASE;      // Enable segment erase
+    1388:	b2 40 02 a5 	mov	#-23294,&0x0140	;#0xa502
+    138c:	40 01 
+    *flash = 0;                 // Dummy write, erase Segment
+    138e:	cb 43 00 00 	mov.b	#0,	0(r11)	;r3 As==00, 0x0000(r11)
+  	wait_ready();
+    1392:	b0 12 4e 13 	call	#0x134e	
+    FCTL3 = FWKEY | LOCK;       // Done, set LOCK
+    1396:	b2 40 10 a5 	mov	#-23280,&0x0144	;#0xa510
+    139a:	44 01 
+  }
+    139c:	3b 41       	pop	r11		
+    139e:	30 41       	ret			
+
+000013a0 <FlashMgr::write_u16(unsigned int*, unsigned int)>:
+
+  //NEVER_INLINE
+  static void write_u16(unsigned * flash_dest, const unsigned value) {
+    13a0:	0b 12       	push	r11		
+    13a2:	0a 12       	push	r10		
+    13a4:	0b 4f       	mov	r15,	r11	
+    13a6:	0a 4e       	mov	r14,	r10	
+  	wait_ready();
+    13a8:	b0 12 4e 13 	call	#0x134e	
+    FCTL3 = FWKEY;              // Clear LOCK
+    13ac:	b2 40 00 a5 	mov	#-23296,&0x0144	;#0xa500
+    13b0:	44 01 
+    FCTL1 = FWKEY | WRT;        // Enable write
+    13b2:	b2 40 40 a5 	mov	#-23232,&0x0140	;#0xa540
+    13b6:	40 01 
+    *flash_dest = value;
+    13b8:	8b 4a 00 00 	mov	r10,	0(r11)	;0x0000(r11)
+  	wait_ready();
+    13bc:	b0 12 4e 13 	call	#0x134e	
+    FCTL1 = FWKEY;              // Done. Clear WRT
+    13c0:	b2 40 00 a5 	mov	#-23296,&0x0140	;#0xa500
+    13c4:	40 01 
+    FCTL3 = FWKEY | LOCK;       // Set LOCK
+    13c6:	b2 40 10 a5 	mov	#-23280,&0x0144	;#0xa510
+    13ca:	44 01 
+  }
+    13cc:	3a 41       	pop	r10		
+    13ce:	3b 41       	pop	r11		
+    13d0:	30 41       	ret			
+
+000013d2 <hexstr2u16(unsigned char*)>:
+ * hexstr2u16() - convert hex strings into uint16
+ *
+ * assumes caller is only passing '0'-'f' digits or null
+ */
+unsigned hexstr2u16(uint8_t *s)
+{
+    13d2:	0b 12       	push	r11		
+    13d4:	0d 4f       	mov	r15,	r13	
+    uint16_t u16 = 0;
+    13d6:	0e 43       	clr	r14		
+
+    do {
+        u16 = u16 << 4;
+        u16 |= (*s < 'a') ? *s - '0' : *s - 'a' + 10;
+    13d8:	7c 40 60 00 	mov.b	#96,	r12	;#0x0060
+unsigned hexstr2u16(uint8_t *s)
+{
+    uint16_t u16 = 0;
+
+    do {
+        u16 = u16 << 4;
+    13dc:	0e 5e       	rla	r14		
+    13de:	0e 5e       	rla	r14		
+    13e0:	0e 5e       	rla	r14		
+    13e2:	0e 5e       	rla	r14		
+        u16 |= (*s < 'a') ? *s - '0' : *s - 'a' + 10;
+    13e4:	6b 4d       	mov.b	@r13,	r11	
+    13e6:	4f 4b       	mov.b	r11,	r15	
+    13e8:	4c 9b       	cmp.b	r11,	r12	
+    13ea:	03 28       	jnc	$+8      	;abs 0x13f2
+    13ec:	3f 50 d0 ff 	add	#-48,	r15	;#0xffd0
+    13f0:	02 3c       	jmp	$+6      	;abs 0x13f6
+    13f2:	3f 50 a9 ff 	add	#-87,	r15	;#0xffa9
+    13f6:	0e df       	bis	r15,	r14	
+ */
+unsigned hexstr2u16(uint8_t *s)
+{
+    uint16_t u16 = 0;
+
+    do {
+    13f8:	1d 53       	inc	r13		
+    13fa:	cd 93 00 00 	tst.b	0(r13)		;0x0000(r13)
+    13fe:	ee 23       	jnz	$-34     	;abs 0x13dc
+        u16 = u16 << 4;
+        u16 |= (*s < 'a') ? *s - '0' : *s - 'a' + 10;
+    } while(*(++s));
+
+    return u16;
+}
+    1400:	0f 4e       	mov	r14,	r15	
+    1402:	3b 41       	pop	r11		
+    1404:	30 41       	ret			
+
+00001406 <cpu430_cs_t<6500000ul>::init_clock()>:
+     */
+    RF1AIES = BIT0 | BIT9;
+
+#elif F_CPU == 6500000L
+
+    PMAPPWD = 0x02D52;            // Get write-access to port mapping regs
+    1406:	b2 40 52 2d 	mov	#11602,	&0x01c0	;#0x2d52
+    140a:	c0 01 
+    PMAPCTL |= PMAPRECFG;         // Leave Pin mapping open
+    140c:	a2 d3 c2 01 	bis	#2,	&0x01c2	;r3 As==10
+#ifdef SHOW_CLOCKS
+    P2MAP2 = PM_SMCLK;            // Map SMCLK output to P2.2
+    1410:	f2 40 05 00 	mov.b	#5,	&0x01d2	;#0x0005
+    1414:	d2 01 
+    P2MAP4 = PM_MCLK;             // Map MCLK output to P2.4
+    1416:	e2 42 d4 01 	mov.b	#4,	&0x01d4	;r2 As==10
+    P2MAP5 = PM_ACLK;             // Map SMCLK output to P2.2
+    141a:	f2 40 03 00 	mov.b	#3,	&0x01d5	;#0x0003
+    141e:	d5 01 
+#endif
+    PMAPPWD = 0;                  // Lock port mapping registers
+    1420:	82 43 c0 01 	mov	#0,	&0x01c0	;r3 As==00
+
+#ifdef SHOW_CLOCKS
+    P2DIR |= BIT5 | BIT2 | BIT4;  // ACLK, MCLK, SMCLK set out to pins
+    1424:	f2 d0 34 00 	bis.b	#52,	&0x0205	;#0x0034
+    1428:	05 02 
+    P2SEL |= BIT5 | BIT2 | BIT4;  // P2.5, P2.2, P2.4 for debugging
+    142a:	f2 d0 34 00 	bis.b	#52,	&0x020b	;#0x0034
+    142e:	0b 02 
+#endif
+
+    UCSCTL6 &= ~XT2OFF;                       // Enable XT2
+    1430:	b2 f0 ff fe 	and	#-257,	&0x016c	;#0xfeff
+    1434:	6c 01 
+    UCSCTL3 |= SELREF_2;                      // FLLref = REFO
+    1436:	b2 d0 20 00 	bis	#32,	&0x0166	;#0x0020
+    143a:	66 01 
+                                              // Since LFXT1 is not used,
+                                              // sourcing FLL with LFXT1 can cause
+                                              // XT1OFFG flag to set
+
+    // ACLK=REFO, SMCLK=DCO, MCLK=DCO
+    UCSCTL4 = SELA__REFOCLK | SELS__DCOCLKDIV | SELM__DCOCLKDIV;
+    143c:	b2 40 44 02 	mov	#580,	&0x0168	;#0x0244
+    1440:	68 01 
+    UCSCTL5 = 0b000 << 8 | 0b010 << 4 | 0b010 << 0;
+    1442:	b2 40 22 00 	mov	#34,	&0x016a	;#0x0022
+    1446:	6a 01 
+
+    // Loop until XT1,XT2 & DCO stabilizes
+    do {
+      UCSCTL7 &= ~(XT2OFFG | XT1LFOFFG | DCOFFG);
+    1448:	b2 f0 f4 ff 	and	#-12,	&0x016e	;#0xfff4
+    144c:	6e 01 
+                                              // Clear XT2,DCO fault flags
+      SFRIFG1 &= ~OFIFG;                      // Clear fault flags
+    144e:	b2 f0 fd ff 	and	#-3,	&0x0102	;#0xfffd
+    1452:	02 01 
+    // ACLK=REFO, SMCLK=DCO, MCLK=DCO
+    UCSCTL4 = SELA__REFOCLK | SELS__DCOCLKDIV | SELM__DCOCLKDIV;
+    UCSCTL5 = 0b000 << 8 | 0b010 << 4 | 0b010 << 0;
+
+    // Loop until XT1,XT2 & DCO stabilizes
+    do {
+    1454:	a2 b3 02 01 	bit	#2,	&0x0102	;r3 As==10
+    1458:	f7 23       	jnz	$-16     	;abs 0x1448
+      UCSCTL7 &= ~(XT2OFFG | XT1LFOFFG | DCOFFG);
+                                              // Clear XT2,DCO fault flags
+      SFRIFG1 &= ~OFIFG;                      // Clear fault flags
+    } while (SFRIFG1 & OFIFG);                // Test oscillator fault flag
+
+    UCSCTL4 |= SELA__REFOCLK | SELS__XT2CLK | SELM__XT2CLK;   // SMCLK=MCLK=XT2
+    145a:	b2 d0 55 02 	bis	#597,	&0x0168	;#0x0255
+    145e:	68 01 
+
+#else
+ #warning F_CPU is not a know frequency value, expecting your code to set clock
+#endif
+  }
+    1460:	30 41       	ret			
+
+00001462 <_unexpected_>:
+    1462:	00 13       	reti			
+
+Disassembly of section .vectors:
+
+0000ff80 <__ivtbl_64>:
+    ff80:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12     ................
+    ff90:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12     ................
+    ffa0:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12     ................
+    ffb0:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12     ................
+    ffc0:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12     ................
+    ffd0:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12     ................
+    ffe0:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12     ................
+    fff0:	d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 d0 12 00 10     ................
