@@ -122,6 +122,7 @@ uint16_t CC430I2C::read(uint8_t *buf, uint16_t len, bool stop)
   uint16_t i, res = len;
   uint32_t timeout;
 
+  buf[0] = UCB0RXBUF;                   // Clear UCRXIFG
   UCB0I2CSA = slaveAddress;
   UCB0IFG = 0;                          // Reset interrupt flags
   UCB0CTL1 &= ~UCTR;                    // Receiver mode
@@ -135,8 +136,6 @@ uint16_t CC430I2C::read(uint8_t *buf, uint16_t len, bool stop)
     timeout = I2C_TIMEOUT;
     // Poll for UCRXIFG event to occur    
     while ((!(UCB0IFG & UCRXIFG)) && --timeout);
-    if (!timeout)
-      res = 0;
     buf[i] = UCB0RXBUF;                 // Read byte
   }
 
