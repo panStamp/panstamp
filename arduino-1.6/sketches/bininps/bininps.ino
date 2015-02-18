@@ -103,12 +103,14 @@ const volatile uint8_t *counterPort[] = {&P1IN, &P1IN, &P1IN, &P1IN};  // Counte
 __attribute__((interrupt(PORT1_VECTOR)))
 void port1Change(void)
 {
+  P1IES &= ~PCINTMASK1;
   panstamp.wakeUp();
   pcIRQ = true;
 }
 __attribute__((interrupt(PORT2_VECTOR)))
 void port2Change(void)
 {
+  P2IES &= ~PCINTMASK2;
   panstamp.wakeUp();
   pcIRQ = true;
 }
