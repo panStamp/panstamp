@@ -84,7 +84,10 @@ void REPEATER::packetHandler(SWPACKET *packet)
                 currentTime = millis();
                 // Time stamp not expired?
                 if ((currentTime - transactions[i].timeStamp) < REPEATER_EXPIRATION_TIME)
+                {
                   repeatPacket = false;   //Don't repeat packet
+                  break;
+                }
               }
             }
           }
@@ -113,18 +116,16 @@ void REPEATER::packetHandler(SWPACKET *packet)
  */
 void REPEATER::saveTransaction(SWPACKET *packet)
 {
-  uint8_t i;
-
-  // Move all packets one position forward
-  for(i=REPEATER_TABLE_DEPTH-1 ; i>0 ; i--)
-    transactions[i] = transactions[i-1];
+  static uint8_t transactionIndex = 0;
 
   // Save current transaction in first position
-  transactions[0].timeStamp = millis();         // Current time stamp
-  transactions[0].function = packet->function;  // SWAP function
-  transactions[0].srcAddr = packet->srcAddr;    // Source address
-  transactions[0].nonce = packet->nonce;        // Cyclic nonce
-  transactions[0].regAddr = packet->regAddr;    // Register address
+  transactions[transactionIndex].timeStamp = millis();         // Current time stamp
+  transactions[transactionIndex].function = packet->function;  // SWAP function
+  transactions[transactionIndex].srcAddr = packet->srcAddr;    // Source address
+  transactions[transactionIndex].nonce = packet->nonce;        // Cyclic nonce
+  transactions[transactionIndex].regAddr = packet->regAddr;    // Register address
+   
+  transactionIndex = (transactionIndex + 1) % REPEATER_TABLE_DEPTH;
 }
 
 /**
