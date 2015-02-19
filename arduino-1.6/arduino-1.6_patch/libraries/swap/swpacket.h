@@ -175,9 +175,9 @@ class SWPACKET
      * 
      * Class constructor
      * 
-     * @param packet Raw CC1101 packet
+     * @param packet Pointer to the raw CC1101 packet
      */
-    SWPACKET(CCPACKET packet);
+    SWPACKET(CCPACKET *packet);
 
     /**
      * SWPACKET

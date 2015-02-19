@@ -31,16 +31,16 @@
  * 
  * Class constructor
  * 
- * @param packet Raw CC1101 packet
+ * @param packet Pointer to the raw CC1101 packet
  */
-SWPACKET::SWPACKET(CCPACKET packet) 
+SWPACKET::SWPACKET(CCPACKET *packet) 
 {
   uint8_t i;
    
   // Save raw data and length
-  ccPacket.length = packet.length;
+  ccPacket.length = packet->length;
   for(i=0 ; i<ccPacket.length ; i++)
-    ccPacket.data[i] = packet.data[i];
+    ccPacket.data[i] = packet->data[i];
   
   hop = (ccPacket.data[2] >> 4) & 0x0F;
   security = ccPacket.data[2] & 0x0F;
@@ -73,9 +73,6 @@ SWPACKET::SWPACKET(CCPACKET packet)
     addrType = SWAPADDR_SIMPLE;
     destAddr = ccPacket.data[0];
     srcAddr = ccPacket.data[1];
-    //hop = (ccPacket.data[2] >> 4) & 0x0F;
-    //security = ccPacket.data[2] & 0x0F;
-    //nonce = ccPacket.data[3];
     regAddr = ccPacket.data[5];
     regId = ccPacket.data[6];
   }

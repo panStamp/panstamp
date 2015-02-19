@@ -40,7 +40,10 @@ DEFINE_COMMON_REGINDEX_END()
  */
 void pacKetReceived(CCPACKET *packet)
 {
-  SWPACKET swPacket = SWPACKET(*packet);
+  if (packet->length <= SWAP_DATA_HEAD_LEN)
+    return;
+  
+  SWPACKET swPacket = SWPACKET(packet);
   REGISTER *reg;
   bool eval = true;
 
