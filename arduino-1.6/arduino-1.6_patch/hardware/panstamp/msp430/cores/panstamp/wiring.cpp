@@ -182,6 +182,21 @@ void delayMicroseconds(unsigned int us)
 
 	/* Account for the time taken in the preceeding commands. */
 	us -= 2;
+#elif F_CPU >= 12000000L
+	/* For the 12 MHz clock on most boards */
+
+	/* For a one-microsecond delay, simply return.  the overhead
+	 * of the function call yields a delay of approximately 1 1/8 us. */
+	if (--us == 0)
+		return;
+
+	/* The following loop takes a 1/3 of a microsecond (4 cycles)
+	 * per iteration, so execute it four times for each microsecond of
+	 * delay requested. */
+	us <<= 1 + us; // x3 us;
+
+	/* Account for the time taken in the preceeding commands. */
+	us -= 2;
 #else
 	/* For the 1 MHz */
 

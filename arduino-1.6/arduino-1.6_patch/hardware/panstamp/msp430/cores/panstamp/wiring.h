@@ -156,7 +156,7 @@ extern const uint16_t digital_pin_to_analog_in[];
 #define portInputRegister(P)   ( (volatile uint8_t *)( port_to_input[P]) )
 #define portPMReg(P)           ( (volatile uint8_t *)( port_to_pmap[P]) )
 
-// wiring.c
+// wiring.cpp
 void delay(uint32_t milliseconds);
 void sleep(uint32_t milliseconds);
 void sleepSeconds(uint32_t seconds);
@@ -166,16 +166,19 @@ uint32_t millis(void);
 void disableWatchDog();
 void enableWatchDog();
 
-// wiring_digital.c
+// wiring_digital.cpp
 void pinMode(uint8_t pin, uint8_t mode);
 uint8_t digitalRead(uint8_t pin);
 void digitalWrite(uint8_t pin, uint8_t state);
 
-// wiring_analog.c
+// wiring_analog.cpp
 uint16_t analogRead(uint8_t pin);
 void analogReference(uint16_t ref);
 void analogWrite(uint8_t pin, uint16_t val);
 void analogFrequency(uint16_t freq);
+
+// wirong_pulse.cpp
+unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
 
 /**
  * Macros
