@@ -2,6 +2,18 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.20 - Release on 26-feb-2015
+----------------------------------------
+1. Folders renamed to Arduino 1.6
+2. NRG I2C now clears the Rx buffer before reading
+3. Interrupts fixed in bininps for NRG
+4. CCPACKET object passed as a pointer to the SWPACKET constructor
+5. Improved packet handling in SWAP library
+6. saveTransaction optimized in SWAP's REPEATER class
+7. LED pin initialized for AVR in simpletest
+8. wiring_pulse.cpp added to NRG cores
+9. delayMicroseconds adjusted for NRG at F_CPU >= 12000000
+
 VERSION 0.19 - Release on 9-feb-2015
 ----------------------------------------
 1. regRepeaterConfig created again in binouts2 to avoid breaking the
