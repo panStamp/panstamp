@@ -27,7 +27,7 @@
  * Counter module
  *
  * Description:
- * PANSTAMP_AVR
+ * PANSTAMP_NRG
  * Pulse counter on Digital pin 1 (pin 22)
  * PANSTAMP_AVR
  * Pulse counter on INT1 (pin 18)
