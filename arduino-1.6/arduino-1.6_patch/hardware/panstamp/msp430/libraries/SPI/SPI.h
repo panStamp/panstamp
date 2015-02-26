@@ -81,6 +81,13 @@ class SPIClass
     inline void end()
     {
     }
+    
+    /**
+     * Not implemented
+     */
+    inline void setClockDivider(uint8_t clockDiv)
+    {
+    }
 };
 
 extern SPIClass SPI;
