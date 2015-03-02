@@ -42,10 +42,12 @@
 #include "thermistor.h"
 
 
+// Uncomment for AVR - Leave commented for NRG (NTC_PIN and NTC_POWER_PIN are already defined in pins.h)
 // Digital output used to power the thermistor circuit
-#define NTC_POWER_PIN         10
+//#define NTC_POWER_PIN         10
 // Analog pin used to read the NTC
-#define NTC_PIN               A1
+//#define NTC_PIN               A1
+
 // Macros
 #define powerThermistorOn()   digitalWrite(NTC_POWER_PIN, HIGH)
 #define powerThermistorOff()  digitalWrite(NTC_POWER_PIN, LOW)
