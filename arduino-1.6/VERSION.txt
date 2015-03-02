@@ -2,7 +2,12 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
-VERSION 0.20 - Release on 26-feb-2015
+VERSION 0.21 - Release on 02-Mar-2015
+----------------------------------------
+1. pulseIn timings adjusted to work for NRG
+2. Preparing IDE for NRG 1.1
+
+VERSION 0.20 - Release on 26-Feb-2015
 ----------------------------------------
 1. Folders renamed to Arduino 1.6
 2. NRG I2C now clears the Rx buffer before reading
@@ -14,7 +19,7 @@ VERSION 0.20 - Release on 26-feb-2015
 8. wiring_pulse.cpp added to NRG cores
 9. delayMicroseconds adjusted for NRG at F_CPU >= 12000000
 
-VERSION 0.19 - Release on 9-feb-2015
+VERSION 0.19 - Release on 9-Feb-2015
 ----------------------------------------
 1. regRepeaterConfig created again in binouts2 to avoid breaking the
    self-incremental register index
