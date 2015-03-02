@@ -3,26 +3,49 @@
 menu.rfloader=Wireless bootloader
 
 ##############################################################
-nrg.name=panStamp NRG w/ cc430f5137
-nrg.build.core=panstamp
-nrg.upload.tool=msp430-gdb
-nrg.upload.protocol=msp430-gdb
-nrg.upload.maximum_size=32640
-nrg.build.mcu=cc430f5137
-nrg.build.f_cpu=12000000L
-nrg.build.variant=panstamp_nrg_1.0
-nrg.build.board=PANSTAMP_NRG
+nrg1.name=panStamp NRG w/ cc430f5137 v.1.1
+nrg1.build.core=panstamp
+nrg1.upload.tool=ti-bsl
+nrg1.upload.protocol=ti-bsl
+nrg1.upload.maximum_size=32640
+nrg1.build.mcu=cc430f5137
+nrg1.build.f_cpu=12000000L
+nrg1.build.variant=panstamp_nrg_1.1
+nrg1.build.board=PANSTAMP_NRG
 
-nrg.ldscript=ldscript
+nrg1.ldscript=ldscript
 
 ## With serial bootloader only
 ##------------------------------------------------------------
-nrg.menu.rfloader.disabled=off
-nrg.menu.rfloader.disabled.ldscript=ldscript
+nrg1.menu.rfloader.disabled=off
+nrg1.menu.rfloader.disabled.ldscript=ldscript
 
 ## With serial and wireless bootloader
 ##------------------------------------------------------------
-nrg.menu.rfloader.enabled=on
-nrg.menu.rfloader.enabled.ldscript=ldscript_rf
+nrg1.menu.rfloader.enabled=on
+nrg1.menu.rfloader.enabled.ldscript=ldscript_rf
+
+##############################################################
+nrg0.name=panStamp NRG w/ cc430f5137 v.1.0
+nrg0.build.core=panstamp
+nrg0.upload.tool=msp430-gdb
+nrg0.upload.protocol=msp430-gdb
+nrg0.upload.maximum_size=32640
+nrg0.build.mcu=cc430f5137
+nrg0.build.f_cpu=12000000L
+nrg0.build.variant=panstamp_nrg_1.0
+nrg0.build.board=PANSTAMP_NRG
+
+nrg0.ldscript=ldscript
+
+## With serial bootloader only
+##------------------------------------------------------------
+nrg0.menu.rfloader.disabled=off
+nrg0.menu.rfloader.disabled.ldscript=ldscript
+
+## With serial and wireless bootloader
+##------------------------------------------------------------
+nrg0.menu.rfloader.enabled=on
+nrg0.menu.rfloader.enabled.ldscript=ldscript_rf
 
 ##############################################################

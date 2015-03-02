@@ -71,11 +71,15 @@ tools.msp430-gdb.upload.params.quiet=
 #tools.msp430-gdb.upload.pattern={cmd.path} -b 38400 -ex 'target remote {serial.port}' -ex 'set debug remote 0' {build.path}/{build.project_name}.elf -ex 'erase' -ex 'load' -ex 'quit'
 tools.msp430-gdb.upload.pattern=java -cp {runtime.ide.path}/app/GdbLoader/ GdbLoader {cmd.path} {build.path}/{build.project_name}.elf {serial.port}
 
+tools.rf2500.upload.params.verbose=
+tools.rf2500.upload.params.quiet=
 tools.rf2500.cmd.path={runtime.ide.path}/hardware/tools/msp430/bin/mspdebug
 tools.rf2500.upload.pattern={cmd.path} rf2500 'prog {build.path}/{build.project_name}.hex'
 
-tools.ti-bsl.cmd.path={runtime.ide.path}/app/BsLoader/build/classes/bsloader/ BsLoader
-tools.ti-bsl.upload.pattern=java -cp {cmd.path} "{build.path}/{build.project_name}.hex" "{serial.port}" "--verbose-off"
+tools.ti-bsl.upload.params.verbose=--verbose-on
+tools.ti-bsl.upload.params.quiet=--verbose-off
+tools.ti-bsl.cmd.path={runtime.ide.path}/app/BsLoader/dist/BsLoader.jar
+tools.ti-bsl.upload.pattern=java -jar "{cmd.path}" "{build.path}/{build.project_name}.hex" "{serial.port}" "--verif-off" "{upload.verbose}"
 
 # USB Default Flags
 # Default blank usb manufacturer will be filled it at compile time
