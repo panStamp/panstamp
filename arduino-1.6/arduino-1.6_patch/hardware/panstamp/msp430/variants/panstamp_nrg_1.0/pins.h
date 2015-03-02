@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014 panStamp <contact@panstamp.com>
+ * Copyright (c) 2015 panStamp <contact@panstamp.com>
  * 
  * This file is part of the panStamp project.
  * 
@@ -86,7 +86,10 @@ static const uint8_t A11 = 128 + 11; // special. This is Vcc/2
 #define INIT_ACC_POWER()     P3DIR |= BIT7; P3OUT &= ~BIT7
 // Preferred analog pin to measure battery voltage
 #define BATT_VOLT_PIN   A0
-
+// NTC power pin
+#define NTC_POWER_PIN   10
+// NTC ADC pin
+#define NTC_PIN    A1
 // ADC resolution
 #define ADC_RESOLUTION  0xFFF
 
