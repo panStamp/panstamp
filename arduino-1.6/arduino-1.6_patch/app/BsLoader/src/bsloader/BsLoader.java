@@ -45,9 +45,10 @@ public class BsLoader
    * 
    * @param buildPath Path to the firmware image (hex file)
    * @param strPort Name or path of the serial port
+   * @param verif Verify image
    * @param verbose Print serial traffic if true
    */
-  public BsLoader(String buildPath, String strPort, boolean verbose)
+  public BsLoader(String buildPath, String strPort, boolean verif, boolean verbose)
   {
     hexFilePath = buildPath;
     int tries = 3;
@@ -85,15 +86,21 @@ public class BsLoader
             if (writeImage())
             {
               System.out.println("OK");
-              // Verify firmware image from flash
-              System.out.println("Verifying data from main flash...");
-              if (verifImage())
+              
+              if (verif)
               {
-                System.out.println("OK");
-                success = true;
+                // Verify firmware image from flash
+                System.out.println("Verifying data from main flash...");
+                if (verifImage())
+                {
+                  System.out.println("OK");
+                  success = true;
+                }
+                else
+                  System.out.println("ERROR");
               }
               else
-                System.out.println("ERROR");
+                success = true;
             }
             else
               System.out.println("ERROR");
@@ -208,16 +215,15 @@ public class BsLoader
    */
   public static void main(String [ ] args)
   {
-    String args0 = "/home/daniel/Documents/firmware/simpletest.hex";
-    String args1 = "/dev/ttyUSB0";
-    String args2 = "--verbose-off";
-
     boolean verbose = false;
+    boolean verif = false;
     
-    if (args2.equals("--verbose-on"))
+    if (args[2].equals("--verif-on"))
+      verif = true;
+    
+    if (args[3].equals("--verbose-on"))
       verbose = true;
-    
-    //BsLoader uploader = new BsLoader(args[0], args[1]);
-    BsLoader uploader = new BsLoader(args0, args1, verbose);   
+        
+    BsLoader uploader = new BsLoader(args[0], args[1], verif, verbose);   
   }
 }

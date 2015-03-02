@@ -336,9 +336,7 @@ public class BslUart
       if(event.isRXCHAR())
       {
         int len = event.getEventValue();
-        
-        //System.out.print("Bytes received : " + len + " : ");
-        
+               
         try
         {
           byte[] buffer = serialPort.readBytes(len);

@@ -137,7 +137,6 @@ public class BslConnection
     sendCommand(command);
     
     // check reply from BSL
-    //return checkReply();
     return true;
   }
 
@@ -235,12 +234,13 @@ public class BslConnection
    * @param address Starting address for the data write
    * @param data data buffer to be written. Maximum length = 250 bytes
    * @param length Amount of bytes to be written
+   * @param fast true if data has to be written in FAST READ BLOCK mode
    * 
    * @return True if command successes
    * 
    * @throws bsloader.BslException
    */
-  public boolean writeFlash(long address, byte[] data, int length) throws BslException
+  public boolean writeFlash(long address, byte[] data, int length, boolean fast) throws BslException
   {
     byte highAddr = (byte)(address >> 16);
     byte midAddr = (byte)(address >> 8);
@@ -248,7 +248,10 @@ public class BslConnection
        
     byte[] command = new byte[length + 4];
 
-    command[0] = CMD_RX_DATA_BLOCK;
+    if (fast)
+      command[0] = CMD_RX_DATA_BLOCK_FAST;
+    else
+      command[0] = CMD_RX_DATA_BLOCK;
     command[1] = lowAddr;
     command[2] = midAddr;
     command[3] = highAddr;
@@ -260,10 +263,47 @@ public class BslConnection
     // Transmit command to BSL
     sendCommand(command);
     
-    // check reply from BSL
-    return checkReply();
+    if (fast)
+      return checkAck();
+    else
+    {
+      // check reply from BSL
+      return checkReply();
+    }
   }
 
+   /**
+   * Write data block into main flash at a given address
+   * 
+   * @param address Starting address for the data write
+   * @param data data buffer to be written. Maximum length = 250 bytes
+   * @param length Amount of bytes to be written
+   * 
+   * @return True if command successes
+   * 
+   * @throws bsloader.BslException
+   */
+  public boolean writeFlash(long address, byte[] data, int length) throws BslException
+  {
+    return writeFlash(address, data, length, false);
+  }
+  
+   /**
+   * Write data block into main flash at a given address in fast mode
+   * 
+   * @param address Starting address for the data write
+   * @param data data buffer to be written. Maximum length = 250 bytes
+   * @param length Amount of bytes to be written
+   * 
+   * @return True if command successes
+   * 
+   * @throws bsloader.BslException
+   */
+  public boolean writeFlashFast(long address, byte[] data, int length) throws BslException
+  {
+    return writeFlash(address, data, length, true);
+  }
+  
   /**
    * Read data block from main flash
    * 
@@ -434,6 +474,25 @@ public class BslConnection
         if (reply[1] == BSL_OK)
           return true;
       }
+    }
+    
+    return false;
+  }
+ 
+  /**
+   * Check Ack received from BSL
+   * 
+   * @return True in case of ACK received
+   */
+  private boolean checkAck() throws BslException
+  {
+    // Read reply from BSL
+    byte[] reply = readReply();
+    
+    if (reply.length == 1)
+    {
+      if (reply[0] == BSL_OK)
+        return true;
     }
     
     return false;
