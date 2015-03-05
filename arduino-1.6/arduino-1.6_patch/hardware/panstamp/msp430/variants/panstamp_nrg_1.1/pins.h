@@ -100,9 +100,9 @@ static const uint8_t A11 = 128 + 11; // special. This is Vcc/2
 //   (PWM) (D18) P3.2  4|           |21  P1.2 (SPI_MISO) (D2) (PWM)
 //         (D15) P2.7  5|           |20  P1.3 (SPI_SCK) (D3) (PWM)
 //         (D14) P2.6  6|           |19  P1.4 (I2C_SDA) (D4) (PWM)
-//               GND   7|           |18  P1.5 (I2C_SCL) (D5) (PWM)
+//               GND   7|           |18  P1.7 (I2C_SCL) (D5) (PWM)
 //      (D12/A4) P2.4  8|           |17  P1.6 (UART_TX) (D6)
-//      (D11/A3) P2.3  9|           |16  P1.7 (UART_RX) (D7)
+//      (D11/A3) P2.3  9|           |16  P1.5 (UART_RX) (D7)
 //      (D10/A2) P2.2 10|           |15  GND
 //       (D9/A1) P2.1 11|           |14  VCC
 //       (D8/A0) P2.0 12|           |13  RST
@@ -199,9 +199,9 @@ const uint8_t digital_pin_to_timer[] = {
 	T0A1,         /* P1.2 */
 	T0A2,         /* P1.3 */
 	T0A3,         /* P1.4 */
-	NOT_ON_TIMER, /* P1.5 */
-	NOT_ON_TIMER, /* P1.6 */
 	T0A4,         /* P1.7 */
+	NOT_ON_TIMER, /* P1.6 */
+	NOT_ON_TIMER, /* P1.5 */
 	NOT_ON_TIMER, /* P2.0 */
 	NOT_ON_TIMER, /* P2.1 */
 	NOT_ON_TIMER, /* P2.2 */
@@ -224,9 +224,9 @@ const uint8_t digital_pin_to_port[] = {
 	P1,           /* P1.2 */
 	P1,           /* P1.3 */
 	P1,           /* P1.4 */
-	P1,           /* P1.5 */
-	P1,           /* P1.6 */
 	P1,           /* P1.7 */
+	P1,           /* P1.6 */
+	P1,           /* P1.5 */
 	P2,           /* P2.0 */
 	P2,           /* P2.1 */
 	P2,           /* P2.2 */
@@ -274,9 +274,9 @@ const uint16_t digital_pin_to_analog_in[] = {
 	NOT_ON_ADC,   /* P1.2 */
 	NOT_ON_ADC,   /* P1.3 */
 	NOT_ON_ADC,   /* P1.4 */
-	NOT_ON_ADC,   /* P1.5 */
-	NOT_ON_ADC,   /* P1.6 */
 	NOT_ON_ADC,   /* P1.7 */
+	NOT_ON_ADC,   /* P1.6 */
+	NOT_ON_ADC,   /* P1.5 */
 	0,            /* P2.0 */
 	1,            /* P2.1 */
 	2,            /* P2.2 */
