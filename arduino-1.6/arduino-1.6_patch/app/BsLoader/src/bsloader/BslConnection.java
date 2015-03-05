@@ -229,6 +229,33 @@ public class BslConnection
   }
 
   /**
+   * Get buffer size from BSL
+   * This command is currently not being supported by CC430's BSL
+   * 
+   * @throws bsloader.BslException
+   * 
+   * @return buffer size in bytes
+   */
+  public int getBufferSize() throws BslException
+  {
+    int res;
+    byte[] command = {CMD_TX_BUFFER_SIZE};   
+    
+    // Transmit command to BSL
+    sendCommand(command);
+    
+    // Read reply from BSL
+    byte[] reply = readReply();
+
+    if (reply[0] == BSL_DATA_BLOCK)
+    {
+      res = reply[2] << 8 | reply[1];
+    }
+    
+    return 0;
+  }
+ 
+  /**
    * Write data block into main flash at a given address
    * 
    * @param address Starting address for the data write
@@ -257,7 +284,7 @@ public class BslConnection
     command[3] = highAddr;
     
     int i;
-    for(i=0 ; i<data.length ; i++)
+    for(i=0 ; i<length ; i++)
       command[i+4] = data[i];
     
     // Transmit command to BSL

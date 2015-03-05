@@ -77,13 +77,13 @@ public class BsLoader
           if (bsl.unlock())
           {
             System.out.println("OK");                       
-
-            System.out.println("Switching to 38400 bps");
-            bsl.enterHighSpeed();
             
+            System.out.println("Switching to 38400 bps...");
+            bsl.enterHighSpeed();
+                       
             // Write firmware image
             System.out.println("Writing data into main flash...");
-            if (writeImage())
+            if (writeImageFast())
             {
               System.out.println("OK");
               
@@ -169,6 +169,53 @@ public class BsLoader
   }
 
   /**
+   * Load firmware image (.hex) into target board running BSL
+   * 
+   * @return true if image is successfully loaded
+   */
+  public boolean writeImageFast() throws BslException
+  {
+    int length = 0;
+    int address = -1;
+    byte[] data = new byte[248];
+    int nbOfLines = 0;
+    
+    HexFile hexFile = new HexFile(hexFilePath);
+    
+    int i;
+    for (HexLine line : hexFile.hexLines)
+    {          
+      if (line.type == 0)
+      {
+        if (address == -1)
+          address = line.address;
+      
+        nbOfLines++;
+        for (byte  b: line.data)
+          data[length++] = b;           
+        
+        // Send up to 15 lines from the HEX file per packet
+        if (nbOfLines == 15)
+        {
+          nbOfLines = 0;
+          if (!bsl.writeFlash(address, data, length))
+            return false;
+
+          length = 0;
+          address = -1;              
+        }
+      }
+    }
+    if (nbOfLines > 0)
+    {
+      if (!bsl.writeFlash(address, data, length))
+        return false;           
+    }
+    
+    return true;
+  }
+  
+  /**
    * Verify loaded image against HEX file
    * 
    * @return true if image is successfully verified
@@ -223,7 +270,7 @@ public class BsLoader
     
     if (args[3].equals("--verbose-on"))
       verbose = true;
-        
-    BsLoader uploader = new BsLoader(args[0], args[1], verif, verbose);   
+
+    BsLoader uploader = new BsLoader(args[0], args[1], verif, verbose);
   }
 }
