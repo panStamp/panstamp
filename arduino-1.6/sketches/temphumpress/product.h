@@ -32,27 +32,27 @@
 /**
  * Hardware version
  */
-#define HARDWARE_VERSION        0x00000200
+#define HARDWARE_VERSION        0x00000200L
 
 /**
  * Firmware version
  */
-#define FIRMWARE_VERSION        0x00000101
+#define FIRMWARE_VERSION        0x00000101L
 
 /**
  * Manufacturer SWAP ID
  */
-#define SWAP_MANUFACT_ID        0x00000001
+#define SWAP_MANUFACT_ID        0x00000001L
 
 /**
  * Product SWAP ID
  */
 #ifdef TEMPHUM
-#define SWAP_PRODUCT_ID         0x00000001
+#define SWAP_PRODUCT_ID         0x00000001L
 #elif TEMP
-#define SWAP_PRODUCT_ID         0x00000004
+#define SWAP_PRODUCT_ID         0x00000004L
 #elif TEMPPRESS
-#define SWAP_PRODUCT_ID         0x00000005
+#define SWAP_PRODUCT_ID         0x00000005L
 #endif
 
 #endif
