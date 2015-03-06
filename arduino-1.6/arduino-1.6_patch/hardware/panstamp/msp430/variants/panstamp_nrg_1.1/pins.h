@@ -27,6 +27,8 @@
 
 #include <stdint.h>
 
+#define __NRG_VERSION_1_1__  1
+
 // Enable pseudo-pin interrupts on P3
 #define __ENABLE_P3_PIN_INTERRUPTS__  1
 
