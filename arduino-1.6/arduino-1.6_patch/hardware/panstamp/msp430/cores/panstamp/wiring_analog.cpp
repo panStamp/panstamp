@@ -79,6 +79,13 @@ uint16_t analogRead(uint8_t pin)
     bit = digitalPinToBitMask(pin);
     port = digitalPinToPort(pin);
 
+    // Map pin as analog input
+    volatile uint8_t *map = digitalPinToPortMap(pin);
+    PMAPPWD = 0x02D52;
+    *map = PM_ANALOG;
+    PMAPPWD = 0;
+    
+    // Select alternate function
     volatile uint8_t *sel = portSelRegister(port);
     *sel |= bit;
     
