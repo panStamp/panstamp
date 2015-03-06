@@ -25,7 +25,6 @@
 #include "cc430core.h"
 #include "cc430x513x.h"
 
-
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -54,8 +53,9 @@ void CC430CORE::setLowPowerMode(bool lpm4)
 
   // Configure ports as binary I/O's
   P1SEL = 0;
-  P2SEL = 0;
+  //P2SEL = 0;
   
+  #ifdef __NRG_VERSION_1_0__
   // Current hardware version (1.0) uses P3.6 to detect interrupts from
   // the on-board accelerometer. For this application, P3.6 is configured
   // as a timer capture input to simulate pin interrupts.
@@ -63,15 +63,22 @@ void CC430CORE::setLowPowerMode(bool lpm4)
   // In future hardware revisions, a pin supporting true pin interrupts
   // should be used instead.
   P3SEL &= BIT6;
-  P3DIR |= portSelection[3] & ~BIT6;
+  P3DIR |= portSelection[2] & ~BIT6;
+  #else
+  P3DIR |= portSelection[2];
+  #endif
     
   // I2C lines remain high to not to sink current through
   // I2C pull-up resistors
+  #ifdef __NRG_VERSION_1_1__
+  P1OUT |= 0x90;
+  #elif __NRG_VERSION_1_0__
   P1OUT |= 0x30;
+  #endif
  
   // Configure ports working as alternative functions as outputs
   P1DIR |= portSelection[0];
-  P2DIR |= portSelection[1];
+  //P2DIR |= portSelection[1];
 
   // Enter lowest power VCore level and MCLK = 1 MHz
   _SET_VCORE_1MHZ(0);
