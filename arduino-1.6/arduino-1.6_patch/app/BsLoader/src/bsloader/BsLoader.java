@@ -39,6 +39,21 @@ public class BsLoader
    * Path to the HEX file
    */
   String hexFilePath;
+    
+  /**
+   * Path to the serial port
+   */
+  String serPortPath;
+  
+  /**
+   * Verification flag
+   */
+  boolean verify;
+  
+  /**
+   * Verbose flag
+   */
+  boolean verbose;
   
   /**
    * Class constructor
@@ -51,6 +66,18 @@ public class BsLoader
   public BsLoader(String buildPath, String strPort, boolean verif, boolean verbose)
   {
     hexFilePath = buildPath;
+    serPortPath = strPort;
+    verify = verif;
+    this.verbose = verbose;    
+  }
+ 
+ /**
+   * Run firmware loading process
+   * 
+   * @return true if process completes successfully. Return false otherwise
+   */
+  public boolean load()
+  {   
     int tries = 3;
     boolean tryAgain = true;
     boolean success = false;
@@ -64,7 +91,7 @@ public class BsLoader
       {
         // Connect
         System.out.println("Connecting to target board");
-        bsl = new BslConnection(buildPath, strPort, verbose);
+        bsl = new BslConnection(hexFilePath, serPortPath, verbose);
            
         // Mass erase (main + info flash)
         System.out.println("Erasing main flash...");
@@ -87,7 +114,7 @@ public class BsLoader
             {
               System.out.println("OK");
               
-              if (verif)
+              if (verify)
               {
                 // Verify firmware image from flash
                 System.out.println("Verifying data from main flash...");
@@ -133,10 +160,7 @@ public class BsLoader
         {
           // Close connection
           System.out.println("Closing connection with BSL...");
-          bsl.close();
-          
-          if (success)
-            System.out.println("\nNew image uploaded successfully");
+          bsl.close();         
         }
         catch (BslException ex)
         {
@@ -144,8 +168,13 @@ public class BsLoader
         }
       }
     }
+    
+    if (success)
+      System.out.println("\nNew image uploaded successfully");
+    
+    return success;
   }
- 
+  
   /**
    * Load firmware image (.hex) into target board running BSL
    * 
@@ -271,6 +300,12 @@ public class BsLoader
     if (args[3].equals("--verbose-on"))
       verbose = true;
 
-    BsLoader uploader = new BsLoader(args[0], args[1], verif, verbose);
+    BsLoader uploader = new BsLoader(args[0], args[1], verif, verbose);    
+    boolean res = uploader.load();
+
+    if (res)
+      System.exit(0);
+    else
+      System.exit(-1);
   }
 }
