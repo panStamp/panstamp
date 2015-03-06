@@ -195,7 +195,7 @@ public class BsLoader
           data[length++] = b;           
         
         // Send up to 15 lines from the HEX file per packet
-        if (nbOfLines == 15)
+        if (nbOfLines == 6)
         {
           nbOfLines = 0;
           if (!bsl.writeFlash(address, data, length))

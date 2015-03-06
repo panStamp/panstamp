@@ -184,7 +184,7 @@ public class BslConnection
    */
   public void enterHighSpeed() throws BslException
   {
-    setSpeed(38400);
+    setSpeed(57600);
     
     uart.setHighSpeed();
   }

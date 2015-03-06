@@ -109,7 +109,7 @@ public class BslUart
   {
     try
     {
-      serialPort.setParams(SerialPort.BAUDRATE_38400, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_EVEN, true, false);
+      serialPort.setParams(SerialPort.BAUDRATE_57600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_EVEN, true, false);
     }
     catch (SerialPortException ex)
     {
@@ -246,7 +246,7 @@ public class BslUart
       sleep(1);
       elapsedTime = System.currentTimeMillis() - startTime;
       
-      if (elapsedTime == 100)
+      if (elapsedTime == 1000)
         throw new BslException("No response received from BSL");
     }
 
