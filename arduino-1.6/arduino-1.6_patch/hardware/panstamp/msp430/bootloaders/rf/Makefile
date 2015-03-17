@@ -1,7 +1,9 @@
 
 # Configure serial port and path to the toolchain, acording to your settings
 SERPORT = /dev/ttyUSB1
-TOOLCHAIN = ~/applications/arduino-1.5.6-r2/hardware/tools/msp430/bin/msp430-
+ARDUINO_ROOT = ~/applications/arduino-1.6.1/
+TOOLCHAIN = $(ARDUINO_ROOT)/hardware/tools/msp430/bin/msp430-
+JAVA_BSL = $(ARDUINO_ROOT)/app/BsLoader/dist/BsLoader.jar
 
 MCU = cc430f5137
 SRCS ?= rfloader.cpp cc430radio.cpp rf1a.cpp pmm.cpp swap.cpp
@@ -48,3 +50,6 @@ clean:
 
 gdb-flash:
 	$(TOOLCHAIN)gdb -b 38400 -ex 'set debug remote 0' -ex 'target remote $(SERPORT)' $(PROG).elf -ex 'erase' -ex 'load' -ex 'quit'
+
+bsl-flash:
+java -jar $(JAVA_BSL) $(PROG).elf.hex $(SERPORT) --verif-off --verbose-on
