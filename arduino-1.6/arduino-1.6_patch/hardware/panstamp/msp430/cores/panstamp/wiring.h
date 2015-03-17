@@ -180,6 +180,13 @@ void analogFrequency(uint16_t freq);
 // wirong_pulse.cpp
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
 
+// wiring_shift.cpp
+void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val);
+uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
+
+// Logarithm
+#define log  logf
+
 /**
  * Macros
  */
