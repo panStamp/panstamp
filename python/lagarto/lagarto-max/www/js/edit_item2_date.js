@@ -19,7 +19,7 @@ function fillDate(item2)
 	var fldDay = document.getElementById("day");
 
 	for(i=1 ; i<=9 ; i++)
-		fldDay.options[i-1] = new Option("0" + i, i);
+		fldDay.options[i-1] = new Option("0" + i, "0" + i);
 	for(i=10 ; i<=31 ; i++)
 		fldDay.options[i-1] = new Option(i, i);
 

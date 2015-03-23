@@ -15,7 +15,7 @@ function createValues()
   statementType = document.getElementById("type").value;
 
   statement = ["clock", "time", "==" , "00:00"];
-  loadJSONdata("/command/get_event/?id=" + eventId, updateValues);  
+  loadJSONdata("/command/get_event?id=" + eventId, updateValues);  
 
   document.getElementById("source").value = statement[0];
 }

@@ -263,7 +263,7 @@ class EvnManager(LagartoBroker):
                     linenb = params["linenb"]
                     event.set_line(params["line"], linenb, params["type"])
                     event.save()
-                    return "edit_event.html"
+                    return "edit_event.html?id=" + params["id"]
     
             elif command == "delete_event_line":
                 if "id" in params:
@@ -271,7 +271,7 @@ class EvnManager(LagartoBroker):
                     linenb = params["linenb"]
                     event.delete_line(linenb)
                     event.save()
-                    return "edit_event.html"
+                    return "edit_event.html?id=" + params["id"]
     
             elif command == "edit_db_table":
                 self.database.edit_table(params["name"], params["endpoints"].split(','), params["interval"])

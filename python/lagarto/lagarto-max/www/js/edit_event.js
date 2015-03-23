@@ -3,14 +3,14 @@
 var eventId = getUrlVars()["id"];
 
 if ("linenb" in getUrlVars())
-  window.location = window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/edit_event.html/?id=" + eventId;
+  window.location = window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/edit_event.html?id=" + eventId;
 
 /**
  * Create table fields
  */
 function createValues()
 {
-  loadJSONdata("/command/get_event/?id=" + eventId, updateValues);
+  loadJSONdata("/command/get_event?id=" + eventId, updateValues);
 }
 
 /**
@@ -101,7 +101,7 @@ function insertRow(table, line, lineNb, statement)
   cell.className = "cellaction";
   // Delete statement
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/command/delete_event_line/?id=" + eventId + "&linenb=" + lineNb);
+  cfglink.setAttribute("href", "/command/delete_event_line?id=" + eventId + "&linenb=" + lineNb);
   cfglink.onclick = function() {return confirm("Delete line?");};
   cfglink.setAttribute("alt", "delete");
   cfglink.style.pointer = "cursor";
@@ -114,7 +114,7 @@ function insertRow(table, line, lineNb, statement)
   cell = row.insertCell(2);
   cell.className = "cellaction";
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/edit_" + statement + ".html/?id=" + eventId + "&linenb=" + lineNb);
+  cfglink.setAttribute("href", "/edit_" + statement + ".html?id=" + eventId + "&linenb=" + lineNb);
   cell.appendChild(cfglink);
   img = document.createElement("img");
   img.setAttribute("src","/lagarto/images/edit.png");
@@ -127,7 +127,7 @@ function insertRow(table, line, lineNb, statement)
  */
 function newTrigger()
 {
-  window.location.href = "/edit_trigger.html/?id=" + eventId + "&linenb=0";
+  window.location.href = "/edit_trigger.html?id=" + eventId + "&linenb=0";
 }
 
 /**
@@ -135,7 +135,7 @@ function newTrigger()
  */
 function newCondition()
 {
-  window.location.href = "/edit_condition.html/?id=" + eventId + "&linenb=0";
+  window.location.href = "/edit_condition.html?id=" + eventId + "&linenb=0";
 }
 
 /**
@@ -143,6 +143,6 @@ function newCondition()
  */
 function newAction()
 {
-  window.location.href = "/edit_action.html/?id=" + eventId + "&linenb=0";
+  window.location.href = "/edit_action.html?id=" + eventId + "&linenb=0";
 }
 

@@ -32,7 +32,7 @@ function addEvent(event)
   cell.className = "cellaction";
   // Delete event
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/command/delete_event/?id=" + event.id);
+  cfglink.setAttribute("href", "/command/delete_event?id=" + event.id);
   cfglink.onclick = function() {return confirm("Delete event?");};
   cfglink.setAttribute("alt", "delete");
   cfglink.style.pointer = "cursor";
@@ -45,7 +45,7 @@ function addEvent(event)
   cell = row.insertCell(2);
   cell.className = "cellaction";
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/edit_event.html/?id=" + event.id);
+  cfglink.setAttribute("href", "/edit_event.html?id=" + event.id);
   cell.appendChild(cfglink);
   img = document.createElement("img");
   img.setAttribute("src","/lagarto/images/edit.png");
