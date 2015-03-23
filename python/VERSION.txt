@@ -2,6 +2,11 @@
 Python applications for panStamp
 -----------------------------------------------------
 
+VERSION 2.5 - Release on 23-Mar-2015
+----------------------------------------
+1. lagarto-max event manager (GUI) fixed after integrating with Cherrypy
+2. Macros callable from swapdmt-cmd command line argument
+
 VERSION 2.4 - Release on 28-Jan-2015
 ----------------------------------------
 1. Update flag enabled from swapdmt-cmd/config/settings.xml
