@@ -52,4 +52,4 @@ gdb-flash:
 	$(TOOLCHAIN)gdb -b 38400 -ex 'set debug remote 0' -ex 'target remote $(SERPORT)' $(PROG).elf -ex 'erase' -ex 'load' -ex 'quit'
 
 bsl-flash:
-java -jar $(JAVA_BSL) $(PROG).elf.hex $(SERPORT) --verif-off --verbose-on
+	java -jar $(JAVA_BSL) $(PROG).hex $(SERPORT) --verif-off --verbose-on

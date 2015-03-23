@@ -33,8 +33,19 @@
 #include "swap.h"
 
 /**
+ * Uncomment only in case of using GDB bootloader
+ */
+//#define GDB_SERIAL_BOOT
+ 
+/**
+ * Default product code
+ */
+uint8_t DEFAULT_PRODUCT_CODE[] = {0,0,0,1,0xFF,0,0,0};
+/**
  * SWAP status packets
  */
+// Transmit SWAP product code
+#define TRANSMIT_SWAP_STATUS_PCODE(state)     swap.sendPacket((uint8_t)SWAPFUNCT_STA, (uint8_t)REGI_PRODUCTCODE, DEFAULT_PRODUCT_CODE, sizeof(DEFAULT_PRODUCT_CODE))
 // Transmit SWAP state
 #define TRANSMIT_SWAP_STATUS_STATE(state)     swap.sendPacketVal((uint8_t)SWAPFUNCT_STA, (uint8_t)REGI_SYSSTATE, state)
 // Query product code from node with address 1

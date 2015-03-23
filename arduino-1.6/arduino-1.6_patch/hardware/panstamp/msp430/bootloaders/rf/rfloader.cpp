@@ -142,6 +142,10 @@ int main(void)
   // Init SWAP comms
   swap.init();
 
+  // Transmit default product code only if no user application is still flashed
+  if (userCodeAddr == 0xFFFF)
+    TRANSMIT_SWAP_STATUS_PCODE();
+
   // Enter upgrade mode
   state = (uint8_t)SYSTATE_UPGRADE;
   TRANSMIT_SWAP_STATUS_STATE(state);
@@ -248,20 +252,21 @@ int main(void)
         lineNumber++;
       }
       else  // Probably end of file
-      {       
+      {
         // Erase the vector table segment
         flash.eraseSegment((uint8_t *) VECTOR_TABLE_SEGMENT);
 
         // Replace their reset vector with our bootloader address
         // this allows the user to provide their own interrupt vectors
         // however, the gdb boot code still runs first
-
+        #ifdef GDB_SERIAL_BOOT
         isrTable[7][0x0E] = 0x00;   // Serial bootloader address = 0x1000
         isrTable[7][0x0F] = 0x10;
 
         isrTable[3][0x0E] = 0x00;   // Wireless bootloader address = 0x8000
         isrTable[3][0x0F] = 0x80;
-
+        #endif
+        
         isrTable[3][0x0C] = 0x00;   // User code address = 0x9000
         isrTable[3][0x0D] = 0x90;
 
