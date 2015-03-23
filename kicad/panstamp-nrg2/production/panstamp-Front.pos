@@ -1,0 +1,29 @@
+### Module positions - created on Wed 11 Feb 2015 11:53:31 AM CET ###
+### Printed by Pcbnew version kicad (2014-jul-16 BZR unknown)-product
+## Unit = mm, Angle = deg.
+## Side : Front
+# Ref    Val                  Package         PosX       PosY        Rot     Side
+C1       10u              mysmd:SM0603S      11.0500     5.1000     270.0    Front
+C2       1u               mysmd:SM0603S      12.6600     5.1000     270.0    Front
+C4       100n             mysmd:SM0603S      14.2700     5.1000     270.0    Front
+C5       100n             mysmd:SM0603S      13.4400    13.1800       0.0    Front
+C6       100n             mysmd:SM0603S       2.2182    17.4826      90.0    Front
+C9       10n              mysmd:SM0603S      13.4400    11.5600       0.0    Front
+C10      2p               mysmd:SM0603S       3.6900    17.4800      90.0    Front
+C11      100n             mysmd:SM0603S      11.0700    17.4800      90.0    Front
+C13      100n             mysmd:SM0603S       2.2200     8.3100      90.0    Front
+C14      10u              mysmd:SM0603S       2.2200    11.3500     270.0    Front
+C15      470nF            mysmd:SM0603S       9.4500     5.1000      90.0    Front
+C16      12p              mysmd:SM0603S      13.4400    18.6400     180.0    Front
+C17      12p              mysmd:SM0603S      13.4400    14.7600       0.0    Front
+L1       600R/200mA       mysmd:SM0603S       2.2200    14.4400      90.0    Front
+L2       600R/200mA       mysmd:SM0603S       2.2200     5.0900      90.0    Front
+LED1     LED              mysmd:SM0603S_PO   13.4400     8.2600     180.0    Front
+R1       1k               mysmd:SM0603S      13.4400     9.8700       0.0    Front
+R3       56k(1%)          mysmd:SM0603S       5.1900    17.4800      90.0    Front
+R4       47k              mysmd:SM0603S      10.2200     2.5700     180.0    Front
+RS1      32.768KHz        mysmd:EPSON_F-13    5.0800     4.1600     270.0    Front
+U1       CC430F5137       mysmd:VQFN48        7.4300    11.5000      90.0    Front
+U2       BALUN+FILTER     mysmd:JTI_Balun     7.0200    18.1700     270.0    Front
+X1       26MHz            mysmd:FCX-162      13.4200    16.7100     180.0    Front
+## End

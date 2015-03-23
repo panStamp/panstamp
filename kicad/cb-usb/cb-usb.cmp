@@ -1,0 +1,171 @@
+Cmp-Mod V01 Created by Cvpcb (2014-jul-16 BZR unknown)-product   date = Mon 16 Mar 2015 03:50:16 PM CET
+
+BeginCmp
+TimeStamp = /4CCA7974;
+Reference = C1;
+ValeurCmp = 15p;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CCA7963;
+Reference = C2;
+ValeurCmp = 15p;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC05BEA;
+Reference = C3;
+ValeurCmp = 4.7u;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC05BEB;
+Reference = C4;
+ValeurCmp = 1u;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC05BEC;
+Reference = C5;
+ValeurCmp = 100n;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54F98C38;
+Reference = C6;
+ValeurCmp = 100n;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CCA9E1F;
+Reference = C7;
+ValeurCmp = 4.7u;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CCA9E22;
+Reference = C8;
+ValeurCmp = 1u;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CCA954A;
+Reference = C9;
+ValeurCmp = 1u;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CCA9DDF;
+Reference = C10;
+ValeurCmp = 100n;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC057A3;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = mysmd:SM0603S_POL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC05810;
+Reference = D3;
+ValeurCmp = LED;
+IdModule  = mysmd:SM0603S_POL;
+EndCmp
+
+BeginCmp
+TimeStamp = /505A4562;
+Reference = F1;
+ValeurCmp = PTC 500mA;
+IdModule  = libcms:SM0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /54EC7ECC;
+Reference = P1;
+ValeurCmp = CONN_01X14;
+IdModule  = pinhead:pinhead-1X12;
+EndCmp
+
+BeginCmp
+TimeStamp = /54EC8043;
+Reference = P2;
+ValeurCmp = CONN_01X14;
+IdModule  = pinhead:pinhead-1X12;
+EndCmp
+
+BeginCmp
+TimeStamp = /54ECAC2B;
+Reference = P3;
+ValeurCmp = CONN_01X05;
+IdModule  = mysmd:microUSB_female;
+EndCmp
+
+BeginCmp
+TimeStamp = /54EC5610;
+Reference = PS1;
+ValeurCmp = PANSTAMP_NRG2;
+IdModule  = mysmd:PANSTAMP_2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC057A4;
+Reference = R2;
+ValeurCmp = 1k;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC0580F;
+Reference = R3;
+ValeurCmp = 1k;
+IdModule  = mysmd:SM0603S;
+EndCmp
+
+BeginCmp
+TimeStamp = /54F9FBAA;
+Reference = SW1;
+ValeurCmp = SW_PUSH_SMALL;
+IdModule  = mysmd:switch-tact-noah;
+EndCmp
+
+BeginCmp
+TimeStamp = /54EC9A4F;
+Reference = U1;
+ValeurCmp = ANTENNA;
+IdModule  = mysmd:SMD_SMA_SPECIAL;
+EndCmp
+
+BeginCmp
+TimeStamp = /4CC05399;
+Reference = U2;
+ValeurCmp = FT232RL;
+IdModule  = ftdi:ftdichip-3-SSOP28DB;
+EndCmp
+
+BeginCmp
+TimeStamp = /5506EEE4;
+Reference = U3;
+ValeurCmp = AP7365-33;
+IdModule  = libcms:SOT23-5;
+EndCmp
+
+BeginCmp
+TimeStamp = /54F983B0;
+Reference = U4;
+ValeurCmp = LY-SK10;
+IdModule  = LY-SK10;
+EndCmp
+
+EndListe

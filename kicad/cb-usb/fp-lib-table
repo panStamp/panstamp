@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name mysmd)(type KiCad)(uri /home/daniel/development/kicad/modules/mysmd.pretty)(options "")(descr ""))
+)
