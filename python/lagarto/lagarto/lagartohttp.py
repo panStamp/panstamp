@@ -63,7 +63,7 @@ class LagartoHttpServer(threading.Thread):
                     raise cherrypy.HTTPRedirect("../lagarto/command_ok.html")
                 elif res == False:
                     raise cherrypy.HTTPRedirect("../lagarto/command_nok.html")
-                elif type(res) == str:
+                elif type(res) in [str, unicode]:
                     raise cherrypy.HTTPRedirect("../" + res)
                 else:
                     cherrypy.response.headers['Content-Type'] = "application/json"
