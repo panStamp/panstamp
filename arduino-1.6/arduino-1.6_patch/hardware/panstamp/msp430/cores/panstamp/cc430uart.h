@@ -57,6 +57,16 @@ class CC430UART
     void begin(uint32_t baud);
 
     /**
+     * end
+     * 
+     * Close UART port
+     */
+    inline void end(void)
+    {
+      UCA0IE &= ~UCRXIE;    // Disable Rx interrupt
+    }
+
+    /**
      * write
      * 
      * Send single byte

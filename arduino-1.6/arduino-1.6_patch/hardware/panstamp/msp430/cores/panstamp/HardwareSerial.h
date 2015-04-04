@@ -102,6 +102,16 @@ class HardwareSerial : public Stream
      * @return amount of bytes in the FIFO
      */
     int available(void);
+
+    /**
+     * end
+     * 
+     * Close serial port
+     */
+    inline void end(void)
+    {
+      uart.end();  
+    }
     
     // Not implemented methods
     int peek(void);
