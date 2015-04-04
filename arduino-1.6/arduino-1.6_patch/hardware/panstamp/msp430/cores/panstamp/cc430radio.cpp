@@ -77,6 +77,10 @@ void CC430RADIO::init(uint8_t freq)
   // Set transmission power
   WritePATable(paTableByte);
 
+  // Clear interrupt flags
+  MRFI_CLEAR_SYNC_PIN_INT_FLAG();
+  MRFI_CLEAR_GDO0_INT_FLAG();
+  
   // Enter RX state
   setRxOnState();
 }
