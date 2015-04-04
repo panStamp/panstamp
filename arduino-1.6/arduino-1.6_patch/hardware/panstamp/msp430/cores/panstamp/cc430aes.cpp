@@ -74,7 +74,7 @@ void CC430AES::aesCrypto(uint8_t *data, uint8_t len)
 /**
  * ctrCrypto
  *
- * Apply AES-128 cryptographic algorithm togheter with TR cipher method
+ * Apply AES-128 cryptographic algorithm along with CTR cipher method
  *
  * @param data Data buffer to be encrypted/decrypted
  * @param len size of data in bytes.
