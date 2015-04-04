@@ -80,9 +80,6 @@ void setup()
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
 
-  // Init panStamp
-  //panstamp.init(CFREQ_868);  // Not necessary unless you want a different frequency
-
   // Init SWAP stack
   swap.init();
   
@@ -110,6 +107,8 @@ void setup()
   // Switch to Rx OFF state
   swap.enterSystemState(SYSTATE_RXOFF);
 
+  pinMode(1, INPUT);
+  
   // Enable INT1 Interrupt
   ENABLE_PIN_IRQ();
 }
