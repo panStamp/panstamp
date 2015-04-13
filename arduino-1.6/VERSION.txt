@@ -2,6 +2,18 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERSION 0.24 - Release on 13-Apr-2015
+----------------------------------------
+1. basicradio sample sketch fixed
+2. pulsecounter sample sketch fixed to initialize input pin
+3. NRG's CC430RADIO::init() fixed to initialize RF interrupts correctly
+4. NRG's UART end method added to the UART classes
+5. basicradio and pulsecounter sample sketches fixed
+6. Calendar and alarm functions added to class CC430RTC
+7. WakeUp() now called at the end of the sleep() function
+8. New bininps2 sample sketch
+9. Timer2 counter now reseted in AVRRTC::setup_rtc
+
 VERSION 0.23b - Release on 23-Mar-2015
 ----------------------------------------
 1. SWAP bootloader adapted for BSL
