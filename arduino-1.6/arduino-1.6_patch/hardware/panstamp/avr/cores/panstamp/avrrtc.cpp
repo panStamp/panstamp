@@ -49,12 +49,7 @@ void AVRRTC::wakeUp(void)
   // Enable ADC
   ADCSRA |= (1 << ADEN);
   
-  // If 32.768 KHz crystal enabled
-//  if (rtcCrystal)
-//  {
-    // Disable timer2A overflow interrupt
-    TIMSK2 = 0x00;
-//  }
+  TIMSK2 = 0x00;
 }
 
 /**
@@ -113,6 +108,7 @@ void AVRRTC::setup_rtc(uint8_t time)
   // Set timer 2 to asyncronous mode (32.768KHz crystal)
   ASSR = (1 << AS2);
 
+  TCNT2 = 0;      // Reset count
   TCCR2A = 0x00;  // Normal port operation
   // (256 cycles) * (prescaler) / (32.768KHz clock speed) = N sec
   TCCR2B = time;  // Timer 2 prescaler
