@@ -68,10 +68,8 @@
 byte dtBinInputs[2];    // Binary input states
 byte dtCounters[16];    // Pulse counters
 
-/**
- * Pin Change Interrupt flag. 0=no change, 1=binary only change, 2=counter change
- */
-volatile byte pcIRQ = 0;
+// RTC data
+RTCDATA rtcData;
 
 /**
  * Input Change Interrupts
@@ -80,49 +78,41 @@ volatile byte pcIRQ = 0;
 void d0irq(void)
 {
   dtBinInputs[0] |= digitalRead(0);        // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D1
 void d1irq(void)
 {
   dtBinInputs[0] |= digitalRead(1) << 1;   // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D2
 void d2irq(void)
 {
   dtBinInputs[0] |= digitalRead(2)  << 2;  // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D3
 void d3irq(void)
 {
   dtBinInputs[0] |= digitalRead(3) << 3;   // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D4
 void d4irq(void)
 {
   dtBinInputs[0] |= digitalRead(4) << 4;   // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D5
 void d5irq(void)
 {
   dtBinInputs[0] |= digitalRead(5) << 5;   // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D6
 void d6irq(void)
 {
   dtBinInputs[0] |= digitalRead(6) << 6;   // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D7
 void d7irq(void)
 {
   dtBinInputs[0] |= digitalRead(7) << 7;   // Update register
-  pcIRQ = 1;                               // Notify event
 }
 // D8
 void d8irq(void)
@@ -130,7 +120,6 @@ void d8irq(void)
   dtBinInputs[1] |= digitalRead(8);        // Update register
   if (!(dtBinInputs[1] & 0x01))
     dtCounters[0]++;                       // Increment counter if pin is low
-  pcIRQ = 2;                               // Notify event
 }
 // D9
 void d9irq(void)
@@ -138,7 +127,6 @@ void d9irq(void)
   dtBinInputs[1] |= digitalRead(9) << 1;   // Update register
   if (!(dtBinInputs[1] & 0x02))
     dtCounters[1]++;                       // Increment counter if pin is low
-  pcIRQ = 2;                               // Notify event
 }
 // D10
 void d10irq(void)
@@ -146,7 +134,6 @@ void d10irq(void)
   dtBinInputs[1] |= digitalRead(10) << 2;  // Update register
   if (!(dtBinInputs[1] & 0x04))
     dtCounters[2]++;                       // Increment counter if pin is low
-  pcIRQ = 2;                               // Notify event
 }
 // D11
 void d11irq(void)
@@ -154,7 +141,6 @@ void d11irq(void)
   dtBinInputs[1] |= digitalRead(11) << 3;  // Update register
   if (!(dtBinInputs[1] & 0x08))
     dtCounters[3]++;                       // Increment counter if pin is low
-  pcIRQ = 2;                               // Notify event
 }
 
 /**
@@ -209,7 +195,6 @@ void updateValues(void)
     dtBinInputs[1] |= digitalRead(i+8) << i;
 }
 
-RTCDATA rtcData;
 /**
  * setup
  *
