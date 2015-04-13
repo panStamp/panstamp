@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014 panStamp <contact@panstamp.com>
+ * Copyright (c) 2015 panStamp <contact@panstamp.com>
  * 
  * This file is part of the panStamp project.
  * 
@@ -55,28 +55,6 @@
 #define RTC_VLO_CYCLES_1SEC                10000UL
 
 
-#define RTC_ENABLE_ALARM()                 (RTCCTL0 |= RTCAIE)
-#define RTC_SET_CALENDAR_MODE()            (RTCCTL1 |= RTCMODE)
-
-#define RTC_SET_YEAR(year)                 RTCYEARH = year >> 8 ; RTCYEARL = year & 0xFF
-#define RTC_SET_MONTH(month)               (RTCMON = month)  // 1 to 12
-#define RTC_SET_DAY(day)                   (RTCDAY = day)    // 1 to 31
-#define RTC_SET_DOW(dow)                   (RTCDOW = dow)    // 0 to 6
-#define RTC_SET_HOUR(hour)                 (RTCHOUR = hour)  // 0 to 23
-#define RTC_SET_MIN(min)                   (RTCMIN = min)    // 0 to 59
-#define RTC_SET_SEC(sec)                   (RTCSEC = sec)    // 0 to 59
-
-#define RTC_SET_DAY_ALARM(day)             (RTCADAY |= (day & 0x1F))
-#define RTC_SET_DOW_ALARM(dow)             (RTCADOW |= (dow & 0x07))
-#define RTC_SET_HOUR_ALARM(hour)           (RTCAHOUR |= (hour & 0x1F))
-#define RTC_SET_MIN_ALARM(min)             (RTCAMIN |= (min & 0x3F))
-
-#define RTC_ENABLE_DAY_ALARM()             (RTCADAY |= 0x80)
-#define RTC_ENABLE_DOW_ALARM()             (RTCADOW |= 0x80)
-#define RTC_ENABLE_HOUR_ALARM()            (RTCAHOUR |= 0x80)
-#define RTC_ENABLE_MIN_ALARM()             (RTCAMIN |= 0x80)
-
-
 /**
  * rtcISR
  * 
@@ -85,11 +63,19 @@
 __attribute__((interrupt(RTC_VECTOR)))
 void rtcISR(void)
 {
-  RTC_ACK_ISR();
-  RTC_STOP_COUNTER();
-  RTC_RESET_COUNTER(); 
+    RTC_ACK_ISR();
+    RTC_STOP_COUNTER();
+    RTC_RESET_COUNTER(); 
 
-  __bic_SR_register_on_exit(LPM3_bits);  // clears the bits corresponding to LPM3 and exits the low power mode
+  __bic_SR_register_on_exit(LPM3_bits);
+}
+
+/**
+ * Class constructor
+ */
+CC430RTC::CC430RTC(void)
+{
+  calendarIsRunning = false;
 }
 
 /**
@@ -134,74 +120,34 @@ void CC430RTC::sleep(uint16_t time, RTCSRC source)
   // ZZZZZZZ....
 
   panstamp.core.setNormalMode();      // Exit low-power mode and enable WDT
-
-  //enableWatchDog();                   // Enable WDT again
 }
 
 /**
- * sleepUntil
+ * startCalendar
  * 
- * Put panStamp into Power-down state until the RTC alarm is triggered
- * Here the RTC module is used in calendar mode and hexadecimal format
- * This function uses RTC connected to an external 32.768KHz crystal
- * in order to exit (interrupt) from the power-down state
+ * Start RTC module in calendar mode
  * 
- * @param day Day of month (1 to 31)
- * @param dow Day of week (0 to 6)
- * @param hour Hour (0 to 23)
- * @param min Minutes day (0 to 59)
+ * @param rtcData pointer to struct containing date, time and alarm information
  */
-void CC430RTC::sleepUntil(char day, char dow, char hour, char min) 
+void CC430RTC::startCalendar(RTCDATA* rtcData) 
 {
-  if ((day < 0) && (dow < 0) && (hour < 0) && (min < 0))
-    return;
-
+  calendarIsRunning = true;
+  
   RTC_SET_ACLK_XT1();                 // Connect ACLK to 32.768 KHz crystal
+ 
+  // Enable calendar mode and RTC alarm
+  RTCCTL01 |= RTCMODE | RTCAIE;
+  
+  RTCA_STOP();
 
-  disableWatchDog();                  // Stop WDT
-
-  if (day > 0)
-  {
-    RTC_SET_DAY_ALARM(day);
-    RTC_ENABLE_DAY_ALARM();
-  }
-  else if (dow > 0)
-  {
-    RTC_SET_DOW_ALARM(dow);
-    RTC_ENABLE_DOW_ALARM();
-  }
-
-  if (hour > 0)
-  {
-    RTC_SET_HOUR_ALARM(hour);
-    RTC_ENABLE_HOUR_ALARM();
-  }
-
-  if (min > 0)
-  {
-    RTC_SET_MIN_ALARM(min);
-    RTC_ENABLE_MIN_ALARM();
-  }
-
-  RTC_SET_CALENDAR_MODE();            // RTC set to calendar mode
-  RTC_ENABLE_ALARM();                 // Enable RTC alarm
-  RTC_ISR_ENABLE();                   // Enable RTC interrupt
-
-  __bis_SR_register(LPM3_bits + GIE); // Enter LPM3 with interrupts
-
-  enableWatchDog();                   // Enable WDT again
+  // Set current date / time
+  RTC_SET_YEAR(rtcData->year);
+  RTC_SET_MONTH(rtcData->mon);
+  RTC_SET_DAY(rtcData->day);
+  RTC_SET_DOW(rtcData->wday);
+  RTC_SET_HOUR(rtcData->hour);
+  RTC_SET_MIN(rtcData->min);
+  RTC_SET_SEC(rtcData->sec);
+  
+  RTCA_START();
 }
-
-/**
- * setTime
- *
- * Set current date/time
- *
- * @param year Year (1 to 4095)
- * @param mon Month (1 to 12)
- * @param day Day of month (1 to 31)
- * @param dow Day of week (0 to 6)
- * @param hour Hour (0 to 23)
- * @param min Minutes day (0 to 59)
- * @param sec Seconds (0 to 59)
- */

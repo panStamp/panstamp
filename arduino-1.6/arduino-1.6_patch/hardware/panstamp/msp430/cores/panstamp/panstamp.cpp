@@ -148,8 +148,14 @@ void PANSTAMP::sleep(void)
   // Power down radio
   radio.setPowerDownState();
   
-  // Enter LPM4
-  core.setLowPowerMode(true);
+  // If RTC calendar is running
+  if (rtc.calendarIsRunning)
+    core.setLowPowerMode();        // Enter LPM3
+  else
+    core.setLowPowerMode(true);    // Enter LPM4
+  
+  // Wake-up
+  wakeUp();
 }
 
 /**

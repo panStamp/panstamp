@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014 panStamp <contact@panstamp.com>
+ * Copyright (c) 2015 panStamp <contact@panstamp.com>
  * 
  * This file is part of the panStamp project.
  * 
@@ -27,6 +27,64 @@
 
 #include "wiring.h"
 
+struct RTCDATA
+{
+  public:
+    /**
+     * Current year
+     */
+    uint16_t year;
+
+    /**
+     * Current month (1 to 12)
+     */
+    uint8_t mon;
+
+    /**
+     * Current month day (1 to 31)
+     */
+    uint8_t day;
+    
+    /**
+     * Current week day (0 to 6)
+     */
+    uint8_t wday;
+    
+    /**
+     * Current hour (0 to 23)
+     */
+    uint8_t hour;
+    
+    /**
+     * Current minute (0 to 59)
+     */
+    uint8_t min;
+    
+    /**
+     * Current second (0 to 59)
+     */
+    uint8_t sec;
+};
+
+/**
+ * Macros
+ */
+#define RTCA_STOP()		                     (RTCCTL01 |=  RTCHOLD)
+#define RTCA_START()		                   (RTCCTL01 &= ~RTCHOLD)
+
+#define RTC_SET_YEAR(year)                 (RTCYEAR = year)
+#define RTC_SET_MONTH(month)               (RTCMON = month)  // 1 to 12
+#define RTC_SET_DAY(day)                   (RTCDAY = day)    // 1 to 31
+#define RTC_SET_DOW(dow)                   (RTCDOW = dow)    // 0 to 6
+#define RTC_SET_HOUR(hour)                 (RTCHOUR = hour)  // 0 to 23
+#define RTC_SET_MIN(min)                   (RTCMIN = min)    // 0 to 59
+#define RTC_SET_SEC(sec)                   (RTCSEC = sec)    // 0 to 59
+
+#define RTC_SET_DAY_ALARM(day)             (RTCADAY = (day & 0x1F) | 0x80)
+#define RTC_SET_DOW_ALARM(dow)             (RTCADOW = (dow & 0x07) | 0x80)
+#define RTC_SET_HOUR_ALARM(hour)           (RTCAHOUR = (hour & 0x1F) | 0x80)
+#define RTC_SET_MIN_ALARM(min)             (RTCAMIN = (min & 0x3F) | 0x80)
+
 /**
  * RTC clock sources
  */
@@ -46,6 +104,16 @@ class CC430RTC
 {
   public:
     /**
+     * Calendar flag. Set to true when calendar is running
+     */
+     bool calendarIsRunning;
+
+    /**
+     * Class constructor
+     */
+    CC430RTC(void);
+
+    /**
      * sleep
      * 
      * Put panStamp into Power-down state during "time".
@@ -58,19 +126,86 @@ class CC430RTC
     void sleep(uint16_t time, RTCSRC source=RTCSRC_XT1);
 
     /**
-     * sleepUntil
+     * disableAlarm
      * 
-     * Put panStamp into Power-down state until the RTC alarm is triggered
-     * Here the RTC module is used in calendar mode and hexadecimal format
-     * This function uses RTC connected to an external 32.768KHz crystal
-     * in order to exit (interrupt) from the power-down state
+     * Enable RTC alarm
+     */
+    inline void disableAlarm(void)
+    {
+      RTCADOW &= 0x7F;
+      RTCADAY &= 0x7F;
+      RTCAHOUR &= 0x7F;
+      RTCAMIN  &= 0x7F;
+      RTCCTL01 &= ~RTCAIE;
+    }
+
+    /**
+     * startCalendar
+     * 
+     * Start RTC module in calendar mode
+     * 
+     * @param rtcData pointer to struct containing date, time and alarm information
+     */
+    void startCalendar(RTCDATA* rtcData);
+    
+    /**
+     * stopCalendar
+     * 
+     * Stop RTC module in calendar mode
+     */
+    inline void stopCalendar(void)
+    {
+      calendarIsRunning = false;
+      RTCA_STOP();
+    }
+    
+    /**
+     * setAlarmDayOfMonth
+     * 
+     * Set RTC alarm - Day of month
      * 
      * @param day Day of month (1 to 31)
+     */
+    inline void setAlarmDayOfMonth(uint8_t day) 
+    {
+      RTC_SET_DAY_ALARM(day);
+    }
+    
+    /**
+     * setAlarmDayOfWeek
+     * 
+     * Set RTC alarm - Day of week
+     * 
      * @param dow Day of week (0 to 6)
+     */
+    inline void setAlarmDayOfWeek(uint8_t dow) 
+    {
+      RTC_SET_DOW_ALARM(dow);
+    }
+    
+    /**
+     * setAlarmHour
+     * 
+     * Set RTC alarm - Hour
+     * 
      * @param hour Hour (0 to 23)
+     */
+    inline void setAlarmHour(uint8_t hour) 
+    {
+      RTC_SET_HOUR_ALARM(hour);
+    }
+    
+    /**
+     * setAlarmMinutes
+     * 
+     * Set RTC alarm - Minutes
+     * 
      * @param min Minutes day (0 to 59)
      */
-    void sleepUntil(char day=-1, char dow=-1, char hour=-1, char min=-1);
+    inline void setAlarmMinutes(uint8_t min) 
+    {
+      RTC_SET_MIN_ALARM(min);
+    }
 };
 
 #endif
