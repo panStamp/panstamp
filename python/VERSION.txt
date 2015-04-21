@@ -2,6 +2,13 @@
 Python applications for panStamp
 -----------------------------------------------------
 
+VERSION 2.6 - Release on 21-Apr-2015
+----------------------------------------
+1. lagarto-max database and graph panels fixed
+2. lagarto.py starting script fixed to launch processes from lagarto/
+3. Better AT response handling by pyswap after software reset
+4. New /etc/init script (panstamp.sh) for Raspbian
+
 VERSION 2.5 - Release on 23-Mar-2015
 ----------------------------------------
 1. lagarto-max event manager (GUI) fixed after integrating with Cherrypy
