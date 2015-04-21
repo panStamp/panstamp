@@ -48,7 +48,7 @@ function addTable(tableName, table)
   cell.className = "cellaction";
   // Delete table
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/command/delete_db_table/?name=" + tableName);
+  cfglink.setAttribute("href", "/command/delete_db_table?name=" + tableName);
   cfglink.onclick = function() {return confirm("Delete table?");};
   cfglink.setAttribute("alt", "delete");
   cfglink.style.pointer = "cursor";
@@ -60,7 +60,7 @@ function addTable(tableName, table)
   // Edit event
   cell.className = "cellaction";
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/edit_db_table.html/?name=" + tableName);
+  cfglink.setAttribute("href", "/edit_db_table.html?name=" + tableName);
   cell.appendChild(cfglink);
   img = document.createElement("img");
   img.setAttribute("src","/lagarto/images/edit.png");

@@ -23,7 +23,7 @@ function addGraph(graphName, graph)
   // Link to the graph page
   cell = row.insertCell(0);
   graphlink = document.createElement("a");
-  graphlink.setAttribute("href", "/show_graph.html/?name=" + graphName);
+  graphlink.setAttribute("href", "/show_graph.html?name=" + graphName);
   cell.appendChild(graphlink);
   // Graph name
   cell.className = "cellitem";
@@ -41,7 +41,7 @@ function addGraph(graphName, graph)
   cell.className = "cellaction";
   // Delete graph
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/command/delete_graph/?name=" + graphName);
+  cfglink.setAttribute("href", "/command/delete_graph?name=" + graphName);
   cfglink.onclick = function() {return confirm("Delete graph?");};
   cfglink.setAttribute("alt", "delete");
   cfglink.style.pointer = "cursor";
@@ -53,7 +53,7 @@ function addGraph(graphName, graph)
   // Edit graph
   cell.className = "cellaction";
   cfglink = document.createElement("a");
-  cfglink.setAttribute("href", "/edit_graph.html/?name=" + graphName);
+  cfglink.setAttribute("href", "/edit_graph.html?name=" + graphName);
   cell.appendChild(cfglink);
   img = document.createElement("img");
   img.setAttribute("src","/lagarto/images/edit.png");
