@@ -55,9 +55,13 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)
 
     current_dir = os.path.dirname(sys.argv[0])
-
-    lagarto_max = current_dir + os.sep + "lagarto-max" + os.sep + "lagarto-max.py"
-    lagarto_swap = current_dir + os.sep + "lagarto-swap" + os.sep + "lagarto-swap.py"
+    
+    if current_dir == "":
+        lagarto_max = "lagarto-max" + os.sep + "lagarto-max.py"
+        lagarto_swap = "lagarto-swap" + os.sep + "lagarto-swap.py"
+    else:
+        lagarto_max = current_dir + os.sep + "lagarto-max" + os.sep + "lagarto-max.py"
+        lagarto_swap = current_dir + os.sep + "lagarto-swap" + os.sep + "lagarto-swap.py"
     
     print "lagarto version " + __version__ + " (" + __date__ + ")"
     
