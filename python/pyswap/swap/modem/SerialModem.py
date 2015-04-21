@@ -59,7 +59,7 @@ class SerialModem:
         the SerialPort object
         
         @param buf: Serial packet received in String format
-        """
+        """        
         # If modem in command mode
         if self._sermode == SerialModem.Mode.COMMAND:
             self._atresponse = buf
@@ -136,13 +136,15 @@ class SerialModem:
         # Switch to command mode if necessary
         if self._sermode == SerialModem.Mode.DATA:
             self.goToCommandMode()
+        
+        # Default state after reset
+        self._sermode = SerialModem.Mode.DATA
         # Run AT command
         response = self.runAtCommand("ATZ\r")
         if response is None:
             return False
         
-        if response[0:2] == "OK":
-            self._sermode = SerialModem.Mode.DATA
+        if "ready" in response or response[0:2] == "OK":
             return True
         
         return False
