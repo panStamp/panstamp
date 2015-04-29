@@ -65,54 +65,59 @@ class SwapParam:
             raise SwapException("Register not specified for current endpoint")
             return
 
-        # Current register value converted to list
-        lstRegVal = self.register.value.toList()
-        # Total bits to be copied
-        indexReg = self.bytePos
-        shiftReg = 7 - self.bitPos
-        bitsToCopy = self.byteSize * 8 + self.bitSize
-        # Current parameter value in list format
-        lstParamVal = self.value.toList()
-
-        if len(lstParamVal) == 0:
-            return
-
-        # Keep old value
-        oldParamVal = self.value.clone()
-        indexParam = 0
-        shiftParam = self.bitSize - 1
-
-        if shiftParam < 0:
-            shiftParam = 7
-        for i in range(bitsToCopy):
-            if indexReg >= len(lstRegVal):
-                break            
-            if (lstRegVal[indexReg] >> shiftReg) & 0x01 == 0:
-                mask = ~(1 << shiftParam)
-                lstParamVal[indexParam] &= mask
-            else:
-                mask = 1 << shiftParam
-                lstParamVal[indexParam] |= mask
-
-            shiftReg -= 1
-            shiftParam -= 1
-
-            # Register byte over?
-            if shiftReg < 0:
-                indexReg += 1
-                shiftReg = 7
-
-            # Parameter byte over?
+        # This is a particular case: endpoint is an ASCII string taking all the
+        # register space
+        if self.type == SwapType.STRING:
+            self.value = self.register.value
+        else:
+            # Current register value converted to list
+            lstRegVal = self.register.value.toList()
+            # Total bits to be copied
+            indexReg = self.bytePos
+            shiftReg = 7 - self.bitPos
+            bitsToCopy = self.byteSize * 8 + self.bitSize
+            # Current parameter value in list format
+            lstParamVal = self.value.toList()
+    
+            if len(lstParamVal) == 0:
+                return
+    
+            # Keep old value
+            oldParamVal = self.value.clone()
+            indexParam = 0
+            shiftParam = self.bitSize - 1
+    
             if shiftParam < 0:
-                indexParam += 1
                 shiftParam = 7
-
-        # Did the value change?
-        if not self.value.isEqual(oldParamVal):
-            self.valueChanged = True
-            
-        # Update time stamp
-        self.lastupdate = time.time()
+            for i in range(bitsToCopy):
+                if indexReg >= len(lstRegVal):
+                    break            
+                if (lstRegVal[indexReg] >> shiftReg) & 0x01 == 0:
+                    mask = ~(1 << shiftParam)
+                    lstParamVal[indexParam] &= mask
+                else:
+                    mask = 1 << shiftParam
+                    lstParamVal[indexParam] |= mask
+    
+                shiftReg -= 1
+                shiftParam -= 1
+    
+                # Register byte over?
+                if shiftReg < 0:
+                    indexReg += 1
+                    shiftReg = 7
+    
+                # Parameter byte over?
+                if shiftParam < 0:
+                    indexParam += 1
+                    shiftParam = 7
+    
+            # Did the value change?
+            if not self.value.isEqual(oldParamVal):
+                self.valueChanged = True
+                
+            # Update time stamp
+            self.lastupdate = time.time()
 
 
     def setValue(self, value):
@@ -344,83 +349,88 @@ class SwapEndpoint(SwapParam):
         
         @return Expected SWAP status response to be received from the mote
         """
-        # Convert to SwapValue
-        if value.__class__ is SwapValue:
-            swap_value = value
+        # This is a particular case: endpoint is an ASCII string taking all the
+        # register space
+        if self.type == SwapType.STRING and type(value) in [str, unicode]:
+            lstRegVal = value
         else:
-            # Byte length
-            length = self.byteSize
-            if self.bitSize > 0:
-                length += 1
-                
-            if type(value) is list:
-                res = value
-            elif type(value) in [str, unicode]:
-                if self.type == SwapType.NUMBER:
-                    try:
-                        # Possible integer number
-                        res = int(value)
-                    except ValueError:
-                        try:
-                            # Possible float number
-                            res = float(value)
-                        except ValueError:
-                            raise SwapException(value + " is not a valid numeric value for " + self.name)
-                elif self.type == SwapType.BINARY:
-                    if value.lower() in ["on", "open", "1", "true", "enabled"]:
-                        res = 1
-                    else:
-                        res = 0
-                else:   # SwapType.STRING
+            # Convert to SwapValue
+            if value.__class__ is SwapValue:
+                swap_value = value
+            else:
+                # Byte length
+                length = self.byteSize
+                if self.bitSize > 0:
+                    length += 1
+                    
+                if type(value) is list:
                     res = value
-            else:
-                res = value
-                
-            if type(res) in [int, float]:
-                if self.unit is not None:
-                    res -= self.unit.offset
-                    res /= self.unit.factor
-                    # Take integer part only
-                    res = math.modf(res)
-                
-            swap_value = SwapValue(res, length)
-
-        # Register value in list format
-        lstRegVal = []
-        lstRegVal[:] = self.register.value.toList()
-        
-        # Build register value
-        indexReg = self.bytePos
-        shiftReg = 7 - self.bitPos
-        # Total bits to be copied from this parameter
-        bitsToCopy = self.byteSize * 8 + self.bitSize
-        # Parameter value in list format
-        lstParamVal = swap_value.toList()
-        indexParam = 0
-        shiftParam = self.bitSize - 1
-        if shiftParam < 0:
-            shiftParam = 7
-
-        for i in range(bitsToCopy):
-            if (lstParamVal[indexParam] >> shiftParam) & 0x01 == 0:
-                mask = ~(1 << shiftReg)
-                lstRegVal[indexReg] &= mask
-            else:
-                mask = 1 << shiftReg
-                lstRegVal[indexReg] |= mask
-
-            shiftReg -= 1
-            shiftParam -= 1
-
-            # Register byte over?
-            if shiftReg < 0:
-                indexReg += 1
-                shiftReg = 7
-
-            # Parameter byte over?
+                elif type(value) in [str, unicode]:
+                    if self.type == SwapType.NUMBER:
+                        try:
+                            # Possible integer number
+                            res = int(value)
+                        except ValueError:
+                            try:
+                                # Possible float number
+                                res = float(value)
+                            except ValueError:
+                                raise SwapException(value + " is not a valid numeric value for " + self.name)
+                    elif self.type == SwapType.BINARY:
+                        if value.lower() in ["on", "open", "1", "true", "enabled"]:
+                            res = 1
+                        else:
+                            res = 0
+                    else:   # SwapType.STRING
+                        res = value
+                else:
+                    res = value
+                    
+                if type(res) in [int, float]:
+                    if self.unit is not None:
+                        res -= self.unit.offset
+                        res /= self.unit.factor
+                        # Take integer part only
+                        res = math.modf(res)
+                    
+                swap_value = SwapValue(res, length)
+    
+            # Register value in list format
+            lstRegVal = []
+            lstRegVal[:] = self.register.value.toList()
+            
+            # Build register value
+            indexReg = self.bytePos
+            shiftReg = 7 - self.bitPos
+            # Total bits to be copied from this parameter
+            bitsToCopy = self.byteSize * 8 + self.bitSize
+            # Parameter value in list format
+            lstParamVal = swap_value.toList()
+            indexParam = 0
+            shiftParam = self.bitSize - 1
             if shiftParam < 0:
-                indexParam += 1
                 shiftParam = 7
+    
+            for i in range(bitsToCopy):
+                if (lstParamVal[indexParam] >> shiftParam) & 0x01 == 0:
+                    mask = ~(1 << shiftReg)
+                    lstRegVal[indexReg] &= mask
+                else:
+                    mask = 1 << shiftReg
+                    lstRegVal[indexReg] |= mask
+    
+                shiftReg -= 1
+                shiftParam -= 1
+    
+                # Register byte over?
+                if shiftReg < 0:
+                    indexReg += 1
+                    shiftReg = 7
+    
+                # Parameter byte over?
+                if shiftParam < 0:
+                    indexParam += 1
+                    shiftParam = 7
         
         
         # Convert to SWapValue

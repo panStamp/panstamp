@@ -126,6 +126,7 @@ class SwapValue(object):
         
         @param str Integer in string format
         """
+        val = 0 
         try:
             val = int(str_int)
         except ValueError:
@@ -134,6 +135,8 @@ class SwapValue(object):
                     val = int(str_int[2:], 16)
                 except ValueError:
                     raise
+            else:
+                raise
                     
         return val
     
