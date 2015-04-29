@@ -351,11 +351,11 @@ class SwapServer(threading.Thread):
                     if reg.id == packet.regId:
                         # Check if value changed and its length
                         if reg.value is not None:
-                            if reg.value.isEqual(packet.value):
-                                return
                             if packet.value is None:
                                 return
                             if reg.getLength() != packet.value.getLength():
+                                return
+                            if reg.value.isEqual(packet.value):
                                 return
 
                         # Save new register value
