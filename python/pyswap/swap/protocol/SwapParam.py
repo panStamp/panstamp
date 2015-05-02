@@ -65,6 +65,9 @@ class SwapParam:
             raise SwapException("Register not specified for current endpoint")
             return
 
+        # Keep old value
+        oldParamVal = self.value.clone()
+        
         # This is a particular case: endpoint is an ASCII string taking all the
         # register space
         if self.type == SwapType.STRING:
@@ -82,8 +85,6 @@ class SwapParam:
             if len(lstParamVal) == 0:
                 return
     
-            # Keep old value
-            oldParamVal = self.value.clone()
             indexParam = 0
             shiftParam = self.bitSize - 1
     
@@ -112,12 +113,12 @@ class SwapParam:
                     indexParam += 1
                     shiftParam = 7
     
-            # Did the value change?
-            if not self.value.isEqual(oldParamVal):
-                self.valueChanged = True
-                
-            # Update time stamp
-            self.lastupdate = time.time()
+        # Did the value change?
+        if not self.value.isEqual(oldParamVal):
+            self.valueChanged = True
+            
+        # Update time stamp
+        self.lastupdate = time.time()
 
 
     def setValue(self, value):
