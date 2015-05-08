@@ -59,6 +59,10 @@ class XmlLagarto(object):
             broadcast = comms.find("broadcast")
             if broadcast is not None:
                 self.broadcast = broadcast.text
+            # Publish condition
+            publish = comms.find("publish")
+            if publish is not None:
+                self.publish = publish.text
             # Read http port
             httpport = comms.find("httpport")        
             if httpport is not None:
@@ -79,6 +83,8 @@ class XmlLagarto(object):
                 f.write("\t\t<address>" + self.address + "</address>\n")
             if self.broadcast is not None:
                 f.write("\t\t<broadcast>" + self.broadcast + "</broadcast>\n")
+            if self.publish is not None:
+                f.write("\t\t<publish>" + self.publish + "</publish>\n")
             if self.httpport is not None:
                 f.write("\t\t<httpport>" + str(self.httpport) + "</httpport>\n")
             f.write("\t</comms>\n")
@@ -102,6 +108,9 @@ class XmlLagarto(object):
                 
         ## Broadcast address
         self.broadcast = None
+        
+        ## Publish condition. Publish on event by default
+        self.publish = "event"
         
         ## HTTP server port
         self.httpport = None

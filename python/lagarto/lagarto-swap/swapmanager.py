@@ -31,8 +31,9 @@ import sys
 
 working_dir = os.path.dirname(__file__)
 lagarto_dir = os.path.split(working_dir)[0]
-#panstamp_dir = os.path.split(working_dir)[0]
+config_dir = os.path.join(working_dir, "config")
 lagarto_lagarto_dir = os.path.join(lagarto_dir, "lagarto")
+config_dir = os.path.join(working_dir, "config")
 sys.path.append(lagarto_lagarto_dir) 
 
 from swap.SwapInterface import SwapInterface
@@ -43,7 +44,8 @@ from swap.xmltools.XmlSerial import XmlSerial
 from swap.xmltools.XmlNetwork import XmlNetwork
 
 from lagartocomms import LagartoServer
-from lagartoresources import LagartoException 
+from lagartoresources import LagartoException
+from lagartoconfig import XmlLagarto
 
 
 class SwapManager(SwapInterface, LagartoServer):
@@ -119,7 +121,7 @@ class SwapManager(SwapInterface, LagartoServer):
         # For every endpoint contained in this register
         for endp in register.parameters:
             strval = endp.getValueInAscii()
-            if endp.valueChanged:
+            if self.lagarto_config.publish == "always" or (self.lagarto_config.publish == "event" and endp.valueChanged):
                 if self._print_swap:
                     if endp.unit is not None:
                         strval += " " + endp.unit.name
@@ -420,3 +422,6 @@ class SwapManager(SwapInterface, LagartoServer):
 
         if XmlSettings.debug == 2:
             self._print_swap = True
+            
+        self.lagarto_config = XmlLagarto(os.path.join(config_dir, "lagarto.xml"))
+        
