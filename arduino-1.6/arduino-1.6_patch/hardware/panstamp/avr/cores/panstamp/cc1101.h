@@ -51,6 +51,10 @@ enum RFSTATE
   RFSTATE_TX
 };
 
+/**
+ * Working modes
+ */
+#define MODE_LOW_SPEED  0x01  // RF speed = 4800 bps (default is 38 Kbps)
 
 /**
  * Frequency channels
@@ -235,7 +239,8 @@ enum RFSTATE
 #define CC1101_DEFVAL_FREQ1_433  0xA7        // Frequency Control Word, Middle Byte
 #define CC1101_DEFVAL_FREQ0_433  0x62        // Frequency Control Word, Low Byte
 
-#define CC1101_DEFVAL_MDMCFG4    0xCA        // Modem Configuration
+#define CC1101_DEFVAL_MDMCFG4_4800    0xC7   // Modem configuration. Speed = 4800 bps
+#define CC1101_DEFVAL_MDMCFG4_38400    0xCA   // Modem configuration. Speed = 38 Kbps
 #define CC1101_DEFVAL_MDMCFG3    0x83        // Modem Configuration
 #define CC1101_DEFVAL_MDMCFG2    0x93        // Modem Configuration
 #define CC1101_DEFVAL_MDMCFG1    0x22        // Modem Configuration
@@ -301,8 +306,6 @@ enum RFSTATE
 #define disableCCA()              writeReg(CC1101_MCSM1, 0)
 // Enable CCA
 #define enableCCA()               writeReg(CC1101_MCSM1, CC1101_DEFVAL_MCSM1)
-// Set PATABLE single byte
-#define setTxPowerAmp(setting)    paTableByte = setting
 // PATABLE values
 #define PA_LowPower               0x60
 #define PA_LongDistance           0xC0
@@ -357,14 +360,14 @@ class CC1101
     uint8_t rfState;
 
     /**
-     * Tx Power byte (single PATABLE config)
-     */
-    uint8_t paTableByte;
-
-    /**
      * Carrier frequency
      */
     uint8_t carrierFreq;
+    
+    /**
+     * Working mode (speed, ...)
+     */
+    uint8_t workMode;
 
     /**
      * Frequency channel
@@ -447,8 +450,9 @@ class CC1101
      * Initialize CC1101 radio
      *
      * @param freq Carrier frequency
+     * @param mode Working mode (speed, ...)
      */
-    void init(uint8_t freq=CFREQ_868);
+    void init(uint8_t freq=CFREQ_868, uint8_t mode=0);
 
     /**
      * setSyncWord
@@ -539,6 +543,18 @@ class CC1101
      * Enter Tx state
      */
     void setTxState(void);
+    
+    /**
+     * setTxPowerAmp
+     * 
+     * Set PATABLE value
+     * 
+     * @param paLevel amplification value
+     */
+    inline void setTxPowerAmp(uint8_t paLevel)
+    {
+        writeReg(CC1101_PATABLE, paLevel);
+    }
 };
 
 #endif

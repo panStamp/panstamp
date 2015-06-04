@@ -58,7 +58,6 @@ CC1101::CC1101(void)
   syncWord[0] = CC1101_DEFVAL_SYNC1;
   syncWord[1] = CC1101_DEFVAL_SYNC0;
   devAddress = CC1101_DEFVAL_ADDR;
-  paTableByte = PA_LowPower;            // Priority = Low power
 }
 
 /**
@@ -230,7 +229,12 @@ void CC1101::setCCregs(void)
   // Set default carrier frequency = 868 MHz
   setCarrierFreq(carrierFreq);
 
-  writeReg(CC1101_MDMCFG4,  CC1101_DEFVAL_MDMCFG4);
+  // RF speed
+  if (workMode == MODE_LOW_SPEED)
+    writeReg(CC1101_MDMCFG4,  CC1101_DEFVAL_MDMCFG4_4800);
+  else
+    writeReg(CC1101_MDMCFG4,  CC1101_DEFVAL_MDMCFG4_38400);
+    
   writeReg(CC1101_MDMCFG3,  CC1101_DEFVAL_MDMCFG3);
   writeReg(CC1101_MDMCFG2,  CC1101_DEFVAL_MDMCFG2);
   writeReg(CC1101_MDMCFG1,  CC1101_DEFVAL_MDMCFG1);
@@ -274,10 +278,12 @@ void CC1101::setCCregs(void)
  * Initialize CC1101 radio
  *
  * @param freq Carrier frequency
+ * @param mode Working mode (speed, ...)
  */
-void CC1101::init(uint8_t freq)
+void CC1101::init(uint8_t freq, uint8_t mode)
 {
   carrierFreq = freq;
+  workMode = mode;
   
   spi.init();                           // Initialize SPI interface
   pinMode(GDO0, INPUT);                 // Config GDO0 as input
@@ -285,8 +291,7 @@ void CC1101::init(uint8_t freq)
   reset();                              // Reset CC1101
 
   // Configure PATABLE
-  //writeBurstReg(CC1101_PATABLE, (byte*)paTable, 8);
-  writeReg(CC1101_PATABLE, paTableByte);
+  setTxPowerAmp(PA_LowPower);
 }
 
 /**
