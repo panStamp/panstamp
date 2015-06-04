@@ -22,14 +22,6 @@
  * Creation date: 05/30/2013
  */
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-#include "rf1a.h"
-#ifdef __cplusplus
-}
-
-#endif
 #include "cc430radio.h"
 #include "cc430x513x.h"
 
@@ -57,7 +49,6 @@ CC430RADIO::CC430RADIO(void)
   syncWord[0] = CCDEF_SYNC1;
   syncWord[1] = CCDEF_SYNC0;
   devAddress = CCDEF_ADDR;
-  paTableByte = PA_LowPower;            // Priority = Low power
 }
 
 /**
@@ -66,16 +57,18 @@ CC430RADIO::CC430RADIO(void)
  * Initialize CC1101
  *
  * @param freq Carrier frequency
+ * @param mode Working mode (speed, ...)
  */
-void CC430RADIO::init(uint8_t freq)
+void CC430RADIO::init(uint8_t freq, uint8_t mode)
 {
   carrierFreq = freq;
+  workMode = mode;
   
   // Reset radio interface
   reset();
 
   // Set transmission power
-  WritePATable(paTableByte);
+  setTxPowerAmp(PA_LowPower);
 
   // Clear interrupt flags
   MRFI_CLEAR_SYNC_PIN_INT_FLAG();
@@ -112,24 +105,14 @@ void CC430RADIO::setCCregs(void)
   WriteSingleReg(PKTCTRL1,  CCDEF_PKTCTRL1);
   WriteSingleReg(PKTCTRL0,  CCDEF_PKTCTRL0);
 
-
   // Set default synchronization word
-  //if (syncWord[0] != 0xFF || syncWord[1] != 0xFF)
-    setSyncWord(syncWord);
-  //else
-    //setSyncWord(CCDEF_SYNC1, CCDEF_SYNC0);
+  setSyncWord(syncWord);
 
   // Set default device address
- //if (devAddress != 0xFF)
-    setDevAddress(devAddress);
-  //else
-    //setDevAddress(CCDEF_ADDR);
+  setDevAddress(devAddress);
 
   // Set default frequency channel
-  //if (channel != 0xFF)
-    setChannel(channel);
-  //else
-    //setChannel(CCDEF_CHANNR);
+  setChannel(channel);
 
   WriteSingleReg(FSCTRL1,  CCDEF_FSCTRL1);
   WriteSingleReg(FSCTRL0,  CCDEF_FSCTRL0);    
@@ -137,7 +120,12 @@ void CC430RADIO::setCCregs(void)
   // Set carrier frequency
   setCarrierFreq(carrierFreq);
 
-  WriteSingleReg(MDMCFG4,  CCDEF_MDMCFG4);
+  // RF speed
+  if (workMode == MODE_LOW_SPEED)
+    WriteSingleReg(MDMCFG4,  CCDEF_MDMCFG4_4800);
+  else
+    WriteSingleReg(MDMCFG4,  CCDEF_MDMCFG4_38400);
+    
   WriteSingleReg(MDMCFG3,  CCDEF_MDMCFG3);
   WriteSingleReg(MDMCFG2,  CCDEF_MDMCFG2);
   WriteSingleReg(MDMCFG1,  CCDEF_MDMCFG1);

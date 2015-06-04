@@ -25,6 +25,14 @@
 #ifndef _CC430RADIO_H
 #define _CC430RADIO_H
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+#include "rf1a.h"
+#ifdef __cplusplus
+}
+#endif
+
 #include "wiring.h"
 #include "ccpacket.h"
 
@@ -50,6 +58,11 @@ enum RFSTATE
   RFSTATE_RXOFF,
   RFSTATE_PWRDWN
 };
+
+/**
+ * Working modes
+ */
+#define MODE_LOW_SPEED  0x01  // RF speed = 4800 bps (default is 38 Kbps)
 
 /**
  * Frequency channels
@@ -79,7 +92,8 @@ enum RFSTATE
 #define CCDEF_FREQ2_433  0x10   // Frequency Control Word, High Byte
 #define CCDEF_FREQ1_433  0xA7   // Frequency Control Word, Middle Byte
 #define CCDEF_FREQ0_433  0x62   // Frequency Control Word, Low Byte
-#define CCDEF_MDMCFG4    0xCA   // Modem configuration.
+#define CCDEF_MDMCFG4_4800    0xC7   // Modem configuration. Speed = 4800 bps
+#define CCDEF_MDMCFG4_38400    0xCA   // Modem configuration. Speed = 38 Kbps
 #define CCDEF_MDMCFG3    0x83   // Modem configuration.
 #define CCDEF_MDMCFG2    0x93   // Modem configuration.
 #define CCDEF_MDMCFG1    0x22   // Modem configuration.
@@ -134,8 +148,6 @@ enum RFSTATE
 #define disableAddressCheck()     enableAddressCheck(false)
 // Disable CCA
 #define disableCCA()              enableCCA(false)
-// Set PATABLE single byte
-#define setTxPowerAmp(setting)    paTableByte = setting
 // PATABLE values
 #define PA_LowPower               0x60
 #define PA_LongDistance           0xC0
@@ -158,14 +170,14 @@ class CC430RADIO
 
   public:
     /**
-     * Tx Power byte (single PATABLE config)
-     */
-    uint8_t paTableByte;
-
-    /**
      * Carrier frequency
      */
     uint8_t carrierFreq;
+    
+    /**
+     * Working mode (speed, ...)
+     */
+    uint8_t workMode;
 
     /**
      * Frequency channel
@@ -209,8 +221,9 @@ class CC430RADIO
      * Initialize CC1101
      *
      * @param freq Carrier frequency
+     * @param mode Working mode (speed, ...)
      */
-    void init(uint8_t freq=CFREQ_868);
+    void init(uint8_t freq=CFREQ_868, uint8_t mode=0);
     
     /**
      * setRxOnState
@@ -333,6 +346,18 @@ class CC430RADIO
      *   This interval has to be greater than 12 ms and not greater than 2000 ms
      */
     void setWorState(uint16_t millis);
+    
+    /**
+     * setTxPowerAmp
+     * 
+     * Set PATABLE value
+     * 
+     * @param paLevel amplification value
+     */
+    inline void setTxPowerAmp(uint8_t paLevel)
+    {
+      WritePATable(paLevel);
+    }
 };
 
 #endif
