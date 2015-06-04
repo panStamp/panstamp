@@ -35,6 +35,12 @@
 #define DEFAULT_CARRIER_FREQ   CFREQ_868
 
 /**
+ * Default working mode
+ */
+//#define DEFAULT_WORKING_MODE  0  // Speed = 38 Kbps
+#define DEFAULT_WORKING_MODE  MODE_LOW_SPEED  // Speed = 4800 bps
+
+/**
  * Alias
  */
 #define cc1101 radio
@@ -113,8 +119,9 @@ class PANSTAMP
      * Initialize panStamp board
      *
      * @param freq Carrier frequency
+     * @param mode Working mode (speed, ...)
      */
-    void init(uint8_t freq=DEFAULT_CARRIER_FREQ);
+    void init(uint8_t freq=DEFAULT_CARRIER_FREQ, uint8_t mode=DEFAULT_WORKING_MODE);
 
     /**
      * reset
