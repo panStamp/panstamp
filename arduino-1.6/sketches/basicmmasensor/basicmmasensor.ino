@@ -44,6 +44,7 @@ uint8_t status, intSource;
  */
 void accEvent(void)
 {
+  digitalWrite(LED, !digitalRead(LED));
   panstamp.wakeUp();
 }
 
