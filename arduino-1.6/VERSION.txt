@@ -2,6 +2,13 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
+VERISON 0.25 - Release on ??-Jun-2015
+----------------------------------------
+1. bininps2 asynchronous ISR's fixed to take the right pin state
+2. radio.setTxPowerAmp fixed
+3. AVR oscilaltor calibration. Restore Timer 2 settings
+4. Working speed now configurable from panstamp.init()
+
 VERSION 0.24 - Release on 13-Apr-2015
 ----------------------------------------
 1. basicradio sample sketch fixed
