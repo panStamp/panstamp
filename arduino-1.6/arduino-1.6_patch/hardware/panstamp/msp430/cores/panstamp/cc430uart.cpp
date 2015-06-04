@@ -53,7 +53,7 @@ void CC430UART::begin(uint32_t baud)
   pinUARTconfig();
 
 	UCA0CTL1 = UCSWRST;
-	UCA0CTL1 = UCSSEL_2;  // SMCLK
+	UCA0CTL1 |= UCSSEL_2;  // SMCLK
 	UCA0CTL0 = 0;
 	UCA0ABCTL = 0;
 

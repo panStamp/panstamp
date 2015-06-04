@@ -63,7 +63,9 @@ class CC430UART
      */
     inline void end(void)
     {
-      UCA0IE &= ~UCRXIE;    // Disable Rx interrupt
+      while (UCA0STAT & UCBUSY);  // Wait whilst the UART is busy
+      UCA0IE &= ~UCRXIE;          // Disable Rx interrupt
+      UCA0CTL1 |= UCSWRST;        // Reset UART
     }
 
     /**
