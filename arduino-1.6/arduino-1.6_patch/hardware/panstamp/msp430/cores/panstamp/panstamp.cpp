@@ -97,8 +97,9 @@ PANSTAMP::PANSTAMP(void)
  * Initialize panStamp board
  * 
  * @param freq Carrier frequency
+ * @param mode Working mode (speed, ...)
  */
-void PANSTAMP::init(uint8_t freq) 
+void PANSTAMP::init(uint8_t freq, uint8_t mode) 
 {
   // Disable wireless bootloader
   enableWirelessBoot(false);
@@ -113,7 +114,7 @@ void PANSTAMP::init(uint8_t freq)
   INIT_ACC_POWER();
 
   // Setup radio interface
-  radio.init(freq);
+  radio.init(freq, mode);
 
   delayMicroseconds(50);
 }
