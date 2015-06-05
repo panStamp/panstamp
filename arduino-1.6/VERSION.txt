@@ -2,7 +2,11 @@
 Arduino cores, libraries and sketches for panStamp
 -----------------------------------------------------
 
-VERISON 0.25 - Release on 04-Jun-2015
+VERSION 0.26 - Release on ??-Jun-2015
+----------------------------------------
+1. REPEATER's packetHandler method fixed
+
+VERSION 0.25 - Release on 04-Jun-2015
 ----------------------------------------
 1. bininps2 asynchronous ISR's fixed to take the right pin state
 2. radio.setTxPowerAmp fixed
