@@ -106,14 +106,24 @@ class CC430FLASH
   NEVER_INLINE
   uint8_t write(uint8_t *memAddress, uint8_t *buffer, uint8_t length)
   {
-    uint16_t i;
+    uint16_t i = 0;
                                           
     waitReady();
     FCTL3 = FWKEY;                         // Clear Lock bit
     FCTL1 = FWKEY+WRT;                     // Set WRT bit for byte write operation
 
-    for (i = 0; i < length; i++)
-      *memAddress++ = buffer[i];           // Write byte in flash
+    while (i < length)
+    {
+      *memAddress = buffer[i];             // Write byte in flash
+      
+      waitReady();                         // Wait for write to complete
+      
+      if (*memAddress == buffer[i])        // Check flash contents before skipping to the next position
+      {
+        *memAddress++;
+        i++;
+      }
+    }
 
     waitReady();
     FCTL1 = FWKEY;                         // Clear WRT bit
