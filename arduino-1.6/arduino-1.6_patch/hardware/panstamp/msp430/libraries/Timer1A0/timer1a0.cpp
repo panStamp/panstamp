@@ -54,7 +54,6 @@ TIMER1A0::TIMER1A0(void)
  */
 void TIMER1A0::start(unsigned int millis)
 {
-  WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
   TA1CCTL0 = CCIE;                          // CCR0 interrupt enabled
   TA1CCR0 = 32.767 * millis;                // Max count
   TA1CTL = TASSEL_1 + MC_1 + TACLR;         // ACLK, upmode, clear TAR
