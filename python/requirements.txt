@@ -1,6 +1,0 @@
-pyserial>=2.6
-pyzmq
-cherrypy
-pycrypto
-pyephem
-twitter
