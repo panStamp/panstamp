@@ -27,6 +27,7 @@ sensitive and must match.
     <dev id="14" name="soilmoisture" label="Soil moisture sensor"/>
     <dev id="15" name="easyvr" label="EasyVR voice recognition module"/>
     <dev id="16" name="firmloader" label="Firmware server"/>
+    <dev id="4278190080" name="unprogrammed" label="Unprogrammed device"/>
   </developer>
   <developer id="17" name="Robomotic">
     <dev id="1" name="EmmaTI" label="Emma watch"/>
@@ -46,8 +47,5 @@ sensitive and must match.
   </developer>
   <developer id="29" name="panMillenium">
     <dev id="1" name="panmillenium1" label="Crouzet Millenium 3 wireless interface by panSTamp"/>
-  </developer>
-  <developer id="50" name="VentonaNet">
-    <dev id="1" name="raphio" label="Raphael's IO module"/>
   </developer>
 </devices>
