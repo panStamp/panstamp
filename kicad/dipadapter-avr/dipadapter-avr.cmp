@@ -1,0 +1,24 @@
+Cmp-Mod V01 Created by Cvpcb (2014-jul-16 BZR unknown)-product   date = Mon 29 Jun 2015 01:41:14 PM CEST
+
+BeginCmp
+TimeStamp = /55913858;
+Reference = PS1;
+ValeurCmp = PANSTAMP_AVR2;
+IdModule  = mysmd:PANSTAMP_2;
+EndCmp
+
+BeginCmp
+TimeStamp = /55914024;
+Reference = U1;
+ValeurCmp = ANTENNA;
+IdModule  = mysmd:SMD_SMA_SPECIAL;
+EndCmp
+
+BeginCmp
+TimeStamp = /55911624;
+Reference = U2;
+ValeurCmp = PANSTAMP_02;
+IdModule  = old_mymods:PANSTAMP_02_SPI;
+EndCmp
+
+EndListe
