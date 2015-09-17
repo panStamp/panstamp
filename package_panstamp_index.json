@@ -263,7 +263,7 @@
         {
           "name":"panStamp AVR w/ Atmega328p",
           "architecture":"avr",
-          "version":"1.5.0",
+          "version":"1.5.1",
           "category":"panStamp AVR",
           "url":"https://github.com/panStamp/arduino_avr/archive/1.5.1.tar.gz",
           "archiveFileName":"1.5.1.tar.gz",
