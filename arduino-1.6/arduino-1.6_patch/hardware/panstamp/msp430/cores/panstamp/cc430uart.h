@@ -48,6 +48,13 @@ class CC430UART
     static uint8_t rxIndex;
 
     /**
+     * TxBuffer
+     */
+    static uint8_t txBuffer[SERIAL_BUFFER_SIZE];
+    static uint8_t tx_buffer_head;
+    static volatile uint8_t tx_buffer_tail;
+
+ /**
      * begin
      * 
      * Initialize UART port
@@ -63,8 +70,13 @@ class CC430UART
      */
     inline void end(void)
     {
+      // wait for transmission of outgoing data
+      while (tx_buffer_head != tx_buffer_tail)
+	      ;
+
       while (UCA0STAT & UCBUSY);  // Wait whilst the UART is busy
       UCA0IE &= ~UCRXIE;          // Disable Rx interrupt
+      UCA0IE &= ~UCTXIE;          // Disable Tx interrupt
       UCA0CTL1 |= UCSWRST;        // Reset UART
     }
 

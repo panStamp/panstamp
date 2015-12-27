@@ -30,6 +30,10 @@ uint8_t CC430UART::rxBuffer[SERIAL_BUFFER_SIZE];
 uint8_t CC430UART::rxLength = 0;
 uint8_t CC430UART::rxIndex = 0;
 
+uint8_t CC430UART::txBuffer[SERIAL_BUFFER_SIZE];
+volatile uint8_t CC430UART::tx_buffer_tail = 0;
+uint8_t CC430UART::tx_buffer_head = 0;
+
 /**
  * begin
  * 
@@ -80,9 +84,26 @@ void CC430UART::begin(uint32_t baud)
  */
 size_t CC430UART::write(uint8_t c) 
 { 
-  while (!(UCA0IFG & UCTXIFG));
-  UCA0TXBUF = c;
+  // If the buffer and the data register are empty, just write the byte
+  // to the data register and be done.
+  if ((CC430UART::tx_buffer_head == CC430UART::tx_buffer_tail) && (UCA0IFG & UCTXIFG)) {
+    UCA0TXBUF = c;
+    return 1;
+  }
 
+  uint8_t i = (CC430UART::tx_buffer_head + 1) % SERIAL_BUFFER_SIZE;
+
+  // If the output buffer is full, then wait for the interrupt
+  // handler to drain it of a character.
+  while (i == CC430UART::tx_buffer_tail)
+    ;
+
+  CC430UART::txBuffer[CC430UART::tx_buffer_head] = c;
+  CC430UART::tx_buffer_head = i;
+
+  // Turn on interrupts, since there's a character in the buffer
+  UCA0IE |= UCTXIE;
+  
   return 1;
 }
 
@@ -104,7 +125,7 @@ size_t CC430UART::write(uint8_t *buf, uint16_t len)
   for(i=0 ; i<len ; i++)
     write(buf[i]);
 
-  return i;
+  return len;
 }
 
 /**
@@ -179,9 +200,19 @@ void uartISR(void)
   switch (UCA0IV) 
   { 
     case USCI_UCRXIFG:
-      while (!(UCA0IFG&UCTXIFG));           // USCI_A0 TX buffer ready?
       CC430UART::rxBuffer[CC430UART::rxLength++] = UCA0RXBUF;
       break;
+
+    case USCI_UCTXIFG:
+      UCA0TXBUF = CC430UART::txBuffer[CC430UART::tx_buffer_tail];
+
+      CC430UART::tx_buffer_tail = (CC430UART::tx_buffer_tail + 1) % SERIAL_BUFFER_SIZE;
+      if (CC430UART::tx_buffer_head == CC430UART::tx_buffer_tail) {
+        // Buffer empty, so disable interrupts
+	UCA0IE &= ~UCTXIE;
+      }
+      break;
+
     default:
       break;
   }
