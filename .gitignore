@@ -1,5 +1,0 @@
-*.pyc
-python/swapdmt/config/devices/
-python/swapdmt/config/devices.tar
-python/swapdmt/config/swapnet.json
-python/swapdmt-cmd/config/swapnet.json

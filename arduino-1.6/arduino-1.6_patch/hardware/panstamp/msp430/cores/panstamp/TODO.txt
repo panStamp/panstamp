@@ -1,4 +1,0 @@
-- Add absolute date/time functions in CC430RTC class
-- Hardware encryption
-- SPI class
-- Flexible management of VCores depending on Vcc
