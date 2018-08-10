@@ -16,6 +16,53 @@
         {
           "name":"panStamp NRG w/ CC430F5137",
           "architecture":"msp430",
+          "version":"1.1.0",
+          "category":"panStamp NRG",
+          "url":"https://github.com/panStamp/arduino_nrg/archive/1.1.0.tar.gz",
+          "archiveFileName":"1.1.0.tar.gz",
+          "checksum":"SHA-256:750e4729c83abbc26c3a3420ab87f7dafad46d7026d88aeba035f4cce4a508cc",
+          "size":"6672577",
+          "help":
+          {
+            "online":"https://github.com/panStamp/panstamp/wiki"
+          },
+          "boards":
+          [
+            {
+              "name":"panStamp NRG 3"
+            },
+            {
+              "name":"panStamp NRG 2"
+            },
+            {
+              "name":"panStamp NRG 1.1"
+            },
+            {
+              "name":"panStamp NRG 1.0"
+            }
+          ],
+          "toolsDependencies":
+          [
+            {
+              "packager":"panstamp_nrg",
+              "name":"msp430-gcc",
+              "version":"4.6.3"
+            },
+            {
+              "packager":"panstamp_nrg",
+              "name":"java-bsl",
+              "version":"1.0.0"
+            },
+            {
+              "packager":"panstamp_nrg",
+              "name":"java-gdb",
+              "version":"1.0.0"
+            }
+          ]
+        },
+        {
+          "name":"panStamp NRG w/ CC430F5137",
+          "architecture":"msp430",
           "version":"1.0.8",
           "category":"panStamp NRG",
           "url":"https://github.com/panStamp/arduino_nrg/archive/1.0.8.tar.gz",
