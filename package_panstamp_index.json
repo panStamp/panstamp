@@ -16,12 +16,12 @@
         {
           "name":"panStamp NRG w/ CC430F5137",
           "architecture":"msp430",
-          "version":"1.0.7",
+          "version":"1.0.8",
           "category":"panStamp NRG",
-          "url":"https://github.com/panStamp/arduino_nrg/archive/1.0.7.tar.gz",
-          "archiveFileName":"1.0.7.tar.gz",
-          "checksum":"SHA-256:f2fb81e94f628f41aaf9cfb23b0c58ed53b2cd9e9a6c36616d769d0ade97b58f",
-          "size":"6671180",
+          "url":"https://github.com/panStamp/arduino_nrg/archive/1.0.8.tar.gz",
+          "archiveFileName":"1.0.8.tar.gz",
+          "checksum":"SHA-256:6c03b7f9f60b97b0e86de9d9c3ef4f02b80c126fc3a10deea8bfb9e676679270",
+          "size":"6671718",
           "help":
           {
             "online":"https://github.com/panStamp/panstamp/wiki"
@@ -60,12 +60,12 @@
         {
           "name":"panStamp NRG w/ CC430F5137",
           "architecture":"msp430",
-          "version":"1.0.6",
+          "version":"1.0.7",
           "category":"panStamp NRG",
-          "url":"https://github.com/panStamp/arduino_nrg/archive/1.0.6.tar.gz",
-          "archiveFileName":"1.0.6.tar.gz",
-          "checksum":"SHA-256:200e9ba5827476b12842a9d36554ecac92c0331e32ba2de137fcb8fddaa51cfc",
-          "size":"6670442",
+          "url":"https://github.com/panStamp/arduino_nrg/archive/1.0.7.tar.gz",
+          "archiveFileName":"1.0.7.tar.gz",
+          "checksum":"SHA-256:f2fb81e94f628f41aaf9cfb23b0c58ed53b2cd9e9a6c36616d769d0ade97b58f",
+          "size":"6671180",
           "help":
           {
             "online":"https://github.com/panStamp/panstamp/wiki"
@@ -227,12 +227,12 @@
         {
           "name":"panStamp AVR w/ Atmega328p",
           "architecture":"avr",
-          "version":"1.5.6",
+          "version":"1.5.7",
           "category":"panStamp AVR",
-          "url":"https://github.com/panStamp/arduino_avr/archive/1.5.6.tar.gz",
-          "archiveFileName":"1.5.6.tar.gz",
-          "checksum":"SHA-256:76d2b6175c9df31f70537eaf249647d0181afb866e7d710e493f5d4b04770c7e",
-          "size":"5081042",
+          "url":"https://github.com/panStamp/arduino_avr/archive/1.5.7.tar.gz",
+          "archiveFileName":"1.5.7.tar.gz",
+          "checksum":"SHA-256:dd67911aecea378c4e6a324f89708e0b79e175d7a84265761737531825e046ee",
+          "size":"5081136",
           "help":
           {
             "online":"https://github.com/panStamp/panstamp/wiki"
@@ -263,12 +263,12 @@
         {
           "name":"panStamp AVR w/ Atmega328p",
           "architecture":"avr",
-          "version":"1.5.5",
+          "version":"1.5.6",
           "category":"panStamp AVR",
-          "url":"https://github.com/panStamp/arduino_avr/archive/1.5.5.tar.gz",
-          "archiveFileName":"1.5.5.tar.gz",
-          "checksum":"SHA-256:ac3a98f10a6d7903cf54cb8c9ea7c49808e5f6ddb827f98388946fa1a07e030a",
-          "size":"5082097",
+          "url":"https://github.com/panStamp/arduino_avr/archive/1.5.6.tar.gz",
+          "archiveFileName":"1.5.6.tar.gz",
+          "checksum":"SHA-256:76d2b6175c9df31f70537eaf249647d0181afb866e7d710e493f5d4b04770c7e",
+          "size":"5081042",
           "help":
           {
             "online":"https://github.com/panStamp/panstamp/wiki"
