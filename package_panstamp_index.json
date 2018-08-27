@@ -278,8 +278,8 @@
           "category":"panStamp AVR",
           "url":"https://github.com/panStamp/arduino_avr/archive/1.5.7.tar.gz",
           "archiveFileName":"1.5.7.tar.gz",
-          "checksum":"SHA-256:dd67911aecea378c4e6a324f89708e0b79e175d7a84265761737531825e046ee",
-          "size":"5081136",
+          "checksum":"SHA-256:561c5f32c26dedc6c4bd437e8510e393cf352c273035dd85db6419a30b276987",
+          "size":"5081262",
           "help":
           {
             "online":"https://github.com/panStamp/panstamp/wiki"
