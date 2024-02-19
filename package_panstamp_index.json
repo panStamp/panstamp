@@ -8,7 +8,7 @@
       "email":"contact@panstamp.com",
       "help":
       {
-        "online":"http://www.panstamp.org/forum"
+        "online":"https://usapiens.com/panstamp-org/forum"
       },
 
       "platforms":
@@ -159,28 +159,28 @@
           [
             {
               "host":"i686-mingw32",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/msp430-gcc-4.6.3/win_msp430_tools.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/msp430-gcc-4.6.3/win_msp430_tools.tar.bz2",
               "archiveFileName":"win_msp430_tools.tar.bz2",
               "checksum":"SHA-256:5f8d31949a35f20e0279b8def9bfbe88eed3724ca07e2be80dde51b123ce9da8",
               "size":"33165187"
             },
             {
               "host":"x86_64-apple-darwin",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/msp430-gcc-4.6.3/osx_msp430_tools.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/msp430-gcc-4.6.3/osx_msp430_tools.tar.bz2",
               "archiveFileName":"osx_msp430_tools.tar.bz2",
               "checksum":"SHA-256:e803c9495b2ac934a86efaf7c49c565c8a3fd4087dba28d460c8d575e08c8eee",
               "size":"30750099"
             },
             {
               "host":"x86_64-pc-linux-gnu",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/msp430-gcc-4.6.3/lin_msp430_tools.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/msp430-gcc-4.6.3/lin_msp430_tools.tar.bz2",
               "archiveFileName":"lin_msp430_tools.tar.bz2",
               "checksum":"SHA-256:5441db01ff0cfc9b869a3f8296642a8b2d89aa9d90eb47b01c53d8d9b00ab8f7",
               "size":"99056584"
             },
             {
               "host":"i686-pc-linux-gnu",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/msp430-gcc-4.6.3/lin_msp430_tools.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/msp430-gcc-4.6.3/lin_msp430_tools.tar.bz2",
               "archiveFileName":"lin_msp430_tools.tar.bz2",
               "checksum":"SHA-256:5441db01ff0cfc9b869a3f8296642a8b2d89aa9d90eb47b01c53d8d9b00ab8f7",
               "size":"99056584" 
@@ -194,28 +194,28 @@
           [
             {
               "host":"i686-mingw32",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/BSL.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/BSL.tar.bz2",
               "archiveFileName":"BSL.tar.bz2",
               "checksum":"SHA-256:0640df501191313b65b193398556dbe6a288a163c07d1ec99b1e91fb636c7e58",
               "size":"166179"
             },
             {
               "host":"x86_64-apple-darwin",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/BSL.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/BSL.tar.bz2",
               "archiveFileName":"BSL.tar.bz2",
               "checksum":"SHA-256:0640df501191313b65b193398556dbe6a288a163c07d1ec99b1e91fb636c7e58",
               "size":"166179"
             },
             {
               "host":"x86_64-pc-linux-gnu",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/BSL.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/BSL.tar.bz2",
               "archiveFileName":"BSL.tar.bz2",
               "checksum":"SHA-256:0640df501191313b65b193398556dbe6a288a163c07d1ec99b1e91fb636c7e58",
               "size":"166179"
             },
             {
               "host":"i686-pc-linux-gnu",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/BSL.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/BSL.tar.bz2",
               "archiveFileName":"BSL.tar.bz2",
               "checksum":"SHA-256:0640df501191313b65b193398556dbe6a288a163c07d1ec99b1e91fb636c7e58",
               "size":"166179"
@@ -229,28 +229,28 @@
           [
             {
               "host":"i686-mingw32",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/GDB.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/GDB.tar.bz2",
               "archiveFileName":"GDB.tar.bz2",
               "checksum":"SHA-256:055bcc962fdc42817086a2f493bfe6b78cae753127f1a6c4fd32cefd5c41dd58",
               "size":"10184"
             },
             {
               "host":"x86_64-apple-darwin",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/GDB.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/GDB.tar.bz2",
               "archiveFileName":"GDB.tar.bz2",
               "checksum":"SHA-256:055bcc962fdc42817086a2f493bfe6b78cae753127f1a6c4fd32cefd5c41dd58",
               "size":"10184"
             },
             {
               "host":"x86_64-pc-linux-gnu",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/GDB.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/GDB.tar.bz2",
               "archiveFileName":"GDB.tar.bz2",
               "checksum":"SHA-256:055bcc962fdc42817086a2f493bfe6b78cae753127f1a6c4fd32cefd5c41dd58",
               "size":"10184"
             },
             {
               "host":"i686-pc-linux-gnu",
-              "url":"http://www.panstamp.org/arduino/tools/msp430/java/GDB.tar.bz2",
+              "url":"https://usapiens.com/panstamp-org/arduino/tools/msp430/java/GDB.tar.bz2",
               "archiveFileName":"GDB.tar.bz2",
               "checksum":"SHA-256:055bcc962fdc42817086a2f493bfe6b78cae753127f1a6c4fd32cefd5c41dd58",
               "size":"10184"
@@ -266,7 +266,7 @@
       "email":"contact@panstamp.com",
       "help":
       {
-        "online":"http://www.panstamp.org/forum"
+        "online":"https://usapiens.com/panstamp-org/forum"
       },
 
       "platforms":
